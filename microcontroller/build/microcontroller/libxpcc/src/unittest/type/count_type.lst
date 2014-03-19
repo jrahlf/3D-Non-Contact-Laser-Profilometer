@@ -1,0 +1,441 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"count_type.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN8unittest9CountTypeC2Ev,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN8unittest9CountTypeC2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN8unittest9CountTypeC2Ev:
+  26              	.LFB1:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** #include "count_type.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfDefaultConstructorCalls = 0;
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfCopyConstructorCalls = 0;
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfAssignments = 0;
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfDestructorCalls = 0;
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfReallocs = 0;
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** std::size_t unittest::CountType::numberOfOperations = 0;
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::CountType()
+  28              		.loc 1 41 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.LBB2:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDefaultConstructorCalls;
+  35              		.loc 1 43 0
+  36 0000 054A     		ldr	r2, .L2
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfOperations;
+  37              		.loc 1 44 0
+  38 0002 064B     		ldr	r3, .L2+4
+  39              	.LBE2:
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::CountType()
+  40              		.loc 1 41 0
+  41 0004 10B4     		push	{r4}
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 4
+  44              		.cfi_offset 4, -4
+  45              	.LBB3:
+  46              		.loc 1 44 0
+  47 0006 1968     		ldr	r1, [r3, #0]
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDefaultConstructorCalls;
+  48              		.loc 1 43 0
+  49 0008 1468     		ldr	r4, [r2, #0]
+  50              		.loc 1 44 0
+  51 000a 0131     		adds	r1, r1, #1
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDefaultConstructorCalls;
+  52              		.loc 1 43 0
+  53 000c 0134     		adds	r4, r4, #1
+  54 000e 1460     		str	r4, [r2, #0]
+  55              		.loc 1 44 0
+  56 0010 1960     		str	r1, [r3, #0]
+  57              	.LBE3:
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** }
+  58              		.loc 1 45 0
+  59 0012 10BC     		pop	{r4}
+  60 0014 7047     		bx	lr
+  61              	.L3:
+  62 0016 00BF     		.align	2
+  63              	.L2:
+  64 0018 00000000 		.word	.LANCHOR0
+  65 001c 00000000 		.word	.LANCHOR1
+  66              		.cfi_endproc
+  67              	.LFE1:
+  69              		.global	_ZN8unittest9CountTypeC1Ev
+  70              		.thumb_set _ZN8unittest9CountTypeC1Ev,_ZN8unittest9CountTypeC2Ev
+  71              		.section	.text._ZN8unittest9CountTypeC2ERKS0_,"ax",%progbits
+  72              		.align	2
+  73              		.global	_ZN8unittest9CountTypeC2ERKS0_
+  74              		.thumb
+  75              		.thumb_func
+  77              	_ZN8unittest9CountTypeC2ERKS0_:
+  78              	.LFB4:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::CountType(const CountType&)
+  79              		.loc 1 47 0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83              		@ link register save eliminated.
+  84              	.LVL1:
+  85              	.LBB4:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfCopyConstructorCalls;
+  86              		.loc 1 49 0
+  87 0000 054A     		ldr	r2, .L5
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfOperations;
+  88              		.loc 1 50 0
+  89 0002 064B     		ldr	r3, .L5+4
+  90              	.LBE4:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::CountType(const CountType&)
+  91              		.loc 1 47 0
+  92 0004 10B4     		push	{r4}
+  93              	.LCFI1:
+  94              		.cfi_def_cfa_offset 4
+  95              		.cfi_offset 4, -4
+  96              	.LBB5:
+  97              		.loc 1 50 0
+  98 0006 1968     		ldr	r1, [r3, #0]
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfCopyConstructorCalls;
+  99              		.loc 1 49 0
+ 100 0008 1468     		ldr	r4, [r2, #0]
+ 101              		.loc 1 50 0
+ 102 000a 0131     		adds	r1, r1, #1
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfCopyConstructorCalls;
+ 103              		.loc 1 49 0
+ 104 000c 0134     		adds	r4, r4, #1
+ 105 000e 1460     		str	r4, [r2, #0]
+ 106              		.loc 1 50 0
+ 107 0010 1960     		str	r1, [r3, #0]
+ 108              	.LBE5:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** }
+ 109              		.loc 1 51 0
+ 110 0012 10BC     		pop	{r4}
+ 111 0014 7047     		bx	lr
+ 112              	.L6:
+ 113 0016 00BF     		.align	2
+ 114              	.L5:
+ 115 0018 00000000 		.word	.LANCHOR2
+ 116 001c 00000000 		.word	.LANCHOR1
+ 117              		.cfi_endproc
+ 118              	.LFE4:
+ 120              		.global	_ZN8unittest9CountTypeC1ERKS0_
+ 121              		.thumb_set _ZN8unittest9CountTypeC1ERKS0_,_ZN8unittest9CountTypeC2ERKS0_
+ 122              		.section	.text._ZN8unittest9CountTypeD2Ev,"ax",%progbits
+ 123              		.align	2
+ 124              		.global	_ZN8unittest9CountTypeD2Ev
+ 125              		.thumb
+ 126              		.thumb_func
+ 128              	_ZN8unittest9CountTypeD2Ev:
+ 129              	.LFB7:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::~CountType()
+ 130              		.loc 1 53 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 135              	.LVL2:
+ 136              	.LBB6:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDestructorCalls;
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	if (numberOfDestructorCalls == (numberOfCopyConstructorCalls - numberOfDefaultConstructorCalls)) {
+ 137              		.loc 1 56 0
+ 138 0000 0A49     		ldr	r1, .L10
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDestructorCalls;
+ 139              		.loc 1 55 0
+ 140 0002 0B4A     		ldr	r2, .L10+4
+ 141              	.LBE6:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::~CountType()
+ 142              		.loc 1 53 0
+ 143 0004 10B4     		push	{r4}
+ 144              	.LCFI2:
+ 145              		.cfi_def_cfa_offset 4
+ 146              		.cfi_offset 4, -4
+ 147              	.LBB7:
+ 148              		.loc 1 56 0
+ 149 0006 0C68     		ldr	r4, [r1, #0]
+ 150 0008 0A49     		ldr	r1, .L10+8
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDestructorCalls;
+ 151              		.loc 1 55 0
+ 152 000a 1368     		ldr	r3, [r2, #0]
+ 153              		.loc 1 56 0
+ 154 000c 0968     		ldr	r1, [r1, #0]
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDestructorCalls;
+ 155              		.loc 1 55 0
+ 156 000e 0133     		adds	r3, r3, #1
+ 157              		.loc 1 56 0
+ 158 0010 611A     		subs	r1, r4, r1
+ 159 0012 8B42     		cmp	r3, r1
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfDestructorCalls;
+ 160              		.loc 1 55 0
+ 161 0014 1360     		str	r3, [r2, #0]
+ 162              		.loc 1 56 0
+ 163 0016 03D1     		bne	.L8
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 		++numberOfReallocs;
+ 164              		.loc 1 57 0
+ 165 0018 074B     		ldr	r3, .L10+12
+ 166 001a 1A68     		ldr	r2, [r3, #0]
+ 167 001c 0132     		adds	r2, r2, #1
+ 168 001e 1A60     		str	r2, [r3, #0]
+ 169              	.L8:
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	}
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfOperations;
+ 170              		.loc 1 59 0
+ 171 0020 064B     		ldr	r3, .L10+16
+ 172 0022 1A68     		ldr	r2, [r3, #0]
+ 173 0024 0132     		adds	r2, r2, #1
+ 174 0026 1A60     		str	r2, [r3, #0]
+ 175              	.LBE7:
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** }
+ 176              		.loc 1 60 0
+ 177 0028 10BC     		pop	{r4}
+ 178 002a 7047     		bx	lr
+ 179              	.L11:
+ 180              		.align	2
+ 181              	.L10:
+ 182 002c 00000000 		.word	.LANCHOR2
+ 183 0030 00000000 		.word	.LANCHOR3
+ 184 0034 00000000 		.word	.LANCHOR0
+ 185 0038 00000000 		.word	.LANCHOR4
+ 186 003c 00000000 		.word	.LANCHOR1
+ 187              		.cfi_endproc
+ 188              	.LFE7:
+ 190              		.global	_ZN8unittest9CountTypeD1Ev
+ 191              		.thumb_set _ZN8unittest9CountTypeD1Ev,_ZN8unittest9CountTypeD2Ev
+ 192              		.section	.text._ZN8unittest9CountTypeaSERKS0_,"ax",%progbits
+ 193              		.align	2
+ 194              		.global	_ZN8unittest9CountTypeaSERKS0_
+ 195              		.thumb
+ 196              		.thumb_func
+ 198              	_ZN8unittest9CountTypeaSERKS0_:
+ 199              	.LFB9:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType&
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::operator = (const CountType&)
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+ 200              		.loc 1 64 0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205              	.LVL3:
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfAssignments;
+ 206              		.loc 1 65 0
+ 207 0000 054A     		ldr	r2, .L13
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfOperations;
+ 208              		.loc 1 66 0
+ 209 0002 064B     		ldr	r3, .L13+4
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+ 210              		.loc 1 64 0
+ 211 0004 10B4     		push	{r4}
+ 212              	.LCFI3:
+ 213              		.cfi_def_cfa_offset 4
+ 214              		.cfi_offset 4, -4
+ 215              		.loc 1 66 0
+ 216 0006 1968     		ldr	r1, [r3, #0]
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfAssignments;
+ 217              		.loc 1 65 0
+ 218 0008 1468     		ldr	r4, [r2, #0]
+ 219              		.loc 1 66 0
+ 220 000a 0131     		adds	r1, r1, #1
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	++numberOfAssignments;
+ 221              		.loc 1 65 0
+ 222 000c 0134     		adds	r4, r4, #1
+ 223 000e 1460     		str	r4, [r2, #0]
+ 224              		.loc 1 66 0
+ 225 0010 1960     		str	r1, [r3, #0]
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	return *this;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** }
+ 226              		.loc 1 69 0
+ 227 0012 10BC     		pop	{r4}
+ 228 0014 7047     		bx	lr
+ 229              	.L14:
+ 230 0016 00BF     		.align	2
+ 231              	.L13:
+ 232 0018 00000000 		.word	.LANCHOR5
+ 233 001c 00000000 		.word	.LANCHOR1
+ 234              		.cfi_endproc
+ 235              	.LFE9:
+ 237              		.section	.text._ZN8unittest9CountType5resetEv,"ax",%progbits
+ 238              		.align	2
+ 239              		.global	_ZN8unittest9CountType5resetEv
+ 240              		.thumb
+ 241              		.thumb_func
+ 243              	_ZN8unittest9CountType5resetEv:
+ 244              	.LFB10:
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** void
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** unittest::CountType::reset()
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** {
+ 245              		.loc 1 73 0
+ 246              		.cfi_startproc
+ 247              		@ args = 0, pretend = 0, frame = 0
+ 248              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249              		@ link register save eliminated.
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfDefaultConstructorCalls = 0;
+ 250              		.loc 1 74 0
+ 251 0000 064A     		ldr	r2, .L16
+ 252 0002 0023     		movs	r3, #0
+ 253 0004 1360     		str	r3, [r2, #0]
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfCopyConstructorCalls = 0;
+ 254              		.loc 1 75 0
+ 255 0006 064A     		ldr	r2, .L16+4
+ 256 0008 1360     		str	r3, [r2, #0]
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfAssignments = 0;
+ 257              		.loc 1 76 0
+ 258 000a 064A     		ldr	r2, .L16+8
+ 259 000c 1360     		str	r3, [r2, #0]
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfDestructorCalls = 0;
+ 260              		.loc 1 77 0
+ 261 000e 064A     		ldr	r2, .L16+12
+ 262 0010 1360     		str	r3, [r2, #0]
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfReallocs = 0;
+ 263              		.loc 1 78 0
+ 264 0012 064A     		ldr	r2, .L16+16
+ 265 0014 1360     		str	r3, [r2, #0]
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.cpp **** 	numberOfOperations = 0;
+ 266              		.loc 1 80 0
+ 267 0016 064A     		ldr	r2, .L16+20
+ 268 0018 1360     		str	r3, [r2, #0]
+ 269 001a 7047     		bx	lr
+ 270              	.L17:
+ 271              		.align	2
+ 272              	.L16:
+ 273 001c 00000000 		.word	.LANCHOR0
+ 274 0020 00000000 		.word	.LANCHOR2
+ 275 0024 00000000 		.word	.LANCHOR5
+ 276 0028 00000000 		.word	.LANCHOR3
+ 277 002c 00000000 		.word	.LANCHOR4
+ 278 0030 00000000 		.word	.LANCHOR1
+ 279              		.cfi_endproc
+ 280              	.LFE10:
+ 282              		.global	_ZN8unittest9CountType18numberOfOperationsE
+ 283              		.global	_ZN8unittest9CountType16numberOfReallocsE
+ 284              		.global	_ZN8unittest9CountType23numberOfDestructorCallsE
+ 285              		.global	_ZN8unittest9CountType19numberOfAssignmentsE
+ 286              		.global	_ZN8unittest9CountType28numberOfCopyConstructorCallsE
+ 287              		.global	_ZN8unittest9CountType31numberOfDefaultConstructorCallsE
+ 288              		.section	.bss._ZN8unittest9CountType16numberOfReallocsE,"aw",%nobits
+ 289              		.align	2
+ 290              		.set	.LANCHOR4,. + 0
+ 293              	_ZN8unittest9CountType16numberOfReallocsE:
+ 294 0000 00000000 		.space	4
+ 295              		.section	.bss._ZN8unittest9CountType23numberOfDestructorCallsE,"aw",%nobits
+ 296              		.align	2
+ 297              		.set	.LANCHOR3,. + 0
+ 300              	_ZN8unittest9CountType23numberOfDestructorCallsE:
+ 301 0000 00000000 		.space	4
+ 302              		.section	.bss._ZN8unittest9CountType19numberOfAssignmentsE,"aw",%nobits
+ 303              		.align	2
+ 304              		.set	.LANCHOR5,. + 0
+ 307              	_ZN8unittest9CountType19numberOfAssignmentsE:
+ 308 0000 00000000 		.space	4
+ 309              		.section	.bss._ZN8unittest9CountType31numberOfDefaultConstructorCallsE,"aw",%nobits
+ 310              		.align	2
+ 311              		.set	.LANCHOR0,. + 0
+ 314              	_ZN8unittest9CountType31numberOfDefaultConstructorCallsE:
+ 315 0000 00000000 		.space	4
+ 316              		.section	.bss._ZN8unittest9CountType18numberOfOperationsE,"aw",%nobits
+ 317              		.align	2
+ 318              		.set	.LANCHOR1,. + 0
+ 321              	_ZN8unittest9CountType18numberOfOperationsE:
+ 322 0000 00000000 		.space	4
+ 323              		.section	.bss._ZN8unittest9CountType28numberOfCopyConstructorCallsE,"aw",%nobits
+ 324              		.align	2
+ 325              		.set	.LANCHOR2,. + 0
+ 328              	_ZN8unittest9CountType28numberOfCopyConstructorCallsE:
+ 329 0000 00000000 		.space	4
+ 330              		.text
+ 331              	.Letext0:
+ 332              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/type/count_type.hpp"
+ 333              		.file 3 "<built-in>"
+ 334              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+DEFINED SYMBOLS
+                            *ABS*:00000000 count_type.cpp
+     /tmp/ccehW9mw.s:20     .text._ZN8unittest9CountTypeC2Ev:00000000 $t
+     /tmp/ccehW9mw.s:25     .text._ZN8unittest9CountTypeC2Ev:00000000 _ZN8unittest9CountTypeC2Ev
+     /tmp/ccehW9mw.s:64     .text._ZN8unittest9CountTypeC2Ev:00000018 $d
+     /tmp/ccehW9mw.s:25     .text._ZN8unittest9CountTypeC2Ev:00000000 _ZN8unittest9CountTypeC1Ev
+     /tmp/ccehW9mw.s:72     .text._ZN8unittest9CountTypeC2ERKS0_:00000000 $t
+     /tmp/ccehW9mw.s:77     .text._ZN8unittest9CountTypeC2ERKS0_:00000000 _ZN8unittest9CountTypeC2ERKS0_
+     /tmp/ccehW9mw.s:115    .text._ZN8unittest9CountTypeC2ERKS0_:00000018 $d
+     /tmp/ccehW9mw.s:77     .text._ZN8unittest9CountTypeC2ERKS0_:00000000 _ZN8unittest9CountTypeC1ERKS0_
+     /tmp/ccehW9mw.s:123    .text._ZN8unittest9CountTypeD2Ev:00000000 $t
+     /tmp/ccehW9mw.s:128    .text._ZN8unittest9CountTypeD2Ev:00000000 _ZN8unittest9CountTypeD2Ev
+     /tmp/ccehW9mw.s:182    .text._ZN8unittest9CountTypeD2Ev:0000002c $d
+     /tmp/ccehW9mw.s:128    .text._ZN8unittest9CountTypeD2Ev:00000000 _ZN8unittest9CountTypeD1Ev
+     /tmp/ccehW9mw.s:193    .text._ZN8unittest9CountTypeaSERKS0_:00000000 $t
+     /tmp/ccehW9mw.s:198    .text._ZN8unittest9CountTypeaSERKS0_:00000000 _ZN8unittest9CountTypeaSERKS0_
+     /tmp/ccehW9mw.s:232    .text._ZN8unittest9CountTypeaSERKS0_:00000018 $d
+     /tmp/ccehW9mw.s:238    .text._ZN8unittest9CountType5resetEv:00000000 $t
+     /tmp/ccehW9mw.s:243    .text._ZN8unittest9CountType5resetEv:00000000 _ZN8unittest9CountType5resetEv
+     /tmp/ccehW9mw.s:273    .text._ZN8unittest9CountType5resetEv:0000001c $d
+     /tmp/ccehW9mw.s:321    .bss._ZN8unittest9CountType18numberOfOperationsE:00000000 _ZN8unittest9CountType18numberOfOperationsE
+     /tmp/ccehW9mw.s:293    .bss._ZN8unittest9CountType16numberOfReallocsE:00000000 _ZN8unittest9CountType16numberOfReallocsE
+     /tmp/ccehW9mw.s:300    .bss._ZN8unittest9CountType23numberOfDestructorCallsE:00000000 _ZN8unittest9CountType23numberOfDestructorCallsE
+     /tmp/ccehW9mw.s:307    .bss._ZN8unittest9CountType19numberOfAssignmentsE:00000000 _ZN8unittest9CountType19numberOfAssignmentsE
+     /tmp/ccehW9mw.s:328    .bss._ZN8unittest9CountType28numberOfCopyConstructorCallsE:00000000 _ZN8unittest9CountType28numberOfCopyConstructorCallsE
+     /tmp/ccehW9mw.s:314    .bss._ZN8unittest9CountType31numberOfDefaultConstructorCallsE:00000000 _ZN8unittest9CountType31numberOfDefaultConstructorCallsE
+     /tmp/ccehW9mw.s:289    .bss._ZN8unittest9CountType16numberOfReallocsE:00000000 $d
+     /tmp/ccehW9mw.s:296    .bss._ZN8unittest9CountType23numberOfDestructorCallsE:00000000 $d
+     /tmp/ccehW9mw.s:303    .bss._ZN8unittest9CountType19numberOfAssignmentsE:00000000 $d
+     /tmp/ccehW9mw.s:310    .bss._ZN8unittest9CountType31numberOfDefaultConstructorCallsE:00000000 $d
+     /tmp/ccehW9mw.s:317    .bss._ZN8unittest9CountType18numberOfOperationsE:00000000 $d
+     /tmp/ccehW9mw.s:324    .bss._ZN8unittest9CountType28numberOfCopyConstructorCallsE:00000000 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

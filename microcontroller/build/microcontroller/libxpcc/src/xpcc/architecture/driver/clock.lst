@@ -1,0 +1,384 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"clock.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc5Clock3nowEv,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc5Clock3nowEv
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc5Clock3nowEv:
+  26              	.LFB97:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #include <xpcc/architecture/detect.hpp>
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #include "clock.hpp"
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #include "xpcc_config.hpp"
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #if (XPCC__CLOCK_TESTMODE == 1)
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	uint_fast16_t xpcc::Clock::time = 0;
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Timestamp
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Clock::now()
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	{
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		return Timestamp(time);
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	}
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #elif ( defined(XPCC__OS_UNIX) || defined(XPCC__OS_OSX) )
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #	include <sys/time.h>
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Timestamp
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Clock::now()
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	{
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		struct timeval now;
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		gettimeofday(&now, 0);
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		return Timestamp( now.tv_sec*1000 + now.tv_usec/1000 );
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	}
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #elif defined(XPCC__OS_WIN32) || defined(XPCC__OS_WIN64)
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #	include <windows.h>
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Timestamp
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Clock::now()
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	{
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		SYSTEMTIME now;
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		GetSystemTime(&now);
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		return Timestamp( now.wMilliseconds + now.wSecond*1000 + now.wMinute*1000*60 );
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	}
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #elif defined(XPCC__CPU_AVR) || defined(XPCC__CPU_ARM) || defined(XPCC__CPU_AVR32)
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** #	include <xpcc/architecture/driver/atomic/lock.hpp>
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	uint_fast16_t xpcc::Clock::time = 0;
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Timestamp
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	xpcc::Clock::now()
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	{
+  28              		.loc 1 77 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.LBB16:
+  35              	.LBB17:
+  36              	.LBB18:
+  37              	.LBB19:
+  38              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #ifndef	XPCC_ATOMIC__LOCK_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #define	XPCC_ATOMIC__LOCK_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #include <stdint.h>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #include <xpcc/architecture/utils.hpp>
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** namespace xpcc
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** {
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	namespace atomic
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		/**
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \ingroup	atomic
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \brief		Critical section
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *  
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Typical usage:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \code
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * function()
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * {
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     // some code with interrupts enabled
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     {
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         atomic::Lock lock;
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // code which should be executed with disabled interrupts.
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // with the end of this block the lock object is destroyed
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // and the interrupts are reenabled.
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     }
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     // other code with interrupts enabled
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * }
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \endcode
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \warning	Interrupts should be disabled the shortest possible time!
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 */
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		class Lock
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		{
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		public:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Constructor
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Disables interrupts.
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			Lock();
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Destructor
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Restore the interrupt settings.
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			~Lock();
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		private:
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #if defined(XPCC__CPU_AVR)
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint8_t sreg;
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM)
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint32_t cpsr;
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #endif
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		};
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		/**
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \ingroup	atomic
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \brief	Opposite to atomic::Lock
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Use this class to create a block of code with interrupts enabled
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * inside a locked block.
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Most of the time you won't need this class. But on some rare
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * times it is useful. The xpcc::Scheduler is an example for that.
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 */
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		class Unlock
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		{
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		public:
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Constructor
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Enable interrupts
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			Unlock();
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Destructor
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Restore the interrupt settings.
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			~Unlock();
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		private:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #if defined(XPCC__CPU_AVR)
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint8_t sreg;
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM)
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint32_t cpsr;
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #endif
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		};
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** }
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #ifdef XPCC__CPU_AVR
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	#include <avr/interrupt.h>
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock() :
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sreg(SREG)
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cli();
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		SREG = sreg;
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		__asm__ volatile ("" ::: "memory");
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	// ------------------------------------------------------------------------
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::Unlock() :
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sreg(SREG)
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sei();
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::~Unlock()
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		SREG = sreg;
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		__asm__ volatile ("" ::: "memory");
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM7TDMI)
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	// These functions are defined in "interrupt.S"
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" uint32_t _disable_interrupt(void);
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" uint32_t _enable_interrupt(void);
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" void _restore_interrupt(uint32_t cpsr);
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock() :
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cpsr(_disable_interrupt())
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		_restore_interrupt(cpsr);
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::Unlock() :
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cpsr(_enable_interrupt())
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::~Unlock()
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		_restore_interrupt(cpsr);
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_CORTEX_M0) || defined(XPCC__CPU_CORTEX_M3) || defined(XPCC__CPU_CORTEX_M4)
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock()
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// disable interrupts -> PRIMASK=1
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// enable interrupts -> PRIMASK=0
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		uint32_t mask = 1;
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile (
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"mrs %0, PRIMASK"	"\n\t"
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"msr PRIMASK, %1"
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "=&r" (cpsr)
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "r" (mask));
+  39              		.loc 2 200 0
+  40 0000 0122     		movs	r2, #1
+  41              	@ 200 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp" 1
+  42 0002 EFF31083 		mrs r3, PRIMASK
+  43 0006 82F31088 		msr PRIMASK, r2
+  44              	@ 0 "" 2
+  45              	.LVL1:
+  46              		.thumb
+  47              	.LBE19:
+  48              	.LBE18:
+  49              	.LBB20:
+  50              	.LBB21:
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile ("msr PRIMASK, %0" : : "r" (cpsr) );
+  51              		.loc 2 205 0
+  52              	@ 205 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp" 1
+  53 000a 83F31088 		msr PRIMASK, r3
+  54              	@ 0 "" 2
+  55              	.LVL2:
+  56              		.thumb
+  57              	.LBE21:
+  58              	.LBE20:
+  59              	.LBE17:
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		uint_fast16_t tempTime;
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		{
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 			atomic::Lock lock;
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 			tempTime = time;
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		}
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 		return Timestamp(tempTime);
+  60              		.loc 1 84 0
+  61 000e 014B     		ldr	r3, .L2
+  62              	.LBE16:
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.cpp **** 	}
+  63              		.loc 1 85 0
+  64 0010 1868     		ldr	r0, [r3, #0]
+  65              	.LVL3:
+  66 0012 7047     		bx	lr
+  67              	.L3:
+  68              		.align	2
+  69              	.L2:
+  70 0014 00000000 		.word	.LANCHOR0
+  71              		.cfi_endproc
+  72              	.LFE97:
+  74              		.global	_ZN4xpcc5Clock4timeE
+  75              		.section	.bss._ZN4xpcc5Clock4timeE,"aw",%nobits
+  76              		.align	2
+  77              		.set	.LANCHOR0,. + 0
+  80              	_ZN4xpcc5Clock4timeE:
+  81 0000 00000000 		.space	4
+  82              		.text
+  83              	.Letext0:
+  84              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+  85              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/timestamp.hpp"
+  86              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+  87              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/clock.hpp"
+  88              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+DEFINED SYMBOLS
+                            *ABS*:00000000 clock.cpp
+     /tmp/ccHY8Ula.s:20     .text._ZN4xpcc5Clock3nowEv:00000000 $t
+     /tmp/ccHY8Ula.s:25     .text._ZN4xpcc5Clock3nowEv:00000000 _ZN4xpcc5Clock3nowEv
+     /tmp/ccHY8Ula.s:70     .text._ZN4xpcc5Clock3nowEv:00000014 $d
+     /tmp/ccHY8Ula.s:80     .bss._ZN4xpcc5Clock4timeE:00000000 _ZN4xpcc5Clock4timeE
+     /tmp/ccHY8Ula.s:76     .bss._ZN4xpcc5Clock4timeE:00000000 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,191 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"controller.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN8unittest10ControllerC2Ev,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN8unittest10ControllerC2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN8unittest10ControllerC2Ev:
+  26              	.LFB67:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** #include "controller.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** unittest::Controller::Controller() :
+  28              		.loc 1 33 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.LBB5:
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 	reporter(0)	// FIXME need a dummy implementation
+  35              		.loc 1 34 0
+  36 0000 0022     		movs	r2, #0
+  37 0002 0260     		str	r2, [r0, #0]
+  38              	.LBE5:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** {
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** }
+  39              		.loc 1 36 0
+  40 0004 7047     		bx	lr
+  41              		.cfi_endproc
+  42              	.LFE67:
+  44              		.global	_ZN8unittest10ControllerC1Ev
+  45              		.thumb_set _ZN8unittest10ControllerC1Ev,_ZN8unittest10ControllerC2Ev
+  46 0006 00BF     		.section	.text._ZN8unittest10Controller11setReporterERNS_8ReporterE,"ax",%progbits
+  47              		.align	2
+  48              		.global	_ZN8unittest10Controller11setReporterERNS_8ReporterE
+  49              		.thumb
+  50              		.thumb_func
+  52              	_ZN8unittest10Controller11setReporterERNS_8ReporterE:
+  53              	.LFB69:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** void
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** unittest::Controller::setReporter(Reporter& reporter)
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** {
+  54              		.loc 1 40 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  59              	.LVL1:
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 	this->reporter = &reporter;
+  60              		.loc 1 41 0
+  61 0000 0160     		str	r1, [r0, #0]
+  62 0002 7047     		bx	lr
+  63              		.cfi_endproc
+  64              	.LFE69:
+  66              		.section	.text._ZNK8unittest10Controller11getReporterEv,"ax",%progbits
+  67              		.align	2
+  68              		.global	_ZNK8unittest10Controller11getReporterEv
+  69              		.thumb
+  70              		.thumb_func
+  72              	_ZNK8unittest10Controller11getReporterEv:
+  73              	.LFB70:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** }
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** unittest::Reporter&
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** unittest::Controller::getReporter() const
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** {
+  74              		.loc 1 46 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  79              	.LVL2:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 	return *reporter;
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** }
+  80              		.loc 1 48 0
+  81 0000 0068     		ldr	r0, [r0, #0]
+  82              	.LVL3:
+  83 0002 7047     		bx	lr
+  84              		.cfi_endproc
+  85              	.LFE70:
+  87              		.section	.text._ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE,"ax",%progbits
+  88              		.align	2
+  89              		.global	_ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE
+  90              		.thumb
+  91              		.thumb_func
+  93              	_ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE:
+  94              	.LFB71:
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** void
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** unittest::Controller::nextTestSuite(xpcc::accessor::Flash<char> name) const
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** {
+  95              		.loc 1 52 0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              	.LVL4:
+ 100 0000 08B5     		push	{r3, lr}
+ 101              	.LCFI0:
+ 102              		.cfi_def_cfa_offset 8
+ 103              		.cfi_offset 3, -8
+ 104              		.cfi_offset 14, -4
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.cpp **** 	reporter->nextTestSuite(name);
+ 105              		.loc 1 53 0
+ 106 0002 0068     		ldr	r0, [r0, #0]
+ 107              	.LVL5:
+ 108 0004 014B     		ldr	r3, .L5
+ 109 0006 9847     		blx	r3
+ 110              	.LVL6:
+ 111 0008 08BD     		pop	{r3, pc}
+ 112              	.L6:
+ 113 000a 00BF     		.align	2
+ 114              	.L5:
+ 115 000c 00000000 		.word	_ZN8unittest8Reporter13nextTestSuiteEN4xpcc8accessor5FlashIcEE
+ 116              		.cfi_endproc
+ 117              	.LFE71:
+ 119              		.text
+ 120              	.Letext0:
+ 121              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 122              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp"
+ 123              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 124              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp"
+ 125              		.file 6 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 126              		.file 7 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 127              		.file 8 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+ 128              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/reporter.hpp"
+ 129              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/unittest/controller.hpp"
+ 130              		.file 11 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 controller.cpp
+     /tmp/ccXAtj9j.s:20     .text._ZN8unittest10ControllerC2Ev:00000000 $t
+     /tmp/ccXAtj9j.s:25     .text._ZN8unittest10ControllerC2Ev:00000000 _ZN8unittest10ControllerC2Ev
+     /tmp/ccXAtj9j.s:25     .text._ZN8unittest10ControllerC2Ev:00000000 _ZN8unittest10ControllerC1Ev
+     /tmp/ccXAtj9j.s:47     .text._ZN8unittest10Controller11setReporterERNS_8ReporterE:00000000 $t
+     /tmp/ccXAtj9j.s:52     .text._ZN8unittest10Controller11setReporterERNS_8ReporterE:00000000 _ZN8unittest10Controller11setReporterERNS_8ReporterE
+     /tmp/ccXAtj9j.s:67     .text._ZNK8unittest10Controller11getReporterEv:00000000 $t
+     /tmp/ccXAtj9j.s:72     .text._ZNK8unittest10Controller11getReporterEv:00000000 _ZNK8unittest10Controller11getReporterEv
+     /tmp/ccXAtj9j.s:88     .text._ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE:00000000 $t
+     /tmp/ccXAtj9j.s:93     .text._ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE:00000000 _ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE
+     /tmp/ccXAtj9j.s:115    .text._ZNK8unittest10Controller13nextTestSuiteEN4xpcc8accessor5FlashIcEE:0000000c $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN8unittest8Reporter13nextTestSuiteEN4xpcc8accessor5FlashIcEE

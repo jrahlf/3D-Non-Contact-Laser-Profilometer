@@ -1,0 +1,293 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"abstract_menu.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc12AbstractMenuD2Ev,"axG",%progbits,_ZN4xpcc12AbstractMenuD5Ev,comdat
+  20              		.align	2
+  21              		.weak	_ZN4xpcc12AbstractMenuD2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc12AbstractMenuD2Ev:
+  26              	.LFB1300:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** /* Copyright (c) 2013, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** #ifndef XPCC__ABSTRACT_MENU_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** #define XPCC__ABSTRACT_MENU_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** #include "view_stack.hpp"
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** #include "abstract_view.hpp"
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** namespace xpcc{
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 /**
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 * @brief The AbstractMenu class is the same as the AbstractView class,
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 *        except it forces the developer to reimplement the handling
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 *        of button presses.
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 *
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 * \author Thorsten Lajewski
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 * \ingroup display_menu
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	 */
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.hpp **** 	class AbstractMenu: public AbstractView
+  28              		.loc 1 47 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33              	.LBB28:
+  34 0000 034B     		ldr	r3, .L2
+  35              	.LBE28:
+  36 0002 10B5     		push	{r4, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 4, -8
+  40              		.cfi_offset 14, -4
+  41              		.loc 1 47 0
+  42 0004 0446     		mov	r4, r0
+  43              	.LBB29:
+  44 0006 0360     		str	r3, [r0, #0]
+  45 0008 024B     		ldr	r3, .L2+4
+  46 000a 9847     		blx	r3
+  47              	.LVL1:
+  48              	.LBE29:
+  49 000c 2046     		mov	r0, r4
+  50 000e 10BD     		pop	{r4, pc}
+  51              	.L3:
+  52              		.align	2
+  53              	.L2:
+  54 0010 08000000 		.word	_ZTVN4xpcc12AbstractMenuE+8
+  55 0014 00000000 		.word	_ZN4xpcc12AbstractViewD2Ev
+  56              		.cfi_endproc
+  57              	.LFE1300:
+  59              		.weak	_ZN4xpcc12AbstractMenuD1Ev
+  60              		.thumb_set _ZN4xpcc12AbstractMenuD1Ev,_ZN4xpcc12AbstractMenuD2Ev
+  61              		.section	.text._ZN4xpcc12AbstractMenuD0Ev,"axG",%progbits,_ZN4xpcc12AbstractMenuD0Ev,comdat
+  62              		.align	2
+  63              		.weak	_ZN4xpcc12AbstractMenuD0Ev
+  64              		.thumb
+  65              		.thumb_func
+  67              	_ZN4xpcc12AbstractMenuD0Ev:
+  68              	.LFB1302:
+  69              		.loc 1 47 0
+  70              		.cfi_startproc
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 0, uses_anonymous_args = 0
+  73              	.LVL2:
+  74              	.LBB33:
+  75              	.LBB34:
+  76 0000 054B     		ldr	r3, .L5
+  77              	.LBE34:
+  78              	.LBE33:
+  79 0002 10B5     		push	{r4, lr}
+  80              	.LCFI1:
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 4, -8
+  83              		.cfi_offset 14, -4
+  84              		.loc 1 47 0
+  85 0004 0446     		mov	r4, r0
+  86              	.LVL3:
+  87              	.LBB36:
+  88              	.LBB35:
+  89 0006 0360     		str	r3, [r0, #0]
+  90 0008 044B     		ldr	r3, .L5+4
+  91 000a 9847     		blx	r3
+  92              	.LVL4:
+  93              	.LBE35:
+  94              	.LBE36:
+  95 000c 2046     		mov	r0, r4
+  96 000e 044B     		ldr	r3, .L5+8
+  97 0010 9847     		blx	r3
+  98              	.LVL5:
+  99 0012 2046     		mov	r0, r4
+ 100 0014 10BD     		pop	{r4, pc}
+ 101              	.L6:
+ 102 0016 00BF     		.align	2
+ 103              	.L5:
+ 104 0018 08000000 		.word	_ZTVN4xpcc12AbstractMenuE+8
+ 105 001c 00000000 		.word	_ZN4xpcc12AbstractViewD2Ev
+ 106 0020 00000000 		.word	_ZdlPv
+ 107              		.cfi_endproc
+ 108              	.LFE1302:
+ 110              		.section	.text._ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh,"ax",%progbits
+ 111              		.align	2
+ 112              		.global	_ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh
+ 113              		.thumb
+ 114              		.thumb_func
+ 116              	_ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh:
+ 117              	.LFB1278:
+ 118              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** #include "abstract_menu.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** xpcc::AbstractMenu::AbstractMenu(xpcc::ViewStack* stack, uint8_t identifier):
+ 119              		.loc 2 33 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              	.LVL6:
+ 124 0000 10B5     		push	{r4, lr}
+ 125              	.LCFI2:
+ 126              		.cfi_def_cfa_offset 8
+ 127              		.cfi_offset 4, -8
+ 128              		.cfi_offset 14, -4
+ 129              	.LBB37:
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** 	xpcc::AbstractView(stack, identifier)
+ 130              		.loc 2 34 0
+ 131 0002 034B     		ldr	r3, .L8
+ 132              	.LBE37:
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** xpcc::AbstractMenu::AbstractMenu(xpcc::ViewStack* stack, uint8_t identifier):
+ 133              		.loc 2 33 0
+ 134 0004 0446     		mov	r4, r0
+ 135              	.LBB38:
+ 136              		.loc 2 34 0
+ 137 0006 9847     		blx	r3
+ 138              	.LVL7:
+ 139 0008 024B     		ldr	r3, .L8+4
+ 140              	.LBE38:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** {
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** }
+ 141              		.loc 2 36 0
+ 142 000a 2046     		mov	r0, r4
+ 143              	.LBB39:
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_menu.cpp **** 	xpcc::AbstractView(stack, identifier)
+ 144              		.loc 2 34 0
+ 145 000c 2360     		str	r3, [r4, #0]
+ 146              	.LBE39:
+ 147              		.loc 2 36 0
+ 148 000e 10BD     		pop	{r4, pc}
+ 149              	.L9:
+ 150              		.align	2
+ 151              	.L8:
+ 152 0010 00000000 		.word	_ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh
+ 153 0014 08000000 		.word	_ZTVN4xpcc12AbstractMenuE+8
+ 154              		.cfi_endproc
+ 155              	.LFE1278:
+ 157              		.global	_ZN4xpcc12AbstractMenuC1EPNS_9ViewStackEh
+ 158              		.thumb_set _ZN4xpcc12AbstractMenuC1EPNS_9ViewStackEh,_ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh
+ 159              		.weak	_ZTVN4xpcc12AbstractMenuE
+ 160              		.section	.rodata._ZTVN4xpcc12AbstractMenuE,"aG",%progbits,_ZTVN4xpcc12AbstractMenuE,comdat
+ 161              		.align	3
+ 164              	_ZTVN4xpcc12AbstractMenuE:
+ 165 0000 00000000 		.word	0
+ 166 0004 00000000 		.word	0
+ 167 0008 00000000 		.word	_ZN4xpcc12AbstractMenuD1Ev
+ 168 000c 00000000 		.word	_ZN4xpcc12AbstractMenuD0Ev
+ 169 0010 00000000 		.word	_ZN4xpcc12AbstractView6updateEv
+ 170 0014 00000000 		.word	__cxa_pure_virtual
+ 171 0018 00000000 		.word	__cxa_pure_virtual
+ 172 001c 00000000 		.word	__cxa_pure_virtual
+ 173 0020 00000000 		.word	_ZN4xpcc12AbstractView8onRemoveEv
+ 174 0024 00000000 		.text
+ 175              	.Letext0:
+ 176              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 177              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 178              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/../display/graphic_displa
+ 179              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 180              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/menu_buttons.hpp"
+ 181              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/allocator/allocator_base.hpp"
+ 182              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 183              		.file 10 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 184              		.file 11 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 185              		.file 12 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 186              		.file 13 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 187              		.file 14 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 188              		.file 15 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 189              		.file 16 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 190              		.file 17 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+ 191              		.file 18 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 abstract_menu.cpp
+     /tmp/ccIBZEJg.s:20     .text._ZN4xpcc12AbstractMenuD2Ev:00000000 $t
+     /tmp/ccIBZEJg.s:25     .text._ZN4xpcc12AbstractMenuD2Ev:00000000 _ZN4xpcc12AbstractMenuD2Ev
+     /tmp/ccIBZEJg.s:54     .text._ZN4xpcc12AbstractMenuD2Ev:00000010 $d
+     /tmp/ccIBZEJg.s:164    .rodata._ZTVN4xpcc12AbstractMenuE:00000000 _ZTVN4xpcc12AbstractMenuE
+     /tmp/ccIBZEJg.s:25     .text._ZN4xpcc12AbstractMenuD2Ev:00000000 _ZN4xpcc12AbstractMenuD1Ev
+     /tmp/ccIBZEJg.s:62     .text._ZN4xpcc12AbstractMenuD0Ev:00000000 $t
+     /tmp/ccIBZEJg.s:67     .text._ZN4xpcc12AbstractMenuD0Ev:00000000 _ZN4xpcc12AbstractMenuD0Ev
+     /tmp/ccIBZEJg.s:104    .text._ZN4xpcc12AbstractMenuD0Ev:00000018 $d
+     /tmp/ccIBZEJg.s:111    .text._ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh:00000000 $t
+     /tmp/ccIBZEJg.s:116    .text._ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh:00000000 _ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh
+     /tmp/ccIBZEJg.s:152    .text._ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh:00000010 $d
+     /tmp/ccIBZEJg.s:116    .text._ZN4xpcc12AbstractMenuC2EPNS_9ViewStackEh:00000000 _ZN4xpcc12AbstractMenuC1EPNS_9ViewStackEh
+     /tmp/ccIBZEJg.s:161    .rodata._ZTVN4xpcc12AbstractMenuE:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN4xpcc12AbstractMenuD5Ev
+
+UNDEFINED SYMBOLS
+_ZN4xpcc12AbstractViewD2Ev
+_ZdlPv
+_ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh
+_ZN4xpcc12AbstractView6updateEv
+__cxa_pure_virtual
+_ZN4xpcc12AbstractView8onRemoveEv

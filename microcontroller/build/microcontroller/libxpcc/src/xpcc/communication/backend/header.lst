@@ -1,0 +1,954 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"header.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZNK4xpcc6HeadereqERKS0_,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZNK4xpcc6HeadereqERKS0_
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZNK4xpcc6HeadereqERKS0_:
+  26              	.LFB62:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** #include "header.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** bool
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** xpcc::Header::operator == (const Header& other) const
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** {
+  28              		.loc 1 36 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 	return ((this->type == other.type) &&
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->isAcknowledge == other.isAcknowledge) &&
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->destination == other.destination) &&
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->source == other.source) &&
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->packetIdentifier == other.packetIdentifier));
+  34              		.loc 1 41 0
+  35 0000 0278     		ldrb	r2, [r0, #0]	@ zero_extendqisi2
+  36 0002 0B78     		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+  37 0004 9A42     		cmp	r2, r3
+  38 0006 01D0     		beq	.L8
+  39              	.L6:
+  40 0008 0020     		movs	r0, #0
+  41              	.LVL1:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** }
+  42              		.loc 1 42 0
+  43 000a 7047     		bx	lr
+  44              	.LVL2:
+  45              	.L8:
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->packetIdentifier == other.packetIdentifier));
+  46              		.loc 1 41 0 discriminator 1
+  47 000c 4278     		ldrb	r2, [r0, #1]	@ zero_extendqisi2
+  48 000e 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+  49 0010 9A42     		cmp	r2, r3
+  50 0012 F9D1     		bne	.L6
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->packetIdentifier == other.packetIdentifier));
+  51              		.loc 1 41 0 is_stmt 0 discriminator 3
+  52 0014 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+  53 0016 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
+  54 0018 9A42     		cmp	r2, r3
+  55 001a F5D1     		bne	.L6
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->packetIdentifier == other.packetIdentifier));
+  56              		.loc 1 41 0 discriminator 4
+  57 001c C278     		ldrb	r2, [r0, #3]	@ zero_extendqisi2
+  58 001e CB78     		ldrb	r3, [r1, #3]	@ zero_extendqisi2
+  59 0020 9A42     		cmp	r2, r3
+  60 0022 F1D1     		bne	.L6
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 			(this->packetIdentifier == other.packetIdentifier));
+  61              		.loc 1 41 0 discriminator 5
+  62 0024 0079     		ldrb	r0, [r0, #4]	@ zero_extendqisi2
+  63              	.LVL3:
+  64 0026 0B79     		ldrb	r3, [r1, #4]	@ zero_extendqisi2
+  65 0028 C31A     		subs	r3, r0, r3
+  66 002a 5842     		rsbs	r0, r3, #0
+  67 002c 5841     		adcs	r0, r0, r3
+  68 002e 7047     		bx	lr
+  69              		.cfi_endproc
+  70              	.LFE62:
+  72              		.section	.text._ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE,"ax",%progbits
+  73              		.align	2
+  74              		.global	_ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE
+  75              		.thumb
+  76              		.thumb_func
+  78              	_ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE:
+  79              	.LFB63:
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** // ----------------------------------------------------------------------------
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** xpcc::IOStream&
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** xpcc::operator << (IOStream& s, const Header& header)
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** {
+  80              		.loc 1 47 0 is_stmt 1
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              	.LVL4:
+  85 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  86              	.LCFI0:
+  87              		.cfi_def_cfa_offset 32
+  88              		.cfi_offset 3, -32
+  89              		.cfi_offset 4, -28
+  90              		.cfi_offset 5, -24
+  91              		.cfi_offset 6, -20
+  92              		.cfi_offset 7, -16
+  93              		.cfi_offset 8, -12
+  94              		.cfi_offset 9, -8
+  95              		.cfi_offset 14, -4
+  96              	.LBB95:
+  97              	.LBB96:
+  98              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #ifndef XPCC__IOSTREAM_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #define XPCC__IOSTREAM_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include <xpcc/architecture/utils.hpp>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice.hpp"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice_wrapper.hpp"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** namespace xpcc
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** {
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	/**
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \brief 	This Formats all primary types into a string stream for
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			output or it reads values from a input and converts them to
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			a given type;
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 *
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \ingroup io
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \author	Martin Rosekeit <martin.rosekeit@rwth-aachen.de>
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 */
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	class IOStream
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	{
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	public :
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/**
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \brief	Constructor
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \param	device	device to write the stream to
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \code
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	MyIODevice device;
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	IOStream stream( device );
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \endcode
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 */
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream(IODevice& device);
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		write(char c)
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->write(c);
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		flush()
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->flush();
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Binary style for \c char and \c char*
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		bin()
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Binary;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Hexadecimal style for \c char and \c char*
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		hex()
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Ascii style for \c char and \c char*
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ascii()
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const unsigned char& v)
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(static_cast<uint16_t>(v));
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const char& v)
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint16_t& v)
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int16_t& v)
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint32_t& v)
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 24));
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 16));
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 24));
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 16));
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int32_t& v)
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 24));
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 16));
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 24));
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 16));
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__OS_OSX)
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// For APPLE 'int64_t' is of type 'int'. Therefore there is no
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// function here for the default type 'long int'. As 'long int' has the same
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// width as 'int64_t' we just use a typedef here.
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const long int& v)
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int64_t>(v));
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const long unsigned int& v)
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<uint64_t>(v));
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__CPU_ARM) || defined(XPCC__CPU_AVR32)
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// For ARM 'int32_t' is of type 'long'. Therefore there is no
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// function here for the default type 'int'. As 'int' has the same
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// width as 'int32_t' we just use a typedef here.
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int& v)
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const unsigned int& v)
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<uint32_t>(v));
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // The 64-bit types on the AVR are extremely slow and are
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // therefore excluded here
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if !defined(XPCC__CPU_AVR)
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint64_t& v)
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(v);
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int64_t& v)
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(v);
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const float& v)
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeFloat(v);
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const double& v)
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__CPU_AVR)
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeFloat(static_cast<float>(v));
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #else
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeDouble(v);
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const char* s)
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+  99              		.loc 2 287 0
+ 100 0004 4368     		ldr	r3, [r0, #4]
+ 101              	.LBE96:
+ 102              	.LBE95:
+ 103              		.loc 1 47 0
+ 104 0006 0446     		mov	r4, r0
+ 105              	.LVL5:
+ 106 0008 0E46     		mov	r6, r1
+ 107              	.LBB101:
+ 108              	.LBB99:
+ 109              		.loc 2 287 0
+ 110 000a 002B     		cmp	r3, #0
+ 111 000c 58D0     		beq	.L22
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 112              		.loc 2 290 0
+ 113 000e 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 114              		.loc 2 291 0
+ 115 0010 0CBF     		ite	eq
+ 116 0012 434B     		ldreq	r3, .L27
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(s);
+ 117              		.loc 2 294 0
+ 118 0014 434B     		ldrne	r3, .L27+4
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 119              		.loc 2 291 0
+ 120 0016 4449     		ldr	r1, .L27+8
+ 121              	.LVL6:
+ 122              		.loc 2 294 0
+ 123 0018 9847     		blx	r3
+ 124              	.LVL7:
+ 125              	.LBE99:
+ 126              	.LBE101:
+ 127              	.LBB102:
+ 128              	.LBB103:
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 129              		.loc 2 192 0
+ 130 001a 6368     		ldr	r3, [r4, #4]
+ 131              	.LBE103:
+ 132              	.LBE102:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 	s	<< "(t=" << static_cast<int32_t>(header.type)
+ 133              		.loc 1 48 0
+ 134 001c 96F80080 		ldrb	r8, [r6, #0]	@ zero_extendqisi2
+ 135              	.LVL8:
+ 136              	.LBB108:
+ 137              	.LBB104:
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 138              		.loc 2 192 0
+ 139 0020 002B     		cmp	r3, #0
+ 140 0022 57D0     		beq	.L23
+ 141              	.L13:
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 142              		.loc 2 195 0
+ 143 0024 022B     		cmp	r3, #2
+ 144 0026 69D0     		beq	.L24
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 24));
+ 145              		.loc 2 202 0
+ 146 0028 404D     		ldr	r5, .L27+12
+ 147 002a 414F     		ldr	r7, .L27+16
+ 148 002c 0021     		movs	r1, #0
+ 149 002e 2046     		mov	r0, r4
+ 150 0030 A847     		blx	r5
+ 151              	.LVL9:
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 16));
+ 152              		.loc 2 203 0
+ 153 0032 2046     		mov	r0, r4
+ 154 0034 0021     		movs	r1, #0
+ 155 0036 A847     		blx	r5
+ 156              	.LVL10:
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 157              		.loc 2 204 0
+ 158 0038 2046     		mov	r0, r4
+ 159 003a 0021     		movs	r1, #0
+ 160 003c A847     		blx	r5
+ 161              	.LVL11:
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 162              		.loc 2 205 0
+ 163 003e 2046     		mov	r0, r4
+ 164 0040 4146     		mov	r1, r8
+ 165 0042 A847     		blx	r5
+ 166              	.LVL12:
+ 167              	.L14:
+ 168              	.LBE104:
+ 169              	.LBE108:
+ 170              	.LBB109:
+ 171              	.LBB110:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 172              		.loc 2 287 0
+ 173 0044 6368     		ldr	r3, [r4, #4]
+ 174 0046 002B     		cmp	r3, #0
+ 175 0048 4CD0     		beq	.L25
+ 176              	.L16:
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 177              		.loc 2 290 0
+ 178 004a 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 179              		.loc 2 291 0
+ 180 004c 2046     		mov	r0, r4
+ 181 004e 3949     		ldr	r1, .L27+20
+ 182 0050 0CBF     		ite	eq
+ 183 0052 334B     		ldreq	r3, .L27
+ 184              		.loc 2 294 0
+ 185 0054 334B     		ldrne	r3, .L27+4
+ 186 0056 9847     		blx	r3
+ 187              	.LVL13:
+ 188              	.L17:
+ 189              	.LBE110:
+ 190              	.LBE109:
+ 191              	.LBB114:
+ 192              	.LBB115:
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 193              		.loc 2 236 0
+ 194 0058 2046     		mov	r0, r4
+ 195 005a 7178     		ldrb	r1, [r6, #1]	@ zero_extendqisi2
+ 196 005c B847     		blx	r7
+ 197              	.LVL14:
+ 198              	.LBE115:
+ 199              	.LBE114:
+ 200              	.LBB116:
+ 201              	.LBB117:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 202              		.loc 2 287 0
+ 203 005e 6368     		ldr	r3, [r4, #4]
+ 204 0060 002B     		cmp	r3, #0
+ 205 0062 45D0     		beq	.L26
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 206              		.loc 2 290 0
+ 207 0064 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 208              		.loc 2 291 0
+ 209 0066 2046     		mov	r0, r4
+ 210 0068 3349     		ldr	r1, .L27+24
+ 211 006a 0CBF     		ite	eq
+ 212 006c 2C4B     		ldreq	r3, .L27
+ 213              		.loc 2 294 0
+ 214 006e 2D4B     		ldrne	r3, .L27+4
+ 215 0070 9847     		blx	r3
+ 216              	.LVL15:
+ 217              	.L20:
+ 218              	.LBE117:
+ 219              	.LBE116:
+ 220              	.LBB121:
+ 221              	.LBB122:
+ 222              	.LBB123:
+ 223              	.LBB124:
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+ 224              		.loc 2 91 0
+ 225 0072 4FF00108 		mov	r8, #1
+ 226 0076 C4F80480 		str	r8, [r4, #4]
+ 227              	.LVL16:
+ 228              	.LBE124:
+ 229              	.LBE123:
+ 230              	.LBE122:
+ 231              	.LBE121:
+ 232              	.LBB125:
+ 233              	.LBB126:
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 234              		.loc 2 114 0
+ 235 007a 2046     		mov	r0, r4
+ 236 007c B178     		ldrb	r1, [r6, #2]	@ zero_extendqisi2
+ 237 007e A847     		blx	r5
+ 238              	.LVL17:
+ 239              	.LBE126:
+ 240              	.LBE125:
+ 241              	.LBB127:
+ 242              	.LBB128:
+ 243              	.LBB129:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 244              		.loc 2 288 0
+ 245 0080 2068     		ldr	r0, [r4, #0]
+ 246 0082 2E49     		ldr	r1, .L27+28
+ 247 0084 0368     		ldr	r3, [r0, #0]
+ 248              	.LBE129:
+ 249              	.LBE128:
+ 250              	.LBE127:
+ 251              	.LBB134:
+ 252              	.LBB135:
+ 253              	.LBB136:
+ 254              	.LBB137:
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 255              		.loc 2 99 0
+ 256 0086 0027     		movs	r7, #0
+ 257              	.LBE137:
+ 258              	.LBE136:
+ 259              	.LBE135:
+ 260              	.LBE134:
+ 261              	.LBB141:
+ 262              	.LBB132:
+ 263              	.LBB130:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 264              		.loc 2 288 0
+ 265 0088 DB68     		ldr	r3, [r3, #12]
+ 266              	.LBE130:
+ 267              	.LBE132:
+ 268              	.LBE141:
+ 269              	.LBB142:
+ 270              	.LBB140:
+ 271              	.LBB139:
+ 272              	.LBB138:
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 273              		.loc 2 99 0
+ 274 008a 6760     		str	r7, [r4, #4]
+ 275              	.LVL18:
+ 276              	.LBE138:
+ 277              	.LBE139:
+ 278              	.LBE140:
+ 279              	.LBE142:
+ 280              	.LBB143:
+ 281              	.LBB133:
+ 282              	.LBB131:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 283              		.loc 2 288 0
+ 284 008c 9847     		blx	r3
+ 285              	.LVL19:
+ 286              	.LBE131:
+ 287              	.LBE133:
+ 288              	.LBE143:
+ 289              	.LBB144:
+ 290              	.LBB145:
+ 291              	.LBB146:
+ 292              	.LBB147:
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+ 293              		.loc 2 91 0
+ 294 008e C4F80480 		str	r8, [r4, #4]
+ 295              	.LVL20:
+ 296              	.LBE147:
+ 297              	.LBE146:
+ 298              	.LBE145:
+ 299              	.LBE144:
+ 300              	.LBB148:
+ 301              	.LBB149:
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 302              		.loc 2 114 0
+ 303 0092 2046     		mov	r0, r4
+ 304 0094 F178     		ldrb	r1, [r6, #3]	@ zero_extendqisi2
+ 305 0096 A847     		blx	r5
+ 306              	.LVL21:
+ 307              	.LBE149:
+ 308              	.LBE148:
+ 309              	.LBB150:
+ 310              	.LBB151:
+ 311              	.LBB152:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 312              		.loc 2 288 0
+ 313 0098 2068     		ldr	r0, [r4, #0]
+ 314 009a 2949     		ldr	r1, .L27+32
+ 315 009c 0368     		ldr	r3, [r0, #0]
+ 316              	.LBE152:
+ 317              	.LBE151:
+ 318              	.LBE150:
+ 319              	.LBB155:
+ 320              	.LBB156:
+ 321              	.LBB157:
+ 322              	.LBB158:
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 323              		.loc 2 99 0
+ 324 009e 6760     		str	r7, [r4, #4]
+ 325              	.LVL22:
+ 326              	.LBE158:
+ 327              	.LBE157:
+ 328              	.LBE156:
+ 329              	.LBE155:
+ 330              	.LBB159:
+ 331              	.LBB154:
+ 332              	.LBB153:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 333              		.loc 2 288 0
+ 334 00a0 DB68     		ldr	r3, [r3, #12]
+ 335 00a2 9847     		blx	r3
+ 336              	.LVL23:
+ 337              	.LBE153:
+ 338              	.LBE154:
+ 339              	.LBE159:
+ 340              	.LBB160:
+ 341              	.LBB161:
+ 342              	.LBB162:
+ 343              	.LBB163:
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+ 344              		.loc 2 91 0
+ 345 00a4 C4F80480 		str	r8, [r4, #4]
+ 346              	.LVL24:
+ 347              	.LBE163:
+ 348              	.LBE162:
+ 349              	.LBE161:
+ 350              	.LBE160:
+ 351              	.LBB164:
+ 352              	.LBB165:
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 353              		.loc 2 114 0
+ 354 00a8 2046     		mov	r0, r4
+ 355 00aa 3179     		ldrb	r1, [r6, #4]	@ zero_extendqisi2
+ 356 00ac A847     		blx	r5
+ 357              	.LVL25:
+ 358              	.LBE165:
+ 359              	.LBE164:
+ 360              	.LBB166:
+ 361              	.LBB167:
+ 362              	.LBB168:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 363              		.loc 2 288 0
+ 364 00ae 2068     		ldr	r0, [r4, #0]
+ 365              	.LBE168:
+ 366              	.LBE167:
+ 367              	.LBE166:
+ 368              	.LBB171:
+ 369              	.LBB172:
+ 370              	.LBB173:
+ 371              	.LBB174:
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 372              		.loc 2 99 0
+ 373 00b0 6760     		str	r7, [r4, #4]
+ 374              	.LVL26:
+ 375              	.LBE174:
+ 376              	.LBE173:
+ 377              	.LBE172:
+ 378              	.LBE171:
+ 379              	.LBB175:
+ 380              	.LBB170:
+ 381              	.LBB169:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 382              		.loc 2 288 0
+ 383 00b2 0368     		ldr	r3, [r0, #0]
+ 384 00b4 2349     		ldr	r1, .L27+36
+ 385 00b6 DB68     		ldr	r3, [r3, #12]
+ 386 00b8 9847     		blx	r3
+ 387              	.LVL27:
+ 388              	.LBE169:
+ 389              	.LBE170:
+ 390              	.LBE175:
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 		<< ",a=" << header.isAcknowledge
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 		<< ",d=" << xpcc::hex << header.destination << xpcc::ascii
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 		<< ",s=" << xpcc::hex << header.source << xpcc::ascii
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 		<< ",i=" << xpcc::hex << header.packetIdentifier << xpcc::ascii << ")";
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 	
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 	return s;
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** }
+ 391              		.loc 1 55 0
+ 392 00ba 2046     		mov	r0, r4
+ 393 00bc BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 394              	.LVL28:
+ 395              	.L22:
+ 396              	.LBB176:
+ 397              	.LBB100:
+ 398              	.LBB97:
+ 399              	.LBB98:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 400              		.loc 2 288 0
+ 401 00c0 0068     		ldr	r0, [r0, #0]
+ 402              	.LVL29:
+ 403 00c2 1949     		ldr	r1, .L27+8
+ 404              	.LVL30:
+ 405 00c4 0368     		ldr	r3, [r0, #0]
+ 406 00c6 DB68     		ldr	r3, [r3, #12]
+ 407 00c8 9847     		blx	r3
+ 408              	.LVL31:
+ 409              	.LBE98:
+ 410              	.LBE97:
+ 411              	.LBE100:
+ 412              	.LBE176:
+ 413              	.LBB177:
+ 414              	.LBB105:
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 415              		.loc 2 192 0
+ 416 00ca 6368     		ldr	r3, [r4, #4]
+ 417              	.LBE105:
+ 418              	.LBE177:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.cpp **** 	s	<< "(t=" << static_cast<int32_t>(header.type)
+ 419              		.loc 1 48 0
+ 420 00cc 96F80080 		ldrb	r8, [r6, #0]	@ zero_extendqisi2
+ 421              	.LVL32:
+ 422              	.LBB178:
+ 423              	.LBB106:
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 424              		.loc 2 192 0
+ 425 00d0 002B     		cmp	r3, #0
+ 426 00d2 A7D1     		bne	.L13
+ 427              	.LVL33:
+ 428              	.L23:
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 429              		.loc 2 193 0
+ 430 00d4 2046     		mov	r0, r4
+ 431 00d6 4146     		mov	r1, r8
+ 432 00d8 154F     		ldr	r7, .L27+16
+ 433 00da 144D     		ldr	r5, .L27+12
+ 434 00dc B847     		blx	r7
+ 435              	.LVL34:
+ 436              	.LBE106:
+ 437              	.LBE178:
+ 438              	.LBB179:
+ 439              	.LBB113:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 440              		.loc 2 287 0
+ 441 00de 6368     		ldr	r3, [r4, #4]
+ 442 00e0 002B     		cmp	r3, #0
+ 443 00e2 B2D1     		bne	.L16
+ 444              	.L25:
+ 445              	.LVL35:
+ 446              	.LBB111:
+ 447              	.LBB112:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 448              		.loc 2 288 0
+ 449 00e4 2068     		ldr	r0, [r4, #0]
+ 450 00e6 1349     		ldr	r1, .L27+20
+ 451 00e8 0368     		ldr	r3, [r0, #0]
+ 452 00ea DB68     		ldr	r3, [r3, #12]
+ 453 00ec 9847     		blx	r3
+ 454              	.LVL36:
+ 455 00ee B3E7     		b	.L17
+ 456              	.LVL37:
+ 457              	.L26:
+ 458              	.LBE112:
+ 459              	.LBE111:
+ 460              	.LBE113:
+ 461              	.LBE179:
+ 462              	.LBB180:
+ 463              	.LBB120:
+ 464              	.LBB118:
+ 465              	.LBB119:
+ 466 00f0 2068     		ldr	r0, [r4, #0]
+ 467 00f2 1149     		ldr	r1, .L27+24
+ 468 00f4 0368     		ldr	r3, [r0, #0]
+ 469 00f6 DB68     		ldr	r3, [r3, #12]
+ 470 00f8 9847     		blx	r3
+ 471              	.LVL38:
+ 472 00fa BAE7     		b	.L20
+ 473              	.LVL39:
+ 474              	.L24:
+ 475              	.LBE119:
+ 476              	.LBE118:
+ 477              	.LBE120:
+ 478              	.LBE180:
+ 479              	.LBB181:
+ 480              	.LBB107:
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 24));
+ 481              		.loc 2 196 0
+ 482 00fc DFF84890 		ldr	r9, .L27+40
+ 483 0100 0B4F     		ldr	r7, .L27+16
+ 484 0102 0A4D     		ldr	r5, .L27+12
+ 485 0104 0021     		movs	r1, #0
+ 486 0106 2046     		mov	r0, r4
+ 487 0108 C847     		blx	r9
+ 488              	.LVL40:
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 16));
+ 489              		.loc 2 197 0
+ 490 010a 2046     		mov	r0, r4
+ 491 010c 0021     		movs	r1, #0
+ 492 010e C847     		blx	r9
+ 493              	.LVL41:
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 494              		.loc 2 198 0
+ 495 0110 2046     		mov	r0, r4
+ 496 0112 0021     		movs	r1, #0
+ 497 0114 C847     		blx	r9
+ 498              	.LVL42:
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 499              		.loc 2 199 0
+ 500 0116 2046     		mov	r0, r4
+ 501 0118 4146     		mov	r1, r8
+ 502 011a C847     		blx	r9
+ 503              	.LVL43:
+ 504 011c 92E7     		b	.L14
+ 505              	.L28:
+ 506 011e 00BF     		.align	2
+ 507              	.L27:
+ 508 0120 00000000 		.word	_ZN4xpcc8IOStream8writeBinEPKc
+ 509 0124 00000000 		.word	_ZN4xpcc8IOStream8writeHexEPKc
+ 510 0128 00000000 		.word	.LC0
+ 511 012c 00000000 		.word	_ZN4xpcc8IOStream8writeHexEh
+ 512 0130 00000000 		.word	_ZN4xpcc8IOStream12writeIntegerEl
+ 513 0134 04000000 		.word	.LC1
+ 514 0138 08000000 		.word	.LC2
+ 515 013c 0C000000 		.word	.LC3
+ 516 0140 10000000 		.word	.LC4
+ 517 0144 14000000 		.word	.LC5
+ 518 0148 00000000 		.word	_ZN4xpcc8IOStream8writeBinEh
+ 519              	.LBE107:
+ 520              	.LBE181:
+ 521              		.cfi_endproc
+ 522              	.LFE63:
+ 524              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 525              		.align	2
+ 526              	.LC0:
+ 527 0000 28743D00 		.ascii	"(t=\000"
+ 528              	.LC1:
+ 529 0004 2C613D00 		.ascii	",a=\000"
+ 530              	.LC2:
+ 531 0008 2C643D00 		.ascii	",d=\000"
+ 532              	.LC3:
+ 533 000c 2C733D00 		.ascii	",s=\000"
+ 534              	.LC4:
+ 535 0010 2C693D00 		.ascii	",i=\000"
+ 536              	.LC5:
+ 537 0014 2900     		.ascii	")\000"
+ 538 0016 0000     		.text
+ 539              	.Letext0:
+ 540              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 541              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 542              		.file 5 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 543              		.file 6 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+ 544              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 545              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/communication/backend/header.hpp"
+ 546              		.file 9 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 header.cpp
+     /tmp/ccUG2wax.s:20     .text._ZNK4xpcc6HeadereqERKS0_:00000000 $t
+     /tmp/ccUG2wax.s:25     .text._ZNK4xpcc6HeadereqERKS0_:00000000 _ZNK4xpcc6HeadereqERKS0_
+     /tmp/ccUG2wax.s:73     .text._ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE:00000000 $t
+     /tmp/ccUG2wax.s:78     .text._ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE:00000000 _ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE
+     /tmp/ccUG2wax.s:508    .text._ZN4xpcclsERNS_8IOStreamERKNS_6HeaderE:00000120 $d
+     /tmp/ccUG2wax.s:525    .rodata.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN4xpcc8IOStream8writeBinEPKc
+_ZN4xpcc8IOStream8writeHexEPKc
+_ZN4xpcc8IOStream8writeHexEh
+_ZN4xpcc8IOStream12writeIntegerEl
+_ZN4xpcc8IOStream8writeBinEh

@@ -1,0 +1,579 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"queue.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc4rtos9QueueBaseC2Emm,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc4rtos9QueueBaseC2Emm
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc4rtos9QueueBaseC2Emm:
+  26              	.LFB11:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** #include "../queue.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::QueueBase(unsigned portBASE_TYPE length,
+  28              		.loc 1 34 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38              	.LBB2:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 		unsigned portBASE_TYPE itemSize)
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	this->handle = xQueueCreate(length, itemSize);
+  39              		.loc 1 37 0
+  40 0002 044B     		ldr	r3, .L2
+  41              	.LBE2:
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::QueueBase(unsigned portBASE_TYPE length,
+  42              		.loc 1 34 0
+  43 0004 0446     		mov	r4, r0
+  44              	.LBB3:
+  45              		.loc 1 37 0
+  46 0006 0846     		mov	r0, r1
+  47              	.LVL1:
+  48 0008 1146     		mov	r1, r2
+  49              	.LVL2:
+  50 000a 9847     		blx	r3
+  51              	.LVL3:
+  52 000c 2060     		str	r0, [r4, #0]
+  53              	.LBE3:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+  54              		.loc 1 38 0
+  55 000e 2046     		mov	r0, r4
+  56 0010 10BD     		pop	{r4, pc}
+  57              	.L3:
+  58 0012 00BF     		.align	2
+  59              	.L2:
+  60 0014 00000000 		.word	xQueueCreate
+  61              		.cfi_endproc
+  62              	.LFE11:
+  64              		.global	_ZN4xpcc4rtos9QueueBaseC1Emm
+  65              		.thumb_set _ZN4xpcc4rtos9QueueBaseC1Emm,_ZN4xpcc4rtos9QueueBaseC2Emm
+  66              		.section	.text._ZN4xpcc4rtos9QueueBaseD2Ev,"ax",%progbits
+  67              		.align	2
+  68              		.global	_ZN4xpcc4rtos9QueueBaseD2Ev
+  69              		.thumb
+  70              		.thumb_func
+  72              	_ZN4xpcc4rtos9QueueBaseD2Ev:
+  73              	.LFB14:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::~QueueBase()
+  74              		.loc 1 40 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              	.LVL4:
+  79 0000 10B5     		push	{r4, lr}
+  80              	.LCFI1:
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 4, -8
+  83              		.cfi_offset 14, -4
+  84              	.LBB4:
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	vQueueDelete(this->handle);
+  85              		.loc 1 42 0
+  86 0002 034B     		ldr	r3, .L5
+  87              	.LBE4:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::~QueueBase()
+  88              		.loc 1 40 0
+  89 0004 0446     		mov	r4, r0
+  90              	.LBB5:
+  91              		.loc 1 42 0
+  92 0006 0068     		ldr	r0, [r0, #0]
+  93              	.LVL5:
+  94 0008 9847     		blx	r3
+  95              	.LVL6:
+  96              	.LBE5:
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+  97              		.loc 1 43 0
+  98 000a 2046     		mov	r0, r4
+  99 000c 10BD     		pop	{r4, pc}
+ 100              	.L6:
+ 101 000e 00BF     		.align	2
+ 102              	.L5:
+ 103 0010 00000000 		.word	vQueueDelete
+ 104              		.cfi_endproc
+ 105              	.LFE14:
+ 107              		.global	_ZN4xpcc4rtos9QueueBaseD1Ev
+ 108              		.thumb_set _ZN4xpcc4rtos9QueueBaseD1Ev,_ZN4xpcc4rtos9QueueBaseD2Ev
+ 109              		.section	.text._ZN4xpcc4rtos9QueueBase6appendEPKvm,"ax",%progbits
+ 110              		.align	2
+ 111              		.global	_ZN4xpcc4rtos9QueueBase6appendEPKvm
+ 112              		.thumb
+ 113              		.thumb_func
+ 115              	_ZN4xpcc4rtos9QueueBase6appendEPKvm:
+ 116              	.LFB16:
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** // ----------------------------------------------------------------------------
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::append(const void *item, portTickType timeout)
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 117              		.loc 1 48 0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              	.LVL7:
+ 122 0000 10B5     		push	{r4, lr}
+ 123              	.LCFI2:
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 4, -8
+ 126              		.cfi_offset 14, -4
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (xQueueSendToBack(this->handle, item, timeout) == pdTRUE);
+ 127              		.loc 1 49 0
+ 128 0002 0023     		movs	r3, #0
+ 129 0004 034C     		ldr	r4, .L8
+ 130 0006 0068     		ldr	r0, [r0, #0]
+ 131              	.LVL8:
+ 132 0008 A047     		blx	r4
+ 133              	.LVL9:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 134              		.loc 1 50 0
+ 135 000a 431E     		subs	r3, r0, #1
+ 136 000c 5842     		rsbs	r0, r3, #0
+ 137 000e 5841     		adcs	r0, r0, r3
+ 138 0010 10BD     		pop	{r4, pc}
+ 139              	.L9:
+ 140 0012 00BF     		.align	2
+ 141              	.L8:
+ 142 0014 00000000 		.word	xQueueGenericSend
+ 143              		.cfi_endproc
+ 144              	.LFE16:
+ 146              		.section	.text._ZN4xpcc4rtos9QueueBase7prependEPKvm,"ax",%progbits
+ 147              		.align	2
+ 148              		.global	_ZN4xpcc4rtos9QueueBase7prependEPKvm
+ 149              		.thumb
+ 150              		.thumb_func
+ 152              	_ZN4xpcc4rtos9QueueBase7prependEPKvm:
+ 153              	.LFB17:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::prepend(const void *item, portTickType timeout)
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 154              		.loc 1 54 0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              	.LVL10:
+ 159 0000 10B5     		push	{r4, lr}
+ 160              	.LCFI3:
+ 161              		.cfi_def_cfa_offset 8
+ 162              		.cfi_offset 4, -8
+ 163              		.cfi_offset 14, -4
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (xQueueSendToFront(this->handle, item, timeout) == pdTRUE);
+ 164              		.loc 1 55 0
+ 165 0002 0123     		movs	r3, #1
+ 166 0004 034C     		ldr	r4, .L11
+ 167 0006 0068     		ldr	r0, [r0, #0]
+ 168              	.LVL11:
+ 169 0008 A047     		blx	r4
+ 170              	.LVL12:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 171              		.loc 1 56 0
+ 172 000a 421E     		subs	r2, r0, #1
+ 173 000c 5042     		rsbs	r0, r2, #0
+ 174 000e 5041     		adcs	r0, r0, r2
+ 175 0010 10BD     		pop	{r4, pc}
+ 176              	.L12:
+ 177 0012 00BF     		.align	2
+ 178              	.L11:
+ 179 0014 00000000 		.word	xQueueGenericSend
+ 180              		.cfi_endproc
+ 181              	.LFE17:
+ 183              		.section	.text._ZNK4xpcc4rtos9QueueBase4peekEPvm,"ax",%progbits
+ 184              		.align	2
+ 185              		.global	_ZNK4xpcc4rtos9QueueBase4peekEPvm
+ 186              		.thumb
+ 187              		.thumb_func
+ 189              	_ZNK4xpcc4rtos9QueueBase4peekEPvm:
+ 190              	.LFB18:
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::peek(void *item, portTickType timeout) const
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 191              		.loc 1 60 0
+ 192              		.cfi_startproc
+ 193              		@ args = 0, pretend = 0, frame = 0
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 195              	.LVL13:
+ 196 0000 10B5     		push	{r4, lr}
+ 197              	.LCFI4:
+ 198              		.cfi_def_cfa_offset 8
+ 199              		.cfi_offset 4, -8
+ 200              		.cfi_offset 14, -4
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (xQueuePeek(this->handle, item, timeout) == pdTRUE);
+ 201              		.loc 1 61 0
+ 202 0002 0123     		movs	r3, #1
+ 203 0004 034C     		ldr	r4, .L14
+ 204 0006 0068     		ldr	r0, [r0, #0]
+ 205              	.LVL14:
+ 206 0008 A047     		blx	r4
+ 207              	.LVL15:
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 208              		.loc 1 62 0
+ 209 000a 411E     		subs	r1, r0, #1
+ 210 000c 4842     		rsbs	r0, r1, #0
+ 211 000e 4841     		adcs	r0, r0, r1
+ 212 0010 10BD     		pop	{r4, pc}
+ 213              	.L15:
+ 214 0012 00BF     		.align	2
+ 215              	.L14:
+ 216 0014 00000000 		.word	xQueueGenericReceive
+ 217              		.cfi_endproc
+ 218              	.LFE18:
+ 220              		.section	.text._ZN4xpcc4rtos9QueueBase3getEPvm,"ax",%progbits
+ 221              		.align	2
+ 222              		.global	_ZN4xpcc4rtos9QueueBase3getEPvm
+ 223              		.thumb
+ 224              		.thumb_func
+ 226              	_ZN4xpcc4rtos9QueueBase3getEPvm:
+ 227              	.LFB19:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::get(void *item, portTickType timeout)
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 228              		.loc 1 66 0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 0
+ 231              		@ frame_needed = 0, uses_anonymous_args = 0
+ 232              	.LVL16:
+ 233 0000 10B5     		push	{r4, lr}
+ 234              	.LCFI5:
+ 235              		.cfi_def_cfa_offset 8
+ 236              		.cfi_offset 4, -8
+ 237              		.cfi_offset 14, -4
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (xQueueReceive(this->handle, item, timeout) == pdTRUE);
+ 238              		.loc 1 67 0
+ 239 0002 0023     		movs	r3, #0
+ 240 0004 044C     		ldr	r4, .L17
+ 241 0006 0068     		ldr	r0, [r0, #0]
+ 242              	.LVL17:
+ 243 0008 A047     		blx	r4
+ 244              	.LVL18:
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 245              		.loc 1 68 0
+ 246 000a B0F1010E 		subs	lr, r0, #1
+ 247 000e DEF10000 		rsbs	r0, lr, #0
+ 248 0012 50EB0E00 		adcs	r0, r0, lr
+ 249 0016 10BD     		pop	{r4, pc}
+ 250              	.L18:
+ 251              		.align	2
+ 252              	.L17:
+ 253 0018 00000000 		.word	xQueueGenericReceive
+ 254              		.cfi_endproc
+ 255              	.LFE19:
+ 257              		.section	.text._ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv,"ax",%progbits
+ 258              		.align	2
+ 259              		.global	_ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv
+ 260              		.thumb
+ 261              		.thumb_func
+ 263              	_ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv:
+ 264              	.LFB20:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::appendFromInterrupt(const void *item)
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 265              		.loc 1 72 0
+ 266              		.cfi_startproc
+ 267              		@ args = 0, pretend = 0, frame = 8
+ 268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 269              	.LVL19:
+ 270 0000 10B5     		push	{r4, lr}
+ 271              	.LCFI6:
+ 272              		.cfi_def_cfa_offset 8
+ 273              		.cfi_offset 4, -8
+ 274              		.cfi_offset 14, -4
+ 275 0002 82B0     		sub	sp, sp, #8
+ 276              	.LCFI7:
+ 277              		.cfi_def_cfa_offset 16
+ 278              	.LBB6:
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE threadWoken = pdFALSE;
+ 279              		.loc 1 73 0
+ 280 0004 02AA     		add	r2, sp, #8
+ 281 0006 0023     		movs	r3, #0
+ 282 0008 42F8043D 		str	r3, [r2, #-4]!
+ 283              	.LVL20:
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueSendToBackFromISR(this->handle, item, &threadWoken);
+ 284              		.loc 1 74 0
+ 285 000c 074C     		ldr	r4, .L25
+ 286 000e 0068     		ldr	r0, [r0, #0]
+ 287              	.LVL21:
+ 288 0010 A047     		blx	r4
+ 289              	.LVL22:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// Request a context switch when the IRQ ends if a higher priorty has
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// been woken.
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portEND_SWITCHING_ISR(threadWoken);
+ 290              		.loc 1 78 0
+ 291 0012 019B     		ldr	r3, [sp, #4]
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueSendToBackFromISR(this->handle, item, &threadWoken);
+ 292              		.loc 1 74 0
+ 293 0014 0446     		mov	r4, r0
+ 294              	.LVL23:
+ 295              		.loc 1 78 0
+ 296 0016 0BB1     		cbz	r3, .L20
+ 297              		.loc 1 78 0 is_stmt 0 discriminator 1
+ 298 0018 054B     		ldr	r3, .L25+4
+ 299 001a 9847     		blx	r3
+ 300              	.LVL24:
+ 301              	.L20:
+ 302              	.LBE6:
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (result == pdPASS);
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 303              		.loc 1 81 0 is_stmt 1
+ 304 001c B4F1010C 		subs	ip, r4, #1
+ 305 0020 DCF10000 		rsbs	r0, ip, #0
+ 306 0024 50EB0C00 		adcs	r0, r0, ip
+ 307 0028 02B0     		add	sp, sp, #8
+ 308 002a 10BD     		pop	{r4, pc}
+ 309              	.L26:
+ 310              		.align	2
+ 311              	.L25:
+ 312 002c 00000000 		.word	xQueueGenericSendFromISR
+ 313 0030 00000000 		.word	vPortYieldFromISR
+ 314              		.cfi_endproc
+ 315              	.LFE20:
+ 317              		.section	.text._ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv,"ax",%progbits
+ 318              		.align	2
+ 319              		.global	_ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv
+ 320              		.thumb
+ 321              		.thumb_func
+ 323              	_ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv:
+ 324              	.LFB21:
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::prependFromInterrupt(const void *item)
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 325              		.loc 1 85 0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 8
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329              	.LVL25:
+ 330 0000 10B5     		push	{r4, lr}
+ 331              	.LCFI8:
+ 332              		.cfi_def_cfa_offset 8
+ 333              		.cfi_offset 4, -8
+ 334              		.cfi_offset 14, -4
+ 335 0002 82B0     		sub	sp, sp, #8
+ 336              	.LCFI9:
+ 337              		.cfi_def_cfa_offset 16
+ 338              	.LBB7:
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE threadWoken = pdFALSE;
+ 339              		.loc 1 86 0
+ 340 0004 02AA     		add	r2, sp, #8
+ 341 0006 0023     		movs	r3, #0
+ 342 0008 42F8043D 		str	r3, [r2, #-4]!
+ 343              	.LVL26:
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueSendToFrontFromISR(this->handle, item, &threadWoken);
+ 344              		.loc 1 87 0
+ 345 000c 064C     		ldr	r4, .L32
+ 346 000e 0068     		ldr	r0, [r0, #0]
+ 347              	.LVL27:
+ 348 0010 0123     		movs	r3, #1
+ 349 0012 A047     		blx	r4
+ 350              	.LVL28:
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// Request a context switch when the IRQ ends if a higher priorty has
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// been woken.
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portEND_SWITCHING_ISR(threadWoken);
+ 351              		.loc 1 91 0
+ 352 0014 019B     		ldr	r3, [sp, #4]
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueSendToFrontFromISR(this->handle, item, &threadWoken);
+ 353              		.loc 1 87 0
+ 354 0016 0446     		mov	r4, r0
+ 355              	.LVL29:
+ 356              		.loc 1 91 0
+ 357 0018 0BB1     		cbz	r3, .L28
+ 358              		.loc 1 91 0 is_stmt 0 discriminator 1
+ 359 001a 044B     		ldr	r3, .L32+4
+ 360 001c 9847     		blx	r3
+ 361              	.LVL30:
+ 362              	.L28:
+ 363              	.LBE7:
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (result == pdPASS);
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 364              		.loc 1 94 0 is_stmt 1
+ 365 001e 631E     		subs	r3, r4, #1
+ 366 0020 5842     		rsbs	r0, r3, #0
+ 367 0022 5841     		adcs	r0, r0, r3
+ 368 0024 02B0     		add	sp, sp, #8
+ 369 0026 10BD     		pop	{r4, pc}
+ 370              	.L33:
+ 371              		.align	2
+ 372              	.L32:
+ 373 0028 00000000 		.word	xQueueGenericSendFromISR
+ 374 002c 00000000 		.word	vPortYieldFromISR
+ 375              		.cfi_endproc
+ 376              	.LFE21:
+ 378              		.section	.text._ZN4xpcc4rtos9QueueBase16getFromInterruptEPv,"ax",%progbits
+ 379              		.align	2
+ 380              		.global	_ZN4xpcc4rtos9QueueBase16getFromInterruptEPv
+ 381              		.thumb
+ 382              		.thumb_func
+ 384              	_ZN4xpcc4rtos9QueueBase16getFromInterruptEPv:
+ 385              	.LFB22:
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** bool
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** xpcc::rtos::QueueBase::getFromInterrupt(void *item)
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** {
+ 386              		.loc 1 98 0
+ 387              		.cfi_startproc
+ 388              		@ args = 0, pretend = 0, frame = 8
+ 389              		@ frame_needed = 0, uses_anonymous_args = 0
+ 390              	.LVL31:
+ 391 0000 10B5     		push	{r4, lr}
+ 392              	.LCFI10:
+ 393              		.cfi_def_cfa_offset 8
+ 394              		.cfi_offset 4, -8
+ 395              		.cfi_offset 14, -4
+ 396 0002 82B0     		sub	sp, sp, #8
+ 397              	.LCFI11:
+ 398              		.cfi_def_cfa_offset 16
+ 399              	.LBB8:
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE threadWoken = pdFALSE;
+ 400              		.loc 1 99 0
+ 401 0004 02AA     		add	r2, sp, #8
+ 402 0006 0023     		movs	r3, #0
+ 403 0008 42F8043D 		str	r3, [r2, #-4]!
+ 404              	.LVL32:
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueReceiveFromISR(this->handle, item, &threadWoken);
+ 405              		.loc 1 100 0
+ 406 000c 0068     		ldr	r0, [r0, #0]
+ 407              	.LVL33:
+ 408 000e 064B     		ldr	r3, .L39
+ 409 0010 9847     		blx	r3
+ 410              	.LVL34:
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// Request a context switch when the IRQ ends if a higher priorty has
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	// been woken.
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portEND_SWITCHING_ISR(threadWoken);
+ 411              		.loc 1 104 0
+ 412 0012 019B     		ldr	r3, [sp, #4]
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	portBASE_TYPE result = xQueueReceiveFromISR(this->handle, item, &threadWoken);
+ 413              		.loc 1 100 0
+ 414 0014 0446     		mov	r4, r0
+ 415              	.LVL35:
+ 416              		.loc 1 104 0
+ 417 0016 0BB1     		cbz	r3, .L35
+ 418              		.loc 1 104 0 is_stmt 0 discriminator 1
+ 419 0018 044B     		ldr	r3, .L39+4
+ 420 001a 9847     		blx	r3
+ 421              	.LVL36:
+ 422              	.L35:
+ 423              	.LBE8:
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** 	return (result == pdTRUE);
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/queue.cpp **** }
+ 424              		.loc 1 107 0 is_stmt 1
+ 425 001c 621E     		subs	r2, r4, #1
+ 426 001e 5042     		rsbs	r0, r2, #0
+ 427 0020 5041     		adcs	r0, r0, r2
+ 428 0022 02B0     		add	sp, sp, #8
+ 429 0024 10BD     		pop	{r4, pc}
+ 430              	.L40:
+ 431 0026 00BF     		.align	2
+ 432              	.L39:
+ 433 0028 00000000 		.word	xQueueReceiveFromISR
+ 434 002c 00000000 		.word	vPortYieldFromISR
+ 435              		.cfi_endproc
+ 436              	.LFE22:
+ 438              		.text
+ 439              	.Letext0:
+ 440              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h"
+ 441              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/queue.h"
+ 442              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/../freertos/queue
+ 443              		.file 5 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 444              		.file 6 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 queue.cpp
+     /tmp/cc0I4DWj.s:20     .text._ZN4xpcc4rtos9QueueBaseC2Emm:00000000 $t
+     /tmp/cc0I4DWj.s:25     .text._ZN4xpcc4rtos9QueueBaseC2Emm:00000000 _ZN4xpcc4rtos9QueueBaseC2Emm
+     /tmp/cc0I4DWj.s:60     .text._ZN4xpcc4rtos9QueueBaseC2Emm:00000014 $d
+     /tmp/cc0I4DWj.s:25     .text._ZN4xpcc4rtos9QueueBaseC2Emm:00000000 _ZN4xpcc4rtos9QueueBaseC1Emm
+     /tmp/cc0I4DWj.s:67     .text._ZN4xpcc4rtos9QueueBaseD2Ev:00000000 $t
+     /tmp/cc0I4DWj.s:72     .text._ZN4xpcc4rtos9QueueBaseD2Ev:00000000 _ZN4xpcc4rtos9QueueBaseD2Ev
+     /tmp/cc0I4DWj.s:103    .text._ZN4xpcc4rtos9QueueBaseD2Ev:00000010 $d
+     /tmp/cc0I4DWj.s:72     .text._ZN4xpcc4rtos9QueueBaseD2Ev:00000000 _ZN4xpcc4rtos9QueueBaseD1Ev
+     /tmp/cc0I4DWj.s:110    .text._ZN4xpcc4rtos9QueueBase6appendEPKvm:00000000 $t
+     /tmp/cc0I4DWj.s:115    .text._ZN4xpcc4rtos9QueueBase6appendEPKvm:00000000 _ZN4xpcc4rtos9QueueBase6appendEPKvm
+     /tmp/cc0I4DWj.s:142    .text._ZN4xpcc4rtos9QueueBase6appendEPKvm:00000014 $d
+     /tmp/cc0I4DWj.s:147    .text._ZN4xpcc4rtos9QueueBase7prependEPKvm:00000000 $t
+     /tmp/cc0I4DWj.s:152    .text._ZN4xpcc4rtos9QueueBase7prependEPKvm:00000000 _ZN4xpcc4rtos9QueueBase7prependEPKvm
+     /tmp/cc0I4DWj.s:179    .text._ZN4xpcc4rtos9QueueBase7prependEPKvm:00000014 $d
+     /tmp/cc0I4DWj.s:184    .text._ZNK4xpcc4rtos9QueueBase4peekEPvm:00000000 $t
+     /tmp/cc0I4DWj.s:189    .text._ZNK4xpcc4rtos9QueueBase4peekEPvm:00000000 _ZNK4xpcc4rtos9QueueBase4peekEPvm
+     /tmp/cc0I4DWj.s:216    .text._ZNK4xpcc4rtos9QueueBase4peekEPvm:00000014 $d
+     /tmp/cc0I4DWj.s:221    .text._ZN4xpcc4rtos9QueueBase3getEPvm:00000000 $t
+     /tmp/cc0I4DWj.s:226    .text._ZN4xpcc4rtos9QueueBase3getEPvm:00000000 _ZN4xpcc4rtos9QueueBase3getEPvm
+     /tmp/cc0I4DWj.s:253    .text._ZN4xpcc4rtos9QueueBase3getEPvm:00000018 $d
+     /tmp/cc0I4DWj.s:258    .text._ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv:00000000 $t
+     /tmp/cc0I4DWj.s:263    .text._ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv:00000000 _ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv
+     /tmp/cc0I4DWj.s:312    .text._ZN4xpcc4rtos9QueueBase19appendFromInterruptEPKv:0000002c $d
+     /tmp/cc0I4DWj.s:318    .text._ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv:00000000 $t
+     /tmp/cc0I4DWj.s:323    .text._ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv:00000000 _ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv
+     /tmp/cc0I4DWj.s:373    .text._ZN4xpcc4rtos9QueueBase20prependFromInterruptEPKv:00000028 $d
+     /tmp/cc0I4DWj.s:379    .text._ZN4xpcc4rtos9QueueBase16getFromInterruptEPv:00000000 $t
+     /tmp/cc0I4DWj.s:384    .text._ZN4xpcc4rtos9QueueBase16getFromInterruptEPv:00000000 _ZN4xpcc4rtos9QueueBase16getFromInterruptEPv
+     /tmp/cc0I4DWj.s:433    .text._ZN4xpcc4rtos9QueueBase16getFromInterruptEPv:00000028 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+xQueueCreate
+vQueueDelete
+xQueueGenericSend
+xQueueGenericReceive
+xQueueGenericSendFromISR
+vPortYieldFromISR
+xQueueReceiveFromISR

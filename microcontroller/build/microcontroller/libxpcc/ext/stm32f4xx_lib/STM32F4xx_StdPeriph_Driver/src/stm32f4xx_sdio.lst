@@ -1,0 +1,2010 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"stm32f4xx_sdio.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SDIO_DeInit,"ax",%progbits
+  20              		.align	2
+  21              		.global	SDIO_DeInit
+  22              		.thumb
+  23              		.thumb_func
+  25              	SDIO_DeInit:
+  26              	.LFB110:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   ******************************************************************************
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @file    stm32f4xx_sdio.c
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @author  MCD Application Team
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @version V1.0.0
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @date    30-September-2011
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief   This file provides firmware functions to manage the following 
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          functionalities of the Secure digital input/output interface (SDIO) 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          peripheral:
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - Initialization and Configuration
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - Command path state machine (CPSM) management
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - Data path state machine (DPSM) management
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - SDIO IO Cards mode management
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - CE-ATA mode management
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - DMA transfers management
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *           - Interrupts and flags management
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *  @verbatim
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          ===================================================================
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                                 How to use this driver
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          ===================================================================
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          1. The SDIO clock (SDIOCLK = 48 MHz) is coming from a specific output
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             of PLL (PLL48CLK). Before to start working with SDIO peripheral
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             make sure that the PLL is well configured.
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          The SDIO peripheral uses two clock signals:
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              - SDIO adapter clock (SDIOCLK = 48 MHz)
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              - APB2 bus clock (PCLK2)
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          PCLK2 and SDIO_CK clock frequencies must respect the following condition:
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   Frequenc(PCLK2) >= (3 / 8 x Frequency(SDIO_CK))
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          2. Enable peripheral clock using RCC_APB2PeriphClockCmd(RCC_APB2Periph_SDIO, ENABLE).
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          3.  According to the SDIO mode, enable the GPIO clocks using 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              RCC_AHB1PeriphClockCmd() function. 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              The I/O can be one of the following configurations:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - 1-bit data length: SDIO_CMD, SDIO_CK and D0.
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - 4-bit data length: SDIO_CMD, SDIO_CK and D[3:0].
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - 8-bit data length: SDIO_CMD, SDIO_CK and D[7:0].      
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          4. Peripheral's alternate function: 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - Connect the pin to the desired peripherals' Alternate 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   Function (AF) using GPIO_PinAFConfig() function
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - Configure the desired pin in alternate function by:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - Select the type, pull-up/pull-down and output speed via 
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   GPIO_PuPd, GPIO_OType and GPIO_Speed members
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 - Call GPIO_Init() function
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          5. Program the Clock Edge, Clock Bypass, Clock Power Save, Bus Wide, 
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             hardware, flow control and the Clock Divider using the SDIO_Init()
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             function.
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          6. Enable the Power ON State using the SDIO_SetPowerState(SDIO_PowerState_ON) 
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             function.
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          7. Enable the clock using the SDIO_ClockCmd() function.
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          8. Enable the NVIC and the corresponding interrupt using the function 
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *             SDIO_ITConfig() if you need to use interrupt mode. 
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          9. When using the DMA mode 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Configure the DMA using DMA_Init() function
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Active the needed channel Request using SDIO_DMACmd() function
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          10. Enable the DMA using the DMA_Cmd() function, when using DMA mode. 
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          11. To control the CPSM (Command Path State Machine) and send 
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              commands to the card use the SDIO_SendCommand(), 
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              SDIO_GetCommandResponse() and SDIO_GetResponse() functions.     
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              First, user has to fill the command structure (pointer to
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              SDIO_CmdInitTypeDef) according to the selected command to be sent.
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 The parameters that should be filled are:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Command Argument
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Command Index
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Command Response type
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Command Wait
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - CPSM Status (Enable or Disable)
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              To check if the command is well received, read the SDIO_CMDRESP
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              register using the SDIO_GetCommandResponse().
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              The SDIO responses registers (SDIO_RESP1 to SDIO_RESP2), use the
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              SDIO_GetResponse() function.
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          12. To control the DPSM (Data Path State Machine) and send/receive 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              data to/from the card use the SDIO_DataConfig(), SDIO_GetDataCounter(), 
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              SDIO_ReadData(), SDIO_WriteData() and SDIO_GetFIFOCount() functions.
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              Read Operations
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              ---------------
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              a) First, user has to fill the data structure (pointer to
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 SDIO_DataInitTypeDef) according to the selected data type to
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 be received.
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 The parameters that should be filled are:
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data TimeOut
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Length
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Block size
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Transfer direction: should be from card (To SDIO)
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Transfer mode
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - DPSM Status (Enable or Disable)
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                                   
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              b) Configure the SDIO resources to receive the data from the card
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 according to selected transfer mode (Refer to Step 8, 9 and 10).
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              c) Send the selected Read command (refer to step 11).
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                  
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              d) Use the SDIO flags/interrupts to check the transfer status.
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              Write Operations
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              ---------------
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              a) First, user has to fill the data structure (pointer to
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 SDIO_DataInitTypeDef) according to the selected data type to
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 be received.
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 The parameters that should be filled are:
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data TimeOut
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Length
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Block size
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Transfer direction:  should be to card (To CARD)
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - Data Transfer mode
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   - DPSM Status (Enable or Disable)
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              b) Configure the SDIO resources to send the data to the card
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                 according to selected transfer mode (Refer to Step 8, 9 and 10).
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                   
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              c) Send the selected Write command (refer to step 11).
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                  
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *              d) Use the SDIO flags/interrupts to check the transfer status.
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *  @endverbatim
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   ******************************************************************************
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @attention
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   ******************************************************************************
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Includes ------------------------------------------------------------------*/
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #include "stm32f4xx_sdio.h"
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #include "stm32f4xx_rcc.h"
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO 
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief SDIO driver modules
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */ 
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private typedef -----------------------------------------------------------*/
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private define ------------------------------------------------------------*/
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* ------------ SDIO registers bit address in the alias region ----------- */
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define SDIO_OFFSET                (SDIO_BASE - PERIPH_BASE)
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- CLKCR Register ---*/
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of CLKEN bit */
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CLKCR_OFFSET              (SDIO_OFFSET + 0x04)
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CLKEN_BitNumber           0x08
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CLKCR_CLKEN_BB            (PERIPH_BB_BASE + (CLKCR_OFFSET * 32) + (CLKEN_BitNumber * 4))
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- CMD Register ---*/
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of SDIOSUSPEND bit */
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_OFFSET                (SDIO_OFFSET + 0x0C)
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define SDIOSUSPEND_BitNumber     0x0B
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_SDIOSUSPEND_BB        (PERIPH_BB_BASE + (CMD_OFFSET * 32) + (SDIOSUSPEND_BitNumber * 4)
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of ENCMDCOMPL bit */
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define ENCMDCOMPL_BitNumber      0x0C
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_ENCMDCOMPL_BB         (PERIPH_BB_BASE + (CMD_OFFSET * 32) + (ENCMDCOMPL_BitNumber * 4))
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of NIEN bit */
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define NIEN_BitNumber            0x0D
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_NIEN_BB               (PERIPH_BB_BASE + (CMD_OFFSET * 32) + (NIEN_BitNumber * 4))
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of ATACMD bit */
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define ATACMD_BitNumber          0x0E
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_ATACMD_BB             (PERIPH_BB_BASE + (CMD_OFFSET * 32) + (ATACMD_BitNumber * 4))
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- DCTRL Register ---*/
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of DMAEN bit */
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_OFFSET              (SDIO_OFFSET + 0x2C)
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DMAEN_BitNumber           0x03
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_DMAEN_BB            (PERIPH_BB_BASE + (DCTRL_OFFSET * 32) + (DMAEN_BitNumber * 4))
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of RWSTART bit */
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define RWSTART_BitNumber         0x08
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_RWSTART_BB          (PERIPH_BB_BASE + (DCTRL_OFFSET * 32) + (RWSTART_BitNumber * 4))
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of RWSTOP bit */
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define RWSTOP_BitNumber          0x09
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_RWSTOP_BB           (PERIPH_BB_BASE + (DCTRL_OFFSET * 32) + (RWSTOP_BitNumber * 4))
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of RWMOD bit */
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define RWMOD_BitNumber           0x0A
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_RWMOD_BB            (PERIPH_BB_BASE + (DCTRL_OFFSET * 32) + (RWMOD_BitNumber * 4))
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Alias word address of SDIOEN bit */
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define SDIOEN_BitNumber          0x0B
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_SDIOEN_BB           (PERIPH_BB_BASE + (DCTRL_OFFSET * 32) + (SDIOEN_BitNumber * 4))
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* ---------------------- SDIO registers bit mask ------------------------ */
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- CLKCR Register ---*/
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* CLKCR register clear mask */
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CLKCR_CLEAR_MASK         ((uint32_t)0xFFFF8100) 
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- PWRCTRL Register ---*/
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* SDIO PWRCTRL Mask */
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define PWR_PWRCTRL_MASK         ((uint32_t)0xFFFFFFFC)
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- DCTRL Register ---*/
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* SDIO DCTRL Clear Mask */
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define DCTRL_CLEAR_MASK         ((uint32_t)0xFFFFFF08)
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* --- CMD Register ---*/
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* CMD Register clear mask */
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define CMD_CLEAR_MASK           ((uint32_t)0xFFFFF800)
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* SDIO RESP Registers Address */
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** #define SDIO_RESP_ADDR           ((uint32_t)(SDIO_BASE + 0x14))
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private macro -------------------------------------------------------------*/
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private variables ---------------------------------------------------------*/
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private function prototypes -----------------------------------------------*/
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /* Private functions ---------------------------------------------------------*/
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Private_Functions
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group1 Initialization and Configuration functions
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   Initialization and Configuration functions 
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****                  Initialization and Configuration functions
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Deinitializes the SDIO peripheral registers to their default reset values.
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_DeInit(void)
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+  28              		.loc 1 260 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, ENABLE);
+  37              		.loc 1 261 0
+  38 0002 0121     		movs	r1, #1
+  39 0004 4FF40060 		mov	r0, #2048
+  40 0008 034C     		ldr	r4, .L2
+  41 000a A047     		blx	r4
+  42              	.LVL0:
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   RCC_APB2PeriphResetCmd(RCC_APB2Periph_SDIO, DISABLE);
+  43              		.loc 1 262 0
+  44 000c 4FF40060 		mov	r0, #2048
+  45 0010 0021     		movs	r1, #0
+  46 0012 A047     		blx	r4
+  47              	.LVL1:
+  48 0014 10BD     		pop	{r4, pc}
+  49              	.L3:
+  50 0016 00BF     		.align	2
+  51              	.L2:
+  52 0018 00000000 		.word	RCC_APB2PeriphResetCmd
+  53              		.cfi_endproc
+  54              	.LFE110:
+  56              		.section	.text.SDIO_Init,"ax",%progbits
+  57              		.align	2
+  58              		.global	SDIO_Init
+  59              		.thumb
+  60              		.thumb_func
+  62              	SDIO_Init:
+  63              	.LFB111:
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Initializes the SDIO peripheral according to the specified 
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         parameters in the SDIO_InitStruct.
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_InitStruct : pointer to a SDIO_InitTypeDef structure 
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         that contains the configuration information for the SDIO peripheral.
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_Init(SDIO_InitTypeDef* SDIO_InitStruct)
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+  64              		.loc 1 273 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL2:
+  70 0000 F0B4     		push	{r4, r5, r6, r7}
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 16
+  73              		.cfi_offset 4, -16
+  74              		.cfi_offset 5, -12
+  75              		.cfi_offset 6, -8
+  76              		.cfi_offset 7, -4
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   uint32_t tmpreg = 0;
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CLOCK_EDGE(SDIO_InitStruct->SDIO_ClockEdge));
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CLOCK_BYPASS(SDIO_InitStruct->SDIO_ClockBypass));
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CLOCK_POWER_SAVE(SDIO_InitStruct->SDIO_ClockPowerSave));
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_BUS_WIDE(SDIO_InitStruct->SDIO_BusWide));
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_HARDWARE_FLOW_CONTROL(SDIO_InitStruct->SDIO_HardwareFlowControl)); 
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****    
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO CLKCR Configuration ------------------------*/  
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Get the SDIO CLKCR value */
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->CLKCR;
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Clear CLKDIV, PWRSAV, BYPASS, WIDBUS, NEGEDGE, HWFC_EN bits */
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CLKCR_CLEAR_MASK;
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set CLKDIV bits according to SDIO_ClockDiv value */
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set PWRSAV bit according to SDIO_ClockPowerSave value */
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set BYPASS bit according to SDIO_ClockBypass value */
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set WIDBUS bits according to SDIO_BusWide value */
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set NEGEDGE bits according to SDIO_ClockEdge value */
+ 295:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set HWFC_EN bits according to SDIO_HardwareFlowControl value */
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (SDIO_InitStruct->SDIO_ClockDiv  | SDIO_InitStruct->SDIO_ClockPowerSave |
+  77              		.loc 1 296 0
+  78 0002 D0F804C0 		ldr	ip, [r0, #4]
+  79 0006 8268     		ldr	r2, [r0, #8]
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->CLKCR;
+  80              		.loc 1 285 0
+  81 0008 094B     		ldr	r3, .L5
+  82              		.loc 1 296 0
+  83 000a C768     		ldr	r7, [r0, #12]
+ 297:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****              SDIO_InitStruct->SDIO_ClockBypass | SDIO_InitStruct->SDIO_BusWide |
+  84              		.loc 1 297 0
+  85 000c 0668     		ldr	r6, [r0, #0]
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->CLKCR;
+  86              		.loc 1 285 0
+  87 000e 5D68     		ldr	r5, [r3, #4]
+  88              	.LVL3:
+  89              		.loc 1 297 0
+  90 0010 0469     		ldr	r4, [r0, #16]
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (SDIO_InitStruct->SDIO_ClockDiv  | SDIO_InitStruct->SDIO_ClockPowerSave |
+  91              		.loc 1 296 0
+  92 0012 017D     		ldrb	r1, [r0, #20]	@ zero_extendqisi2
+  93 0014 4CEA0202 		orr	r2, ip, r2
+  94 0018 3A43     		orrs	r2, r2, r7
+  95              		.loc 1 297 0
+  96 001a 3243     		orrs	r2, r2, r6
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CLKCR_CLEAR_MASK;
+  97              		.loc 1 288 0
+  98 001c 25F4FD40 		bic	r0, r5, #32384
+  99              	.LVL4:
+ 100              		.loc 1 297 0
+ 101 0020 2243     		orrs	r2, r2, r4
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CLKCR_CLEAR_MASK;
+ 102              		.loc 1 288 0
+ 103 0022 20F07F00 		bic	r0, r0, #127
+ 298:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****              SDIO_InitStruct->SDIO_ClockEdge | SDIO_InitStruct->SDIO_HardwareFlowControl); 
+ 104              		.loc 1 298 0
+ 105 0026 0243     		orrs	r2, r2, r0
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (SDIO_InitStruct->SDIO_ClockDiv  | SDIO_InitStruct->SDIO_ClockPowerSave |
+ 106              		.loc 1 296 0
+ 107 0028 0A43     		orrs	r2, r2, r1
+ 108              	.LVL5:
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 300:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Write to SDIO CLKCR */
+ 301:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->CLKCR = tmpreg;
+ 109              		.loc 1 301 0
+ 110 002a 5A60     		str	r2, [r3, #4]
+ 302:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 111              		.loc 1 302 0
+ 112 002c F0BC     		pop	{r4, r5, r6, r7}
+ 113 002e 7047     		bx	lr
+ 114              	.L6:
+ 115              		.align	2
+ 116              	.L5:
+ 117 0030 002C0140 		.word	1073818624
+ 118              		.cfi_endproc
+ 119              	.LFE111:
+ 121              		.section	.text.SDIO_StructInit,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	SDIO_StructInit
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	SDIO_StructInit:
+ 128              	.LFB112:
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 304:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 305:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Fills each SDIO_InitStruct member with its default value.
+ 306:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_InitStruct: pointer to an SDIO_InitTypeDef structure which 
+ 307:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         will be initialized.
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 309:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_StructInit(SDIO_InitTypeDef* SDIO_InitStruct)
+ 311:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 129              		.loc 1 311 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 134              	.LVL6:
+ 312:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* SDIO_InitStruct members default value */
+ 313:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_ClockDiv = 0x00;
+ 135              		.loc 1 313 0
+ 136 0000 0023     		movs	r3, #0
+ 137 0002 0375     		strb	r3, [r0, #20]
+ 314:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_ClockEdge = SDIO_ClockEdge_Rising;
+ 138              		.loc 1 314 0
+ 139 0004 0360     		str	r3, [r0, #0]
+ 315:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_ClockBypass = SDIO_ClockBypass_Disable;
+ 140              		.loc 1 315 0
+ 141 0006 4360     		str	r3, [r0, #4]
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_ClockPowerSave = SDIO_ClockPowerSave_Disable;
+ 142              		.loc 1 316 0
+ 143 0008 8360     		str	r3, [r0, #8]
+ 317:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_BusWide = SDIO_BusWide_1b;
+ 144              		.loc 1 317 0
+ 145 000a C360     		str	r3, [r0, #12]
+ 318:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_InitStruct->SDIO_HardwareFlowControl = SDIO_HardwareFlowControl_Disable;
+ 146              		.loc 1 318 0
+ 147 000c 0361     		str	r3, [r0, #16]
+ 148 000e 7047     		bx	lr
+ 149              		.cfi_endproc
+ 150              	.LFE112:
+ 152              		.section	.text.SDIO_ClockCmd,"ax",%progbits
+ 153              		.align	2
+ 154              		.global	SDIO_ClockCmd
+ 155              		.thumb
+ 156              		.thumb_func
+ 158              	SDIO_ClockCmd:
+ 159              	.LFB113:
+ 319:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 320:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 321:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 322:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the SDIO Clock.
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the SDIO Clock. 
+ 324:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 325:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 326:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 327:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_ClockCmd(FunctionalState NewState)
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 160              		.loc 1 328 0
+ 161              		.cfi_startproc
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164              		@ link register save eliminated.
+ 165              	.LVL7:
+ 329:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 330:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 332:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) CLKCR_CLKEN_BB = (uint32_t)NewState;
+ 166              		.loc 1 332 0
+ 167 0000 014B     		ldr	r3, .L9
+ 168 0002 1860     		str	r0, [r3, #0]
+ 169 0004 7047     		bx	lr
+ 170              	.L10:
+ 171 0006 00BF     		.align	2
+ 172              	.L9:
+ 173 0008 A0802542 		.word	1109754016
+ 174              		.cfi_endproc
+ 175              	.LFE113:
+ 177              		.section	.text.SDIO_SetPowerState,"ax",%progbits
+ 178              		.align	2
+ 179              		.global	SDIO_SetPowerState
+ 180              		.thumb
+ 181              		.thumb_func
+ 183              	SDIO_SetPowerState:
+ 184              	.LFB114:
+ 333:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 334:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 335:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 336:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Sets the power status of the controller.
+ 337:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_PowerState: new state of the Power state. 
+ 338:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one of the following values:
+ 339:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_PowerState_OFF: SDIO Power OFF
+ 340:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_PowerState_ON: SDIO Power ON
+ 341:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 342:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SetPowerState(uint32_t SDIO_PowerState)
+ 344:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 185              		.loc 1 344 0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189              		@ link register save eliminated.
+ 190              	.LVL8:
+ 345:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_POWER_STATE(SDIO_PowerState));
+ 347:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 348:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->POWER = SDIO_PowerState;
+ 191              		.loc 1 348 0
+ 192 0000 014B     		ldr	r3, .L12
+ 193 0002 1860     		str	r0, [r3, #0]
+ 194 0004 7047     		bx	lr
+ 195              	.L13:
+ 196 0006 00BF     		.align	2
+ 197              	.L12:
+ 198 0008 002C0140 		.word	1073818624
+ 199              		.cfi_endproc
+ 200              	.LFE114:
+ 202              		.section	.text.SDIO_GetPowerState,"ax",%progbits
+ 203              		.align	2
+ 204              		.global	SDIO_GetPowerState
+ 205              		.thumb
+ 206              		.thumb_func
+ 208              	SDIO_GetPowerState:
+ 209              	.LFB115:
+ 349:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 350:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 351:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 352:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Gets the power status of the controller.
+ 353:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 354:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval Power status of the controller. The returned value can be one of the 
+ 355:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         following values:
+ 356:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            - 0x00: Power OFF
+ 357:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            - 0x02: Power UP
+ 358:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            - 0x03: Power ON 
+ 359:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 360:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint32_t SDIO_GetPowerState(void)
+ 361:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 210              		.loc 1 361 0
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ 362:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return (SDIO->POWER & (~PWR_PWRCTRL_MASK));
+ 215              		.loc 1 362 0
+ 216 0000 024B     		ldr	r3, .L15
+ 217 0002 1868     		ldr	r0, [r3, #0]
+ 363:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 218              		.loc 1 363 0
+ 219 0004 00F00300 		and	r0, r0, #3
+ 220 0008 7047     		bx	lr
+ 221              	.L16:
+ 222 000a 00BF     		.align	2
+ 223              	.L15:
+ 224 000c 002C0140 		.word	1073818624
+ 225              		.cfi_endproc
+ 226              	.LFE115:
+ 228              		.section	.text.SDIO_SendCommand,"ax",%progbits
+ 229              		.align	2
+ 230              		.global	SDIO_SendCommand
+ 231              		.thumb
+ 232              		.thumb_func
+ 234              	SDIO_SendCommand:
+ 235              	.LFB116:
+ 364:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 365:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 366:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 367:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 368:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 369:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group2 Command path state machine (CPSM) management functions
+ 370:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   Command path state machine (CPSM) management functions 
+ 371:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 372:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 373:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 374:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****               Command path state machine (CPSM) management functions
+ 375:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 376:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 377:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   This section provide functions allowing to program and read the Command path 
+ 378:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   state machine (CPSM).
+ 379:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 380:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 381:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 382:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 383:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 384:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 385:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Initializes the SDIO Command according to the specified 
+ 386:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         parameters in the SDIO_CmdInitStruct and send the command.
+ 387:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_CmdInitStruct : pointer to a SDIO_CmdInitTypeDef 
+ 388:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         structure that contains the configuration information for the SDIO 
+ 389:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         command.
+ 390:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 391:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 392:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SendCommand(SDIO_CmdInitTypeDef *SDIO_CmdInitStruct)
+ 393:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 236              		.loc 1 393 0
+ 237              		.cfi_startproc
+ 238              		@ args = 0, pretend = 0, frame = 0
+ 239              		@ frame_needed = 0, uses_anonymous_args = 0
+ 240              		@ link register save eliminated.
+ 241              	.LVL9:
+ 394:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   uint32_t tmpreg = 0;
+ 395:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 396:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 397:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CMD_INDEX(SDIO_CmdInitStruct->SDIO_CmdIndex));
+ 398:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_RESPONSE(SDIO_CmdInitStruct->SDIO_Response));
+ 399:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_WAIT(SDIO_CmdInitStruct->SDIO_Wait));
+ 400:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CPSM(SDIO_CmdInitStruct->SDIO_CPSM));
+ 401:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 402:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO ARG Configuration ------------------------*/
+ 403:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set the SDIO Argument value */
+ 404:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->ARG = SDIO_CmdInitStruct->SDIO_Argument;
+ 242              		.loc 1 404 0
+ 243 0000 0268     		ldr	r2, [r0, #0]
+ 244 0002 094B     		ldr	r3, .L18
+ 393:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 245              		.loc 1 393 0
+ 246 0004 30B4     		push	{r4, r5}
+ 247              	.LCFI2:
+ 248              		.cfi_def_cfa_offset 8
+ 249              		.cfi_offset 4, -8
+ 250              		.cfi_offset 5, -4
+ 251              		.loc 1 404 0
+ 252 0006 9A60     		str	r2, [r3, #8]
+ 405:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 406:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO CMD Configuration ------------------------*/  
+ 407:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Get the SDIO CMD value */
+ 408:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->CMD;
+ 409:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Clear CMDINDEX, WAITRESP, WAITINT, WAITPEND, CPSMEN bits */
+ 410:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CMD_CLEAR_MASK;
+ 411:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set CMDINDEX bits according to SDIO_CmdIndex value */
+ 412:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set WAITRESP bits according to SDIO_Response value */
+ 413:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set WAITINT and WAITPEND bits according to SDIO_Wait value */
+ 414:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set CPSMEN bits according to SDIO_CPSM value */
+ 415:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_CmdInitStruct->SDIO_CmdIndex | SDIO_CmdInitStruct->SDIO_Response
+ 253              		.loc 1 415 0
+ 254 0008 8568     		ldr	r5, [r0, #8]
+ 255 000a 4268     		ldr	r2, [r0, #4]
+ 416:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****            | SDIO_CmdInitStruct->SDIO_Wait | SDIO_CmdInitStruct->SDIO_CPSM;
+ 256              		.loc 1 416 0
+ 257 000c C468     		ldr	r4, [r0, #12]
+ 408:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->CMD;
+ 258              		.loc 1 408 0
+ 259 000e D968     		ldr	r1, [r3, #12]
+ 260              	.LVL10:
+ 261              		.loc 1 416 0
+ 262 0010 0069     		ldr	r0, [r0, #16]
+ 263              	.LVL11:
+ 415:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_CmdInitStruct->SDIO_CmdIndex | SDIO_CmdInitStruct->SDIO_Response
+ 264              		.loc 1 415 0
+ 265 0012 2A43     		orrs	r2, r2, r5
+ 410:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CMD_CLEAR_MASK;
+ 266              		.loc 1 410 0
+ 267 0014 21F4FF61 		bic	r1, r1, #2040
+ 268              	.LVL12:
+ 269              		.loc 1 416 0
+ 270 0018 2243     		orrs	r2, r2, r4
+ 410:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= CMD_CLEAR_MASK;
+ 271              		.loc 1 410 0
+ 272 001a 21F00701 		bic	r1, r1, #7
+ 273              	.LVL13:
+ 274              		.loc 1 416 0
+ 275 001e 0243     		orrs	r2, r2, r0
+ 415:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_CmdInitStruct->SDIO_CmdIndex | SDIO_CmdInitStruct->SDIO_Response
+ 276              		.loc 1 415 0
+ 277 0020 0A43     		orrs	r2, r2, r1
+ 278              	.LVL14:
+ 417:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 418:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Write to SDIO CMD */
+ 419:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->CMD = tmpreg;
+ 279              		.loc 1 419 0
+ 280 0022 DA60     		str	r2, [r3, #12]
+ 420:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 281              		.loc 1 420 0
+ 282 0024 30BC     		pop	{r4, r5}
+ 283 0026 7047     		bx	lr
+ 284              	.L19:
+ 285              		.align	2
+ 286              	.L18:
+ 287 0028 002C0140 		.word	1073818624
+ 288              		.cfi_endproc
+ 289              	.LFE116:
+ 291              		.section	.text.SDIO_CmdStructInit,"ax",%progbits
+ 292              		.align	2
+ 293              		.global	SDIO_CmdStructInit
+ 294              		.thumb
+ 295              		.thumb_func
+ 297              	SDIO_CmdStructInit:
+ 298              	.LFB117:
+ 421:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 422:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 423:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Fills each SDIO_CmdInitStruct member with its default value.
+ 424:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_CmdInitStruct: pointer to an SDIO_CmdInitTypeDef 
+ 425:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         structure which will be initialized.
+ 426:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 427:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 428:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_CmdStructInit(SDIO_CmdInitTypeDef* SDIO_CmdInitStruct)
+ 429:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 299              		.loc 1 429 0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		@ link register save eliminated.
+ 304              	.LVL15:
+ 430:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* SDIO_CmdInitStruct members default value */
+ 431:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_CmdInitStruct->SDIO_Argument = 0x00;
+ 305              		.loc 1 431 0
+ 306 0000 0023     		movs	r3, #0
+ 307 0002 0360     		str	r3, [r0, #0]
+ 432:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_CmdInitStruct->SDIO_CmdIndex = 0x00;
+ 308              		.loc 1 432 0
+ 309 0004 4360     		str	r3, [r0, #4]
+ 433:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_CmdInitStruct->SDIO_Response = SDIO_Response_No;
+ 310              		.loc 1 433 0
+ 311 0006 8360     		str	r3, [r0, #8]
+ 434:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_CmdInitStruct->SDIO_Wait = SDIO_Wait_No;
+ 312              		.loc 1 434 0
+ 313 0008 C360     		str	r3, [r0, #12]
+ 435:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_CmdInitStruct->SDIO_CPSM = SDIO_CPSM_Disable;
+ 314              		.loc 1 435 0
+ 315 000a 0361     		str	r3, [r0, #16]
+ 316 000c 7047     		bx	lr
+ 317              		.cfi_endproc
+ 318              	.LFE117:
+ 320 000e 00BF     		.section	.text.SDIO_GetCommandResponse,"ax",%progbits
+ 321              		.align	2
+ 322              		.global	SDIO_GetCommandResponse
+ 323              		.thumb
+ 324              		.thumb_func
+ 326              	SDIO_GetCommandResponse:
+ 327              	.LFB118:
+ 436:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 437:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 438:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 439:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Returns command index of last command for which response received.
+ 440:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 441:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval Returns the command index of the last command response received.
+ 442:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 443:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint8_t SDIO_GetCommandResponse(void)
+ 444:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 328              		.loc 1 444 0
+ 329              		.cfi_startproc
+ 330              		@ args = 0, pretend = 0, frame = 0
+ 331              		@ frame_needed = 0, uses_anonymous_args = 0
+ 332              		@ link register save eliminated.
+ 445:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return (uint8_t)(SDIO->RESPCMD);
+ 333              		.loc 1 445 0
+ 334 0000 014B     		ldr	r3, .L22
+ 335 0002 1869     		ldr	r0, [r3, #16]
+ 446:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 336              		.loc 1 446 0
+ 337 0004 C0B2     		uxtb	r0, r0
+ 338 0006 7047     		bx	lr
+ 339              	.L23:
+ 340              		.align	2
+ 341              	.L22:
+ 342 0008 002C0140 		.word	1073818624
+ 343              		.cfi_endproc
+ 344              	.LFE118:
+ 346              		.section	.text.SDIO_GetResponse,"ax",%progbits
+ 347              		.align	2
+ 348              		.global	SDIO_GetResponse
+ 349              		.thumb
+ 350              		.thumb_func
+ 352              	SDIO_GetResponse:
+ 353              	.LFB119:
+ 447:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 448:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 449:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Returns response received from the card for the last command.
+ 450:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_RESP: Specifies the SDIO response register. 
+ 451:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one of the following values:
+ 452:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_RESP1: Response Register 1
+ 453:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_RESP2: Response Register 2
+ 454:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_RESP3: Response Register 3
+ 455:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_RESP4: Response Register 4
+ 456:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval The Corresponding response register value.
+ 457:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 458:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint32_t SDIO_GetResponse(uint32_t SDIO_RESP)
+ 459:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 354              		.loc 1 459 0
+ 355              		.cfi_startproc
+ 356              		@ args = 0, pretend = 0, frame = 8
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358              		@ link register save eliminated.
+ 359              	.LVL16:
+ 460:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   __IO uint32_t tmp = 0;
+ 461:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 462:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 463:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_RESP(SDIO_RESP));
+ 464:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 465:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmp = SDIO_RESP_ADDR + SDIO_RESP;
+ 360              		.loc 1 465 0
+ 361 0000 044B     		ldr	r3, .L25
+ 362              	.LVL17:
+ 459:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 363              		.loc 1 459 0
+ 364 0002 82B0     		sub	sp, sp, #8
+ 365              	.LCFI3:
+ 366              		.cfi_def_cfa_offset 8
+ 367              		.loc 1 465 0
+ 368 0004 C318     		adds	r3, r0, r3
+ 369              	.LVL18:
+ 460:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   __IO uint32_t tmp = 0;
+ 370              		.loc 1 460 0
+ 371 0006 0022     		movs	r2, #0
+ 372 0008 0192     		str	r2, [sp, #4]
+ 373              	.LVL19:
+ 374              		.loc 1 465 0
+ 375 000a 0193     		str	r3, [sp, #4]
+ 466:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 467:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return (*(__IO uint32_t *) tmp); 
+ 376              		.loc 1 467 0
+ 377 000c 019B     		ldr	r3, [sp, #4]
+ 378 000e 1868     		ldr	r0, [r3, #0]
+ 379              	.LVL20:
+ 468:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 380              		.loc 1 468 0
+ 381 0010 02B0     		add	sp, sp, #8
+ 382 0012 7047     		bx	lr
+ 383              	.L26:
+ 384              		.align	2
+ 385              	.L25:
+ 386 0014 142C0140 		.word	1073818644
+ 387              		.cfi_endproc
+ 388              	.LFE119:
+ 390              		.section	.text.SDIO_DataConfig,"ax",%progbits
+ 391              		.align	2
+ 392              		.global	SDIO_DataConfig
+ 393              		.thumb
+ 394              		.thumb_func
+ 396              	SDIO_DataConfig:
+ 397              	.LFB120:
+ 469:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 470:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 471:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 472:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 473:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 474:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group3 Data path state machine (DPSM) management functions
+ 475:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   Data path state machine (DPSM) management functions
+ 476:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 477:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 478:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 479:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****               Data path state machine (DPSM) management functions
+ 480:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 481:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 482:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   This section provide functions allowing to program and read the Data path 
+ 483:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   state machine (DPSM).
+ 484:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 485:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 486:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 487:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 488:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 489:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 490:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Initializes the SDIO data path according to the specified 
+ 491:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         parameters in the SDIO_DataInitStruct.
+ 492:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_DataInitStruct : pointer to a SDIO_DataInitTypeDef structure 
+ 493:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         that contains the configuration information for the SDIO command.
+ 494:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 495:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 496:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_DataConfig(SDIO_DataInitTypeDef* SDIO_DataInitStruct)
+ 497:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 398              		.loc 1 497 0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 0
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              		@ link register save eliminated.
+ 403              	.LVL21:
+ 498:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   uint32_t tmpreg = 0;
+ 499:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 500:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 501:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_DATA_LENGTH(SDIO_DataInitStruct->SDIO_DataLength));
+ 502:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_BLOCK_SIZE(SDIO_DataInitStruct->SDIO_DataBlockSize));
+ 503:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_TRANSFER_DIR(SDIO_DataInitStruct->SDIO_TransferDir));
+ 504:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_TRANSFER_MODE(SDIO_DataInitStruct->SDIO_TransferMode));
+ 505:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_DPSM(SDIO_DataInitStruct->SDIO_DPSM));
+ 506:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 507:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO DTIMER Configuration ---------------------*/
+ 508:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set the SDIO Data TimeOut value */
+ 509:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->DTIMER = SDIO_DataInitStruct->SDIO_DataTimeOut;
+ 404              		.loc 1 509 0
+ 405 0000 0268     		ldr	r2, [r0, #0]
+ 406 0002 094B     		ldr	r3, .L28
+ 497:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 407              		.loc 1 497 0
+ 408 0004 30B4     		push	{r4, r5}
+ 409              	.LCFI4:
+ 410              		.cfi_def_cfa_offset 8
+ 411              		.cfi_offset 4, -8
+ 412              		.cfi_offset 5, -4
+ 413              		.loc 1 509 0
+ 414 0006 5A62     		str	r2, [r3, #36]
+ 510:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 511:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO DLEN Configuration -----------------------*/
+ 512:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set the SDIO DataLength value */
+ 513:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->DLEN = SDIO_DataInitStruct->SDIO_DataLength;
+ 415              		.loc 1 513 0
+ 416 0008 4268     		ldr	r2, [r0, #4]
+ 417 000a 9A62     		str	r2, [r3, #40]
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 515:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /*---------------------------- SDIO DCTRL Configuration ----------------------*/  
+ 516:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Get the SDIO DCTRL value */
+ 517:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->DCTRL;
+ 518:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Clear DEN, DTMODE, DTDIR and DBCKSIZE bits */
+ 519:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= DCTRL_CLEAR_MASK;
+ 520:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set DEN bit according to SDIO_DPSM value */
+ 521:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set DTMODE bit according to SDIO_TransferMode value */
+ 522:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set DTDIR bit according to SDIO_TransferDir value */
+ 523:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Set DBCKSIZE bits according to SDIO_DataBlockSize value */
+ 524:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_DataInitStruct->SDIO_DataBlockSize | SDIO_DataInitStruct->SDIO_TransferD
+ 418              		.loc 1 524 0
+ 419 000c C568     		ldr	r5, [r0, #12]
+ 420 000e 8268     		ldr	r2, [r0, #8]
+ 525:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****            | SDIO_DataInitStruct->SDIO_TransferMode | SDIO_DataInitStruct->SDIO_DPSM;
+ 421              		.loc 1 525 0
+ 422 0010 0469     		ldr	r4, [r0, #16]
+ 517:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg = SDIO->DCTRL;
+ 423              		.loc 1 517 0
+ 424 0012 D96A     		ldr	r1, [r3, #44]
+ 425              	.LVL22:
+ 426              		.loc 1 525 0
+ 427 0014 4069     		ldr	r0, [r0, #20]
+ 428              	.LVL23:
+ 524:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_DataInitStruct->SDIO_DataBlockSize | SDIO_DataInitStruct->SDIO_TransferD
+ 429              		.loc 1 524 0
+ 430 0016 2A43     		orrs	r2, r2, r5
+ 431              		.loc 1 525 0
+ 432 0018 2243     		orrs	r2, r2, r4
+ 519:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg &= DCTRL_CLEAR_MASK;
+ 433              		.loc 1 519 0
+ 434 001a 21F0F701 		bic	r1, r1, #247
+ 435              	.LVL24:
+ 436              		.loc 1 525 0
+ 437 001e 0243     		orrs	r2, r2, r0
+ 524:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   tmpreg |= (uint32_t)SDIO_DataInitStruct->SDIO_DataBlockSize | SDIO_DataInitStruct->SDIO_TransferD
+ 438              		.loc 1 524 0
+ 439 0020 0A43     		orrs	r2, r2, r1
+ 440              	.LVL25:
+ 526:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 527:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Write to SDIO DCTRL */
+ 528:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->DCTRL = tmpreg;
+ 441              		.loc 1 528 0
+ 442 0022 DA62     		str	r2, [r3, #44]
+ 529:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 443              		.loc 1 529 0
+ 444 0024 30BC     		pop	{r4, r5}
+ 445 0026 7047     		bx	lr
+ 446              	.L29:
+ 447              		.align	2
+ 448              	.L28:
+ 449 0028 002C0140 		.word	1073818624
+ 450              		.cfi_endproc
+ 451              	.LFE120:
+ 453              		.section	.text.SDIO_DataStructInit,"ax",%progbits
+ 454              		.align	2
+ 455              		.global	SDIO_DataStructInit
+ 456              		.thumb
+ 457              		.thumb_func
+ 459              	SDIO_DataStructInit:
+ 460              	.LFB121:
+ 530:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 531:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 532:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Fills each SDIO_DataInitStruct member with its default value.
+ 533:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_DataInitStruct: pointer to an SDIO_DataInitTypeDef structure 
+ 534:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         which will be initialized.
+ 535:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 536:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 537:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_DataStructInit(SDIO_DataInitTypeDef* SDIO_DataInitStruct)
+ 538:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 461              		.loc 1 538 0
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 0
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
+ 465              		@ link register save eliminated.
+ 466              	.LVL26:
+ 539:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* SDIO_DataInitStruct members default value */
+ 540:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_DataTimeOut = 0xFFFFFFFF;
+ 541:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_DataLength = 0x00;
+ 467              		.loc 1 541 0
+ 468 0000 0023     		movs	r3, #0
+ 540:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_DataTimeOut = 0xFFFFFFFF;
+ 469              		.loc 1 540 0
+ 470 0002 4FF0FF32 		mov	r2, #-1
+ 471              		.loc 1 541 0
+ 472 0006 80E80C00 		stmia	r0, {r2, r3}
+ 542:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_DataBlockSize = SDIO_DataBlockSize_1b;
+ 473              		.loc 1 542 0
+ 474 000a 8360     		str	r3, [r0, #8]
+ 543:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_TransferDir = SDIO_TransferDir_ToCard;
+ 475              		.loc 1 543 0
+ 476 000c C360     		str	r3, [r0, #12]
+ 544:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_TransferMode = SDIO_TransferMode_Block;  
+ 477              		.loc 1 544 0
+ 478 000e 0361     		str	r3, [r0, #16]
+ 545:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO_DataInitStruct->SDIO_DPSM = SDIO_DPSM_Disable;
+ 479              		.loc 1 545 0
+ 480 0010 4361     		str	r3, [r0, #20]
+ 481 0012 7047     		bx	lr
+ 482              		.cfi_endproc
+ 483              	.LFE121:
+ 485              		.section	.text.SDIO_GetDataCounter,"ax",%progbits
+ 486              		.align	2
+ 487              		.global	SDIO_GetDataCounter
+ 488              		.thumb
+ 489              		.thumb_func
+ 491              	SDIO_GetDataCounter:
+ 492              	.LFB122:
+ 546:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 547:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 548:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 549:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Returns number of remaining data bytes to be transferred.
+ 550:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 551:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval Number of remaining data bytes to be transferred
+ 552:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 553:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint32_t SDIO_GetDataCounter(void)
+ 554:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 493              		.loc 1 554 0
+ 494              		.cfi_startproc
+ 495              		@ args = 0, pretend = 0, frame = 0
+ 496              		@ frame_needed = 0, uses_anonymous_args = 0
+ 497              		@ link register save eliminated.
+ 555:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return SDIO->DCOUNT;
+ 498              		.loc 1 555 0
+ 499 0000 014B     		ldr	r3, .L32
+ 500 0002 186B     		ldr	r0, [r3, #48]
+ 556:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 501              		.loc 1 556 0
+ 502 0004 7047     		bx	lr
+ 503              	.L33:
+ 504 0006 00BF     		.align	2
+ 505              	.L32:
+ 506 0008 002C0140 		.word	1073818624
+ 507              		.cfi_endproc
+ 508              	.LFE122:
+ 510              		.section	.text.SDIO_ReadData,"ax",%progbits
+ 511              		.align	2
+ 512              		.global	SDIO_ReadData
+ 513              		.thumb
+ 514              		.thumb_func
+ 516              	SDIO_ReadData:
+ 517              	.LFB123:
+ 557:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 558:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 559:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Read one data word from Rx FIFO.
+ 560:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 561:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval Data received
+ 562:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 563:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint32_t SDIO_ReadData(void)
+ 564:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 518              		.loc 1 564 0
+ 519              		.cfi_startproc
+ 520              		@ args = 0, pretend = 0, frame = 0
+ 521              		@ frame_needed = 0, uses_anonymous_args = 0
+ 522              		@ link register save eliminated.
+ 565:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return SDIO->FIFO;
+ 523              		.loc 1 565 0
+ 524 0000 014B     		ldr	r3, .L35
+ 525 0002 D3F88000 		ldr	r0, [r3, #128]
+ 566:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 526              		.loc 1 566 0
+ 527 0006 7047     		bx	lr
+ 528              	.L36:
+ 529              		.align	2
+ 530              	.L35:
+ 531 0008 002C0140 		.word	1073818624
+ 532              		.cfi_endproc
+ 533              	.LFE123:
+ 535              		.section	.text.SDIO_WriteData,"ax",%progbits
+ 536              		.align	2
+ 537              		.global	SDIO_WriteData
+ 538              		.thumb
+ 539              		.thumb_func
+ 541              	SDIO_WriteData:
+ 542              	.LFB124:
+ 567:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 568:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 569:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Write one data word to Tx FIFO.
+ 570:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  Data: 32-bit data word to write.
+ 571:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 572:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 573:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_WriteData(uint32_t Data)
+ 574:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 543              		.loc 1 574 0
+ 544              		.cfi_startproc
+ 545              		@ args = 0, pretend = 0, frame = 0
+ 546              		@ frame_needed = 0, uses_anonymous_args = 0
+ 547              		@ link register save eliminated.
+ 548              	.LVL27:
+ 575:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->FIFO = Data;
+ 549              		.loc 1 575 0
+ 550 0000 014B     		ldr	r3, .L38
+ 551 0002 C3F88000 		str	r0, [r3, #128]
+ 552 0006 7047     		bx	lr
+ 553              	.L39:
+ 554              		.align	2
+ 555              	.L38:
+ 556 0008 002C0140 		.word	1073818624
+ 557              		.cfi_endproc
+ 558              	.LFE124:
+ 560              		.section	.text.SDIO_GetFIFOCount,"ax",%progbits
+ 561              		.align	2
+ 562              		.global	SDIO_GetFIFOCount
+ 563              		.thumb
+ 564              		.thumb_func
+ 566              	SDIO_GetFIFOCount:
+ 567              	.LFB125:
+ 576:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 577:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 578:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 579:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Returns the number of words left to be written to or read from FIFO.	
+ 580:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  None
+ 581:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval Remaining number of words.
+ 582:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 583:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** uint32_t SDIO_GetFIFOCount(void)
+ 584:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 568              		.loc 1 584 0
+ 569              		.cfi_startproc
+ 570              		@ args = 0, pretend = 0, frame = 0
+ 571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 572              		@ link register save eliminated.
+ 585:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return SDIO->FIFOCNT;
+ 573              		.loc 1 585 0
+ 574 0000 014B     		ldr	r3, .L41
+ 575 0002 986C     		ldr	r0, [r3, #72]
+ 586:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 576              		.loc 1 586 0
+ 577 0004 7047     		bx	lr
+ 578              	.L42:
+ 579 0006 00BF     		.align	2
+ 580              	.L41:
+ 581 0008 002C0140 		.word	1073818624
+ 582              		.cfi_endproc
+ 583              	.LFE125:
+ 585              		.section	.text.SDIO_StartSDIOReadWait,"ax",%progbits
+ 586              		.align	2
+ 587              		.global	SDIO_StartSDIOReadWait
+ 588              		.thumb
+ 589              		.thumb_func
+ 591              	SDIO_StartSDIOReadWait:
+ 592              	.LFB126:
+ 587:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 588:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 589:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 590:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 591:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 592:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group4 SDIO IO Cards mode management functions
+ 593:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   SDIO IO Cards mode management functions
+ 594:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 595:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 596:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 597:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****               SDIO IO Cards mode management functions
+ 598:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 599:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 600:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   This section provide functions allowing to program and read the SDIO IO Cards.
+ 601:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 602:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 603:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 604:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 605:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 606:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 607:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Starts the SD I/O Read Wait operation.	
+ 608:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the Start SDIO Read Wait operation. 
+ 609:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 610:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 611:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 612:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_StartSDIOReadWait(FunctionalState NewState)
+ 613:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 593              		.loc 1 613 0
+ 594              		.cfi_startproc
+ 595              		@ args = 0, pretend = 0, frame = 0
+ 596              		@ frame_needed = 0, uses_anonymous_args = 0
+ 597              		@ link register save eliminated.
+ 598              	.LVL28:
+ 614:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 615:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 616:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 617:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) DCTRL_RWSTART_BB = (uint32_t) NewState;
+ 599              		.loc 1 617 0
+ 600 0000 014B     		ldr	r3, .L44
+ 601 0002 1860     		str	r0, [r3, #0]
+ 602 0004 7047     		bx	lr
+ 603              	.L45:
+ 604 0006 00BF     		.align	2
+ 605              	.L44:
+ 606 0008 A0852542 		.word	1109755296
+ 607              		.cfi_endproc
+ 608              	.LFE126:
+ 610              		.section	.text.SDIO_StopSDIOReadWait,"ax",%progbits
+ 611              		.align	2
+ 612              		.global	SDIO_StopSDIOReadWait
+ 613              		.thumb
+ 614              		.thumb_func
+ 616              	SDIO_StopSDIOReadWait:
+ 617              	.LFB127:
+ 618:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 619:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 620:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 621:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Stops the SD I/O Read Wait operation.	
+ 622:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the Stop SDIO Read Wait operation. 
+ 623:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 624:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 625:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 626:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_StopSDIOReadWait(FunctionalState NewState)
+ 627:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 618              		.loc 1 627 0
+ 619              		.cfi_startproc
+ 620              		@ args = 0, pretend = 0, frame = 0
+ 621              		@ frame_needed = 0, uses_anonymous_args = 0
+ 622              		@ link register save eliminated.
+ 623              	.LVL29:
+ 628:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 629:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 630:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 631:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) DCTRL_RWSTOP_BB = (uint32_t) NewState;
+ 624              		.loc 1 631 0
+ 625 0000 014B     		ldr	r3, .L47
+ 626 0002 1860     		str	r0, [r3, #0]
+ 627 0004 7047     		bx	lr
+ 628              	.L48:
+ 629 0006 00BF     		.align	2
+ 630              	.L47:
+ 631 0008 A4852542 		.word	1109755300
+ 632              		.cfi_endproc
+ 633              	.LFE127:
+ 635              		.section	.text.SDIO_SetSDIOReadWaitMode,"ax",%progbits
+ 636              		.align	2
+ 637              		.global	SDIO_SetSDIOReadWaitMode
+ 638              		.thumb
+ 639              		.thumb_func
+ 641              	SDIO_SetSDIOReadWaitMode:
+ 642              	.LFB128:
+ 632:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 633:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 634:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 635:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Sets one of the two options of inserting read wait interval.
+ 636:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_ReadWaitMode: SD I/O Read Wait operation mode.
+ 637:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be:
+ 638:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_ReadWaitMode_CLK: Read Wait control by stopping SDIOCLK
+ 639:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_ReadWaitMode_DATA2: Read Wait control using SDIO_DATA2
+ 640:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 641:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 642:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SetSDIOReadWaitMode(uint32_t SDIO_ReadWaitMode)
+ 643:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 643              		.loc 1 643 0
+ 644              		.cfi_startproc
+ 645              		@ args = 0, pretend = 0, frame = 0
+ 646              		@ frame_needed = 0, uses_anonymous_args = 0
+ 647              		@ link register save eliminated.
+ 648              	.LVL30:
+ 644:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 645:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_READWAIT_MODE(SDIO_ReadWaitMode));
+ 646:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 647:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) DCTRL_RWMOD_BB = SDIO_ReadWaitMode;
+ 649              		.loc 1 647 0
+ 650 0000 014B     		ldr	r3, .L50
+ 651 0002 1860     		str	r0, [r3, #0]
+ 652 0004 7047     		bx	lr
+ 653              	.L51:
+ 654 0006 00BF     		.align	2
+ 655              	.L50:
+ 656 0008 A8852542 		.word	1109755304
+ 657              		.cfi_endproc
+ 658              	.LFE128:
+ 660              		.section	.text.SDIO_SetSDIOOperation,"ax",%progbits
+ 661              		.align	2
+ 662              		.global	SDIO_SetSDIOOperation
+ 663              		.thumb
+ 664              		.thumb_func
+ 666              	SDIO_SetSDIOOperation:
+ 667              	.LFB129:
+ 648:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 649:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 650:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 651:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the SD I/O Mode Operation.
+ 652:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of SDIO specific operation. 
+ 653:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 654:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 655:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 656:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SetSDIOOperation(FunctionalState NewState)
+ 657:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 668              		.loc 1 657 0
+ 669              		.cfi_startproc
+ 670              		@ args = 0, pretend = 0, frame = 0
+ 671              		@ frame_needed = 0, uses_anonymous_args = 0
+ 672              		@ link register save eliminated.
+ 673              	.LVL31:
+ 658:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 659:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 660:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 661:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) DCTRL_SDIOEN_BB = (uint32_t)NewState;
+ 674              		.loc 1 661 0
+ 675 0000 014B     		ldr	r3, .L53
+ 676 0002 1860     		str	r0, [r3, #0]
+ 677 0004 7047     		bx	lr
+ 678              	.L54:
+ 679 0006 00BF     		.align	2
+ 680              	.L53:
+ 681 0008 AC852542 		.word	1109755308
+ 682              		.cfi_endproc
+ 683              	.LFE129:
+ 685              		.section	.text.SDIO_SendSDIOSuspendCmd,"ax",%progbits
+ 686              		.align	2
+ 687              		.global	SDIO_SendSDIOSuspendCmd
+ 688              		.thumb
+ 689              		.thumb_func
+ 691              	SDIO_SendSDIOSuspendCmd:
+ 692              	.LFB130:
+ 662:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 663:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 664:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 665:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the SD I/O Mode suspend command sending.
+ 666:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the SD I/O Mode suspend command.
+ 667:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 668:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 669:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 670:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SendSDIOSuspendCmd(FunctionalState NewState)
+ 671:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 693              		.loc 1 671 0
+ 694              		.cfi_startproc
+ 695              		@ args = 0, pretend = 0, frame = 0
+ 696              		@ frame_needed = 0, uses_anonymous_args = 0
+ 697              		@ link register save eliminated.
+ 698              	.LVL32:
+ 672:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 673:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 674:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 675:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) CMD_SDIOSUSPEND_BB = (uint32_t)NewState;
+ 699              		.loc 1 675 0
+ 700 0000 014B     		ldr	r3, .L56
+ 701 0002 1860     		str	r0, [r3, #0]
+ 702 0004 7047     		bx	lr
+ 703              	.L57:
+ 704 0006 00BF     		.align	2
+ 705              	.L56:
+ 706 0008 AC812542 		.word	1109754284
+ 707              		.cfi_endproc
+ 708              	.LFE130:
+ 710              		.section	.text.SDIO_CommandCompletionCmd,"ax",%progbits
+ 711              		.align	2
+ 712              		.global	SDIO_CommandCompletionCmd
+ 713              		.thumb
+ 714              		.thumb_func
+ 716              	SDIO_CommandCompletionCmd:
+ 717              	.LFB131:
+ 676:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 677:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 678:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 679:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 680:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 681:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 682:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group5 CE-ATA mode management functions
+ 683:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   CE-ATA mode management functions
+ 684:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 685:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 686:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 687:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****               CE-ATA mode management functions
+ 688:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 689:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 690:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   This section provide functions allowing to program and read the CE-ATA card.
+ 691:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 692:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 693:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 694:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 695:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 696:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 697:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the command completion signal.
+ 698:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of command completion signal. 
+ 699:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 700:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 701:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 702:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_CommandCompletionCmd(FunctionalState NewState)
+ 703:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 718              		.loc 1 703 0
+ 719              		.cfi_startproc
+ 720              		@ args = 0, pretend = 0, frame = 0
+ 721              		@ frame_needed = 0, uses_anonymous_args = 0
+ 722              		@ link register save eliminated.
+ 723              	.LVL33:
+ 704:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 705:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 706:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 707:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) CMD_ENCMDCOMPL_BB = (uint32_t)NewState;
+ 724              		.loc 1 707 0
+ 725 0000 014B     		ldr	r3, .L59
+ 726 0002 1860     		str	r0, [r3, #0]
+ 727 0004 7047     		bx	lr
+ 728              	.L60:
+ 729 0006 00BF     		.align	2
+ 730              	.L59:
+ 731 0008 B0812542 		.word	1109754288
+ 732              		.cfi_endproc
+ 733              	.LFE131:
+ 735              		.section	.text.SDIO_CEATAITCmd,"ax",%progbits
+ 736              		.align	2
+ 737              		.global	SDIO_CEATAITCmd
+ 738              		.thumb
+ 739              		.thumb_func
+ 741              	SDIO_CEATAITCmd:
+ 742              	.LFB132:
+ 708:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 709:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 710:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 711:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the CE-ATA interrupt.
+ 712:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of CE-ATA interrupt. 
+ 713:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 714:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 715:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 716:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_CEATAITCmd(FunctionalState NewState)
+ 717:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 743              		.loc 1 717 0
+ 744              		.cfi_startproc
+ 745              		@ args = 0, pretend = 0, frame = 0
+ 746              		@ frame_needed = 0, uses_anonymous_args = 0
+ 747              		@ link register save eliminated.
+ 748              	.LVL34:
+ 718:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 719:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 720:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 721:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) CMD_NIEN_BB = (uint32_t)((~((uint32_t)NewState)) & ((uint32_t)0x1));
+ 749              		.loc 1 721 0
+ 750 0000 00F00100 		and	r0, r0, #1
+ 751              	.LVL35:
+ 752 0004 024B     		ldr	r3, .L62
+ 753 0006 80F00100 		eor	r0, r0, #1
+ 754 000a 1860     		str	r0, [r3, #0]
+ 755 000c 7047     		bx	lr
+ 756              	.L63:
+ 757 000e 00BF     		.align	2
+ 758              	.L62:
+ 759 0010 B4812542 		.word	1109754292
+ 760              		.cfi_endproc
+ 761              	.LFE132:
+ 763              		.section	.text.SDIO_SendCEATACmd,"ax",%progbits
+ 764              		.align	2
+ 765              		.global	SDIO_SendCEATACmd
+ 766              		.thumb
+ 767              		.thumb_func
+ 769              	SDIO_SendCEATACmd:
+ 770              	.LFB133:
+ 722:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 723:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 724:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 725:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Sends CE-ATA command (CMD61).
+ 726:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of CE-ATA command. 
+ 727:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *         This parameter can be: ENABLE or DISABLE.
+ 728:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 729:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 730:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_SendCEATACmd(FunctionalState NewState)
+ 731:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 771              		.loc 1 731 0
+ 772              		.cfi_startproc
+ 773              		@ args = 0, pretend = 0, frame = 0
+ 774              		@ frame_needed = 0, uses_anonymous_args = 0
+ 775              		@ link register save eliminated.
+ 776              	.LVL36:
+ 732:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 733:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 734:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 735:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) CMD_ATACMD_BB = (uint32_t)NewState;
+ 777              		.loc 1 735 0
+ 778 0000 014B     		ldr	r3, .L65
+ 779 0002 1860     		str	r0, [r3, #0]
+ 780 0004 7047     		bx	lr
+ 781              	.L66:
+ 782 0006 00BF     		.align	2
+ 783              	.L65:
+ 784 0008 B8812542 		.word	1109754296
+ 785              		.cfi_endproc
+ 786              	.LFE133:
+ 788              		.section	.text.SDIO_DMACmd,"ax",%progbits
+ 789              		.align	2
+ 790              		.global	SDIO_DMACmd
+ 791              		.thumb
+ 792              		.thumb_func
+ 794              	SDIO_DMACmd:
+ 795              	.LFB134:
+ 736:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 737:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 738:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 739:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 740:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 741:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 742:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group6 DMA transfers management functions
+ 743:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   DMA transfers management functions
+ 744:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 745:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 746:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 747:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****               DMA transfers management functions
+ 748:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 749:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 750:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   This section provide functions allowing to program SDIO DMA transfer.
+ 751:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 752:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 753:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 754:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 755:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 756:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 757:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the SDIO DMA request.
+ 758:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the selected SDIO DMA request.
+ 759:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 760:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 761:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 762:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_DMACmd(FunctionalState NewState)
+ 763:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 796              		.loc 1 763 0
+ 797              		.cfi_startproc
+ 798              		@ args = 0, pretend = 0, frame = 0
+ 799              		@ frame_needed = 0, uses_anonymous_args = 0
+ 800              		@ link register save eliminated.
+ 801              	.LVL37:
+ 764:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 765:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 766:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 767:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *(__IO uint32_t *) DCTRL_DMAEN_BB = (uint32_t)NewState;
+ 802              		.loc 1 767 0
+ 803 0000 014B     		ldr	r3, .L68
+ 804 0002 1860     		str	r0, [r3, #0]
+ 805 0004 7047     		bx	lr
+ 806              	.L69:
+ 807 0006 00BF     		.align	2
+ 808              	.L68:
+ 809 0008 8C852542 		.word	1109755276
+ 810              		.cfi_endproc
+ 811              	.LFE134:
+ 813              		.section	.text.SDIO_ITConfig,"ax",%progbits
+ 814              		.align	2
+ 815              		.global	SDIO_ITConfig
+ 816              		.thumb
+ 817              		.thumb_func
+ 819              	SDIO_ITConfig:
+ 820              	.LFB135:
+ 768:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 769:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 770:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 771:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @}
+ 772:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 773:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 774:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /** @defgroup SDIO_Group7 Interrupts and flags management functions
+ 775:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *  @brief   Interrupts and flags management functions  
+ 776:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  *
+ 777:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @verbatim   
+ 778:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================
+ 779:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****                        Interrupts and flags management functions
+ 780:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****  ===============================================================================  
+ 781:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 782:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 783:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** @endverbatim
+ 784:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @{
+ 785:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 786:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 787:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 788:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Enables or disables the SDIO interrupts.
+ 789:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_IT: specifies the SDIO interrupt sources to be enabled or disabled.
+ 790:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one or a combination of the following values:
+ 791:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
+ 792:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
+ 793:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CTIMEOUT: Command response timeout interrupt
+ 794:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DTIMEOUT: Data timeout interrupt
+ 795:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXUNDERR: Transmit FIFO underrun error interrupt
+ 796:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXOVERR:  Received FIFO overrun error interrupt
+ 797:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDREND:  Command response received (CRC check passed) interrupt
+ 798:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDSENT:  Command sent (no response required) interrupt
+ 799:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DATAEND:  Data end (data counter, SDIDCOUNT, is zero) interrupt
+ 800:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_STBITERR: Start bit not detected on all data signals in wide 
+ 801:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                                   bus mode interrupt
+ 802:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DBCKEND:  Data block sent/received (CRC check passed) interrupt
+ 803:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDACT:   Command transfer in progress interrupt
+ 804:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXACT:    Data transmit in progress interrupt
+ 805:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXACT:    Data receive in progress interrupt
+ 806:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOHE: Transmit FIFO Half Empty interrupt
+ 807:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOHF: Receive FIFO Half Full interrupt
+ 808:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOF:  Transmit FIFO full interrupt
+ 809:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOF:  Receive FIFO full interrupt
+ 810:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOE:  Transmit FIFO empty interrupt
+ 811:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOE:  Receive FIFO empty interrupt
+ 812:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXDAVL:   Data available in transmit FIFO interrupt
+ 813:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXDAVL:   Data available in receive FIFO interrupt
+ 814:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_SDIOIT:   SD I/O interrupt received interrupt
+ 815:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CEATAEND: CE-ATA command completion signal received for CMD61 interrupt
+ 816:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  NewState: new state of the specified SDIO interrupts.
+ 817:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 818:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None 
+ 819:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 820:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_ITConfig(uint32_t SDIO_IT, FunctionalState NewState)
+ 821:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** {
+ 821              		.loc 1 821 0
+ 822              		.cfi_startproc
+ 823              		@ args = 0, pretend = 0, frame = 0
+ 824              		@ frame_needed = 0, uses_anonymous_args = 0
+ 825              		@ link register save eliminated.
+ 826              	.LVL38:
+ 822:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 823:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_IT(SDIO_IT));
+ 824:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 825:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 826:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   if (NewState != DISABLE)
+ 827:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 828:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     /* Enable the SDIO interrupts */
+ 829:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     SDIO->MASK |= SDIO_IT;
+ 827              		.loc 1 829 0
+ 828 0000 044B     		ldr	r3, .L75
+ 829 0002 DA6B     		ldr	r2, [r3, #60]
+ 826:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   if (NewState != DISABLE)
+ 830              		.loc 1 826 0
+ 831 0004 19B9     		cbnz	r1, .L74
+ 830:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   }
+ 831:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   else
+ 832:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 833:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     /* Disable the SDIO interrupts */
+ 834:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     SDIO->MASK &= ~SDIO_IT;
+ 832              		.loc 1 834 0
+ 833 0006 22EA0000 		bic	r0, r2, r0
+ 834              	.LVL39:
+ 835 000a D863     		str	r0, [r3, #60]
+ 836 000c 7047     		bx	lr
+ 837              	.LVL40:
+ 838              	.L74:
+ 829:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     SDIO->MASK |= SDIO_IT;
+ 839              		.loc 1 829 0
+ 840 000e 1043     		orrs	r0, r0, r2
+ 841              	.LVL41:
+ 842 0010 D863     		str	r0, [r3, #60]
+ 843 0012 7047     		bx	lr
+ 844              	.L76:
+ 845              		.align	2
+ 846              	.L75:
+ 847 0014 002C0140 		.word	1073818624
+ 848              		.cfi_endproc
+ 849              	.LFE135:
+ 851              		.section	.text.SDIO_GetFlagStatus,"ax",%progbits
+ 852              		.align	2
+ 853              		.global	SDIO_GetFlagStatus
+ 854              		.thumb
+ 855              		.thumb_func
+ 857              	SDIO_GetFlagStatus:
+ 858              	.LFB136:
+ 835:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   } 
+ 836:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 837:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 838:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 839:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Checks whether the specified SDIO flag is set or not.
+ 840:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_FLAG: specifies the flag to check. 
+ 841:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one of the following values:
+ 842:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CCRCFAIL: Command response received (CRC check failed)
+ 843:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DCRCFAIL: Data block sent/received (CRC check failed)
+ 844:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CTIMEOUT: Command response timeout
+ 845:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DTIMEOUT: Data timeout
+ 846:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXUNDERR: Transmit FIFO underrun error
+ 847:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXOVERR:  Received FIFO overrun error
+ 848:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CMDREND:  Command response received (CRC check passed)
+ 849:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CMDSENT:  Command sent (no response required)
+ 850:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DATAEND:  Data end (data counter, SDIDCOUNT, is zero)
+ 851:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_STBITERR: Start bit not detected on all data signals in wide bus mode
+ 852:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DBCKEND:  Data block sent/received (CRC check passed)
+ 853:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CMDACT:   Command transfer in progress
+ 854:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXACT:    Data transmit in progress
+ 855:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXACT:    Data receive in progress
+ 856:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXFIFOHE: Transmit FIFO Half Empty
+ 857:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXFIFOHF: Receive FIFO Half Full
+ 858:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXFIFOF:  Transmit FIFO full
+ 859:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXFIFOF:  Receive FIFO full
+ 860:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXFIFOE:  Transmit FIFO empty
+ 861:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXFIFOE:  Receive FIFO empty
+ 862:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXDAVL:   Data available in transmit FIFO
+ 863:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXDAVL:   Data available in receive FIFO
+ 864:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_SDIOIT:   SD I/O interrupt received
+ 865:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CEATAEND: CE-ATA command completion signal received for CMD61
+ 866:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval The new state of SDIO_FLAG (SET or RESET).
+ 867:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 868:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** FlagStatus SDIO_GetFlagStatus(uint32_t SDIO_FLAG)
+ 869:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 859              		.loc 1 869 0
+ 860              		.cfi_startproc
+ 861              		@ args = 0, pretend = 0, frame = 0
+ 862              		@ frame_needed = 0, uses_anonymous_args = 0
+ 863              		@ link register save eliminated.
+ 864              	.LVL42:
+ 870:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   FlagStatus bitstatus = RESET;
+ 871:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 872:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 873:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_FLAG(SDIO_FLAG));
+ 874:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 875:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   if ((SDIO->STA & SDIO_FLAG) != (uint32_t)RESET)
+ 865              		.loc 1 875 0
+ 866 0000 034B     		ldr	r3, .L78
+ 867 0002 5B6B     		ldr	r3, [r3, #52]
+ 868              	.LVL43:
+ 869 0004 1842     		tst	r0, r3
+ 876:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 877:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     bitstatus = SET;
+ 878:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   }
+ 879:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   else
+ 880:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 881:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     bitstatus = RESET;
+ 882:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   }
+ 883:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return bitstatus;
+ 884:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 870              		.loc 1 884 0
+ 871 0006 0CBF     		ite	eq
+ 872 0008 0020     		moveq	r0, #0
+ 873 000a 0120     		movne	r0, #1
+ 874              	.LVL44:
+ 875 000c 7047     		bx	lr
+ 876              	.L79:
+ 877 000e 00BF     		.align	2
+ 878              	.L78:
+ 879 0010 002C0140 		.word	1073818624
+ 880              		.cfi_endproc
+ 881              	.LFE136:
+ 883              		.section	.text.SDIO_ClearFlag,"ax",%progbits
+ 884              		.align	2
+ 885              		.global	SDIO_ClearFlag
+ 886              		.thumb
+ 887              		.thumb_func
+ 889              	SDIO_ClearFlag:
+ 890              	.LFB137:
+ 885:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 886:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 887:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Clears the SDIO's pending flags.
+ 888:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_FLAG: specifies the flag to clear.  
+ 889:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one or a combination of the following values:
+ 890:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CCRCFAIL: Command response received (CRC check failed)
+ 891:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DCRCFAIL: Data block sent/received (CRC check failed)
+ 892:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CTIMEOUT: Command response timeout
+ 893:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DTIMEOUT: Data timeout
+ 894:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_TXUNDERR: Transmit FIFO underrun error
+ 895:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_RXOVERR:  Received FIFO overrun error
+ 896:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CMDREND:  Command response received (CRC check passed)
+ 897:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CMDSENT:  Command sent (no response required)
+ 898:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DATAEND:  Data end (data counter, SDIDCOUNT, is zero)
+ 899:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_STBITERR: Start bit not detected on all data signals in wide bus mode
+ 900:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_DBCKEND:  Data block sent/received (CRC check passed)
+ 901:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_SDIOIT:   SD I/O interrupt received
+ 902:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_FLAG_CEATAEND: CE-ATA command completion signal received for CMD61
+ 903:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 904:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 905:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_ClearFlag(uint32_t SDIO_FLAG)
+ 906:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 891              		.loc 1 906 0
+ 892              		.cfi_startproc
+ 893              		@ args = 0, pretend = 0, frame = 0
+ 894              		@ frame_needed = 0, uses_anonymous_args = 0
+ 895              		@ link register save eliminated.
+ 896              	.LVL45:
+ 907:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 908:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CLEAR_FLAG(SDIO_FLAG));
+ 909:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****    
+ 910:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->ICR = SDIO_FLAG;
+ 897              		.loc 1 910 0
+ 898 0000 014B     		ldr	r3, .L81
+ 899 0002 9863     		str	r0, [r3, #56]
+ 900 0004 7047     		bx	lr
+ 901              	.L82:
+ 902 0006 00BF     		.align	2
+ 903              	.L81:
+ 904 0008 002C0140 		.word	1073818624
+ 905              		.cfi_endproc
+ 906              	.LFE137:
+ 908              		.section	.text.SDIO_GetITStatus,"ax",%progbits
+ 909              		.align	2
+ 910              		.global	SDIO_GetITStatus
+ 911              		.thumb
+ 912              		.thumb_func
+ 914              	SDIO_GetITStatus:
+ 915              	.LFB138:
+ 911:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 912:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 913:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 914:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Checks whether the specified SDIO interrupt has occurred or not.
+ 915:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_IT: specifies the SDIO interrupt source to check. 
+ 916:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one of the following values:
+ 917:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
+ 918:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
+ 919:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CTIMEOUT: Command response timeout interrupt
+ 920:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DTIMEOUT: Data timeout interrupt
+ 921:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXUNDERR: Transmit FIFO underrun error interrupt
+ 922:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXOVERR:  Received FIFO overrun error interrupt
+ 923:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDREND:  Command response received (CRC check passed) interrupt
+ 924:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDSENT:  Command sent (no response required) interrupt
+ 925:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DATAEND:  Data end (data counter, SDIDCOUNT, is zero) interrupt
+ 926:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_STBITERR: Start bit not detected on all data signals in wide 
+ 927:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                                   bus mode interrupt
+ 928:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DBCKEND:  Data block sent/received (CRC check passed) interrupt
+ 929:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDACT:   Command transfer in progress interrupt
+ 930:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXACT:    Data transmit in progress interrupt
+ 931:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXACT:    Data receive in progress interrupt
+ 932:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOHE: Transmit FIFO Half Empty interrupt
+ 933:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOHF: Receive FIFO Half Full interrupt
+ 934:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOF:  Transmit FIFO full interrupt
+ 935:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOF:  Receive FIFO full interrupt
+ 936:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXFIFOE:  Transmit FIFO empty interrupt
+ 937:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXFIFOE:  Receive FIFO empty interrupt
+ 938:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXDAVL:   Data available in transmit FIFO interrupt
+ 939:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXDAVL:   Data available in receive FIFO interrupt
+ 940:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_SDIOIT:   SD I/O interrupt received interrupt
+ 941:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CEATAEND: CE-ATA command completion signal received for CMD61 interrupt
+ 942:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval The new state of SDIO_IT (SET or RESET).
+ 943:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 944:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** ITStatus SDIO_GetITStatus(uint32_t SDIO_IT)
+ 945:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 916              		.loc 1 945 0
+ 917              		.cfi_startproc
+ 918              		@ args = 0, pretend = 0, frame = 0
+ 919              		@ frame_needed = 0, uses_anonymous_args = 0
+ 920              		@ link register save eliminated.
+ 921              	.LVL46:
+ 946:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   ITStatus bitstatus = RESET;
+ 947:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   
+ 948:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 949:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_GET_IT(SDIO_IT));
+ 950:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   if ((SDIO->STA & SDIO_IT) != (uint32_t)RESET)  
+ 922              		.loc 1 950 0
+ 923 0000 034B     		ldr	r3, .L84
+ 924 0002 5B6B     		ldr	r3, [r3, #52]
+ 925              	.LVL47:
+ 926 0004 1842     		tst	r0, r3
+ 951:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 952:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     bitstatus = SET;
+ 953:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   }
+ 954:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   else
+ 955:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   {
+ 956:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****     bitstatus = RESET;
+ 957:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   }
+ 958:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   return bitstatus;
+ 959:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** }
+ 927              		.loc 1 959 0
+ 928 0006 0CBF     		ite	eq
+ 929 0008 0020     		moveq	r0, #0
+ 930 000a 0120     		movne	r0, #1
+ 931              	.LVL48:
+ 932 000c 7047     		bx	lr
+ 933              	.L85:
+ 934 000e 00BF     		.align	2
+ 935              	.L84:
+ 936 0010 002C0140 		.word	1073818624
+ 937              		.cfi_endproc
+ 938              	.LFE138:
+ 940              		.section	.text.SDIO_ClearITPendingBit,"ax",%progbits
+ 941              		.align	2
+ 942              		.global	SDIO_ClearITPendingBit
+ 943              		.thumb
+ 944              		.thumb_func
+ 946              	SDIO_ClearITPendingBit:
+ 947              	.LFB139:
+ 960:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** 
+ 961:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** /**
+ 962:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @brief  Clears the SDIO's interrupt pending bits.
+ 963:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @param  SDIO_IT: specifies the interrupt pending bit to clear. 
+ 964:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *          This parameter can be one or a combination of the following values:
+ 965:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
+ 966:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
+ 967:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CTIMEOUT: Command response timeout interrupt
+ 968:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DTIMEOUT: Data timeout interrupt
+ 969:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_TXUNDERR: Transmit FIFO underrun error interrupt
+ 970:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_RXOVERR:  Received FIFO overrun error interrupt
+ 971:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDREND:  Command response received (CRC check passed) interrupt
+ 972:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CMDSENT:  Command sent (no response required) interrupt
+ 973:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_DATAEND:  Data end (data counter, SDIO_DCOUNT, is zero) interrupt
+ 974:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_STBITERR: Start bit not detected on all data signals in wide 
+ 975:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *                                   bus mode interrupt
+ 976:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_SDIOIT:   SD I/O interrupt received interrupt
+ 977:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   *            @arg SDIO_IT_CEATAEND: CE-ATA command completion signal received for CMD61
+ 978:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   * @retval None
+ 979:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   */
+ 980:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** void SDIO_ClearITPendingBit(uint32_t SDIO_IT)
+ 981:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c **** { 
+ 948              		.loc 1 981 0
+ 949              		.cfi_startproc
+ 950              		@ args = 0, pretend = 0, frame = 0
+ 951              		@ frame_needed = 0, uses_anonymous_args = 0
+ 952              		@ link register save eliminated.
+ 953              	.LVL49:
+ 982:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   /* Check the parameters */
+ 983:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   assert_param(IS_SDIO_CLEAR_IT(SDIO_IT));
+ 984:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****    
+ 985:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_sdio.c ****   SDIO->ICR = SDIO_IT;
+ 954              		.loc 1 985 0
+ 955 0000 014B     		ldr	r3, .L87
+ 956 0002 9863     		str	r0, [r3, #56]
+ 957 0004 7047     		bx	lr
+ 958              	.L88:
+ 959 0006 00BF     		.align	2
+ 960              	.L87:
+ 961 0008 002C0140 		.word	1073818624
+ 962              		.cfi_endproc
+ 963              	.LFE139:
+ 965              		.text
+ 966              	.Letext0:
+ 967              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 968              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 969              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/
+ 970              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_sdio.c
+     /tmp/ccSWa2hg.s:20     .text.SDIO_DeInit:00000000 $t
+     /tmp/ccSWa2hg.s:25     .text.SDIO_DeInit:00000000 SDIO_DeInit
+     /tmp/ccSWa2hg.s:52     .text.SDIO_DeInit:00000018 $d
+     /tmp/ccSWa2hg.s:57     .text.SDIO_Init:00000000 $t
+     /tmp/ccSWa2hg.s:62     .text.SDIO_Init:00000000 SDIO_Init
+     /tmp/ccSWa2hg.s:117    .text.SDIO_Init:00000030 $d
+     /tmp/ccSWa2hg.s:122    .text.SDIO_StructInit:00000000 $t
+     /tmp/ccSWa2hg.s:127    .text.SDIO_StructInit:00000000 SDIO_StructInit
+     /tmp/ccSWa2hg.s:153    .text.SDIO_ClockCmd:00000000 $t
+     /tmp/ccSWa2hg.s:158    .text.SDIO_ClockCmd:00000000 SDIO_ClockCmd
+     /tmp/ccSWa2hg.s:173    .text.SDIO_ClockCmd:00000008 $d
+     /tmp/ccSWa2hg.s:178    .text.SDIO_SetPowerState:00000000 $t
+     /tmp/ccSWa2hg.s:183    .text.SDIO_SetPowerState:00000000 SDIO_SetPowerState
+     /tmp/ccSWa2hg.s:198    .text.SDIO_SetPowerState:00000008 $d
+     /tmp/ccSWa2hg.s:203    .text.SDIO_GetPowerState:00000000 $t
+     /tmp/ccSWa2hg.s:208    .text.SDIO_GetPowerState:00000000 SDIO_GetPowerState
+     /tmp/ccSWa2hg.s:224    .text.SDIO_GetPowerState:0000000c $d
+     /tmp/ccSWa2hg.s:229    .text.SDIO_SendCommand:00000000 $t
+     /tmp/ccSWa2hg.s:234    .text.SDIO_SendCommand:00000000 SDIO_SendCommand
+     /tmp/ccSWa2hg.s:287    .text.SDIO_SendCommand:00000028 $d
+     /tmp/ccSWa2hg.s:292    .text.SDIO_CmdStructInit:00000000 $t
+     /tmp/ccSWa2hg.s:297    .text.SDIO_CmdStructInit:00000000 SDIO_CmdStructInit
+     /tmp/ccSWa2hg.s:321    .text.SDIO_GetCommandResponse:00000000 $t
+     /tmp/ccSWa2hg.s:326    .text.SDIO_GetCommandResponse:00000000 SDIO_GetCommandResponse
+     /tmp/ccSWa2hg.s:342    .text.SDIO_GetCommandResponse:00000008 $d
+     /tmp/ccSWa2hg.s:347    .text.SDIO_GetResponse:00000000 $t
+     /tmp/ccSWa2hg.s:352    .text.SDIO_GetResponse:00000000 SDIO_GetResponse
+     /tmp/ccSWa2hg.s:386    .text.SDIO_GetResponse:00000014 $d
+     /tmp/ccSWa2hg.s:391    .text.SDIO_DataConfig:00000000 $t
+     /tmp/ccSWa2hg.s:396    .text.SDIO_DataConfig:00000000 SDIO_DataConfig
+     /tmp/ccSWa2hg.s:449    .text.SDIO_DataConfig:00000028 $d
+     /tmp/ccSWa2hg.s:454    .text.SDIO_DataStructInit:00000000 $t
+     /tmp/ccSWa2hg.s:459    .text.SDIO_DataStructInit:00000000 SDIO_DataStructInit
+     /tmp/ccSWa2hg.s:486    .text.SDIO_GetDataCounter:00000000 $t
+     /tmp/ccSWa2hg.s:491    .text.SDIO_GetDataCounter:00000000 SDIO_GetDataCounter
+     /tmp/ccSWa2hg.s:506    .text.SDIO_GetDataCounter:00000008 $d
+     /tmp/ccSWa2hg.s:511    .text.SDIO_ReadData:00000000 $t
+     /tmp/ccSWa2hg.s:516    .text.SDIO_ReadData:00000000 SDIO_ReadData
+     /tmp/ccSWa2hg.s:531    .text.SDIO_ReadData:00000008 $d
+     /tmp/ccSWa2hg.s:536    .text.SDIO_WriteData:00000000 $t
+     /tmp/ccSWa2hg.s:541    .text.SDIO_WriteData:00000000 SDIO_WriteData
+     /tmp/ccSWa2hg.s:556    .text.SDIO_WriteData:00000008 $d
+     /tmp/ccSWa2hg.s:561    .text.SDIO_GetFIFOCount:00000000 $t
+     /tmp/ccSWa2hg.s:566    .text.SDIO_GetFIFOCount:00000000 SDIO_GetFIFOCount
+     /tmp/ccSWa2hg.s:581    .text.SDIO_GetFIFOCount:00000008 $d
+     /tmp/ccSWa2hg.s:586    .text.SDIO_StartSDIOReadWait:00000000 $t
+     /tmp/ccSWa2hg.s:591    .text.SDIO_StartSDIOReadWait:00000000 SDIO_StartSDIOReadWait
+     /tmp/ccSWa2hg.s:606    .text.SDIO_StartSDIOReadWait:00000008 $d
+     /tmp/ccSWa2hg.s:611    .text.SDIO_StopSDIOReadWait:00000000 $t
+     /tmp/ccSWa2hg.s:616    .text.SDIO_StopSDIOReadWait:00000000 SDIO_StopSDIOReadWait
+     /tmp/ccSWa2hg.s:631    .text.SDIO_StopSDIOReadWait:00000008 $d
+     /tmp/ccSWa2hg.s:636    .text.SDIO_SetSDIOReadWaitMode:00000000 $t
+     /tmp/ccSWa2hg.s:641    .text.SDIO_SetSDIOReadWaitMode:00000000 SDIO_SetSDIOReadWaitMode
+     /tmp/ccSWa2hg.s:656    .text.SDIO_SetSDIOReadWaitMode:00000008 $d
+     /tmp/ccSWa2hg.s:661    .text.SDIO_SetSDIOOperation:00000000 $t
+     /tmp/ccSWa2hg.s:666    .text.SDIO_SetSDIOOperation:00000000 SDIO_SetSDIOOperation
+     /tmp/ccSWa2hg.s:681    .text.SDIO_SetSDIOOperation:00000008 $d
+     /tmp/ccSWa2hg.s:686    .text.SDIO_SendSDIOSuspendCmd:00000000 $t
+     /tmp/ccSWa2hg.s:691    .text.SDIO_SendSDIOSuspendCmd:00000000 SDIO_SendSDIOSuspendCmd
+     /tmp/ccSWa2hg.s:706    .text.SDIO_SendSDIOSuspendCmd:00000008 $d
+     /tmp/ccSWa2hg.s:711    .text.SDIO_CommandCompletionCmd:00000000 $t
+     /tmp/ccSWa2hg.s:716    .text.SDIO_CommandCompletionCmd:00000000 SDIO_CommandCompletionCmd
+     /tmp/ccSWa2hg.s:731    .text.SDIO_CommandCompletionCmd:00000008 $d
+     /tmp/ccSWa2hg.s:736    .text.SDIO_CEATAITCmd:00000000 $t
+     /tmp/ccSWa2hg.s:741    .text.SDIO_CEATAITCmd:00000000 SDIO_CEATAITCmd
+     /tmp/ccSWa2hg.s:759    .text.SDIO_CEATAITCmd:00000010 $d
+     /tmp/ccSWa2hg.s:764    .text.SDIO_SendCEATACmd:00000000 $t
+     /tmp/ccSWa2hg.s:769    .text.SDIO_SendCEATACmd:00000000 SDIO_SendCEATACmd
+     /tmp/ccSWa2hg.s:784    .text.SDIO_SendCEATACmd:00000008 $d
+     /tmp/ccSWa2hg.s:789    .text.SDIO_DMACmd:00000000 $t
+     /tmp/ccSWa2hg.s:794    .text.SDIO_DMACmd:00000000 SDIO_DMACmd
+     /tmp/ccSWa2hg.s:809    .text.SDIO_DMACmd:00000008 $d
+     /tmp/ccSWa2hg.s:814    .text.SDIO_ITConfig:00000000 $t
+     /tmp/ccSWa2hg.s:819    .text.SDIO_ITConfig:00000000 SDIO_ITConfig
+     /tmp/ccSWa2hg.s:847    .text.SDIO_ITConfig:00000014 $d
+     /tmp/ccSWa2hg.s:852    .text.SDIO_GetFlagStatus:00000000 $t
+     /tmp/ccSWa2hg.s:857    .text.SDIO_GetFlagStatus:00000000 SDIO_GetFlagStatus
+     /tmp/ccSWa2hg.s:879    .text.SDIO_GetFlagStatus:00000010 $d
+     /tmp/ccSWa2hg.s:884    .text.SDIO_ClearFlag:00000000 $t
+     /tmp/ccSWa2hg.s:889    .text.SDIO_ClearFlag:00000000 SDIO_ClearFlag
+     /tmp/ccSWa2hg.s:904    .text.SDIO_ClearFlag:00000008 $d
+     /tmp/ccSWa2hg.s:909    .text.SDIO_GetITStatus:00000000 $t
+     /tmp/ccSWa2hg.s:914    .text.SDIO_GetITStatus:00000000 SDIO_GetITStatus
+     /tmp/ccSWa2hg.s:936    .text.SDIO_GetITStatus:00000010 $d
+     /tmp/ccSWa2hg.s:941    .text.SDIO_ClearITPendingBit:00000000 $t
+     /tmp/ccSWa2hg.s:946    .text.SDIO_ClearITPendingBit:00000000 SDIO_ClearITPendingBit
+     /tmp/ccSWa2hg.s:961    .text.SDIO_ClearITPendingBit:00000008 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd

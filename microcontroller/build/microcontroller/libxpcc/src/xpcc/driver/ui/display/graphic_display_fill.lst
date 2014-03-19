@@ -1,0 +1,584 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"graphic_display_fill.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt:
+  26              	.LFB1202:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.c
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	 * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	   notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	 * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	   notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	   documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	 * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	   names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *	   derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** #include "graphic_display.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** void
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** xpcc::GraphicDisplay::fillRectangle(glcd::Point upperLeft,
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		uint16_t width, uint16_t height)
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** {
+  28              		.loc 1 37 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 32
+  36              		.cfi_offset 4, -32
+  37              		.cfi_offset 5, -28
+  38              		.cfi_offset 6, -24
+  39              		.cfi_offset 7, -20
+  40              		.cfi_offset 8, -16
+  41              		.cfi_offset 9, -12
+  42              		.cfi_offset 10, -8
+  43              		.cfi_offset 14, -4
+  44              		.loc 1 37 0
+  45 0004 9246     		mov	sl, r2
+  46              	.LBB73:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	for (uint16_t i = upperLeft.getX();
+  47              		.loc 1 38 0
+  48 0006 0A88     		ldrh	r2, [r1, #0]
+  49              	.LVL1:
+  50 0008 95B2     		uxth	r5, r2
+  51 000a 0AFA82F2 		sxtah	r2, sl, r2
+  52 000e AA42     		cmp	r2, r5
+  53              	.LBE73:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** {
+  54              		.loc 1 37 0
+  55 0010 8846     		mov	r8, r1
+  56              	.LVL2:
+  57 0012 0646     		mov	r6, r0
+  58 0014 9946     		mov	r9, r3
+  59              	.LBB76:
+  60              		.loc 1 38 0
+  61 0016 0FDC     		bgt	.L13
+  62              	.LVL3:
+  63              	.L1:
+  64 0018 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+  65              	.L8:
+  66              	.LVL4:
+  67              	.LBB74:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			(i < upperLeft.getX() + width) && (i < getWidth());
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			++i)
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	{
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		for (uint16_t k = upperLeft.getY();
+  68              		.loc 1 42 0
+  69 001c B8F80230 		ldrh	r3, [r8, #2]
+  70 0020 9CB2     		uxth	r4, r3
+  71              	.LVL5:
+  72 0022 09FA83F3 		sxtah	r3, r9, r3
+  73              	.LVL6:
+  74 0026 9C42     		cmp	r4, r3
+  75 0028 0EDB     		blt	.L14
+  76              	.LVL7:
+  77              	.L6:
+  78              	.LBE74:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	for (uint16_t i = upperLeft.getX();
+  79              		.loc 1 38 0
+  80 002a B8F90030 		ldrsh	r3, [r8, #0]
+  81 002e 0135     		adds	r5, r5, #1
+  82 0030 ADB2     		uxth	r5, r5
+  83              	.LVL8:
+  84 0032 5344     		add	r3, r3, sl
+  85 0034 9D42     		cmp	r5, r3
+  86 0036 EFDA     		bge	.L1
+  87              	.LVL9:
+  88              	.L13:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			(i < upperLeft.getX() + width) && (i < getWidth());
+  89              		.loc 1 39 0 discriminator 2
+  90 0038 3368     		ldr	r3, [r6, #0]
+  91 003a 3046     		mov	r0, r6
+  92 003c 9B68     		ldr	r3, [r3, #8]
+  93 003e 9847     		blx	r3
+  94              	.LVL10:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	for (uint16_t i = upperLeft.getX();
+  95              		.loc 1 38 0 discriminator 2
+  96 0040 A842     		cmp	r0, r5
+  97 0042 EBD8     		bhi	.L8
+  98 0044 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+  99              	.LVL11:
+ 100              	.L14:
+ 101              	.LBB75:
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 				(k < upperLeft.getY() + height) && (k < getHeight());
+ 102              		.loc 1 43 0 discriminator 2
+ 103 0048 3368     		ldr	r3, [r6, #0]
+ 104 004a 3046     		mov	r0, r6
+ 105 004c DB68     		ldr	r3, [r3, #12]
+ 106 004e 9847     		blx	r3
+ 107              	.LVL12:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		for (uint16_t k = upperLeft.getY();
+ 108              		.loc 1 42 0 discriminator 2
+ 109 0050 A042     		cmp	r0, r4
+ 110 0052 EAD9     		bls	.L6
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 				++k)
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		{
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			(this->*draw)(i, k);
+ 111              		.loc 1 46 0
+ 112 0054 B069     		ldr	r0, [r6, #24]
+ 113 0056 C307     		lsls	r3, r0, #31
+ 114 0058 0DD4     		bmi	.L19
+ 115              		.loc 1 46 0 is_stmt 0 discriminator 1
+ 116 005a 7769     		ldr	r7, [r6, #20]
+ 117 005c 06EB6000 		add	r0, r6, r0, asr #1
+ 118              	.L4:
+ 119              		.loc 1 46 0 discriminator 3
+ 120 0060 22B2     		sxth	r2, r4
+ 121 0062 29B2     		sxth	r1, r5
+ 122 0064 B847     		blx	r7
+ 123              	.LVL13:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		for (uint16_t k = upperLeft.getY();
+ 124              		.loc 1 42 0 is_stmt 1 discriminator 3
+ 125 0066 B8F90200 		ldrsh	r0, [r8, #2]
+ 126 006a 0134     		adds	r4, r4, #1
+ 127 006c A4B2     		uxth	r4, r4
+ 128              	.LVL14:
+ 129 006e 4844     		add	r0, r0, r9
+ 130 0070 8442     		cmp	r4, r0
+ 131 0072 DADA     		bge	.L6
+ 132 0074 E8E7     		b	.L14
+ 133              	.LVL15:
+ 134              	.L19:
+ 135              		.loc 1 46 0 discriminator 2
+ 136 0076 4010     		asrs	r0, r0, #1
+ 137 0078 7369     		ldr	r3, [r6, #20]
+ 138 007a 3258     		ldr	r2, [r6, r0]
+ 139 007c 3018     		adds	r0, r6, r0
+ 140 007e D758     		ldr	r7, [r2, r3]
+ 141 0080 EEE7     		b	.L4
+ 142              	.LBE75:
+ 143              	.LBE76:
+ 144              		.cfi_endproc
+ 145              	.LFE1202:
+ 147 0082 00BF     		.section	.text._ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt,"ax",%progbits
+ 148              		.align	2
+ 149              		.global	_ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt
+ 150              		.thumb
+ 151              		.thumb_func
+ 153              	_ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt:
+ 154              	.LFB1203:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		}
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	}
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** }
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** void
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** xpcc::GraphicDisplay::fillCircle(glcd::Point center, uint16_t radius)
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** {
+ 155              		.loc 1 53 0
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 16
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              	.LVL16:
+ 160 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 161              	.LCFI1:
+ 162              		.cfi_def_cfa_offset 36
+ 163              		.cfi_offset 4, -36
+ 164              		.cfi_offset 5, -32
+ 165              		.cfi_offset 6, -28
+ 166              		.cfi_offset 7, -24
+ 167              		.cfi_offset 8, -20
+ 168              		.cfi_offset 9, -16
+ 169              		.cfi_offset 10, -12
+ 170              		.cfi_offset 11, -8
+ 171              		.cfi_offset 14, -4
+ 172 0004 0C46     		mov	r4, r1
+ 173 0006 85B0     		sub	sp, sp, #20
+ 174              	.LCFI2:
+ 175              		.cfi_def_cfa_offset 56
+ 176              	.LBB77:
+ 177              	.LBB78:
+ 178              	.LBB79:
+ 179              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** #ifndef XPCC__VECTOR2_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 	#error	"Don't include this file directly, use 'vector2.hpp' instead!"
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** #endif
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** #include <cmath>
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** // ----------------------------------------------------------------------------
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** template<typename T>
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** xpcc::Vector<T, 2>::Vector() :
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 	x(),
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 	y()
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** {
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** }
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** // ----------------------------------------------------------------------------
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** template<typename T>
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** xpcc::Vector<T, 2>::Vector(const T& inX, const T& inY) :
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 	x(inX),
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2_impl.hpp **** 	y(inY)
+ 180              		.loc 2 49 0
+ 181 0008 2688     		ldrh	r6, [r4, #0]
+ 182              	.LBE79:
+ 183              	.LBE78:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t f = 1 - radius;
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t ddF_x = 0;
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t ddF_y = -2 * radius;
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	uint16_t x = 0;
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	uint16_t y = radius;
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	this->drawVerticalLine(glcd::Point(center.getX(), center.getY() - radius), 2 * radius);
+ 184              		.loc 1 60 0
+ 185 000a 4988     		ldrh	r1, [r1, #2]
+ 186              	.LVL17:
+ 187 000c 0368     		ldr	r3, [r0, #0]
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t ddF_y = -2 * radius;
+ 188              		.loc 1 56 0
+ 189 000e C2EBC23B 		rsb	fp, r2, r2, lsl #15
+ 190 0012 4FEA4B0B 		lsl	fp, fp, #1
+ 191              	.LBE77:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** {
+ 192              		.loc 1 53 0
+ 193 0016 1746     		mov	r7, r2
+ 194              	.LBB98:
+ 195              		.loc 1 60 0
+ 196 0018 891A     		subs	r1, r1, r2
+ 197 001a 1B6A     		ldr	r3, [r3, #32]
+ 198              	.LBB82:
+ 199              	.LBB80:
+ 200              		.loc 2 49 0
+ 201 001c ADF80C60 		strh	r6, [sp, #12]	@ movhi
+ 202              	.LBE80:
+ 203              	.LBE82:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t ddF_y = -2 * radius;
+ 204              		.loc 1 56 0
+ 205 0020 1FFA8BFB 		uxth	fp, fp
+ 206              		.loc 1 60 0
+ 207 0024 5600     		lsls	r6, r2, #1
+ 208 0026 4FF6FE72 		movw	r2, #65534
+ 209              	.LVL18:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t f = 1 - radius;
+ 210              		.loc 1 54 0
+ 211 002a C7F10108 		rsb	r8, r7, #1
+ 212              	.LBB83:
+ 213              	.LBB81:
+ 214              		.loc 2 49 0
+ 215 002e ADF80E10 		strh	r1, [sp, #14]	@ movhi
+ 216              	.LBE81:
+ 217              	.LBE83:
+ 218              		.loc 1 60 0
+ 219 0032 3240     		ands	r2, r2, r6
+ 220 0034 03A9     		add	r1, sp, #12
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t ddF_y = -2 * radius;
+ 221              		.loc 1 56 0
+ 222 0036 CDF804B0 		str	fp, [sp, #4]
+ 223              	.LBE98:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** {
+ 224              		.loc 1 53 0
+ 225 003a 0546     		mov	r5, r0
+ 226              	.LBB99:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	int16_t f = 1 - radius;
+ 227              		.loc 1 54 0
+ 228 003c 1FFA88F8 		uxth	r8, r8
+ 229              	.LVL19:
+ 230              		.loc 1 60 0
+ 231 0040 9847     		blx	r3
+ 232              	.LVL20:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	while(x < y)
+ 233              		.loc 1 62 0
+ 234 0042 002F     		cmp	r7, #0
+ 235 0044 67D0     		beq	.L20
+ 236 0046 0026     		movs	r6, #0
+ 237 0048 B246     		mov	sl, r6
+ 238              	.LVL21:
+ 239              	.L21:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	{
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		if (f >= 0)
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		{
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			y--;
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			ddF_y += 2;
+ 240              		.loc 1 67 0
+ 241 004a DDF804E0 		ldr	lr, [sp, #4]
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			f += ddF_y;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		x++;
+ 242              		.loc 1 70 0
+ 243 004e 0136     		adds	r6, r6, #1
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		ddF_x += 2;
+ 244              		.loc 1 71 0
+ 245 0050 1FFA8AFA 		uxth	sl, sl
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		if (f >= 0)
+ 246              		.loc 1 64 0
+ 247 0054 18F4004F 		tst	r8, #32768
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		f += ddF_x + 1;
+ 248              		.loc 1 72 0
+ 249 0058 0AF10302 		add	r2, sl, #3
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		x++;
+ 250              		.loc 1 70 0
+ 251 005c B6B2     		uxth	r6, r6
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		ddF_x += 2;
+ 252              		.loc 1 71 0
+ 253 005e 0AF1020A 		add	sl, sl, #2
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		this->drawVerticalLine(glcd::Point(center.getX() + x, center.getY() - y), 2 * y);
+ 254              		.loc 1 74 0
+ 255 0062 2846     		mov	r0, r5
+ 256 0064 03A9     		add	r1, sp, #12
+ 257              	.LVL22:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			ddF_y += 2;
+ 258              		.loc 1 67 0
+ 259 0066 0EF10203 		add	r3, lr, #2
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		if (f >= 0)
+ 260              		.loc 1 64 0
+ 261 006a 0AD1     		bne	.L22
+ 262              	.LVL23:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			ddF_y += 2;
+ 263              		.loc 1 67 0
+ 264 006c 1FFA83FB 		uxth	fp, r3
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			f += ddF_y;
+ 265              		.loc 1 68 0
+ 266 0070 D844     		add	r8, fp, r8
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			y--;
+ 267              		.loc 1 66 0
+ 268 0072 013F     		subs	r7, r7, #1
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			ddF_y += 2;
+ 269              		.loc 1 67 0
+ 270 0074 1FFA8BFB 		uxth	fp, fp
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			y--;
+ 271              		.loc 1 66 0
+ 272 0078 BFB2     		uxth	r7, r7
+ 273              	.LVL24:
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			f += ddF_y;
+ 274              		.loc 1 68 0
+ 275 007a 1FFA88F8 		uxth	r8, r8
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 			ddF_y += 2;
+ 276              		.loc 1 67 0
+ 277 007e CDF804B0 		str	fp, [sp, #4]
+ 278              	.LVL25:
+ 279              	.L22:
+ 280              		.loc 1 74 0
+ 281 0082 B4F802E0 		ldrh	lr, [r4, #2]
+ 282 0086 B4F800C0 		ldrh	ip, [r4, #0]
+ 283 008a 2B68     		ldr	r3, [r5, #0]
+ 284 008c 4FEA4709 		lsl	r9, r7, #1
+ 285 0090 B444     		add	ip, r6, ip
+ 286 0092 C7EB0E0E 		rsb	lr, r7, lr
+ 287 0096 1FFA89F9 		uxth	r9, r9
+ 288 009a 1B6A     		ldr	r3, [r3, #32]
+ 289              	.LBB84:
+ 290              	.LBB85:
+ 291              		.loc 2 49 0
+ 292 009c ADF80CC0 		strh	ip, [sp, #12]	@ movhi
+ 293              	.LBE85:
+ 294              	.LBE84:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		f += ddF_x + 1;
+ 295              		.loc 1 72 0
+ 296 00a0 9044     		add	r8, r2, r8
+ 297              	.LVL26:
+ 298              	.LBB87:
+ 299              	.LBB86:
+ 300              		.loc 2 49 0
+ 301 00a2 ADF80EE0 		strh	lr, [sp, #14]	@ movhi
+ 302              	.LBE86:
+ 303              	.LBE87:
+ 304              		.loc 1 74 0
+ 305 00a6 4A46     		mov	r2, r9
+ 306 00a8 9847     		blx	r3
+ 307              	.LVL27:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		this->drawVerticalLine(glcd::Point(center.getX() + y, center.getY() - x), 2 * x);
+ 308              		.loc 1 75 0
+ 309 00aa B4F802E0 		ldrh	lr, [r4, #2]
+ 310 00ae 2188     		ldrh	r1, [r4, #0]
+ 311 00b0 2A68     		ldr	r2, [r5, #0]
+ 312 00b2 7300     		lsls	r3, r6, #1
+ 313 00b4 1FFA83FB 		uxth	fp, r3
+ 314 00b8 C6EB0E0E 		rsb	lr, r6, lr
+ 315 00bc 7918     		adds	r1, r7, r1
+ 316 00be 136A     		ldr	r3, [r2, #32]
+ 317              	.LBB88:
+ 318              	.LBB89:
+ 319              		.loc 2 49 0
+ 320 00c0 ADF80C10 		strh	r1, [sp, #12]	@ movhi
+ 321              	.LBE89:
+ 322              	.LBE88:
+ 323              		.loc 1 75 0
+ 324 00c4 2846     		mov	r0, r5
+ 325 00c6 03A9     		add	r1, sp, #12
+ 326              	.LVL28:
+ 327 00c8 5A46     		mov	r2, fp
+ 328              	.LBB91:
+ 329              	.LBB90:
+ 330              		.loc 2 49 0
+ 331 00ca ADF80EE0 		strh	lr, [sp, #14]	@ movhi
+ 332              	.LBE90:
+ 333              	.LBE91:
+ 334              		.loc 1 75 0
+ 335 00ce 9847     		blx	r3
+ 336              	.LVL29:
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		this->drawVerticalLine(glcd::Point(center.getX() - x, center.getY() - y), 2 * y);
+ 337              		.loc 1 76 0
+ 338 00d0 B4F802E0 		ldrh	lr, [r4, #2]
+ 339 00d4 2188     		ldrh	r1, [r4, #0]
+ 340 00d6 2A68     		ldr	r2, [r5, #0]
+ 341 00d8 C7EB0E0E 		rsb	lr, r7, lr
+ 342 00dc 891B     		subs	r1, r1, r6
+ 343 00de 136A     		ldr	r3, [r2, #32]
+ 344              	.LBB92:
+ 345              	.LBB93:
+ 346              		.loc 2 49 0
+ 347 00e0 ADF80C10 		strh	r1, [sp, #12]	@ movhi
+ 348              	.LBE93:
+ 349              	.LBE92:
+ 350              		.loc 1 76 0
+ 351 00e4 2846     		mov	r0, r5
+ 352 00e6 03A9     		add	r1, sp, #12
+ 353              	.LVL30:
+ 354 00e8 4A46     		mov	r2, r9
+ 355              	.LBB95:
+ 356              	.LBB94:
+ 357              		.loc 2 49 0
+ 358 00ea ADF80EE0 		strh	lr, [sp, #14]	@ movhi
+ 359              	.LBE94:
+ 360              	.LBE95:
+ 361              		.loc 1 76 0
+ 362 00ee 9847     		blx	r3
+ 363              	.LVL31:
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		this->drawVerticalLine(glcd::Point(center.getX() - y, center.getY() - x), 2 * x);
+ 364              		.loc 1 77 0
+ 365 00f0 6188     		ldrh	r1, [r4, #2]
+ 366 00f2 2088     		ldrh	r0, [r4, #0]
+ 367 00f4 2A68     		ldr	r2, [r5, #0]
+ 368 00f6 891B     		subs	r1, r1, r6
+ 369 00f8 C01B     		subs	r0, r0, r7
+ 370 00fa D2F820C0 		ldr	ip, [r2, #32]
+ 371              	.LBB96:
+ 372              	.LBB97:
+ 373              		.loc 2 49 0
+ 374 00fe ADF80C00 		strh	r0, [sp, #12]	@ movhi
+ 375 0102 ADF80E10 		strh	r1, [sp, #14]	@ movhi
+ 376              	.LBE97:
+ 377              	.LBE96:
+ 378              		.loc 1 77 0
+ 379 0106 2846     		mov	r0, r5
+ 380 0108 03A9     		add	r1, sp, #12
+ 381              	.LVL32:
+ 382 010a 5A46     		mov	r2, fp
+ 383 010c E047     		blx	ip
+ 384              	.LVL33:
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	while(x < y)
+ 385              		.loc 1 62 0
+ 386 010e B742     		cmp	r7, r6
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 		f += ddF_x + 1;
+ 387              		.loc 1 72 0
+ 388 0110 1FFA88F8 		uxth	r8, r8
+ 389              	.LVL34:
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	while(x < y)
+ 390              		.loc 1 62 0
+ 391 0114 99D8     		bhi	.L21
+ 392              	.LVL35:
+ 393              	.L20:
+ 394              	.LBE99:
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** 	}
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display_fill.cpp **** }
+ 395              		.loc 1 79 0
+ 396 0116 05B0     		add	sp, sp, #20
+ 397 0118 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 398              		.cfi_endproc
+ 399              	.LFE1203:
+ 401              		.text
+ 402              	.Letext0:
+ 403              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 404              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 405              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/geometric_traits.hpp"
+ 406              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector2.hpp"
+ 407              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 408              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector1.hpp"
+ 409              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/geometry/vector1_impl.hpp"
+ 410              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/matrix.hpp"
+ 411              		.file 11 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/matrix_impl.hpp"
+ 412              		.file 12 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 413              		.file 13 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/graphic_display.hpp"
+ 414              		.file 14 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 415              		.file 15 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 416              		.file 16 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 417              		.file 17 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 418              		.file 18 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 419              		.file 19 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 420              		.file 20 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 421              		.file 21 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+ 422              		.file 22 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 graphic_display_fill.cpp
+     /tmp/cc8ZcVCk.s:20     .text._ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt:00000000 $t
+     /tmp/cc8ZcVCk.s:25     .text._ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt:00000000 _ZN4xpcc14GraphicDisplay13fillRectangleENS_6VectorIsLh2EEEtt
+     /tmp/cc8ZcVCk.s:148    .text._ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt:00000000 $t
+     /tmp/cc8ZcVCk.s:153    .text._ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt:00000000 _ZN4xpcc14GraphicDisplay10fillCircleENS_6VectorIsLh2EEEt
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

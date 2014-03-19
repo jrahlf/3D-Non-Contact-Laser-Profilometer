@@ -1,0 +1,1275 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"atof.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._Z5atoi2PKcPS0_,"ax",%progbits
+  20              		.align	2
+  21              		.global	_Z5atoi2PKcPS0_
+  22              		.thumb
+  23              		.thumb_func
+  25              	_Z5atoi2PKcPS0_:
+  26              	.LFB0:
+  27              		.file 1 "atof.cpp"
+   1:atof.cpp      **** /*
+   2:atof.cpp      ****  * atof.c
+   3:atof.cpp      ****  *
+   4:atof.cpp      ****  *  Created on: Jan 3, 2014
+   5:atof.cpp      ****  *      Author: jonas
+   6:atof.cpp      ****  */
+   7:atof.cpp      **** 
+   8:atof.cpp      **** 
+   9:atof.cpp      **** #include "atof.h"
+  10:atof.cpp      **** 
+  11:atof.cpp      **** //
+  12:atof.cpp      **** // Simple and fast atof (ascii to float) function.
+  13:atof.cpp      **** //
+  14:atof.cpp      **** // - Executes about 5x faster than standard MSCRT library atof().
+  15:atof.cpp      **** // - An attractive alternative if the number of calls is in the millions.
+  16:atof.cpp      **** // - Assumes input is a proper integer, fraction, or scientific format.
+  17:atof.cpp      **** // - Matches library atof() to 15 digits (except at extreme exponents).
+  18:atof.cpp      **** // - Follows atof() precedent of essentially no error checking.
+  19:atof.cpp      **** //
+  20:atof.cpp      **** // 09-May-2009 Tom Van Baak (tvb) www.LeapSecond.com
+  21:atof.cpp      **** //
+  22:atof.cpp      **** 
+  23:atof.cpp      **** /**
+  24:atof.cpp      **** * source: http://www.leapsecond.com/tools/fast_atof.c
+  25:atof.cpp      **** * Modified by: Jonas Rahlf
+  26:atof.cpp      **** *
+  27:atof.cpp      **** * see atof.h for documentation
+  28:atof.cpp      **** */
+  29:atof.cpp      **** 
+  30:atof.cpp      **** #define white_space(c) ((c) == ' ' || (c) == '\t')
+  31:atof.cpp      **** #define valid_digit(c) ((c) >= '0' && (c) <= '9')
+  32:atof.cpp      **** #define valid_char(c) (((c) >= '0' && (c) <= '9') || c == '+' || c == '-')
+  33:atof.cpp      **** int atoi2 (const char *p, const char** stopPosition){
+  28              		.loc 1 33 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34 0000 30B4     		push	{r4, r5}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 4, -8
+  38              		.cfi_offset 5, -4
+  39              	.LBB2:
+  34:atof.cpp      ****     int sign = 0;
+  35:atof.cpp      ****     int value = 0;
+  36:atof.cpp      ****     const char* const start = p;
+  37:atof.cpp      **** 
+  38:atof.cpp      ****     // Skip leading garbage
+  39:atof.cpp      **** 
+  40:atof.cpp      ****     while (!valid_char(*p) ) {
+  40              		.loc 1 40 0
+  41 0002 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+  42 0004 A3F13002 		sub	r2, r3, #48
+  43 0008 D4B2     		uxtb	r4, r2
+  44 000a 092C     		cmp	r4, #9
+  45 000c 20D8     		bhi	.L36
+  46              	.LVL1:
+  47              	.L2:
+  41:atof.cpp      ****     	if(p == '\0'){
+  42:atof.cpp      ****     		goto exit;
+  43:atof.cpp      ****     	}
+  44:atof.cpp      ****         p += 1;
+  45:atof.cpp      ****     }
+  46:atof.cpp      **** 
+  47:atof.cpp      ****     // Get sign, if any.
+  48:atof.cpp      **** 
+  49:atof.cpp      ****     sign = 1.0;
+  48              		.loc 1 49 0
+  49 000e 0446     		mov	r4, r0
+  50 0010 0120     		movs	r0, #1
+  51              	.LVL2:
+  52              	.L7:
+  53              		.loc 1 49 0 is_stmt 0 discriminator 2
+  54 0012 DFED2F7A 		flds	s15, .L40	@ int
+  55              	.LVL3:
+  56              	.L9:
+  50:atof.cpp      ****     if (*p == '-') {
+  51:atof.cpp      ****         sign = -1.0;
+  52:atof.cpp      ****         p += 1;
+  53:atof.cpp      **** 
+  54:atof.cpp      ****     } else if (*p == '+') {
+  55:atof.cpp      ****         p += 1;
+  56:atof.cpp      ****     }
+  57:atof.cpp      **** 
+  58:atof.cpp      ****     //skip leading zeros
+  59:atof.cpp      ****     /*while(*p == '0')
+  60:atof.cpp      ****     	p++;*/
+  61:atof.cpp      **** 
+  62:atof.cpp      ****     // Get digits before decimal point or exponent, if any.
+  63:atof.cpp      **** 
+  64:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+  65:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+  57              		.loc 1 65 0 is_stmt 1 discriminator 2
+  58 0016 07EE102A 		fmsr	s14, r2	@ int
+  59 001a F8EEE76A 		fsitos	s13, s15
+  64:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+  60              		.loc 1 64 0 discriminator 2
+  61 001e 14F8013F 		ldrb	r3, [r4, #1]!	@ zero_extendqisi2
+  62              		.loc 1 65 0 discriminator 2
+  63 0022 F8EEC77A 		fsitos	s15, s14
+  64 0026 B2EE047A 		fconsts	s14, #36
+  65 002a 46EE877A 		fmacs	s15, s13, s14
+  64:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+  66              		.loc 1 64 0 discriminator 2
+  67 002e A3F13002 		sub	r2, r3, #48
+  68 0032 D5B2     		uxtb	r5, r2
+  69 0034 092D     		cmp	r5, #9
+  70              		.loc 1 65 0 discriminator 2
+  71 0036 FDEEE77A 		ftosizs	s15, s15
+  72              	.LVL4:
+  64:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+  73              		.loc 1 64 0 discriminator 2
+  74 003a ECD9     		bls	.L9
+  75              	.LVL5:
+  76              	.L8:
+  66:atof.cpp      ****     }
+  67:atof.cpp      **** 
+  68:atof.cpp      ****     if (*p == '.'){
+  77              		.loc 1 68 0
+  78 003c 2E2B     		cmp	r3, #46
+  79 003e 27D0     		beq	.L37
+  80              	.L10:
+  81              	.LVL6:
+  69:atof.cpp      ****     	p++;
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+  71:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+  72:atof.cpp      **** 		}
+  73:atof.cpp      **** 		value *= 10;
+  74:atof.cpp      ****     }
+  75:atof.cpp      **** 
+  76:atof.cpp      ****     // Get digits after decimal point, if any.
+  77:atof.cpp      **** 
+  78:atof.cpp      ****     /*if (*p == '.') {
+  79:atof.cpp      ****         double pow10 = 10.0;
+  80:atof.cpp      ****         p += 1;
+  81:atof.cpp      ****         while (valid_digit(*p)) {
+  82:atof.cpp      ****             value += (*p - '0') / pow10;
+  83:atof.cpp      ****             pow10 *= 10.0;
+  84:atof.cpp      ****             p += 1;
+  85:atof.cpp      ****         }
+  86:atof.cpp      ****     }*/
+  87:atof.cpp      **** 
+  88:atof.cpp      ****     // Return signed and scaled floating point result.
+  89:atof.cpp      ****     exit: ;
+  90:atof.cpp      ****     if(stopPosition != 0){
+  82              		.loc 1 90 0
+  83 0040 01B1     		cbz	r1, .L13
+  91:atof.cpp      ****     	*stopPosition = p;
+  84              		.loc 1 91 0
+  85 0042 0C60     		str	r4, [r1, #0]
+  86              	.L13:
+  92:atof.cpp      ****     }
+  93:atof.cpp      ****     return sign * value;
+  87              		.loc 1 93 0
+  88 0044 17EE903A 		fmrs	r3, s15	@ int
+  89 0048 03FB00F0 		mul	r0, r3, r0
+  90              	.LVL7:
+  91              	.LBE2:
+  94:atof.cpp      **** }
+  92              		.loc 1 94 0
+  93 004c 30BC     		pop	{r4, r5}
+  94 004e 7047     		bx	lr
+  95              	.LVL8:
+  96              	.L36:
+  97              	.LBB3:
+  40:atof.cpp      ****     while (!valid_char(*p) ) {
+  98              		.loc 1 40 0 discriminator 1
+  99 0050 2B2B     		cmp	r3, #43
+ 100 0052 0AD0     		beq	.L3
+ 101              	.LVL9:
+ 102              	.L39:
+  40:atof.cpp      ****     while (!valid_char(*p) ) {
+ 103              		.loc 1 40 0 is_stmt 0 discriminator 3
+ 104 0054 2D2B     		cmp	r3, #45
+ 105 0056 13D0     		beq	.L38
+ 106              	.LVL10:
+  40:atof.cpp      ****     while (!valid_char(*p) ) {
+ 107              		.loc 1 40 0
+ 108 0058 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 109              	.LVL11:
+ 110 005c A3F13002 		sub	r2, r3, #48
+ 111 0060 D4B2     		uxtb	r4, r2
+ 112 0062 092C     		cmp	r4, #9
+ 113 0064 D3D9     		bls	.L2
+ 114 0066 2B2B     		cmp	r3, #43
+ 115 0068 F4D1     		bne	.L39
+ 116              	.LVL12:
+ 117              	.L3:
+ 118 006a 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 119 006c A3F13002 		sub	r2, r3, #48
+  55:atof.cpp      ****         p += 1;
+ 120              		.loc 1 55 0 is_stmt 1
+ 121 0070 441C     		adds	r4, r0, #1
+ 122              	.LVL13:
+ 123 0072 D5B2     		uxtb	r5, r2
+  49:atof.cpp      ****     sign = 1.0;
+ 124              		.loc 1 49 0
+ 125 0074 0120     		movs	r0, #1
+ 126              	.LVL14:
+ 127              	.L15:
+  64:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 128              		.loc 1 64 0
+ 129 0076 092D     		cmp	r5, #9
+ 130 0078 CBD9     		bls	.L7
+ 131 007a DFED157A 		flds	s15, .L40	@ int
+ 132 007e DDE7     		b	.L8
+ 133              	.LVL15:
+ 134              	.L38:
+ 135 0080 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 136 0082 A3F13002 		sub	r2, r3, #48
+  52:atof.cpp      ****         p += 1;
+ 137              		.loc 1 52 0
+ 138 0086 441C     		adds	r4, r0, #1
+ 139              	.LVL16:
+ 140 0088 D5B2     		uxtb	r5, r2
+  51:atof.cpp      ****         sign = -1.0;
+ 141              		.loc 1 51 0
+ 142 008a 4FF0FF30 		mov	r0, #-1
+ 143 008e F2E7     		b	.L15
+ 144              	.LVL17:
+ 145              	.L37:
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 146              		.loc 1 70 0
+ 147 0090 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 148 0092 303B     		subs	r3, r3, #48
+ 149 0094 DAB2     		uxtb	r2, r3
+  69:atof.cpp      ****     	p++;
+ 150              		.loc 1 69 0
+ 151 0096 0134     		adds	r4, r4, #1
+ 152              	.LVL18:
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 153              		.loc 1 70 0
+ 154 0098 092A     		cmp	r2, #9
+ 155 009a 11D8     		bhi	.L11
+ 156              	.LVL19:
+ 157              	.L12:
+  71:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 158              		.loc 1 71 0 discriminator 2
+ 159 009c 07EE103A 		fmsr	s14, r3	@ int
+ 160 00a0 F8EEE76A 		fsitos	s13, s15
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 161              		.loc 1 70 0 discriminator 2
+ 162 00a4 14F8013F 		ldrb	r3, [r4, #1]!	@ zero_extendqisi2
+  71:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 163              		.loc 1 71 0 discriminator 2
+ 164 00a8 F8EEC77A 		fsitos	s15, s14
+ 165              	.LVL20:
+ 166 00ac B2EE047A 		fconsts	s14, #36
+ 167 00b0 46EE877A 		fmacs	s15, s13, s14
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 168              		.loc 1 70 0 discriminator 2
+ 169 00b4 303B     		subs	r3, r3, #48
+ 170 00b6 DAB2     		uxtb	r2, r3
+ 171 00b8 092A     		cmp	r2, #9
+  71:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 172              		.loc 1 71 0 discriminator 2
+ 173 00ba FDEEE77A 		ftosizs	s15, s15
+ 174              	.LVL21:
+  70:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 175              		.loc 1 70 0 discriminator 2
+ 176 00be EDD9     		bls	.L12
+ 177              	.L11:
+  73:atof.cpp      **** 		value *= 10;
+ 178              		.loc 1 73 0
+ 179 00c0 17EE902A 		fmrs	r2, s15	@ int
+ 180 00c4 02EB8203 		add	r3, r2, r2, lsl #2
+ 181 00c8 5B00     		lsls	r3, r3, #1
+ 182 00ca 07EE903A 		fmsr	s15, r3	@ int
+ 183              	.LVL22:
+ 184 00ce B7E7     		b	.L10
+ 185              	.L41:
+ 186              		.align	2
+ 187              	.L40:
+ 188 00d0 00000000 		.word	0
+ 189              	.LBE3:
+ 190              		.cfi_endproc
+ 191              	.LFE0:
+ 193              		.section	.text._Z5atoi2PKcii,"ax",%progbits
+ 194              		.align	2
+ 195              		.global	_Z5atoi2PKcii
+ 196              		.thumb
+ 197              		.thumb_func
+ 199              	_Z5atoi2PKcii:
+ 200              	.LFB1:
+  95:atof.cpp      **** 
+  96:atof.cpp      **** int atoi2 (const char *p, const int maxLen, const int garbage){
+ 201              		.loc 1 96 0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              		@ link register save eliminated.
+ 206              	.LVL23:
+ 207 0000 30B4     		push	{r4, r5}
+ 208              	.LCFI1:
+ 209              		.cfi_def_cfa_offset 8
+ 210              		.cfi_offset 4, -8
+ 211              		.cfi_offset 5, -4
+ 212              	.LBB4:
+  97:atof.cpp      ****     int sign;
+  98:atof.cpp      ****     int value;
+  99:atof.cpp      ****     const char* pEnd = p+maxLen;
+ 213              		.loc 1 99 0
+ 214 0002 4118     		adds	r1, r0, r1
+ 215              	.LVL24:
+ 216              	.L78:
+ 100:atof.cpp      **** 
+ 101:atof.cpp      ****     // Skip leading garbage
+ 102:atof.cpp      ****     if(p == pEnd){
+ 217              		.loc 1 102 0
+ 218 0004 8842     		cmp	r0, r1
+ 219 0006 17D0     		beq	.L68
+ 220              	.LVL25:
+ 103:atof.cpp      ****     	return garbage;
+ 104:atof.cpp      ****     }
+ 105:atof.cpp      **** 
+ 106:atof.cpp      ****     while (!valid_char(*p) ) {
+ 221              		.loc 1 106 0 discriminator 1
+ 222 0008 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 223 000a A3F13004 		sub	r4, r3, #48
+ 224 000e 092C     		cmp	r4, #9
+ 225 0010 07D9     		bls	.L63
+ 107:atof.cpp      ****         p += 1;
+ 226              		.loc 1 107 0 discriminator 1
+ 227 0012 0130     		adds	r0, r0, #1
+ 228              	.LVL26:
+ 106:atof.cpp      ****     while (!valid_char(*p) ) {
+ 229              		.loc 1 106 0 discriminator 1
+ 230 0014 2B2B     		cmp	r3, #43
+ 231 0016 04D0     		beq	.L63
+ 106:atof.cpp      ****     while (!valid_char(*p) ) {
+ 232              		.loc 1 106 0 is_stmt 0 discriminator 3
+ 233 0018 2D2B     		cmp	r3, #45
+ 234 001a F3D1     		bne	.L78
+ 235              	.LVL27:
+ 108:atof.cpp      ****         if(p == pEnd){
+ 109:atof.cpp      ****         	return garbage;
+ 110:atof.cpp      ****         }
+ 111:atof.cpp      ****     }
+ 112:atof.cpp      **** 
+ 113:atof.cpp      ****     // Get sign, if any.
+ 114:atof.cpp      **** 
+ 115:atof.cpp      ****     sign = 1.0;
+ 116:atof.cpp      ****     if (*p == '-') {
+ 117:atof.cpp      ****         sign = -1.0;
+ 236              		.loc 1 117 0 is_stmt 1
+ 237 001c 4FF0FF34 		mov	r4, #-1
+ 238 0020 00E0     		b	.L44
+ 239              	.LVL28:
+ 240              	.L63:
+ 115:atof.cpp      ****     sign = 1.0;
+ 241              		.loc 1 115 0
+ 242 0022 0124     		movs	r4, #1
+ 243              	.L44:
+ 244              	.LVL29:
+ 118:atof.cpp      ****         p += 1;
+ 119:atof.cpp      **** 
+ 120:atof.cpp      ****     } else if (*p == '+') {
+ 121:atof.cpp      **** 
+ 122:atof.cpp      **** 
+ 123:atof.cpp      ****         p += 1;
+ 124:atof.cpp      ****     }
+ 125:atof.cpp      **** 
+ 126:atof.cpp      ****     if(p == pEnd){
+ 245              		.loc 1 126 0
+ 246 0024 8842     		cmp	r0, r1
+ 247 0026 07D0     		beq	.L68
+ 248              	.L74:
+ 127:atof.cpp      **** 		return garbage;
+ 128:atof.cpp      **** 	}
+ 129:atof.cpp      **** 
+ 130:atof.cpp      ****     //skip leading zeros
+ 131:atof.cpp      ****     while(*p == '0'){
+ 249              		.loc 1 131 0 discriminator 1
+ 250 0028 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 251 002a 302B     		cmp	r3, #48
+ 252 002c 07D1     		bne	.L79
+ 132:atof.cpp      ****     	p++;
+ 253              		.loc 1 132 0
+ 254 002e 0130     		adds	r0, r0, #1
+ 255              	.LVL30:
+ 133:atof.cpp      ****     	if(p == pEnd){
+ 256              		.loc 1 133 0
+ 257 0030 8842     		cmp	r0, r1
+ 258 0032 F9D1     		bne	.L74
+ 259              	.LVL31:
+ 260              	.L65:
+ 134:atof.cpp      **** 			return 0; //not garbage
+ 261              		.loc 1 134 0
+ 262 0034 0020     		movs	r0, #0
+ 263              	.LVL32:
+ 264 0036 00E0     		b	.L75
+ 265              	.LVL33:
+ 266              	.L68:
+ 103:atof.cpp      ****     	return garbage;
+ 267              		.loc 1 103 0
+ 268 0038 1046     		mov	r0, r2
+ 269              	.LVL34:
+ 270              	.L75:
+ 271              	.LBE4:
+ 135:atof.cpp      **** 		}
+ 136:atof.cpp      ****     }
+ 137:atof.cpp      **** 
+ 138:atof.cpp      ****     // Get digits before decimal point or exponent, if any.
+ 139:atof.cpp      **** 
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 141:atof.cpp      ****     	if(p == pEnd){
+ 142:atof.cpp      **** 			return sign * value;
+ 143:atof.cpp      **** 		}
+ 144:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 145:atof.cpp      **** 
+ 146:atof.cpp      ****     }
+ 147:atof.cpp      **** 
+ 148:atof.cpp      ****     if (*p == '.'){
+ 149:atof.cpp      ****     	p++;
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 151:atof.cpp      **** 			if(p == pEnd){
+ 152:atof.cpp      **** 				return sign * value;
+ 153:atof.cpp      **** 			}
+ 154:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 155:atof.cpp      **** 		}
+ 156:atof.cpp      **** 		value *= 10;
+ 157:atof.cpp      ****     }
+ 158:atof.cpp      **** 
+ 159:atof.cpp      ****     // Get digits after decimal point, if any.
+ 160:atof.cpp      **** 
+ 161:atof.cpp      ****     /*if (*p == '.') {
+ 162:atof.cpp      ****         double pow10 = 10.0;
+ 163:atof.cpp      ****         p += 1;
+ 164:atof.cpp      ****         while (valid_digit(*p)) {
+ 165:atof.cpp      ****             value += (*p - '0') / pow10;
+ 166:atof.cpp      ****             pow10 *= 10.0;
+ 167:atof.cpp      ****             p += 1;
+ 168:atof.cpp      ****         }
+ 169:atof.cpp      ****     }*/
+ 170:atof.cpp      **** 
+ 171:atof.cpp      ****     // Return signed and scaled floating point result.
+ 172:atof.cpp      **** 
+ 173:atof.cpp      ****     return sign * value;
+ 174:atof.cpp      **** }
+ 272              		.loc 1 174 0
+ 273 003a 30BC     		pop	{r4, r5}
+ 274 003c 7047     		bx	lr
+ 275              	.LVL35:
+ 276              	.L79:
+ 277              	.LBB5:
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 278              		.loc 1 140 0 discriminator 1
+ 279 003e A3F13002 		sub	r2, r3, #48
+ 280              	.LVL36:
+ 281 0042 D5B2     		uxtb	r5, r2
+ 282 0044 092D     		cmp	r5, #9
+ 283 0046 20D8     		bhi	.L66
+ 141:atof.cpp      ****     	if(p == pEnd){
+ 284              		.loc 1 141 0
+ 285 0048 8842     		cmp	r0, r1
+ 286 004a F3D0     		beq	.L65
+ 287 004c DFED247A 		flds	s15, .L81	@ int
+ 288 0050 01E0     		b	.L53
+ 289              	.LVL37:
+ 290              	.L54:
+ 291 0052 8142     		cmp	r1, r0
+ 292 0054 37D0     		beq	.L57
+ 293              	.LVL38:
+ 294              	.L53:
+ 144:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 295              		.loc 1 144 0
+ 296 0056 07EE102A 		fmsr	s14, r2	@ int
+ 297 005a F8EEE76A 		fsitos	s13, s15
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 298              		.loc 1 140 0
+ 299 005e 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 144:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 300              		.loc 1 144 0
+ 301 0062 F8EEC77A 		fsitos	s15, s14
+ 302 0066 B2EE047A 		fconsts	s14, #36
+ 303 006a 46EE877A 		fmacs	s15, s13, s14
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 304              		.loc 1 140 0
+ 305 006e A3F13002 		sub	r2, r3, #48
+ 306 0072 D5B2     		uxtb	r5, r2
+ 307 0074 092D     		cmp	r5, #9
+ 144:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 308              		.loc 1 144 0
+ 309 0076 FDEEE77A 		ftosizs	s15, s15
+ 310              	.LVL39:
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 311              		.loc 1 140 0
+ 312 007a EAD9     		bls	.L54
+ 313              	.LVL40:
+ 314              	.L50:
+ 148:atof.cpp      ****     if (*p == '.'){
+ 315              		.loc 1 148 0
+ 316 007c 2E2B     		cmp	r3, #46
+ 317 007e 07D0     		beq	.L80
+ 318              	.LVL41:
+ 319              	.L55:
+ 173:atof.cpp      ****     return sign * value;
+ 320              		.loc 1 173 0
+ 321 0080 17EE902A 		fmrs	r2, s15	@ int
+ 322 0084 02FB04F0 		mul	r0, r2, r4
+ 323 0088 D7E7     		b	.L75
+ 324              	.LVL42:
+ 325              	.L66:
+ 140:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 326              		.loc 1 140 0
+ 327 008a DFED157A 		flds	s15, .L81	@ int
+ 328 008e F5E7     		b	.L50
+ 329              	.LVL43:
+ 330              	.L80:
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 331              		.loc 1 150 0
+ 332 0090 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 333 0092 303B     		subs	r3, r3, #48
+ 334 0094 DAB2     		uxtb	r2, r3
+ 149:atof.cpp      ****     	p++;
+ 335              		.loc 1 149 0
+ 336 0096 0130     		adds	r0, r0, #1
+ 337              	.LVL44:
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 338              		.loc 1 150 0
+ 339 0098 092A     		cmp	r2, #9
+ 340 009a 12D9     		bls	.L60
+ 341 009c 18E0     		b	.L56
+ 342              	.LVL45:
+ 343              	.L69:
+ 154:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 344              		.loc 1 154 0
+ 345 009e 07EE103A 		fmsr	s14, r3	@ int
+ 346 00a2 F8EEE76A 		fsitos	s13, s15
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 347              		.loc 1 150 0
+ 348 00a6 10F8013F 		ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+ 154:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 349              		.loc 1 154 0
+ 350 00aa F8EEC77A 		fsitos	s15, s14
+ 351              	.LVL46:
+ 352 00ae B2EE047A 		fconsts	s14, #36
+ 353 00b2 46EE877A 		fmacs	s15, s13, s14
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 354              		.loc 1 150 0
+ 355 00b6 303B     		subs	r3, r3, #48
+ 356 00b8 DAB2     		uxtb	r2, r3
+ 357 00ba 092A     		cmp	r2, #9
+ 154:atof.cpp      **** 			value = value * 10.0 + (*p - '0');
+ 358              		.loc 1 154 0
+ 359 00bc FDEEE77A 		ftosizs	s15, s15
+ 360              	.LVL47:
+ 150:atof.cpp      **** 		for (; valid_digit(*p); p += 1){
+ 361              		.loc 1 150 0
+ 362 00c0 06D8     		bhi	.L56
+ 363              	.L60:
+ 151:atof.cpp      **** 			if(p == pEnd){
+ 364              		.loc 1 151 0
+ 365 00c2 8142     		cmp	r1, r0
+ 366 00c4 EBD1     		bne	.L69
+ 367              	.L57:
+ 152:atof.cpp      **** 				return sign * value;
+ 368              		.loc 1 152 0
+ 369 00c6 17EE901A 		fmrs	r1, s15	@ int
+ 370              	.LVL48:
+ 371 00ca 01FB04F0 		mul	r0, r1, r4
+ 372 00ce B4E7     		b	.L75
+ 373              	.LVL49:
+ 374              	.L56:
+ 156:atof.cpp      **** 		value *= 10;
+ 375              		.loc 1 156 0
+ 376 00d0 17EE901A 		fmrs	r1, s15	@ int
+ 377              	.LVL50:
+ 378 00d4 01EB8103 		add	r3, r1, r1, lsl #2
+ 379 00d8 5B00     		lsls	r3, r3, #1
+ 380 00da 07EE903A 		fmsr	s15, r3	@ int
+ 381              	.LVL51:
+ 382 00de CFE7     		b	.L55
+ 383              	.L82:
+ 384              		.align	2
+ 385              	.L81:
+ 386 00e0 00000000 		.word	0
+ 387              	.LBE5:
+ 388              		.cfi_endproc
+ 389              	.LFE1:
+ 391              		.global	__aeabi_f2d
+ 392              		.global	__aeabi_i2d
+ 393              		.global	__aeabi_ddiv
+ 394              		.global	__aeabi_dadd
+ 395              		.global	__aeabi_d2f
+ 396              		.global	__aeabi_dmul
+ 397              		.section	.text._Z5atof2PKcPS0_f,"ax",%progbits
+ 398              		.align	2
+ 399              		.global	_Z5atof2PKcPS0_f
+ 400              		.thumb
+ 401              		.thumb_func
+ 403              	_Z5atof2PKcPS0_f:
+ 404              	.LFB2:
+ 175:atof.cpp      **** 
+ 176:atof.cpp      **** float atof2 (const char *p, const char** stopPosition, const float garbage){
+ 405              		.loc 1 176 0
+ 406              		.cfi_startproc
+ 407              		@ args = 0, pretend = 0, frame = 0
+ 408              		@ frame_needed = 0, uses_anonymous_args = 0
+ 409              	.LVL52:
+ 410 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 411              	.LCFI2:
+ 412              		.cfi_def_cfa_offset 40
+ 413              		.cfi_offset 3, -40
+ 414              		.cfi_offset 4, -36
+ 415              		.cfi_offset 5, -32
+ 416              		.cfi_offset 6, -28
+ 417              		.cfi_offset 7, -24
+ 418              		.cfi_offset 8, -20
+ 419              		.cfi_offset 9, -16
+ 420              		.cfi_offset 10, -12
+ 421              		.cfi_offset 11, -8
+ 422              		.cfi_offset 14, -4
+ 423 0004 2DED028B 		fstmfdd	sp!, {d8}
+ 424              	.LCFI3:
+ 425              		.cfi_def_cfa_offset 48
+ 426              		.cfi_offset 80, -48
+ 427 0008 0646     		mov	r6, r0
+ 428 000a 0F46     		mov	r7, r1
+ 429              	.LVL53:
+ 430              	.L94:
+ 431              	.LBB6:
+ 177:atof.cpp      ****     int sign;
+ 178:atof.cpp      ****     float value;
+ 179:atof.cpp      **** 
+ 180:atof.cpp      ****     // Skip leading garbage
+ 181:atof.cpp      **** 
+ 182:atof.cpp      ****     while (!valid_char(*p) ) {
+ 432              		.loc 1 182 0 discriminator 1
+ 433 000c 3378     		ldrb	r3, [r6, #0]	@ zero_extendqisi2
+ 434 000e A3F13002 		sub	r2, r3, #48
+ 435 0012 092A     		cmp	r2, #9
+ 436 0014 15D9     		bls	.L95
+ 437 0016 2B2B     		cmp	r3, #43
+ 438 0018 70D0     		beq	.L85
+ 439              		.loc 1 182 0 is_stmt 0 discriminator 3
+ 440 001a 2D2B     		cmp	r3, #45
+ 441 001c 69D0     		beq	.L113
+ 183:atof.cpp      ****         p += 1;
+ 184:atof.cpp      ****         if(*p == '\0'){
+ 442              		.loc 1 184 0 is_stmt 1
+ 443 001e 16F8013F 		ldrb	r3, [r6, #1]!	@ zero_extendqisi2
+ 444              	.LVL54:
+ 445 0022 002B     		cmp	r3, #0
+ 446 0024 F2D1     		bne	.L94
+ 447              	.LVL55:
+ 448              	.L91:
+ 185:atof.cpp      ****         	goto exit;
+ 186:atof.cpp      ****         }
+ 187:atof.cpp      ****     }
+ 188:atof.cpp      **** 
+ 189:atof.cpp      ****     // Get sign, if any.
+ 190:atof.cpp      **** 
+ 191:atof.cpp      ****     sign = 1.0;
+ 192:atof.cpp      ****     if (*p == '-') {
+ 193:atof.cpp      ****         sign = -1.0;
+ 194:atof.cpp      ****         p += 1;
+ 195:atof.cpp      **** 
+ 196:atof.cpp      ****     } else if (*p == '+') {
+ 197:atof.cpp      ****         p += 1;
+ 198:atof.cpp      ****     }
+ 199:atof.cpp      **** 
+ 200:atof.cpp      ****     //skip leading zeros
+ 201:atof.cpp      ****     while(*p == '0'){
+ 202:atof.cpp      ****     	p++;
+ 203:atof.cpp      ****     }
+ 204:atof.cpp      **** 
+ 205:atof.cpp      ****     // Get digits before decimal point or exponent, if any.
+ 206:atof.cpp      **** 
+ 207:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 208:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 209:atof.cpp      ****     }
+ 210:atof.cpp      **** 
+ 211:atof.cpp      ****     // Get digits after decimal point, if any.
+ 212:atof.cpp      **** 
+ 213:atof.cpp      ****     if (*p == '.') {
+ 214:atof.cpp      ****         double pow10 = 10.0;
+ 215:atof.cpp      ****         p += 1;
+ 216:atof.cpp      ****         while (valid_digit(*p)) {
+ 217:atof.cpp      ****             value += (*p - '0') / pow10;
+ 218:atof.cpp      ****             pow10 *= 10.0;
+ 219:atof.cpp      ****             p += 1;
+ 220:atof.cpp      ****         }
+ 221:atof.cpp      ****     }
+ 222:atof.cpp      **** 
+ 223:atof.cpp      ****     // Return signed and scaled floating point result.
+ 224:atof.cpp      ****     exit: ;
+ 225:atof.cpp      **** 	if(stopPosition != 0){
+ 449              		.loc 1 225 0
+ 450 0026 07B1     		cbz	r7, .L93
+ 226:atof.cpp      **** 		*stopPosition = p;
+ 451              		.loc 1 226 0
+ 452 0028 3E60     		str	r6, [r7, #0]
+ 453              	.L93:
+ 227:atof.cpp      **** 	}
+ 228:atof.cpp      ****     return sign * value;
+ 454              		.loc 1 228 0
+ 455 002a 07EE108A 		fmsr	s14, r8	@ int
+ 456 002e F8EEC77A 		fsitos	s15, s14
+ 457 0032 27EE888A 		fmuls	s16, s15, s16
+ 458              	.LVL56:
+ 459              	.LBE6:
+ 229:atof.cpp      **** }
+ 460              		.loc 1 229 0
+ 461 0036 18EE100A 		fmrs	r0, s16
+ 462 003a BDEC028B 		fldmfdd	sp!, {d8}
+ 463 003e BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 464              	.LVL57:
+ 465              	.L95:
+ 466              	.LBB9:
+ 191:atof.cpp      ****     sign = 1.0;
+ 467              		.loc 1 191 0
+ 468 0042 4FF00108 		mov	r8, #1
+ 469              	.LVL58:
+ 470 0046 01E0     		b	.L112
+ 471              	.LVL59:
+ 472              	.L104:
+ 201:atof.cpp      ****     while(*p == '0'){
+ 473              		.loc 1 201 0
+ 474 0048 16F8013F 		ldrb	r3, [r6, #1]!	@ zero_extendqisi2
+ 475              	.LVL60:
+ 476              	.L112:
+ 477 004c 302B     		cmp	r3, #48
+ 478 004e FBD0     		beq	.L104
+ 479              	.LVL61:
+ 207:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 480              		.loc 1 207 0 discriminator 1
+ 481 0050 A3F13002 		sub	r2, r3, #48
+ 482 0054 D1B2     		uxtb	r1, r2
+ 483              	.LVL62:
+ 484 0056 0929     		cmp	r1, #9
+ 485 0058 9FED2B8A 		flds	s16, .L114
+ 486 005c 10D8     		bhi	.L89
+ 487              	.LVL63:
+ 488              	.L90:
+ 208:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 489              		.loc 1 208 0 discriminator 2
+ 490 005e 07EE102A 		fmsr	s14, r2	@ int
+ 207:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 491              		.loc 1 207 0 discriminator 2
+ 492 0062 16F8013F 		ldrb	r3, [r6, #1]!	@ zero_extendqisi2
+ 208:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 493              		.loc 1 208 0 discriminator 2
+ 494 0066 F8EEC77A 		fsitos	s15, s14
+ 495 006a B2EE047A 		fconsts	s14, #36
+ 496 006e 48EE077A 		fmacs	s15, s16, s14
+ 207:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 497              		.loc 1 207 0 discriminator 2
+ 498 0072 A3F13002 		sub	r2, r3, #48
+ 499 0076 D1B2     		uxtb	r1, r2
+ 500 0078 0929     		cmp	r1, #9
+ 208:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 501              		.loc 1 208 0 discriminator 2
+ 502 007a B0EE678A 		fcpys	s16, s15
+ 503              	.LVL64:
+ 207:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 504              		.loc 1 207 0 discriminator 2
+ 505 007e EED9     		bls	.L90
+ 506              	.LVL65:
+ 507              	.L89:
+ 508              	.LBB7:
+ 213:atof.cpp      ****     if (*p == '.') {
+ 509              		.loc 1 213 0
+ 510 0080 2E2B     		cmp	r3, #46
+ 511 0082 D0D1     		bne	.L91
+ 512              	.LVL66:
+ 513              	.LBB8:
+ 216:atof.cpp      ****         while (valid_digit(*p)) {
+ 514              		.loc 1 216 0
+ 515 0084 7378     		ldrb	r3, [r6, #1]	@ zero_extendqisi2
+ 516 0086 A3F13009 		sub	r9, r3, #48
+ 517 008a 5FFA89F2 		uxtb	r2, r9
+ 215:atof.cpp      ****         p += 1;
+ 518              		.loc 1 215 0
+ 519 008e 0136     		adds	r6, r6, #1
+ 520              	.LVL67:
+ 216:atof.cpp      ****         while (valid_digit(*p)) {
+ 521              		.loc 1 216 0
+ 522 0090 092A     		cmp	r2, #9
+ 523 0092 C8D8     		bhi	.L91
+ 524 0094 DFF880B0 		ldr	fp, .L114+16
+ 525 0098 4FF0000A 		mov	sl, #0
+ 526              	.LVL68:
+ 527              	.L92:
+ 217:atof.cpp      ****             value += (*p - '0') / pow10;
+ 528              		.loc 1 217 0
+ 529 009c 1B4B     		ldr	r3, .L114+4
+ 530 009e 18EE100A 		fmrs	r0, s16
+ 531 00a2 9847     		blx	r3
+ 532              	.LVL69:
+ 533 00a4 DFF874C0 		ldr	ip, .L114+20
+ 534 00a8 0446     		mov	r4, r0
+ 535 00aa 4846     		mov	r0, r9
+ 536 00ac 0D46     		mov	r5, r1
+ 537 00ae E047     		blx	ip
+ 538              	.LVL70:
+ 539 00b0 5246     		mov	r2, sl
+ 540 00b2 5B46     		mov	r3, fp
+ 541 00b4 DFF868C0 		ldr	ip, .L114+24
+ 542 00b8 E047     		blx	ip
+ 543              	.LVL71:
+ 544 00ba 0246     		mov	r2, r0
+ 545 00bc 0B46     		mov	r3, r1
+ 546 00be 2046     		mov	r0, r4
+ 547 00c0 2946     		mov	r1, r5
+ 548 00c2 134C     		ldr	r4, .L114+8
+ 549 00c4 A047     		blx	r4
+ 550              	.LVL72:
+ 551 00c6 DFF85CC0 		ldr	ip, .L114+28
+ 218:atof.cpp      ****             pow10 *= 10.0;
+ 552              		.loc 1 218 0
+ 553 00ca 124C     		ldr	r4, .L114+12
+ 217:atof.cpp      ****             value += (*p - '0') / pow10;
+ 554              		.loc 1 217 0
+ 555 00cc E047     		blx	ip
+ 556              	.LVL73:
+ 218:atof.cpp      ****             pow10 *= 10.0;
+ 557              		.loc 1 218 0
+ 558 00ce 5946     		mov	r1, fp
+ 559 00d0 0022     		movs	r2, #0
+ 560 00d2 114B     		ldr	r3, .L114+16
+ 217:atof.cpp      ****             value += (*p - '0') / pow10;
+ 561              		.loc 1 217 0
+ 562 00d4 08EE100A 		fmsr	s16, r0
+ 563              	.LVL74:
+ 218:atof.cpp      ****             pow10 *= 10.0;
+ 564              		.loc 1 218 0
+ 565 00d8 5046     		mov	r0, sl
+ 566              	.LVL75:
+ 567 00da A047     		blx	r4
+ 568              	.LVL76:
+ 216:atof.cpp      ****         while (valid_digit(*p)) {
+ 569              		.loc 1 216 0
+ 570 00dc 16F8019F 		ldrb	r9, [r6, #1]!	@ zero_extendqisi2
+ 571 00e0 A9F13009 		sub	r9, r9, #48
+ 572 00e4 5FFA89F3 		uxtb	r3, r9
+ 573 00e8 092B     		cmp	r3, #9
+ 218:atof.cpp      ****             pow10 *= 10.0;
+ 574              		.loc 1 218 0
+ 575 00ea 8246     		mov	sl, r0
+ 576 00ec 8B46     		mov	fp, r1
+ 577              	.LVL77:
+ 216:atof.cpp      ****         while (valid_digit(*p)) {
+ 578              		.loc 1 216 0
+ 579 00ee D5D9     		bls	.L92
+ 580 00f0 99E7     		b	.L91
+ 581              	.LVL78:
+ 582              	.L113:
+ 583 00f2 7378     		ldrb	r3, [r6, #1]	@ zero_extendqisi2
+ 584              	.LBE8:
+ 585              	.LBE7:
+ 193:atof.cpp      ****         sign = -1.0;
+ 586              		.loc 1 193 0
+ 587 00f4 4FF0FF38 		mov	r8, #-1
+ 194:atof.cpp      ****         p += 1;
+ 588              		.loc 1 194 0
+ 589 00f8 0136     		adds	r6, r6, #1
+ 590              	.LVL79:
+ 591 00fa A7E7     		b	.L112
+ 592              	.LVL80:
+ 593              	.L85:
+ 191:atof.cpp      ****     sign = 1.0;
+ 594              		.loc 1 191 0
+ 595 00fc 4FF00108 		mov	r8, #1
+ 596 0100 7378     		ldrb	r3, [r6, #1]	@ zero_extendqisi2
+ 197:atof.cpp      ****         p += 1;
+ 597              		.loc 1 197 0
+ 598 0102 4644     		add	r6, r6, r8
+ 599              	.LVL81:
+ 600 0104 A2E7     		b	.L112
+ 601              	.L115:
+ 602 0106 00BF     		.align	2
+ 603              	.L114:
+ 604 0108 00000000 		.word	0
+ 605 010c 00000000 		.word	__aeabi_f2d
+ 606 0110 00000000 		.word	__aeabi_dadd
+ 607 0114 00000000 		.word	__aeabi_dmul
+ 608 0118 00002440 		.word	1076101120
+ 609 011c 00000000 		.word	__aeabi_i2d
+ 610 0120 00000000 		.word	__aeabi_ddiv
+ 611 0124 00000000 		.word	__aeabi_d2f
+ 612              	.LBE9:
+ 613              		.cfi_endproc
+ 614              	.LFE2:
+ 616              		.section	.text._Z5atof2PKcif,"ax",%progbits
+ 617              		.align	2
+ 618              		.global	_Z5atof2PKcif
+ 619              		.thumb
+ 620              		.thumb_func
+ 622              	_Z5atof2PKcif:
+ 623              	.LFB3:
+ 230:atof.cpp      **** 
+ 231:atof.cpp      **** float atof2 (const char *p, const int maxLen, const float garbage){
+ 624              		.loc 1 231 0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 0, uses_anonymous_args = 0
+ 628              	.LVL82:
+ 629 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 630              	.LCFI4:
+ 631              		.cfi_def_cfa_offset 32
+ 632              		.cfi_offset 4, -32
+ 633              		.cfi_offset 5, -28
+ 634              		.cfi_offset 6, -24
+ 635              		.cfi_offset 7, -20
+ 636              		.cfi_offset 8, -16
+ 637              		.cfi_offset 9, -12
+ 638              		.cfi_offset 10, -8
+ 639              		.cfi_offset 14, -4
+ 640 0004 2DED028B 		fstmfdd	sp!, {d8}
+ 641              	.LCFI5:
+ 642              		.cfi_def_cfa_offset 40
+ 643              		.cfi_offset 80, -40
+ 644              		.loc 1 231 0
+ 645 0008 0346     		mov	r3, r0
+ 646              	.LBB10:
+ 232:atof.cpp      ****     int sign;
+ 233:atof.cpp      ****     float value;
+ 234:atof.cpp      ****     const char* pEnd = p+maxLen;
+ 647              		.loc 1 234 0
+ 648 000a 00EB0108 		add	r8, r0, r1
+ 649              	.LVL83:
+ 650              	.L148:
+ 235:atof.cpp      **** 
+ 236:atof.cpp      ****     // Skip leading garbage
+ 237:atof.cpp      ****     if(p == pEnd){
+ 651              		.loc 1 237 0
+ 652 000e 4345     		cmp	r3, r8
+ 653 0010 1BD0     		beq	.L139
+ 654              	.LVL84:
+ 238:atof.cpp      ****     	return garbage;
+ 239:atof.cpp      ****     }
+ 240:atof.cpp      **** 
+ 241:atof.cpp      ****     while (!valid_char(*p) ) {
+ 655              		.loc 1 241 0 discriminator 1
+ 656 0012 1878     		ldrb	r0, [r3, #0]	@ zero_extendqisi2
+ 657 0014 A0F13001 		sub	r1, r0, #48
+ 658 0018 0929     		cmp	r1, #9
+ 659 001a 09D9     		bls	.L135
+ 242:atof.cpp      ****         p += 1;
+ 660              		.loc 1 242 0 discriminator 1
+ 661 001c 0133     		adds	r3, r3, #1
+ 662              	.LVL85:
+ 241:atof.cpp      ****     while (!valid_char(*p) ) {
+ 663              		.loc 1 241 0 discriminator 1
+ 664 001e 2B28     		cmp	r0, #43
+ 665 0020 06D0     		beq	.L135
+ 241:atof.cpp      ****     while (!valid_char(*p) ) {
+ 666              		.loc 1 241 0 is_stmt 0 discriminator 3
+ 667 0022 2D28     		cmp	r0, #45
+ 668 0024 F3D1     		bne	.L148
+ 669              	.LVL86:
+ 243:atof.cpp      ****         if(p == pEnd){
+ 244:atof.cpp      ****         	return garbage;
+ 245:atof.cpp      ****         }
+ 246:atof.cpp      ****     }
+ 247:atof.cpp      **** 
+ 248:atof.cpp      ****     // Get sign, if any.
+ 249:atof.cpp      **** 
+ 250:atof.cpp      ****     sign = 1.0;
+ 251:atof.cpp      ****     if (*p == '-') {
+ 252:atof.cpp      ****         sign = -1.0;
+ 253:atof.cpp      ****         p += 1;
+ 670              		.loc 1 253 0 is_stmt 1
+ 671 0026 4FF00040 		mov	r0, #-2147483648
+ 672 002a BFEE008A 		fconsts	s16, #240
+ 673 002e 02E0     		b	.L118
+ 674              	.LVL87:
+ 675              	.L135:
+ 241:atof.cpp      ****     while (!valid_char(*p) ) {
+ 676              		.loc 1 241 0
+ 677 0030 0020     		movs	r0, #0
+ 678 0032 B7EE008A 		fconsts	s16, #112
+ 679              	.L118:
+ 680              	.LVL88:
+ 254:atof.cpp      **** 
+ 255:atof.cpp      ****     } else if (*p == '+') {
+ 256:atof.cpp      ****         p += 1;
+ 257:atof.cpp      ****     }
+ 258:atof.cpp      **** 
+ 259:atof.cpp      ****     if(p == pEnd){
+ 681              		.loc 1 259 0
+ 682 0036 4345     		cmp	r3, r8
+ 683 0038 07D0     		beq	.L139
+ 684              	.LVL89:
+ 685              	.L145:
+ 260:atof.cpp      **** 		return garbage;
+ 261:atof.cpp      **** 	}
+ 262:atof.cpp      **** 
+ 263:atof.cpp      ****     //skip leading zeros
+ 264:atof.cpp      ****     while(*p == '0'){
+ 686              		.loc 1 264 0 discriminator 1
+ 687 003a 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 688 003c 302A     		cmp	r2, #48
+ 689 003e 09D1     		bne	.L149
+ 265:atof.cpp      ****     	p++;
+ 690              		.loc 1 265 0
+ 691 0040 0133     		adds	r3, r3, #1
+ 692              	.LVL90:
+ 266:atof.cpp      ****     	if(p == pEnd){
+ 693              		.loc 1 266 0
+ 694 0042 4345     		cmp	r3, r8
+ 695 0044 F9D1     		bne	.L145
+ 267:atof.cpp      **** 			return 0;
+ 696              		.loc 1 267 0
+ 697 0046 0020     		movs	r0, #0
+ 698 0048 00E0     		b	.L140
+ 699              	.LVL91:
+ 700              	.L139:
+ 238:atof.cpp      ****     	return garbage;
+ 701              		.loc 1 238 0
+ 702 004a 1046     		mov	r0, r2	@ float
+ 703              	.LVL92:
+ 704              	.L140:
+ 705              	.LBE10:
+ 268:atof.cpp      **** 		}
+ 269:atof.cpp      ****     }
+ 270:atof.cpp      **** 
+ 271:atof.cpp      ****     // Get digits before decimal point or exponent, if any.
+ 272:atof.cpp      **** 
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 274:atof.cpp      ****     	if(p == pEnd){
+ 275:atof.cpp      **** 			return sign * value;
+ 276:atof.cpp      **** 		}
+ 277:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 278:atof.cpp      ****     }
+ 279:atof.cpp      **** 
+ 280:atof.cpp      ****     // Get digits after decimal point, if any.
+ 281:atof.cpp      **** 
+ 282:atof.cpp      ****     if (*p == '.') {
+ 283:atof.cpp      ****         double pow10 = 10.0;
+ 284:atof.cpp      ****         p += 1;
+ 285:atof.cpp      ****         if(p == pEnd){
+ 286:atof.cpp      **** 			return sign * value;
+ 287:atof.cpp      **** 		}
+ 288:atof.cpp      ****         while (valid_digit(*p)) {
+ 289:atof.cpp      ****             value += (*p - '0') / pow10;
+ 290:atof.cpp      ****             pow10 *= 10.0;
+ 291:atof.cpp      ****             p += 1;
+ 292:atof.cpp      ****             if(p == pEnd){
+ 293:atof.cpp      **** 				return sign * value;
+ 294:atof.cpp      **** 			}
+ 295:atof.cpp      ****         }
+ 296:atof.cpp      ****     }
+ 297:atof.cpp      **** 
+ 298:atof.cpp      ****     // Return signed and scaled floating point result.
+ 299:atof.cpp      **** 
+ 300:atof.cpp      ****     return sign * value;
+ 301:atof.cpp      **** }
+ 706              		.loc 1 301 0
+ 707 004c BDEC028B 		fldmfdd	sp!, {d8}
+ 708 0050 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 709              	.LVL93:
+ 710              	.L149:
+ 711              	.LBB14:
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 712              		.loc 1 273 0 discriminator 1
+ 713 0054 A2F13001 		sub	r1, r2, #48
+ 714 0058 CCB2     		uxtb	r4, r1
+ 715 005a 092C     		cmp	r4, #9
+ 716 005c 1ED8     		bhi	.L138
+ 274:atof.cpp      ****     	if(p == pEnd){
+ 717              		.loc 1 274 0
+ 718 005e 4345     		cmp	r3, r8
+ 719 0060 F4D0     		beq	.L140
+ 720 0062 DFED298A 		flds	s17, .L151
+ 721 0066 01E0     		b	.L127
+ 722              	.LVL94:
+ 723              	.L128:
+ 724 0068 9845     		cmp	r8, r3
+ 725 006a 12D0     		beq	.L129
+ 726              	.LVL95:
+ 727              	.L127:
+ 277:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 728              		.loc 1 277 0
+ 729 006c 07EE101A 		fmsr	s14, r1	@ int
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 730              		.loc 1 273 0
+ 731 0070 13F8012F 		ldrb	r2, [r3, #1]!	@ zero_extendqisi2
+ 277:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 732              		.loc 1 277 0
+ 733 0074 F8EEC77A 		fsitos	s15, s14
+ 734 0078 B2EE047A 		fconsts	s14, #36
+ 735 007c 48EE877A 		fmacs	s15, s17, s14
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 736              		.loc 1 273 0
+ 737 0080 A2F13001 		sub	r1, r2, #48
+ 738 0084 C8B2     		uxtb	r0, r1
+ 739 0086 0928     		cmp	r0, #9
+ 277:atof.cpp      ****         value = value * 10.0 + (*p - '0');
+ 740              		.loc 1 277 0
+ 741 0088 F0EE678A 		fcpys	s17, s15
+ 742              	.LVL96:
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 743              		.loc 1 273 0
+ 744 008c ECD9     		bls	.L128
+ 745              	.LVL97:
+ 746              	.L124:
+ 747              	.LBB11:
+ 282:atof.cpp      ****     if (*p == '.') {
+ 748              		.loc 1 282 0
+ 749 008e 2E2A     		cmp	r2, #46
+ 750 0090 07D0     		beq	.L150
+ 751              	.L129:
+ 752              	.LVL98:
+ 753              	.LBE11:
+ 300:atof.cpp      ****     return sign * value;
+ 754              		.loc 1 300 0
+ 755 0092 28EE888A 		fmuls	s16, s17, s16
+ 756 0096 18EE100A 		fmrs	r0, s16
+ 757 009a D7E7     		b	.L140
+ 758              	.LVL99:
+ 759              	.L138:
+ 273:atof.cpp      ****     for (value = 0.0; valid_digit(*p); p += 1){
+ 760              		.loc 1 273 0
+ 761 009c DFED1A8A 		flds	s17, .L151
+ 762 00a0 F5E7     		b	.L124
+ 763              	.LVL100:
+ 764              	.L150:
+ 765              	.LBB13:
+ 766              	.LBB12:
+ 284:atof.cpp      ****         p += 1;
+ 767              		.loc 1 284 0
+ 768 00a2 03F10109 		add	r9, r3, #1
+ 769              	.LVL101:
+ 285:atof.cpp      ****         if(p == pEnd){
+ 770              		.loc 1 285 0
+ 771 00a6 C145     		cmp	r9, r8
+ 772 00a8 F3D0     		beq	.L129
+ 285:atof.cpp      ****         if(p == pEnd){
+ 773              		.loc 1 285 0 is_stmt 0 discriminator 1
+ 774 00aa 184D     		ldr	r5, .L151+4
+ 775 00ac 0024     		movs	r4, #0
+ 776              	.LVL102:
+ 777              	.L131:
+ 288:atof.cpp      ****         while (valid_digit(*p)) {
+ 778              		.loc 1 288 0 is_stmt 1 discriminator 1
+ 779 00ae 99F800A0 		ldrb	sl, [r9, #0]	@ zero_extendqisi2
+ 780 00b2 AAF1300A 		sub	sl, sl, #48
+ 781 00b6 5FFA8AF3 		uxtb	r3, sl
+ 782 00ba 092B     		cmp	r3, #9
+ 289:atof.cpp      ****             value += (*p - '0') / pow10;
+ 783              		.loc 1 289 0 discriminator 1
+ 784 00bc 18EE900A 		fmrs	r0, s17
+ 291:atof.cpp      ****             p += 1;
+ 785              		.loc 1 291 0 discriminator 1
+ 786 00c0 09F10109 		add	r9, r9, #1
+ 787              	.LVL103:
+ 288:atof.cpp      ****         while (valid_digit(*p)) {
+ 788              		.loc 1 288 0 discriminator 1
+ 789 00c4 E5D8     		bhi	.L129
+ 289:atof.cpp      ****             value += (*p - '0') / pow10;
+ 790              		.loc 1 289 0
+ 791 00c6 124B     		ldr	r3, .L151+8
+ 792 00c8 9847     		blx	r3
+ 793              	.LVL104:
+ 794 00ca 124B     		ldr	r3, .L151+12
+ 795 00cc 0646     		mov	r6, r0
+ 796 00ce 5046     		mov	r0, sl
+ 797 00d0 0F46     		mov	r7, r1
+ 798 00d2 9847     		blx	r3
+ 799              	.LVL105:
+ 800 00d4 DFF84CC0 		ldr	ip, .L151+28
+ 801 00d8 2246     		mov	r2, r4
+ 802 00da 2B46     		mov	r3, r5
+ 803 00dc E047     		blx	ip
+ 804              	.LVL106:
+ 805 00de 0246     		mov	r2, r0
+ 806 00e0 0B46     		mov	r3, r1
+ 807 00e2 3046     		mov	r0, r6
+ 808 00e4 3946     		mov	r1, r7
+ 809 00e6 0C4E     		ldr	r6, .L151+16
+ 810 00e8 B047     		blx	r6
+ 811              	.LVL107:
+ 812 00ea 0C4B     		ldr	r3, .L151+20
+ 813 00ec 9847     		blx	r3
+ 814              	.LVL108:
+ 290:atof.cpp      ****             pow10 *= 10.0;
+ 815              		.loc 1 290 0
+ 816 00ee 2946     		mov	r1, r5
+ 817 00f0 0022     		movs	r2, #0
+ 289:atof.cpp      ****             value += (*p - '0') / pow10;
+ 818              		.loc 1 289 0
+ 819 00f2 08EE900A 		fmsr	s17, r0
+ 820              	.LVL109:
+ 290:atof.cpp      ****             pow10 *= 10.0;
+ 821              		.loc 1 290 0
+ 822 00f6 054B     		ldr	r3, .L151+4
+ 823 00f8 2046     		mov	r0, r4
+ 824              	.LVL110:
+ 825 00fa 094C     		ldr	r4, .L151+24
+ 826              	.LVL111:
+ 827 00fc A047     		blx	r4
+ 828              	.LVL112:
+ 292:atof.cpp      ****             if(p == pEnd){
+ 829              		.loc 1 292 0
+ 830 00fe C145     		cmp	r9, r8
+ 290:atof.cpp      ****             pow10 *= 10.0;
+ 831              		.loc 1 290 0
+ 832 0100 0446     		mov	r4, r0
+ 833 0102 0D46     		mov	r5, r1
+ 834              	.LVL113:
+ 292:atof.cpp      ****             if(p == pEnd){
+ 835              		.loc 1 292 0
+ 836 0104 D3D1     		bne	.L131
+ 837 0106 C4E7     		b	.L129
+ 838              	.L152:
+ 839              		.align	2
+ 840              	.L151:
+ 841 0108 00000000 		.word	0
+ 842 010c 00002440 		.word	1076101120
+ 843 0110 00000000 		.word	__aeabi_f2d
+ 844 0114 00000000 		.word	__aeabi_i2d
+ 845 0118 00000000 		.word	__aeabi_dadd
+ 846 011c 00000000 		.word	__aeabi_d2f
+ 847 0120 00000000 		.word	__aeabi_dmul
+ 848 0124 00000000 		.word	__aeabi_ddiv
+ 849              	.LBE12:
+ 850              	.LBE13:
+ 851              	.LBE14:
+ 852              		.cfi_endproc
+ 853              	.LFE3:
+ 855              		.text
+ 856              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 atof.cpp
+     /tmp/ccBx96Ag.s:20     .text._Z5atoi2PKcPS0_:00000000 $t
+     /tmp/ccBx96Ag.s:25     .text._Z5atoi2PKcPS0_:00000000 _Z5atoi2PKcPS0_
+     /tmp/ccBx96Ag.s:188    .text._Z5atoi2PKcPS0_:000000d0 $d
+     /tmp/ccBx96Ag.s:194    .text._Z5atoi2PKcii:00000000 $t
+     /tmp/ccBx96Ag.s:199    .text._Z5atoi2PKcii:00000000 _Z5atoi2PKcii
+     /tmp/ccBx96Ag.s:386    .text._Z5atoi2PKcii:000000e0 $d
+     /tmp/ccBx96Ag.s:398    .text._Z5atof2PKcPS0_f:00000000 $t
+     /tmp/ccBx96Ag.s:403    .text._Z5atof2PKcPS0_f:00000000 _Z5atof2PKcPS0_f
+     /tmp/ccBx96Ag.s:604    .text._Z5atof2PKcPS0_f:00000108 $d
+     /tmp/ccBx96Ag.s:617    .text._Z5atof2PKcif:00000000 $t
+     /tmp/ccBx96Ag.s:622    .text._Z5atof2PKcif:00000000 _Z5atof2PKcif
+     /tmp/ccBx96Ag.s:841    .text._Z5atof2PKcif:00000108 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_i2d
+__aeabi_ddiv
+__aeabi_dadd
+__aeabi_d2f
+__aeabi_dmul

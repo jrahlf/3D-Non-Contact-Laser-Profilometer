@@ -1,0 +1,118 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"operator.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	__aeabi_ui2d
+  20              		.global	__aeabi_d2uiz
+  21              		.section	.text.xpcc__sqrt32,"ax",%progbits
+  22              		.align	2
+  23              		.global	xpcc__sqrt32
+  24              		.thumb
+  25              		.thumb_func
+  27              	xpcc__sqrt32:
+  28              	.LFB123:
+  29              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** #include "../operator.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** extern "C"
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** uint16_t
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** xpcc__sqrt32(uint32_t input)
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** {
+  30              		.loc 1 36 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              	.LVL0:
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** 	return round(std::sqrt(static_cast<double>(input)));
+  40              		.loc 1 37 0
+  41 0002 054B     		ldr	r3, .L2
+  42 0004 9847     		blx	r3
+  43              	.LVL1:
+  44 0006 054B     		ldr	r3, .L2+4
+  45 0008 9847     		blx	r3
+  46              	.LVL2:
+  47 000a 054B     		ldr	r3, .L2+8
+  48 000c 9847     		blx	r3
+  49              	.LVL3:
+  50 000e 054B     		ldr	r3, .L2+12
+  51 0010 9847     		blx	r3
+  52              	.LVL4:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/pc/operator.cpp **** }
+  53              		.loc 1 38 0
+  54 0012 80B2     		uxth	r0, r0
+  55 0014 08BD     		pop	{r3, pc}
+  56              	.L3:
+  57 0016 00BF     		.align	2
+  58              	.L2:
+  59 0018 00000000 		.word	__aeabi_ui2d
+  60 001c 00000000 		.word	sqrt
+  61 0020 00000000 		.word	round
+  62 0024 00000000 		.word	__aeabi_d2uiz
+  63              		.cfi_endproc
+  64              	.LFE123:
+  66              		.text
+  67              	.Letext0:
+  68              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+  69              		.file 3 "<built-in>"
+  70              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+DEFINED SYMBOLS
+                            *ABS*:00000000 operator.cpp
+     /tmp/ccB5ei3a.s:22     .text.xpcc__sqrt32:00000000 $t
+     /tmp/ccB5ei3a.s:27     .text.xpcc__sqrt32:00000000 xpcc__sqrt32
+     /tmp/ccB5ei3a.s:59     .text.xpcc__sqrt32:00000018 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ui2d
+__aeabi_d2uiz
+sqrt
+round

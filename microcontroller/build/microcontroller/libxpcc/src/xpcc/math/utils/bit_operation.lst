@@ -1,0 +1,604 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"bit_operation.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc10bitReverseEh,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc10bitReverseEh
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc10bitReverseEh:
+  26              	.LFB123:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** #include "bit_operation.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** uint8_t
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitReverse(uint8_t n)
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+  28              		.loc 1 36 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 1) & 0x55) | ((uint8_t) (n << 1) & 0xaa);
+  34              		.loc 1 37 0
+  35 0000 4310     		asrs	r3, r0, #1
+  36 0002 4000     		lsls	r0, r0, #1
+  37              	.LVL1:
+  38 0004 03F05503 		and	r3, r3, #85
+  39 0008 00F0AA02 		and	r2, r0, #170
+  40 000c 1A43     		orrs	r2, r2, r3
+  41              	.LVL2:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 2) & 0x33) | ((uint8_t) (n << 2) & 0xcc);
+  42              		.loc 1 38 0
+  43 000e 9110     		asrs	r1, r2, #2
+  44 0010 9200     		lsls	r2, r2, #2
+  45              	.LVL3:
+  46 0012 01F03301 		and	r1, r1, #51
+  47 0016 02F0CC03 		and	r3, r2, #204
+  48              	.LVL4:
+  49              	.LBB10:
+  50              	.LBB11:
+  51              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #ifndef	XPCC__BIT_OPERATION_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #define	XPCC__BIT_OPERATION_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #include <cstddef>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #include <cmath>
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #include <stdint.h>
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #include <xpcc/architecture/utils.hpp>
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** namespace xpcc
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** {
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	/**
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \brief	Exchange the two nibbles of a byte
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \code
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 0xab => 0xba
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \endcode
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \ingroup	math
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 */
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	ALWAYS_INLINE uint8_t
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	swap(uint8_t n)
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	{
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #ifdef __AVR__
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		if (__builtin_constant_p(n)) {
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 			n = (n << 4) | (n >> 4);
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		}
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		else {
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 			asm volatile ("swap %0" : "=r" (n) : "0" (n));
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		}
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		return n;
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #else
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		n = (n << 4) | (n >> 4);
+  52              		.loc 2 63 0
+  53 001a 0B43     		orrs	r3, r3, r1
+  54              	.LVL5:
+  55 001c 1A01     		lsls	r2, r3, #4
+  56              	.LVL6:
+  57 001e 42EA1310 		orr	r0, r2, r3, lsr #4
+  58              	.LBE11:
+  59              	.LBE10:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return swap(n);
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+  60              		.loc 1 41 0
+  61 0022 C0B2     		uxtb	r0, r0
+  62 0024 7047     		bx	lr
+  63              		.cfi_endproc
+  64              	.LFE123:
+  66 0026 00BF     		.section	.text._ZN4xpcc10bitReverseEt,"ax",%progbits
+  67              		.align	2
+  68              		.global	_ZN4xpcc10bitReverseEt
+  69              		.thumb
+  70              		.thumb_func
+  72              	_ZN4xpcc10bitReverseEt:
+  73              	.LFB124:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** uint16_t
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitReverse(uint16_t n)
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+  74              		.loc 1 45 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  79              	.LVL7:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  1) & 0x5555) | ((n <<  1) & 0xaaaa);
+  80              		.loc 1 46 0
+  81 0000 4100     		lsls	r1, r0, #1
+  82 0002 45F25552 		movw	r2, #21845
+  83 0006 4AF6AA23 		movw	r3, #43690
+  84 000a 0B40     		ands	r3, r3, r1
+  85 000c 02EA5000 		and	r0, r2, r0, lsr #1
+  86              	.LVL8:
+  87 0010 1843     		orrs	r0, r0, r3
+  88              	.LVL9:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  2) & 0x3333) | ((n <<  2) & 0xcccc);
+  89              		.loc 1 47 0
+  90 0012 8100     		lsls	r1, r0, #2
+  91 0014 4CF6CC43 		movw	r3, #52428
+  92 0018 43F23332 		movw	r2, #13107
+  93 001c 0B40     		ands	r3, r3, r1
+  94 001e 02EA9002 		and	r2, r2, r0, lsr #2
+  95 0022 1A43     		orrs	r2, r2, r3
+  96              	.LVL10:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  4) & 0x0f0f) | ((n <<  4) & 0xf0f0);
+  97              		.loc 1 48 0
+  98 0024 1101     		lsls	r1, r2, #4
+  99 0026 40F60F70 		movw	r0, #3855
+ 100 002a 4FF2F003 		movw	r3, #61680
+ 101 002e 00EA1212 		and	r2, r0, r2, lsr #4
+ 102              	.LVL11:
+ 103 0032 0B40     		ands	r3, r3, r1
+ 104              	.LBB12:
+ 105              	.LBB13:
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		return n;
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #endif
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	}
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	/**
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \brief	Exchange two byte
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \ingroup	math
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 */
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	ALWAYS_INLINE void
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	swap(uint8_t& a, uint8_t& b)
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	{
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		uint8_t temp = a;
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		a = b;
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		b = temp;
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	}
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	/**
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \brief	Exchange the two bytes of a 16-bit integer
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \code
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 0xabcd => 0xcdab
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \endcode
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * 
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 * \ingroup	math
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	 */
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	ALWAYS_INLINE uint16_t
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	swap(uint16_t n)
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 	{
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #ifdef __AVR__
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		if (__builtin_constant_p(n)) {
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 			n = (n << 8) | (n >> 8);
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		}
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		else {
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 			asm volatile (
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 				"eor %A0, %B0"	"\n\t"
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 				"eor %B0, %A0"	"\n\t"
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 				"eor %A0, %B0"	"\n\t"
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 				: "=r" (n)
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 				: "0" (n)
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 			);
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		}
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		return n;
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** #else
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.hpp **** 		n = (n << 8) | (n >> 8);
+ 106              		.loc 2 108 0
+ 107 0034 1343     		orrs	r3, r3, r2
+ 108              	.LVL12:
+ 109 0036 1A02     		lsls	r2, r3, #8
+ 110 0038 42EA1320 		orr	r0, r2, r3, lsr #8
+ 111              	.LBE13:
+ 112              	.LBE12:
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return swap(n);
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+ 113              		.loc 1 51 0
+ 114 003c 80B2     		uxth	r0, r0
+ 115 003e 7047     		bx	lr
+ 116              		.cfi_endproc
+ 117              	.LFE124:
+ 119              		.section	.text._ZN4xpcc10bitReverseEm,"ax",%progbits
+ 120              		.align	2
+ 121              		.global	_ZN4xpcc10bitReverseEm
+ 122              		.thumb
+ 123              		.thumb_func
+ 125              	_ZN4xpcc10bitReverseEm:
+ 126              	.LFB125:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** uint32_t
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitReverse(uint32_t n)
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+ 127              		.loc 1 55 0
+ 128              		.cfi_startproc
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131              		@ link register save eliminated.
+ 132              	.LVL13:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  1) & 0x55555555) | ((n <<  1) & 0xaaaaaaaa);
+ 133              		.loc 1 56 0
+ 134 0000 4208     		lsrs	r2, r0, #1
+ 135 0002 4000     		lsls	r0, r0, #1
+ 136              	.LVL14:
+ 137 0004 02F05532 		and	r2, r2, #1431655765
+ 138 0008 00F0AA33 		and	r3, r0, #-1431655766
+ 139 000c 1343     		orrs	r3, r3, r2
+ 140              	.LVL15:
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  2) & 0x33333333) | ((n <<  2) & 0xcccccccc);
+ 141              		.loc 1 57 0
+ 142 000e 9908     		lsrs	r1, r3, #2
+ 143 0010 9B00     		lsls	r3, r3, #2
+ 144              	.LVL16:
+ 145 0012 01F03331 		and	r1, r1, #858993459
+ 146 0016 03F0CC32 		and	r2, r3, #-858993460
+ 147              	.LVL17:
+ 148 001a 0A43     		orrs	r2, r2, r1
+ 149              	.LVL18:
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  4) & 0x0f0f0f0f) | ((n <<  4) & 0xf0f0f0f0);
+ 150              		.loc 1 58 0
+ 151 001c 1109     		lsrs	r1, r2, #4
+ 152 001e 1201     		lsls	r2, r2, #4
+ 153              	.LVL19:
+ 154 0020 01F00F31 		and	r1, r1, #252645135
+ 155 0024 02F0F033 		and	r3, r2, #-252645136
+ 156              	.LVL20:
+ 157 0028 0B43     		orrs	r3, r3, r1
+ 158              	.LVL21:
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >>  8) & 0x00ff00ff) | ((n <<  8) & 0xff00ff00);
+ 159              		.loc 1 59 0
+ 160 002a 1A0A     		lsrs	r2, r3, #8
+ 161 002c 1B02     		lsls	r3, r3, #8
+ 162              	.LVL22:
+ 163 002e 02F0FF12 		and	r2, r2, #16711935
+ 164 0032 03F0FF20 		and	r0, r3, #-16711936
+ 165              	.LVL23:
+ 166 0036 1043     		orrs	r0, r0, r2
+ 167              	.LVL24:
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >> 16) & 0x0000ffff) | ((n << 16) & 0xffff0000);
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return n;
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+ 168              		.loc 1 63 0
+ 169 0038 4FEA3040 		ror	r0, r0, #16
+ 170              	.LVL25:
+ 171 003c 7047     		bx	lr
+ 172              		.cfi_endproc
+ 173              	.LFE125:
+ 175 003e 00BF     		.section	.text._ZN4xpcc8bitCountEh,"ax",%progbits
+ 176              		.align	2
+ 177              		.global	_ZN4xpcc8bitCountEh
+ 178              		.thumb
+ 179              		.thumb_func
+ 181              	_ZN4xpcc8bitCountEh:
+ 182              	.LFB126:
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** // ----------------------------------------------------------------------------
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** std::size_t
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitCount(uint8_t n)
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+ 183              		.loc 1 68 0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187              		@ link register save eliminated.
+ 188              	.LVL26:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 1) & 0x55) + (n & 0x55);
+ 189              		.loc 1 69 0
+ 190 0000 4310     		asrs	r3, r0, #1
+ 191 0002 03F05503 		and	r3, r3, #85
+ 192 0006 00F05500 		and	r0, r0, #85
+ 193              	.LVL27:
+ 194 000a 1B18     		adds	r3, r3, r0
+ 195              	.LVL28:
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 2) & 0x33) + (n & 0x33);
+ 196              		.loc 1 70 0
+ 197 000c 9810     		asrs	r0, r3, #2
+ 198 000e 00F03300 		and	r0, r0, #51
+ 199 0012 03F03303 		and	r3, r3, #51
+ 200              	.LVL29:
+ 201 0016 C018     		adds	r0, r0, r3
+ 202              	.LVL30:
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 4) + n) & 0xf;
+ 203              		.loc 1 71 0
+ 204 0018 00EB1010 		add	r0, r0, r0, lsr #4
+ 205              	.LVL31:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return n;
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+ 206              		.loc 1 74 0
+ 207 001c 00F00F00 		and	r0, r0, #15
+ 208              	.LVL32:
+ 209 0020 7047     		bx	lr
+ 210              		.cfi_endproc
+ 211              	.LFE126:
+ 213 0022 00BF     		.section	.text._ZN4xpcc8bitCountEt,"ax",%progbits
+ 214              		.align	2
+ 215              		.global	_ZN4xpcc8bitCountEt
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	_ZN4xpcc8bitCountEt:
+ 220              	.LFB127:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** std::size_t
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitCount(uint16_t n)
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+ 221              		.loc 1 78 0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225              		@ link register save eliminated.
+ 226              	.LVL33:
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return (bitCount((uint8_t) (n)) +
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 			bitCount((uint8_t) (n >> 8)));
+ 227              		.loc 1 80 0
+ 228 0000 0312     		asrs	r3, r0, #8
+ 229              	.LBB14:
+ 230              	.LBB15:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 1) & 0x55) + (n & 0x55);
+ 231              		.loc 1 69 0
+ 232 0002 4212     		asrs	r2, r0, #9
+ 233              	.LBE15:
+ 234              	.LBE14:
+ 235              	.LBB23:
+ 236              	.LBB24:
+ 237 0004 C0F34601 		ubfx	r1, r0, #1, #7
+ 238              	.LBE24:
+ 239              	.LBE23:
+ 240              	.LBB33:
+ 241              	.LBB16:
+ 242 0008 03F05503 		and	r3, r3, #85
+ 243              	.LBE16:
+ 244              	.LBE33:
+ 245              	.LBB34:
+ 246              	.LBB25:
+ 247 000c 00F05500 		and	r0, r0, #85
+ 248              	.LVL34:
+ 249              	.LBE25:
+ 250 0010 01F05501 		and	r1, r1, #85
+ 251              	.LBE34:
+ 252              	.LBB35:
+ 253 0014 02F05502 		and	r2, r2, #85
+ 254              	.LBE35:
+ 255              	.LBB36:
+ 256              	.LBB26:
+ 257 0018 0918     		adds	r1, r1, r0
+ 258              	.LVL35:
+ 259              	.LBE26:
+ 260              	.LBE36:
+ 261              	.LBB37:
+ 262              	.LBB17:
+ 263 001a D218     		adds	r2, r2, r3
+ 264              	.LBE17:
+ 265              	.LBE37:
+ 266              	.LBB38:
+ 267              	.LBB27:
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 2) & 0x33) + (n & 0x33);
+ 268              		.loc 1 70 0
+ 269 001c 8810     		asrs	r0, r1, #2
+ 270              	.LBE27:
+ 271              	.LBE38:
+ 272              	.LBB39:
+ 273              	.LBB18:
+ 274 001e 9310     		asrs	r3, r2, #2
+ 275              	.LBE18:
+ 276              	.LBE39:
+ 277              	.LBB40:
+ 278              	.LBB28:
+ 279 0020 01F03301 		and	r1, r1, #51
+ 280              	.LVL36:
+ 281              	.LBE28:
+ 282              	.LBE40:
+ 283              	.LBB41:
+ 284              	.LBB19:
+ 285 0024 02F03302 		and	r2, r2, #51
+ 286              	.LBE19:
+ 287              	.LBE41:
+ 288              	.LBB42:
+ 289              	.LBB29:
+ 290 0028 00F03300 		and	r0, r0, #51
+ 291              	.LBE29:
+ 292              	.LBE42:
+ 293              	.LBB43:
+ 294              	.LBB20:
+ 295 002c 03F03303 		and	r3, r3, #51
+ 296              	.LBE20:
+ 297              	.LBE43:
+ 298              	.LBB44:
+ 299              	.LBB30:
+ 300 0030 4018     		adds	r0, r0, r1
+ 301              	.LVL37:
+ 302              	.LBE30:
+ 303              	.LBE44:
+ 304              	.LBB45:
+ 305              	.LBB21:
+ 306 0032 9B18     		adds	r3, r3, r2
+ 307              	.LBE21:
+ 308              	.LBE45:
+ 309              	.LBB46:
+ 310              	.LBB31:
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((uint8_t) (n >> 4) + n) & 0xf;
+ 311              		.loc 1 71 0
+ 312 0034 00EB1010 		add	r0, r0, r0, lsr #4
+ 313              	.LVL38:
+ 314              	.LBE31:
+ 315              	.LBE46:
+ 316              	.LBB47:
+ 317              	.LBB22:
+ 318 0038 03EB1313 		add	r3, r3, r3, lsr #4
+ 319              	.LVL39:
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return n;
+ 320              		.loc 1 73 0
+ 321 003c 03F00F03 		and	r3, r3, #15
+ 322              	.LVL40:
+ 323              	.LBE22:
+ 324              	.LBE47:
+ 325              	.LBB48:
+ 326              	.LBB32:
+ 327 0040 00F00F00 		and	r0, r0, #15
+ 328              	.LVL41:
+ 329              	.LBE32:
+ 330              	.LBE48:
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+ 331              		.loc 1 81 0
+ 332 0044 1818     		adds	r0, r3, r0
+ 333 0046 7047     		bx	lr
+ 334              		.cfi_endproc
+ 335              	.LFE127:
+ 337              		.section	.text._ZN4xpcc8bitCountEm,"ax",%progbits
+ 338              		.align	2
+ 339              		.global	_ZN4xpcc8bitCountEm
+ 340              		.thumb
+ 341              		.thumb_func
+ 343              	_ZN4xpcc8bitCountEm:
+ 344              	.LFB128:
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** std::size_t
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** xpcc::bitCount(uint32_t n)
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** {
+ 345              		.loc 1 85 0
+ 346              		.cfi_startproc
+ 347              		@ args = 0, pretend = 0, frame = 0
+ 348              		@ frame_needed = 0, uses_anonymous_args = 0
+ 349              		@ link register save eliminated.
+ 350              	.LVL42:
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >> 1) & 0x55555555) + (n & 0x55555555);
+ 351              		.loc 1 86 0
+ 352 0000 4108     		lsrs	r1, r0, #1
+ 353 0002 01F05531 		and	r1, r1, #1431655765
+ 354 0006 00F05530 		and	r0, r0, #1431655765
+ 355              	.LVL43:
+ 356 000a 0918     		adds	r1, r1, r0
+ 357              	.LVL44:
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >> 2) & 0x33333333) + (n & 0x33333333);
+ 358              		.loc 1 87 0
+ 359 000c 8A08     		lsrs	r2, r1, #2
+ 360 000e 02F03332 		and	r2, r2, #858993459
+ 361 0012 01F03331 		and	r1, r1, #858993459
+ 362              	.LVL45:
+ 363 0016 5218     		adds	r2, r2, r1
+ 364              	.LVL46:
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >> 4) & 0x0f0f0f0f) + (n & 0x0f0f0f0f);
+ 365              		.loc 1 88 0
+ 366 0018 1309     		lsrs	r3, r2, #4
+ 367 001a 03F00F33 		and	r3, r3, #252645135
+ 368 001e 02F00F32 		and	r2, r2, #252645135
+ 369              	.LVL47:
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	return n % 255;
+ 370              		.loc 1 90 0
+ 371 0022 0448     		ldr	r0, .L7
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** 	n = ((n >> 4) & 0x0f0f0f0f) + (n & 0x0f0f0f0f);
+ 372              		.loc 1 88 0
+ 373 0024 9B18     		adds	r3, r3, r2
+ 374              	.LVL48:
+ 375              		.loc 1 90 0
+ 376 0026 A0FB0320 		umull	r2, r0, r0, r3
+ 377 002a C009     		lsrs	r0, r0, #7
+ 378 002c C0EB0020 		rsb	r0, r0, r0, lsl #8
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/math/utils/bit_operation.cpp **** }
+ 379              		.loc 1 91 0
+ 380 0030 181A     		subs	r0, r3, r0
+ 381 0032 7047     		bx	lr
+ 382              	.L8:
+ 383              		.align	2
+ 384              	.L7:
+ 385 0034 81808080 		.word	-2139062143
+ 386              		.cfi_endproc
+ 387              	.LFE128:
+ 389              		.text
+ 390              	.Letext0:
+ 391              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 392              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 393              		.file 5 "<built-in>"
+ 394              		.file 6 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+DEFINED SYMBOLS
+                            *ABS*:00000000 bit_operation.cpp
+     /tmp/cczoGeh3.s:20     .text._ZN4xpcc10bitReverseEh:00000000 $t
+     /tmp/cczoGeh3.s:25     .text._ZN4xpcc10bitReverseEh:00000000 _ZN4xpcc10bitReverseEh
+     /tmp/cczoGeh3.s:67     .text._ZN4xpcc10bitReverseEt:00000000 $t
+     /tmp/cczoGeh3.s:72     .text._ZN4xpcc10bitReverseEt:00000000 _ZN4xpcc10bitReverseEt
+     /tmp/cczoGeh3.s:120    .text._ZN4xpcc10bitReverseEm:00000000 $t
+     /tmp/cczoGeh3.s:125    .text._ZN4xpcc10bitReverseEm:00000000 _ZN4xpcc10bitReverseEm
+     /tmp/cczoGeh3.s:176    .text._ZN4xpcc8bitCountEh:00000000 $t
+     /tmp/cczoGeh3.s:181    .text._ZN4xpcc8bitCountEh:00000000 _ZN4xpcc8bitCountEh
+     /tmp/cczoGeh3.s:214    .text._ZN4xpcc8bitCountEt:00000000 $t
+     /tmp/cczoGeh3.s:219    .text._ZN4xpcc8bitCountEt:00000000 _ZN4xpcc8bitCountEt
+     /tmp/cczoGeh3.s:338    .text._ZN4xpcc8bitCountEm:00000000 $t
+     /tmp/cczoGeh3.s:343    .text._ZN4xpcc8bitCountEm:00000000 _ZN4xpcc8bitCountEm
+     /tmp/cczoGeh3.s:385    .text._ZN4xpcc8bitCountEm:00000034 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

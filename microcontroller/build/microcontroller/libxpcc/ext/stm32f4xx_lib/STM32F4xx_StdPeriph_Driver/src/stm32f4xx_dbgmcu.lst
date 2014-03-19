@@ -1,0 +1,365 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"stm32f4xx_dbgmcu.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.DBGMCU_GetREVID,"ax",%progbits
+  20              		.align	2
+  21              		.global	DBGMCU_GetREVID
+  22              		.thumb
+  23              		.thumb_func
+  25              	DBGMCU_GetREVID:
+  26              	.LFB110:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   ******************************************************************************
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @file    stm32f4xx_dbgmcu.c
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @author  MCD Application Team
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @version V1.0.0
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @date    30-September-2011
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief   This file provides all the DBGMCU firmware functions.
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   ******************************************************************************
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @attention
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   ******************************************************************************
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Includes ------------------------------------------------------------------*/
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** #include "stm32f4xx_dbgmcu.h"
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @{
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /** @defgroup DBGMCU 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief DBGMCU driver modules
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @{
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */ 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private typedef -----------------------------------------------------------*/
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private define ------------------------------------------------------------*/
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** #define IDCODE_DEVID_MASK    ((uint32_t)0x00000FFF)
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private macro -------------------------------------------------------------*/
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private variables ---------------------------------------------------------*/
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private function prototypes -----------------------------------------------*/
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /* Private functions ---------------------------------------------------------*/
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /** @defgroup DBGMCU_Private_Functions
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @{
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */ 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief  Returns the device revision identifier.
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  None
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @retval Device revision identifier
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** uint32_t DBGMCU_GetREVID(void)
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** {
+  28              		.loc 1 53 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****    return(DBGMCU->IDCODE >> 16);
+  33              		.loc 1 54 0
+  34 0000 014B     		ldr	r3, .L2
+  35 0002 1868     		ldr	r0, [r3, #0]
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** }
+  36              		.loc 1 55 0
+  37 0004 000C     		lsrs	r0, r0, #16
+  38 0006 7047     		bx	lr
+  39              	.L3:
+  40              		.align	2
+  41              	.L2:
+  42 0008 002004E0 		.word	-536600576
+  43              		.cfi_endproc
+  44              	.LFE110:
+  46              		.section	.text.DBGMCU_GetDEVID,"ax",%progbits
+  47              		.align	2
+  48              		.global	DBGMCU_GetDEVID
+  49              		.thumb
+  50              		.thumb_func
+  52              	DBGMCU_GetDEVID:
+  53              	.LFB111:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief  Returns the device identifier.
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  None
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @retval Device identifier
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** uint32_t DBGMCU_GetDEVID(void)
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** {
+  54              		.loc 1 63 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 0, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****    return(DBGMCU->IDCODE & IDCODE_DEVID_MASK);
+  59              		.loc 1 64 0
+  60 0000 024B     		ldr	r3, .L5
+  61 0002 1868     		ldr	r0, [r3, #0]
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** }
+  62              		.loc 1 65 0
+  63 0004 0005     		lsls	r0, r0, #20
+  64 0006 000D     		lsrs	r0, r0, #20
+  65 0008 7047     		bx	lr
+  66              	.L6:
+  67 000a 00BF     		.align	2
+  68              	.L5:
+  69 000c 002004E0 		.word	-536600576
+  70              		.cfi_endproc
+  71              	.LFE111:
+  73              		.section	.text.DBGMCU_Config,"ax",%progbits
+  74              		.align	2
+  75              		.global	DBGMCU_Config
+  76              		.thumb
+  77              		.thumb_func
+  79              	DBGMCU_Config:
+  80              	.LFB112:
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief  Configures low power mode behavior when the MCU is in Debug mode.
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  DBGMCU_Periph: specifies the low power mode.
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be any combination of the following values:
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_SLEEP: Keep debugger connection during SLEEP mode              
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_STOP: Keep debugger connection during STOP mode               
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_STANDBY: Keep debugger connection during STANDBY mode        
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  NewState: new state of the specified low power mode in Debug mode.
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be: ENABLE or DISABLE.
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @retval None
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState)
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** {
+  81              		.loc 1 79 0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  86              	.LVL0:
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   /* Check the parameters */
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_DBGMCU_PERIPH(DBGMCU_Periph));
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->CR |= DBGMCU_Periph;
+  87              		.loc 1 85 0
+  88 0000 044B     		ldr	r3, .L12
+  89 0002 5A68     		ldr	r2, [r3, #4]
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+  90              		.loc 1 83 0
+  91 0004 19B9     		cbnz	r1, .L11
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   }
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   else
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->CR &= ~DBGMCU_Periph;
+  92              		.loc 1 89 0
+  93 0006 22EA0000 		bic	r0, r2, r0
+  94              	.LVL1:
+  95 000a 5860     		str	r0, [r3, #4]
+  96 000c 7047     		bx	lr
+  97              	.LVL2:
+  98              	.L11:
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->CR |= DBGMCU_Periph;
+  99              		.loc 1 85 0
+ 100 000e 1043     		orrs	r0, r0, r2
+ 101              	.LVL3:
+ 102 0010 5860     		str	r0, [r3, #4]
+ 103 0012 7047     		bx	lr
+ 104              	.L13:
+ 105              		.align	2
+ 106              	.L12:
+ 107 0014 002004E0 		.word	-536600576
+ 108              		.cfi_endproc
+ 109              	.LFE112:
+ 111              		.section	.text.DBGMCU_APB1PeriphConfig,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	DBGMCU_APB1PeriphConfig
+ 114              		.thumb
+ 115              		.thumb_func
+ 117              	DBGMCU_APB1PeriphConfig:
+ 118              	.LFB113:
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   }
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** }
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief  Configures APB1 peripheral behavior when the MCU is in Debug mode.
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  DBGMCU_Periph: specifies the APB1 peripheral.
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be any combination of the following values:        
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM2_STOP: TIM2 counter stopped when Core is halted          
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM3_STOP: TIM3 counter stopped when Core is halted          
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM4_STOP: TIM4 counter stopped when Core is halted
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM5_STOP: TIM5 counter stopped when Core is halted          
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM6_STOP: TIM6 counter stopped when Core is halted          
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM7_STOP: TIM7 counter stopped when Core is halted
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM12_STOP: TIM12 counter stopped when Core is halted  
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM13_STOP: TIM13 counter stopped when Core is halted  
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM14_STOP: TIM14 counter stopped when Core is halted 
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_RTC_STOP: RTC Calendar and Wakeup counter stopped when Core is halted.         
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_WWDG_STOP: Debug WWDG stopped when Core is halted
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_IWDG_STOP: Debug IWDG stopped when Core is halted        
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_I2C1_SMBUS_TIMEOUT: I2C1 SMBUS timeout mode stopped when Core is halted
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_I2C2_SMBUS_TIMEOUT: I2C2 SMBUS timeout mode stopped when Core is halted
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_I2C3_SMBUS_TIMEOUT: I2C3 SMBUS timeout mode stopped when Core is halted
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_CAN2_STOP: Debug CAN1 stopped when Core is halted           
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_CAN1_STOP: Debug CAN2 stopped when Core is halted        
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @retval None
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** void DBGMCU_APB1PeriphConfig(uint32_t DBGMCU_Periph, FunctionalState NewState)
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** {
+ 119              		.loc 1 118 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 124              	.LVL4:
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   /* Check the parameters */
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_DBGMCU_APB1PERIPH(DBGMCU_Periph));
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB1FZ |= DBGMCU_Periph;
+ 125              		.loc 1 125 0
+ 126 0000 044B     		ldr	r3, .L18
+ 127 0002 9A68     		ldr	r2, [r3, #8]
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+ 128              		.loc 1 123 0
+ 129 0004 19B9     		cbnz	r1, .L17
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   }
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   else
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB1FZ &= ~DBGMCU_Periph;
+ 130              		.loc 1 129 0
+ 131 0006 22EA0000 		bic	r0, r2, r0
+ 132              	.LVL5:
+ 133 000a 9860     		str	r0, [r3, #8]
+ 134 000c 7047     		bx	lr
+ 135              	.LVL6:
+ 136              	.L17:
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB1FZ |= DBGMCU_Periph;
+ 137              		.loc 1 125 0
+ 138 000e 1043     		orrs	r0, r0, r2
+ 139              	.LVL7:
+ 140 0010 9860     		str	r0, [r3, #8]
+ 141 0012 7047     		bx	lr
+ 142              	.L19:
+ 143              		.align	2
+ 144              	.L18:
+ 145 0014 002004E0 		.word	-536600576
+ 146              		.cfi_endproc
+ 147              	.LFE113:
+ 149              		.section	.text.DBGMCU_APB2PeriphConfig,"ax",%progbits
+ 150              		.align	2
+ 151              		.global	DBGMCU_APB2PeriphConfig
+ 152              		.thumb
+ 153              		.thumb_func
+ 155              	DBGMCU_APB2PeriphConfig:
+ 156              	.LFB114:
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   }
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** }
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** /**
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @brief  Configures APB2 peripheral behavior when the MCU is in Debug mode.
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  DBGMCU_Periph: specifies the APB2 peripheral.
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be any combination of the following values:       
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM1_STOP: TIM1 counter stopped when Core is halted                
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM8_STOP: TIM8 counter stopped when Core is halted
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM9_STOP: TIM9 counter stopped when Core is halted   
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM10_STOP: TIM10 counter stopped when Core is halted   
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *     @arg DBGMCU_TIM11_STOP: TIM11 counter stopped when Core is halted                          
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @param  NewState: new state of the specified peripheral in Debug mode.
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   * @retval None
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   */
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** void DBGMCU_APB2PeriphConfig(uint32_t DBGMCU_Periph, FunctionalState NewState)
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** {
+ 157              		.loc 1 147 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162              	.LVL8:
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   /* Check the parameters */
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_DBGMCU_APB2PERIPH(DBGMCU_Periph));
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c **** 
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB2FZ |= DBGMCU_Periph;
+ 163              		.loc 1 154 0
+ 164 0000 044B     		ldr	r3, .L24
+ 165 0002 DA68     		ldr	r2, [r3, #12]
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   if (NewState != DISABLE)
+ 166              		.loc 1 152 0
+ 167 0004 19B9     		cbnz	r1, .L23
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   }
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   else
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****   {
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB2FZ &= ~DBGMCU_Periph;
+ 168              		.loc 1 158 0
+ 169 0006 22EA0000 		bic	r0, r2, r0
+ 170              	.LVL9:
+ 171 000a D860     		str	r0, [r3, #12]
+ 172 000c 7047     		bx	lr
+ 173              	.LVL10:
+ 174              	.L23:
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dbgmcu.c ****     DBGMCU->APB2FZ |= DBGMCU_Periph;
+ 175              		.loc 1 154 0
+ 176 000e 1043     		orrs	r0, r0, r2
+ 177              	.LVL11:
+ 178 0010 D860     		str	r0, [r3, #12]
+ 179 0012 7047     		bx	lr
+ 180              	.L25:
+ 181              		.align	2
+ 182              	.L24:
+ 183 0014 002004E0 		.word	-536600576
+ 184              		.cfi_endproc
+ 185              	.LFE114:
+ 187              		.text
+ 188              	.Letext0:
+ 189              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 190              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 191              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_dbgmcu.c
+     /tmp/ccUkEbv9.s:20     .text.DBGMCU_GetREVID:00000000 $t
+     /tmp/ccUkEbv9.s:25     .text.DBGMCU_GetREVID:00000000 DBGMCU_GetREVID
+     /tmp/ccUkEbv9.s:42     .text.DBGMCU_GetREVID:00000008 $d
+     /tmp/ccUkEbv9.s:47     .text.DBGMCU_GetDEVID:00000000 $t
+     /tmp/ccUkEbv9.s:52     .text.DBGMCU_GetDEVID:00000000 DBGMCU_GetDEVID
+     /tmp/ccUkEbv9.s:69     .text.DBGMCU_GetDEVID:0000000c $d
+     /tmp/ccUkEbv9.s:74     .text.DBGMCU_Config:00000000 $t
+     /tmp/ccUkEbv9.s:79     .text.DBGMCU_Config:00000000 DBGMCU_Config
+     /tmp/ccUkEbv9.s:107    .text.DBGMCU_Config:00000014 $d
+     /tmp/ccUkEbv9.s:112    .text.DBGMCU_APB1PeriphConfig:00000000 $t
+     /tmp/ccUkEbv9.s:117    .text.DBGMCU_APB1PeriphConfig:00000000 DBGMCU_APB1PeriphConfig
+     /tmp/ccUkEbv9.s:145    .text.DBGMCU_APB1PeriphConfig:00000014 $d
+     /tmp/ccUkEbv9.s:150    .text.DBGMCU_APB2PeriphConfig:00000000 $t
+     /tmp/ccUkEbv9.s:155    .text.DBGMCU_APB2PeriphConfig:00000000 DBGMCU_APB2PeriphConfig
+     /tmp/ccUkEbv9.s:183    .text.DBGMCU_APB2PeriphConfig:00000014 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

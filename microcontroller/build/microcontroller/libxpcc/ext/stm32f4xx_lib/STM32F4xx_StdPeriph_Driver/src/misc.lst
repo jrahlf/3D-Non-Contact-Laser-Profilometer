@@ -1,0 +1,524 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"misc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.NVIC_PriorityGroupConfig,"ax",%progbits
+  20              		.align	2
+  21              		.global	NVIC_PriorityGroupConfig
+  22              		.thumb
+  23              		.thumb_func
+  25              	NVIC_PriorityGroupConfig:
+  26              	.LFB110:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   ******************************************************************************
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @file    misc.c
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @author  MCD Application Team
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @version V1.0.0
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @date    30-September-2011
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief   This file provides all the miscellaneous firmware functions (add-on
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *          to CMSIS functions).
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *          
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *  @verbatim   
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                               
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *          ===================================================================      
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                        How to configure Interrupts using driver 
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *          ===================================================================      
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * 
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *            This section provide functions allowing to configure the NVIC interrupts (IRQ).
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *            The Cortex-M4 exceptions are managed by CMSIS functions.
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *            1. Configure the NVIC Priority Grouping using NVIC_PriorityGroupConfig()
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                function according to the following table.
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****  
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *  The table below gives the allowed values of the pre-emption priority and subpriority according
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *  to the Priority Grouping configuration performed by NVIC_PriorityGroupConfig function
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    ============================================================================================
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *      NVIC_PriorityGroup   | NVIC_IRQChannelPreemptionPriority | NVIC_IRQChannelSubPriority  |  
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    ============================================================================================
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     NVIC_PriorityGroup_0  |                0                  |            0-15             | 0
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                           |                                   |                             | 4
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     NVIC_PriorityGroup_1  |                0-1                |            0-7              | 1
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                           |                                   |                             | 3
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     NVIC_PriorityGroup_2  |                0-3                |            0-3              | 2
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                           |                                   |                             | 2
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     NVIC_PriorityGroup_3  |                0-7                |            0-1              | 3
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                           |                                   |                             | 1
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     NVIC_PriorityGroup_4  |                0-15               |            0                | 4
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                           |                                   |                             | 0
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *    ============================================================================================
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *            2. Enable and Configure the priority of the selected IRQ Channels using NVIC_Init() 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @note  When the NVIC_PriorityGroup_0 is selected, IRQ pre-emption is no more possible. 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *        The pending IRQ priority will be managed only by the subpriority.
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @note  IRQ priority order (sorted by highest to lowest priority):
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         - Lowest pre-emption priority
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         - Lowest subpriority
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         - Lowest hardware priority (IRQ number)
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *  @endverbatim
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   ******************************************************************************
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @attention
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   ******************************************************************************
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Includes ------------------------------------------------------------------*/
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** #include "misc.h"
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @{
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /** @defgroup MISC 
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief MISC driver modules
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @{
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private typedef -----------------------------------------------------------*/
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private define ------------------------------------------------------------*/
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** #define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private macro -------------------------------------------------------------*/
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private variables ---------------------------------------------------------*/
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private function prototypes -----------------------------------------------*/
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /* Private functions ---------------------------------------------------------*/
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /** @defgroup MISC_Private_Functions
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @{
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief  Configures the priority grouping: pre-emption priority and subpriority.
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  NVIC_PriorityGroup: specifies the priority grouping bits length. 
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *   This parameter can be one of the following values:
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_PriorityGroup_0: 0 bits for pre-emption priority
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                                4 bits for subpriority
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_PriorityGroup_1: 1 bits for pre-emption priority
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                                3 bits for subpriority
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_PriorityGroup_2: 2 bits for pre-emption priority
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                                2 bits for subpriority
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_PriorityGroup_3: 3 bits for pre-emption priority
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                                1 bits for subpriority
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_PriorityGroup_4: 4 bits for pre-emption priority
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *                                0 bits for subpriority
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @note   When the NVIC_PriorityGroup_0 is selected, IRQ pre-emption is no more possible. 
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         The pending IRQ priority will be managed only by the subpriority. 
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @retval None
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** void NVIC_PriorityGroupConfig(uint32_t NVIC_PriorityGroup)
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** {
+  28              		.loc 1 113 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Check the parameters */
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_PRIORITY_GROUP(NVIC_PriorityGroup));
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Set the PRIGROUP[10:8] bits according to NVIC_PriorityGroup value */
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   SCB->AIRCR = AIRCR_VECTKEY_MASK | NVIC_PriorityGroup;
+  34              		.loc 1 118 0
+  35 0000 40F0BF60 		orr	r0, r0, #100139008
+  36              	.LVL1:
+  37 0004 024B     		ldr	r3, .L2
+  38 0006 40F40030 		orr	r0, r0, #131072
+  39 000a D860     		str	r0, [r3, #12]
+  40 000c 7047     		bx	lr
+  41              	.L3:
+  42 000e 00BF     		.align	2
+  43              	.L2:
+  44 0010 00ED00E0 		.word	-536810240
+  45              		.cfi_endproc
+  46              	.LFE110:
+  48              		.section	.text.NVIC_Init,"ax",%progbits
+  49              		.align	2
+  50              		.global	NVIC_Init
+  51              		.thumb
+  52              		.thumb_func
+  54              	NVIC_Init:
+  55              	.LFB111:
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** }
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief  Initializes the NVIC peripheral according to the specified
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         parameters in the NVIC_InitStruct.
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @note   To configure interrupts priority correctly, the NVIC_PriorityGroupConfig()
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         function should be called before. 
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  NVIC_InitStruct: pointer to a NVIC_InitTypeDef structure that contains
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *         the configuration information for the specified NVIC peripheral.
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @retval None
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** {
+  56              		.loc 1 131 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61              	.LVL2:
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   uint8_t tmppriority = 0x00, tmppre = 0x00, tmpsub = 0x0F;
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Check the parameters */
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_FUNCTIONAL_STATE(NVIC_InitStruct->NVIC_IRQChannelCmd));
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_PREEMPTION_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority));  
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_SUB_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelSubPriority));
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   if (NVIC_InitStruct->NVIC_IRQChannelCmd != DISABLE)
+  62              		.loc 1 139 0
+  63 0000 C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** {
+  64              		.loc 1 131 0
+  65 0002 30B4     		push	{r4, r5}
+  66              	.LCFI0:
+  67              		.cfi_def_cfa_offset 8
+  68              		.cfi_offset 4, -8
+  69              		.cfi_offset 5, -4
+  70              		.loc 1 139 0
+  71 0004 63B9     		cbnz	r3, .L8
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     /* Compute the Corresponding IRQ Priority --------------------------------*/    
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppre = (0x4 - tmppriority);
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmpsub = tmpsub >> tmppriority;
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority << tmppre;
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****         
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = tmppriority << 0x04;
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****         
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     /* Enable the Selected IRQ Channels --------------------------------------*/
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   }
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   else
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     /* Disable the Selected IRQ Channels -------------------------------------*/
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ICER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+  72              		.loc 1 160 0
+  73 0006 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+  74              		.loc 1 161 0
+  75 0008 0122     		movs	r2, #1
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ICER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+  76              		.loc 1 160 0
+  77 000a 5909     		lsrs	r1, r3, #5
+  78              		.loc 1 161 0
+  79 000c 03F01F03 		and	r3, r3, #31
+  80 0010 02FA03F3 		lsl	r3, r2, r3
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ICER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+  81              		.loc 1 160 0
+  82 0014 2031     		adds	r1, r1, #32
+  83 0016 154A     		ldr	r2, .L9
+  84 0018 42F82130 		str	r3, [r2, r1, lsl #2]
+  85              	.LVL3:
+  86              	.L4:
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   }
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** }
+  87              		.loc 1 163 0
+  88 001c 30BC     		pop	{r4, r5}
+  89 001e 7047     		bx	lr
+  90              	.LVL4:
+  91              	.L8:
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+  92              		.loc 1 142 0
+  93 0020 134B     		ldr	r3, .L9+4
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority << tmppre;
+  94              		.loc 1 146 0
+  95 0022 4578     		ldrb	r5, [r0, #1]	@ zero_extendqisi2
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+  96              		.loc 1 142 0
+  97 0024 DA68     		ldr	r2, [r3, #12]
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
+  98              		.loc 1 147 0
+  99 0026 8478     		ldrb	r4, [r0, #2]	@ zero_extendqisi2
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 100              		.loc 1 151 0
+ 101 0028 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+ 102              		.loc 1 142 0
+ 103 002a D243     		mvns	r2, r2
+ 104 002c C2F30222 		ubfx	r2, r2, #8, #3
+ 105              	.LVL5:
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppre = (0x4 - tmppriority);
+ 106              		.loc 1 143 0
+ 107 0030 C2F10401 		rsb	r1, r2, #4
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority << tmppre;
+ 108              		.loc 1 146 0
+ 109 0034 C9B2     		uxtb	r1, r1
+ 110 0036 05FA01F1 		lsl	r1, r5, r1
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmpsub = tmpsub >> tmppriority;
+ 111              		.loc 1 144 0
+ 112 003a 0F25     		movs	r5, #15
+ 113 003c 45FA02F2 		asr	r2, r5, r2
+ 114              	.LVL6:
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority << tmppre;
+ 115              		.loc 1 146 0
+ 116 0040 C9B2     		uxtb	r1, r1
+ 117              	.LVL7:
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
+ 118              		.loc 1 147 0
+ 119 0042 2240     		ands	r2, r2, r4
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 120              		.loc 1 151 0
+ 121 0044 03F16043 		add	r3, r3, #-536870912
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
+ 122              		.loc 1 147 0
+ 123 0048 0A43     		orrs	r2, r2, r1
+ 124              	.LVL8:
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 125              		.loc 1 151 0
+ 126 004a 03F56143 		add	r3, r3, #57600
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     tmppriority = tmppriority << 0x04;
+ 127              		.loc 1 149 0
+ 128 004e 1201     		lsls	r2, r2, #4
+ 129              	.LVL9:
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 130              		.loc 1 151 0
+ 131 0050 83F80023 		strb	r2, [r3, #768]
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 132              		.loc 1 154 0
+ 133 0054 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 134              		.loc 1 155 0
+ 135 0056 0122     		movs	r2, #1
+ 136              	.LVL10:
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 137              		.loc 1 154 0
+ 138 0058 5909     		lsrs	r1, r3, #5
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 139              		.loc 1 155 0
+ 140 005a 03F01F03 		and	r3, r3, #31
+ 141 005e 02FA03F3 		lsl	r3, r2, r3
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 142              		.loc 1 154 0
+ 143 0062 024A     		ldr	r2, .L9
+ 144 0064 42F82130 		str	r3, [r2, r1, lsl #2]
+ 145 0068 D8E7     		b	.L4
+ 146              	.L10:
+ 147 006a 00BF     		.align	2
+ 148              	.L9:
+ 149 006c 00E100E0 		.word	-536813312
+ 150 0070 00ED00E0 		.word	-536810240
+ 151              		.cfi_endproc
+ 152              	.LFE111:
+ 154              		.section	.text.NVIC_SetVectorTable,"ax",%progbits
+ 155              		.align	2
+ 156              		.global	NVIC_SetVectorTable
+ 157              		.thumb
+ 158              		.thumb_func
+ 160              	NVIC_SetVectorTable:
+ 161              	.LFB112:
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief  Sets the vector table location and Offset.
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  NVIC_VectTab: specifies if the vector table is in RAM or FLASH memory.
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *   This parameter can be one of the following values:
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_VectTab_RAM: Vector Table in internal SRAM.
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_VectTab_FLASH: Vector Table in internal FLASH.
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  Offset: Vector Table base offset field. This value must be a multiple of 0x200.
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @retval None
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset)
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** { 
+ 162              		.loc 1 175 0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 167              	.LVL11:
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Check the parameters */
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_VECTTAB(NVIC_VectTab));
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_OFFSET(Offset));  
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****    
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   SCB->VTOR = NVIC_VectTab | (Offset & (uint32_t)0x1FFFFF80);
+ 168              		.loc 1 180 0
+ 169 0000 21F06041 		bic	r1, r1, #-536870912
+ 170              	.LVL12:
+ 171 0004 21F07F01 		bic	r1, r1, #127
+ 172 0008 014B     		ldr	r3, .L12
+ 173 000a 0843     		orrs	r0, r0, r1
+ 174              	.LVL13:
+ 175 000c 9860     		str	r0, [r3, #8]
+ 176 000e 7047     		bx	lr
+ 177              	.L13:
+ 178              		.align	2
+ 179              	.L12:
+ 180 0010 00ED00E0 		.word	-536810240
+ 181              		.cfi_endproc
+ 182              	.LFE112:
+ 184              		.section	.text.NVIC_SystemLPConfig,"ax",%progbits
+ 185              		.align	2
+ 186              		.global	NVIC_SystemLPConfig
+ 187              		.thumb
+ 188              		.thumb_func
+ 190              	NVIC_SystemLPConfig:
+ 191              	.LFB113:
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** }
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief  Selects the condition for the system to enter low power mode.
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  LowPowerMode: Specifies the new mode for the system to enter low power mode.
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *   This parameter can be one of the following values:
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_LP_SEVONPEND: Low Power SEV on Pend.
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_LP_SLEEPDEEP: Low Power DEEPSLEEP request.
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg NVIC_LP_SLEEPONEXIT: Low Power Sleep on Exit.
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  NewState: new state of LP condition. This parameter can be: ENABLE or DISABLE.
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @retval None
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState)
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** {
+ 192              		.loc 1 194 0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ 197              	.LVL14:
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Check the parameters */
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_NVIC_LP(LowPowerMode));
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));  
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   if (NewState != DISABLE)
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     SCB->SCR |= LowPowerMode;
+ 198              		.loc 1 201 0
+ 199 0000 044B     		ldr	r3, .L18
+ 200 0002 1A69     		ldr	r2, [r3, #16]
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   if (NewState != DISABLE)
+ 201              		.loc 1 199 0
+ 202 0004 19B9     		cbnz	r1, .L17
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   }
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   else
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     SCB->SCR &= (uint32_t)(~(uint32_t)LowPowerMode);
+ 203              		.loc 1 205 0
+ 204 0006 22EA0000 		bic	r0, r2, r0
+ 205              	.LVL15:
+ 206 000a 1861     		str	r0, [r3, #16]
+ 207 000c 7047     		bx	lr
+ 208              	.LVL16:
+ 209              	.L17:
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     SCB->SCR |= LowPowerMode;
+ 210              		.loc 1 201 0
+ 211 000e 1043     		orrs	r0, r0, r2
+ 212              	.LVL17:
+ 213 0010 1861     		str	r0, [r3, #16]
+ 214 0012 7047     		bx	lr
+ 215              	.L19:
+ 216              		.align	2
+ 217              	.L18:
+ 218 0014 00ED00E0 		.word	-536810240
+ 219              		.cfi_endproc
+ 220              	.LFE113:
+ 222              		.section	.text.SysTick_CLKSourceConfig,"ax",%progbits
+ 223              		.align	2
+ 224              		.global	SysTick_CLKSourceConfig
+ 225              		.thumb
+ 226              		.thumb_func
+ 228              	SysTick_CLKSourceConfig:
+ 229              	.LFB114:
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   }
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** }
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** 
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** /**
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @brief  Configures the SysTick clock source.
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @param  SysTick_CLKSource: specifies the SysTick clock source.
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *   This parameter can be one of the following values:
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg SysTick_CLKSource_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock source.
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   *     @arg SysTick_CLKSource_HCLK: AHB clock selected as SysTick clock source.
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   * @retval None
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   */
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource)
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c **** {
+ 230              		.loc 1 218 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              		@ link register save eliminated.
+ 235              	.LVL18:
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   /* Check the parameters */
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   assert_param(IS_SYSTICK_CLK_SOURCE(SysTick_CLKSource));
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   if (SysTick_CLKSource == SysTick_CLKSource_HCLK)
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     SysTick->CTRL |= SysTick_CLKSource_HCLK;
+ 236              		.loc 1 223 0
+ 237 0000 044B     		ldr	r3, .L23
+ 238 0002 1A68     		ldr	r2, [r3, #0]
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   if (SysTick_CLKSource == SysTick_CLKSource_HCLK)
+ 239              		.loc 1 221 0
+ 240 0004 0428     		cmp	r0, #4
+ 241              		.loc 1 223 0
+ 242 0006 0CBF     		ite	eq
+ 243 0008 42F00402 		orreq	r2, r2, #4
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   }
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   else
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****   {
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/misc.c ****     SysTick->CTRL &= SysTick_CLKSource_HCLK_Div8;
+ 244              		.loc 1 227 0
+ 245 000c 22F00402 		bicne	r2, r2, #4
+ 246 0010 1A60     		str	r2, [r3, #0]
+ 247 0012 7047     		bx	lr
+ 248              	.L24:
+ 249              		.align	2
+ 250              	.L23:
+ 251 0014 10E000E0 		.word	-536813552
+ 252              		.cfi_endproc
+ 253              	.LFE114:
+ 255              		.text
+ 256              	.Letext0:
+ 257              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 258              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+ 259              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 260              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/
+DEFINED SYMBOLS
+                            *ABS*:00000000 misc.c
+     /tmp/ccCdLtvL.s:20     .text.NVIC_PriorityGroupConfig:00000000 $t
+     /tmp/ccCdLtvL.s:25     .text.NVIC_PriorityGroupConfig:00000000 NVIC_PriorityGroupConfig
+     /tmp/ccCdLtvL.s:44     .text.NVIC_PriorityGroupConfig:00000010 $d
+     /tmp/ccCdLtvL.s:49     .text.NVIC_Init:00000000 $t
+     /tmp/ccCdLtvL.s:54     .text.NVIC_Init:00000000 NVIC_Init
+     /tmp/ccCdLtvL.s:149    .text.NVIC_Init:0000006c $d
+     /tmp/ccCdLtvL.s:155    .text.NVIC_SetVectorTable:00000000 $t
+     /tmp/ccCdLtvL.s:160    .text.NVIC_SetVectorTable:00000000 NVIC_SetVectorTable
+     /tmp/ccCdLtvL.s:180    .text.NVIC_SetVectorTable:00000010 $d
+     /tmp/ccCdLtvL.s:185    .text.NVIC_SystemLPConfig:00000000 $t
+     /tmp/ccCdLtvL.s:190    .text.NVIC_SystemLPConfig:00000000 NVIC_SystemLPConfig
+     /tmp/ccCdLtvL.s:218    .text.NVIC_SystemLPConfig:00000014 $d
+     /tmp/ccCdLtvL.s:223    .text.SysTick_CLKSourceConfig:00000000 $t
+     /tmp/ccCdLtvL.s:228    .text.SysTick_CLKSourceConfig:00000000 SysTick_CLKSourceConfig
+     /tmp/ccCdLtvL.s:251    .text.SysTick_CLKSourceConfig:00000014 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,731 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"fsmc.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc5stm324Fsmc10initializeEv,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc5stm324Fsmc10initializeEv
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc5stm324Fsmc10initializeEv:
+  26              	.LFB115:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fs
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** /* Copyright (c) 2012, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** #include "fsmc.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** #if defined (STM32F10X_HD) || defined (STM32F10X_XL) || \
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	defined (STM32F10X_HD_VL) || \
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	defined(STM32F2XX) || defined(STM32F4XX)
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** // ----------------------------------------------------------------------------
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** /*
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * - Byte select lanes (NBL[1:0]) are not used during read access (they are
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  *   kept low). Read access is always 16 bit!
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * - Output signal change on the rising edge of HCLK
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  * - In synchronous mode the output data changes on the falling edge of CLK
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp ****  */
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** void
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** xpcc::stm32::Fsmc::initialize()
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+  28              		.loc 1 46 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LBB4:
+  34              	.LBB5:
+  35              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fs
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** /* Copyright (c) 2012, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #ifndef XPCC_STM32__FSMC_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #define XPCC_STM32__FSMC_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #include <stdint.h>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #include "device.h"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #if defined (STM32F10X_HD) || defined (STM32F10X_XL) || \
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 	defined (STM32F10X_HD_VL) || \
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 	defined(STM32F2XX) || defined(STM32F4XX)
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** namespace xpcc
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** {
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 	namespace stm32
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 	{
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		namespace fsmc
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		{
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			/**
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Configure NOR-Flash or (P)SRAM
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * NOR non-multiplexed
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - CLK
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - A[25:0]
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - D[15:0]
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NE[x]
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NOE
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NWE
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NL(=NADV)
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NWAIT
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * NOR multiplexed
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - A[25:16]
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - AD[15:0]
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * (P)SRAM
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NBL[1]		- Upper byte enable (NUB)
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NBL[0]		- Lower byte enable (NLB)
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Options:
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - multiplexed, non-multiplexed
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - asynchronous, synchronous
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode 1 (SRAM/CRAM)
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NOE directly low
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NWE after address setup
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Timings: address setup, data phase
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode A (CRAM)
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NOE, NWE low after address setup
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Timings: address setup, data phase
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode 2/B (NOR Flash)
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NADV low during address setup
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NOE directly low
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Mode 2: NWE low after address setup
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Mode B: NWE directly low
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode C (NOR Flash)
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NADV low during address setup
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - NOE, NWE low after address setup
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode D
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Mode C with additional address hold step (NADV, NOE, NWE high)
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Timings: address setup, address hold, data phase
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Mode muxed
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - Mode D with lower address bits on data lanes during
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 *   address setup step
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Async wait: only data phase stage is prolonged, address setup
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * and address hold are not affected.
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Memory Type (MTYP):
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - 00 SRAM/ROM 					(asynchronous, non-multiplexed)
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - 01 PSRAM/Cellular RAM: CRAM	((a)synchronous read/write, (non-)multiplexed)
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * - 10 NOR Flash/One NAND Flash	((a)synchronous read, (non-)multiplexed)
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Multiplexed mode only valid for NOR and PSRAM
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * 
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Synchronous => burst mode?
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * NOR Flash and burst write?
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 */
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			class NorSram
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			{
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			public:
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				/**
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Corresponds to NE1..4.
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 */
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enum Region
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					CHIP_SELECT_1 = 0,
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					CHIP_SELECT_2 = 1,
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					CHIP_SELECT_3 = 2,
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					CHIP_SELECT_4 = 3,
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enum WaitPolarity
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					WAIT_HIGH_ACTIVE,
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					WAIT_LOW_ACTIVE,
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enum BusType
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					NO_MULTIPLEX_8BIT = 0,
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					NO_MULTIPLEX_16BIT = FSMC_BCR1_MWID_0,
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					ADDRESS_DATA_MULIPLEX_8BIT = FSMC_BCR1_MUXEN,
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					ADDRESS_DATA_MULIPLEX_16BIT = FSMC_BCR1_MUXEN | FSMC_BCR1_MWID_0,
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enum MemoryType
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					SRAM_ROM = 0,
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					PSRAM = FSMC_BCR1_MTYP_0, ///< PSRAM (CRAM)
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					NOR = FSMC_BCR1_MTYP_1, ///< NOR Flash/OneNAND Flash
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enum AccessMode
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					MODE_A = 0,	///< access mode A
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					MODE_B = FSMC_BTR1_ACCMOD_0, ///< access mode B
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					MODE_C = FSMC_BTR1_ACCMOD_1, ///< access mode C
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					MODE_D = FSMC_BTR1_ACCMOD_0 | FSMC_BTR1_ACCMOD_1 ///< access mode D
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				/**
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Timing for asynchronous access
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 */
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				struct AsynchronousTiming
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t readAddressSetup;	///< 0..15
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					/// (only for muxed I/O) 1..15
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t readAddressHold;
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t readDataPhase;		///< 1..256
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t writeAddressSetup;	///< 0..15
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					/// (only for muxed I/O) 1..15
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t writeAddressHold;
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t writeDataPhase;		///< 1..256
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					/**
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					 * Bus turn around time
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					 * 
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					 * Time from NEx high to NEx low => time between two bus
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					 * accesses (0..15 HCLK cycles).
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					 */
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t busTurnAround;
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				/**
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Timing for synchronous access
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 */
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				struct SynchronousTiming
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t busTurnAround;		///< 0..15
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					/** Number of HCLK cycles for one CLK cycle, [1..16] */
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t clockDivideRatio;
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint8_t dataLatency;		///< 2..17 CLK cycles
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				};
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			public:
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static void
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				resetRegion(Region region);
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static inline void
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enableRegion(Region region, bool enable = true)
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					if (enable) {
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						FSMC_Bank1->BTCR[region] |= FSMC_BCR1_MBKEN;
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					}
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					else {
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						FSMC_Bank1->BTCR[region] &= ~FSMC_BCR1_MBKEN;
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					}
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				}
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				/**
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Configure a region of Bank 1 for synchronous access.
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * 
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * The region is disabled afterwards and has to be enabled
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * via enableRegion().
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 */
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static void
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				configureSynchronousRegion(Region region,
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						BusType multiplex,
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						MemoryType memoryType,
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						SynchronousTiming timing);
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static void
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				configureAsynchronousRegion(Region region,
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						BusType multiplex,
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						MemoryType memoryType,
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						AccessMode accessMode,
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						AsynchronousTiming timing);
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static inline void
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				enableAsynchronousWait(Region region,
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						WaitPolarity polarity = WAIT_LOW_ACTIVE)
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				{
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					uint32_t btcr = FSMC_BCR1_ASYNCWAIT; 
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					if (polarity != WAIT_LOW_ACTIVE) {
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						btcr |= FSMC_BCR1_WAITPOL;
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					}
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					FSMC_Bank1->BTCR[region] = btcr;
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				}
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				/**
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Get mapped memory address of a region.
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * 
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 * Each region is 64 MB in size.
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				 */
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				static inline void*
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				getRegionPointer(Region region) {
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					void *ptr;
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					switch (region) {
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						case CHIP_SELECT_1: ptr = (void *)(0x60000000); break;
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						case CHIP_SELECT_2: ptr = (void *)(0x64000000); break;
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						case CHIP_SELECT_3: ptr = (void *)(0x68000000); break;
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 						case CHIP_SELECT_4: ptr = (void *)(0x6C000000); break;
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					}
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 					return ptr;
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				}
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			};
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			class FsmcNand
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			{
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				// TODO
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			};
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			class FsmcPcCard
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			{
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				// TODO
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			};
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		}
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		/**
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * Flexible static memory controller.
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * Memory Map:
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 0x6000 0000 - 0x6fff ffff : Bank 1 4x NOR or [P]SRAM devices
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 0x7000 0000 - 0x7fff ffff : Bank 2 NAND Flash device
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 0x8000 0000 - 0x8fff ffff : Bank 3 NAND Flash device
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 0x9000 0000 - 0x9fff ffff : Bank 4 PC Card device
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 *   each bank is 4x64 = 256 MB wide
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NOR/PSRAM/SRAM Flash signals:
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * CLK       - Clock (for synchronous burst)
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * A[25:0]   - Address Bus
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * AD[15:0]  - 16-bit multiplexed, bidirectional address/data bus or data bus
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NE[x]     - Chip select, x=1..4
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NOE       - Output enable
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NWE       - Write enable
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NL(=NADV) - Latch enable (this signal is called address valid,
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 *             NADV, by some NOR Flash devices)
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NWAIT     - NOR Flash wait input signal to the FSMC
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NBL1      - Upper byte enable (memory signal name: NUB)
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * NBL0      - Lowed byte enable (memory signal name: NLB)
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * 
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 * \author	Fabian Greif
+ 295:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		 */
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		class Fsmc
+ 297:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		{
+ 298:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		public:
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			/**
+ 300:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 * Reset all NAND/NOR/SRAM/... settings
+ 301:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			 */
+ 302:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			static void
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			initialize();
+ 304:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			
+ 305:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 		private:
+ 306:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			static inline void
+ 307:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			enable()
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 			{
+ 309:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** #if defined(STM32F4XX) || defined(STM32F2XX)
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.hpp **** 				RCC->AHB3ENR |= RCC_AHB3ENR_FSMCEN;
+  36              		.loc 2 310 0
+  37 0000 024B     		ldr	r3, .L2
+  38 0002 9A6B     		ldr	r2, [r3, #56]
+  39 0004 42F00102 		orr	r2, r2, #1
+  40 0008 9A63     		str	r2, [r3, #56]
+  41 000a 7047     		bx	lr
+  42              	.L3:
+  43              		.align	2
+  44              	.L2:
+  45 000c 00380240 		.word	1073887232
+  46              	.LBE5:
+  47              	.LBE4:
+  48              		.cfi_endproc
+  49              	.LFE115:
+  51              		.section	.text._ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE,"ax",%progbits
+  52              		.align	2
+  53              		.global	_ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE
+  54              		.thumb
+  55              		.thumb_func
+  57              	_ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE:
+  58              	.LFB116:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	//RCC->AHB3RSTR |= RCC_AHB3RSTR_FSMCRST;
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	enable();
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** }
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** // ----------------------------------------------------------------------------
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** void
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** xpcc::stm32::fsmc::NorSram::resetRegion(Region region)
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+  59              		.loc 1 55 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+  64              	.LVL0:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	if (region == CHIP_SELECT_1)
+  65              		.loc 1 56 0
+  66 0000 90B1     		cbz	r0, .L8
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	{
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// FSMC_Bank1_NORSRAM1
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		FSMC_Bank1->BTCR[region*2] = 0x000030DB;   
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	}
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	else
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	{
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// FSMC_Bank1_NORSRAM2,  FSMC_Bank1_NORSRAM3 or FSMC_Bank1_NORSRAM4
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		FSMC_Bank1->BTCR[region*2] = 0x000030D2;
+  67              		.loc 1 64 0
+  68 0002 4300     		lsls	r3, r0, #1
+  69 0004 4FF02042 		mov	r2, #-1610612736
+  70 0008 43F2D201 		movw	r1, #12498
+  71 000c 42F82310 		str	r1, [r2, r3, lsl #2]
+  72              	.L6:
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	}
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2 + 1] = 0x0FFFFFFF;
+  73              		.loc 1 67 0
+  74 0010 591C     		adds	r1, r3, #1
+  75 0012 4FF02042 		mov	r2, #-1610612736
+  76 0016 6FF07043 		mvn	r3, #-268435456
+  77 001a 42F82130 		str	r3, [r2, r1, lsl #2]
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1E->BWTR[region] = 0x0FFFFFFF;
+  78              		.loc 1 68 0
+  79 001e 02F58272 		add	r2, r2, #260
+  80 0022 42F82030 		str	r3, [r2, r0, lsl #2]
+  81 0026 7047     		bx	lr
+  82              	.L8:
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		FSMC_Bank1->BTCR[region*2] = 0x000030DB;   
+  83              		.loc 1 59 0
+  84 0028 4FF02043 		mov	r3, #-1610612736
+  85 002c 43F2DB02 		movw	r2, #12507
+  86 0030 1A60     		str	r2, [r3, #0]
+  87 0032 0346     		mov	r3, r0
+  88 0034 ECE7     		b	.L6
+  89              		.cfi_endproc
+  90              	.LFE116:
+  92 0036 00BF     		.section	.text._ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS
+  93              		.align	2
+  94              		.global	_ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10Mem
+  95              		.thumb
+  96              		.thumb_func
+  98              	_ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeEN
+  99              	.LFB117:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** }
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** void
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** xpcc::stm32::fsmc::NorSram::configureSynchronousRegion(Region region,
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		BusType multiplex, MemoryType memoryType, SynchronousTiming timing)
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+ 100              		.loc 1 74 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 8
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105              	.LVL1:
+ 106 0000 70B4     		push	{r4, r5, r6}
+ 107              	.LCFI0:
+ 108              		.cfi_def_cfa_offset 12
+ 109              		.cfi_offset 4, -12
+ 110              		.cfi_offset 5, -8
+ 111              		.cfi_offset 6, -4
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// NOR/PSRAM chip-select control register (BCR)
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2] =
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_CBURSTRW |
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_EXTMOD |	// Enable extended mode, this allows different timings for read and write
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_WREN |	// enable write
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_BURSTEN | // synchronous access
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			(1 << 7) |			// FWPRLVL (unknown, should be kept at reset level (=1)) 
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			memoryType |
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			multiplex;
+ 112              		.loc 1 83 0
+ 113 0002 1143     		orrs	r1, r1, r2
+ 114              	.LVL2:
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2] =
+ 115              		.loc 1 76 0
+ 116 0004 4400     		lsls	r4, r0, #1
+ 117              		.loc 1 83 0
+ 118 0006 41F40526 		orr	r6, r1, #544768
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+ 119              		.loc 1 74 0
+ 120 000a 83B0     		sub	sp, sp, #12
+ 121              	.LCFI1:
+ 122              		.cfi_def_cfa_offset 24
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2] =
+ 123              		.loc 1 76 0
+ 124 000c 4FF02045 		mov	r5, #-1610612736
+ 125              		.loc 1 83 0
+ 126 0010 46F4C076 		orr	r6, r6, #384
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	if (memoryType == NOR) {
+ 127              		.loc 1 85 0
+ 128 0014 082A     		cmp	r2, #8
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+ 129              		.loc 1 74 0
+ 130 0016 0193     		str	r3, [sp, #4]
+ 131 0018 D9B2     		uxtb	r1, r3
+ 132              	.LVL3:
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			multiplex;
+ 133              		.loc 1 83 0
+ 134 001a 45F82460 		str	r6, [r5, r4, lsl #2]
+ 135 001e C3F30726 		ubfx	r6, r3, #8, #8
+ 136              	.LVL4:
+ 137 0022 C3F30743 		ubfx	r3, r3, #16, #8
+ 138              	.LVL5:
+ 139              		.loc 1 85 0
+ 140 0026 14D0     		beq	.L13
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// Flash access enable
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		FSMC_Bank1->BTCR[region*2] |= FSMC_BCR1_FACCEN;
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	}
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	if (memoryType == PSRAM) {
+ 141              		.loc 1 90 0
+ 142 0028 042A     		cmp	r2, #4
+ 143 002a 10D1     		bne	.L14
+ 144 002c 0023     		movs	r3, #0
+ 145              	.LVL6:
+ 146              	.L11:
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// see RM0090 page 1259:
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// PSRAMs (CRAMs) have a variable latency due to internal refresh.
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// Therefore these memories issue the NWAIT signal during the whole
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// latency phase to prolong the latency as needed.
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// With PSRAMs (CRAMs) the filed DATLAT must be set to 0, so that
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// the FSMC exits its latency phase soon and starts sampling NWAIT
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// from memory, then starts to read or write when the memory is ready.
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// 
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// This method can be used also with the latest generation of
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// synchronous Flash memories that issue the NWAIT signal, unlike
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// older Flash memories (check the datasheet of the specific Flash
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// memory being used).
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		timing.dataLatency = 0;
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		// TODO NWait
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	}
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// SRAM/NOR-Flash timing register (BTR) (for read access)
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2 + 1] =
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.dataLatency << 24 |
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.clockDivideRatio << 20 |
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.busTurnAround << 16;
+ 147              		.loc 1 112 0
+ 148 002e 3605     		lsls	r6, r6, #20
+ 149              	.LVL7:
+ 150 0030 4FF02042 		mov	r2, #-1610612736
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2 + 1] =
+ 151              		.loc 1 109 0
+ 152 0034 0134     		adds	r4, r4, #1
+ 153              		.loc 1 112 0
+ 154 0036 46EA0141 		orr	r1, r6, r1, lsl #16
+ 155              	.LVL8:
+ 156 003a 0B43     		orrs	r3, r3, r1
+ 157 003c 42F82430 		str	r3, [r2, r4, lsl #2]
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// SRAM/NOR-Flash write timing registers (BWTR)
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// TODO read write timing different?
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1E->BWTR[region] =
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.dataLatency << 24 |
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.clockDivideRatio << 20 |
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.busTurnAround << 16;
+ 158              		.loc 1 119 0
+ 159 0040 02F58272 		add	r2, r2, #260
+ 160 0044 42F82030 		str	r3, [r2, r0, lsl #2]
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** }
+ 161              		.loc 1 120 0
+ 162 0048 03B0     		add	sp, sp, #12
+ 163 004a 70BC     		pop	{r4, r5, r6}
+ 164 004c 7047     		bx	lr
+ 165              	.LVL9:
+ 166              	.L14:
+ 167 004e 1B06     		lsls	r3, r3, #24
+ 168              	.LVL10:
+ 169 0050 EDE7     		b	.L11
+ 170              	.LVL11:
+ 171              	.L13:
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		FSMC_Bank1->BTCR[region*2] |= FSMC_BCR1_FACCEN;
+ 172              		.loc 1 87 0
+ 173 0052 55F82420 		ldr	r2, [r5, r4, lsl #2]
+ 174              	.LVL12:
+ 175 0056 42F04002 		orr	r2, r2, #64
+ 176 005a 45F82420 		str	r2, [r5, r4, lsl #2]
+ 177 005e 1B06     		lsls	r3, r3, #24
+ 178              	.LVL13:
+ 179 0060 E5E7     		b	.L11
+ 180              		.cfi_endproc
+ 181              	.LFE117:
+ 183 0062 00BF     		.section	.text._ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeEN
+ 184              		.align	2
+ 185              		.global	_ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10Me
+ 186              		.thumb
+ 187              		.thumb_func
+ 189              	_ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeE
+ 190              	.LFB118:
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** void
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** xpcc::stm32::fsmc::NorSram::configureAsynchronousRegion(Region region,
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		BusType busType, MemoryType memoryType, AccessMode accessMode,
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 		AsynchronousTiming timing)
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** {
+ 191              		.loc 1 126 0
+ 192              		.cfi_startproc
+ 193              		@ args = 8, pretend = 0, frame = 0
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 195              		@ link register save eliminated.
+ 196              	.LVL14:
+ 197 0000 F0B4     		push	{r4, r5, r6, r7}
+ 198              	.LCFI2:
+ 199              		.cfi_def_cfa_offset 16
+ 200              		.cfi_offset 4, -16
+ 201              		.cfi_offset 5, -12
+ 202              		.cfi_offset 6, -8
+ 203              		.cfi_offset 7, -4
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// NOR/PSRAM chip-select control register (BCR)
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2] =
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_EXTMOD |	// Enable extended mode, this allows different timings for read and write
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			FSMC_BCR1_WREN |	// enable write
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			(1 << 7) |			// FWPRLVL (unknown, should be kept at reset level (=1)) 
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			memoryType |
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			busType;
+ 204              		.loc 1 133 0
+ 205 0002 0A43     		orrs	r2, r2, r1
+ 206              	.LVL15:
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2] =
+ 207              		.loc 1 128 0
+ 208 0004 4FF02044 		mov	r4, #-1610612736
+ 209 0008 4500     		lsls	r5, r0, #1
+ 210              		.loc 1 133 0
+ 211 000a 42F4A142 		orr	r2, r2, #20608
+ 212 000e 9DF81660 		ldrb	r6, [sp, #22]	@ zero_extendqisi2
+ 213              	.LVL16:
+ 214 0012 44F82520 		str	r2, [r4, r5, lsl #2]
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// SRAM/NOR-Flash timing register (BTR) (for read access)
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2 + 1] = 
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			accessMode |
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.busTurnAround << 16 |
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.readDataPhase << 8 |
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.readAddressHold << 4 |
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.readAddressSetup;
+ 215              		.loc 1 141 0
+ 216 0016 9DF81110 		ldrb	r1, [sp, #17]	@ zero_extendqisi2
+ 217              	.LVL17:
+ 218 001a 9DF81270 		ldrb	r7, [sp, #18]	@ zero_extendqisi2
+ 219 001e 9DF81020 		ldrb	r2, [sp, #16]	@ zero_extendqisi2
+ 220 0022 0901     		lsls	r1, r1, #4
+ 221 0024 41EA0721 		orr	r1, r1, r7, lsl #8
+ 222 0028 43EA0643 		orr	r3, r3, r6, lsl #16
+ 223              	.LVL18:
+ 224 002c 0A43     		orrs	r2, r2, r1
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1->BTCR[region*2 + 1] = 
+ 225              		.loc 1 136 0
+ 226 002e 0135     		adds	r5, r5, #1
+ 227              		.loc 1 141 0
+ 228 0030 1A43     		orrs	r2, r2, r3
+ 229 0032 44F82520 		str	r2, [r4, r5, lsl #2]
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	// SRAM/NOR-Flash write timing registers (BWTR)
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 	FSMC_Bank1E->BWTR[region] = 
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			accessMode |
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.busTurnAround << 16 |
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.writeDataPhase << 8 |
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.writeAddressHold << 4 |
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** 			timing.writeAddressSetup;
+ 230              		.loc 1 149 0
+ 231 0036 9DF81420 		ldrb	r2, [sp, #20]	@ zero_extendqisi2
+ 232 003a 9DF81540 		ldrb	r4, [sp, #21]	@ zero_extendqisi2
+ 233 003e 9DF81310 		ldrb	r1, [sp, #19]	@ zero_extendqisi2
+ 234 0042 1201     		lsls	r2, r2, #4
+ 235 0044 42EA0422 		orr	r2, r2, r4, lsl #8
+ 236 0048 0A43     		orrs	r2, r2, r1
+ 237 004a 1343     		orrs	r3, r3, r2
+ 238 004c 024A     		ldr	r2, .L16
+ 239 004e 42F82030 		str	r3, [r2, r0, lsl #2]
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fsmc.cpp **** }
+ 240              		.loc 1 150 0
+ 241 0052 F0BC     		pop	{r4, r5, r6, r7}
+ 242 0054 7047     		bx	lr
+ 243              	.L17:
+ 244 0056 00BF     		.align	2
+ 245              	.L16:
+ 246 0058 040100A0 		.word	-1610612476
+ 247              		.cfi_endproc
+ 248              	.LFE118:
+ 250              		.text
+ 251              	.Letext0:
+ 252              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 253              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 254              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 fsmc.cpp
+     /tmp/ccWQOWIO.s:20     .text._ZN4xpcc5stm324Fsmc10initializeEv:00000000 $t
+     /tmp/ccWQOWIO.s:25     .text._ZN4xpcc5stm324Fsmc10initializeEv:00000000 _ZN4xpcc5stm324Fsmc10initializeEv
+     /tmp/ccWQOWIO.s:45     .text._ZN4xpcc5stm324Fsmc10initializeEv:0000000c $d
+     /tmp/ccWQOWIO.s:52     .text._ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE:00000000 $t
+     /tmp/ccWQOWIO.s:57     .text._ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE:00000000 _ZN4xpcc5stm324fsmc7NorSram11resetRegionENS2_6RegionE
+     /tmp/ccWQOWIO.s:93     .text._ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_17SynchronousTimingE:00000000 $t
+     /tmp/ccWQOWIO.s:98     .text._ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_17SynchronousTimingE:00000000 _ZN4xpcc5stm324fsmc7NorSram26configureSynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_17SynchronousTimingE
+     /tmp/ccWQOWIO.s:184    .text._ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_10AccessModeENS2_18AsynchronousTimingE:00000000 $t
+     /tmp/ccWQOWIO.s:189    .text._ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_10AccessModeENS2_18AsynchronousTimingE:00000000 _ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_10AccessModeENS2_18AsynchronousTimingE
+     /tmp/ccWQOWIO.s:246    .text._ZN4xpcc5stm324fsmc7NorSram27configureAsynchronousRegionENS2_6RegionENS2_7BusTypeENS2_10MemoryTypeENS2_10AccessModeENS2_18AsynchronousTimingE:00000058 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

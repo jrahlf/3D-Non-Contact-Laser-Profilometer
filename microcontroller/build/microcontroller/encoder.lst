@@ -1,0 +1,1179 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"encoder.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN7Encoder4initEv,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN7Encoder4initEv
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN7Encoder4initEv:
+  26              	.LFB1008:
+  27              		.file 1 "encoder.cpp"
+   1:encoder.cpp   **** /*
+   2:encoder.cpp   ****  * encoder.cpp
+   3:encoder.cpp   ****  *
+   4:encoder.cpp   ****  *  Created on: Nov 26, 2013
+   5:encoder.cpp   ****  *      Author: jonas
+   6:encoder.cpp   ****  */
+   7:encoder.cpp   **** 
+   8:encoder.cpp   **** 
+   9:encoder.cpp   **** #include "encoder.h"
+  10:encoder.cpp   **** #include "control.h"
+  11:encoder.cpp   **** #include <xpcc/architecture.hpp>
+  12:encoder.cpp   **** #include "../ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/misc.h"
+  13:encoder.cpp   **** #include "../ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_tim.h"
+  14:encoder.cpp   **** #include "../ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_gpio.h"
+  15:encoder.cpp   **** #include "../ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+  16:encoder.cpp   **** #include "../ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_rcc.h"
+  17:encoder.cpp   **** 
+  18:encoder.cpp   **** using namespace xpcc::stm32;
+  19:encoder.cpp   **** 
+  20:encoder.cpp   **** /*
+  21:encoder.cpp   ****  * xpcc does not support timer pin remap
+  22:encoder.cpp   ****  * Source: http://www.micromouseonline.com/2013/02/16/quadrature-encoders-with-the-stm32f4/
+  23:encoder.cpp   ****  * definitions for the quadrature encoder pins
+  24:encoder.cpp   ****  */
+  25:encoder.cpp   **** // Left Motor Channels
+  26:encoder.cpp   **** #define ENCLA_PIN               GPIO_Pin_15
+  27:encoder.cpp   **** #define ENCLA_GPIO_PORT         GPIOA
+  28:encoder.cpp   **** #define ENCLA_GPIO_CLK          RCC_AHB1Periph_GPIOA
+  29:encoder.cpp   **** #define ENCLA_SOURCE            GPIO_PinSource15
+  30:encoder.cpp   **** #define ENCLA_AF                GPIO_AF_TIM2
+  31:encoder.cpp   **** 
+  32:encoder.cpp   **** #define ENCLB_PIN               GPIO_Pin_3
+  33:encoder.cpp   **** #define ENCLB_GPIO_PORT         GPIOB
+  34:encoder.cpp   **** #define ENCLB_GPIO_CLK          RCC_AHB1Periph_GPIOB
+  35:encoder.cpp   **** #define ENCLB_SOURCE            GPIO_PinSource3
+  36:encoder.cpp   **** #define ENCLB_AF                GPIO_AF_TIM2
+  37:encoder.cpp   **** 
+  38:encoder.cpp   **** // Right Motor Channels
+  39:encoder.cpp   **** #define ENCRA_PIN               GPIO_Pin_0
+  40:encoder.cpp   **** #define ENCRA_GPIO_PORT         GPIOA
+  41:encoder.cpp   **** #define ENCRA_GPIO_CLK          RCC_AHB1Periph_GPIOA
+  42:encoder.cpp   **** #define ENCRA_SOURCE            GPIO_PinSource0
+  43:encoder.cpp   **** #define ENCRA_AF                GPIO_AF_TIM5
+  44:encoder.cpp   **** 
+  45:encoder.cpp   **** #define ENCRB_PIN               GPIO_Pin_1
+  46:encoder.cpp   **** #define ENCRB_GPIO_PORT         GPIOA
+  47:encoder.cpp   **** #define ENCRB_GPIO_CLK          RCC_AHB1Periph_GPIOA
+  48:encoder.cpp   **** #define ENCRB_SOURCE            GPIO_PinSource1
+  49:encoder.cpp   **** #define ENCRB_AF                GPIO_AF_TIM5
+  50:encoder.cpp   **** 
+  51:encoder.cpp   **** // determine the timers to use
+  52:encoder.cpp   **** #define ENCL_TIMER              TIM2
+  53:encoder.cpp   **** #define ENCL_TIMER_CLK          RCC_APB1Periph_TIM2
+  54:encoder.cpp   **** #define ENCR_TIMER              TIM5
+  55:encoder.cpp   **** #define ENCR_TIMER_CLK          RCC_APB1Periph_TIM5
+  56:encoder.cpp   **** 
+  57:encoder.cpp   **** #define LEFT_COUNT()            ENCL_TIMER->CNT
+  58:encoder.cpp   **** #define RIGHT_COUNT()           ENCR_TIMER->CNT
+  59:encoder.cpp   **** 
+  60:encoder.cpp   **** namespace Encoder{
+  61:encoder.cpp   **** 
+  62:encoder.cpp   **** void encodersInit();
+  63:encoder.cpp   **** 
+  64:encoder.cpp   **** bool init(){
+  28              		.loc 1 64 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 36
+  35              		.cfi_offset 4, -36
+  36              		.cfi_offset 5, -32
+  37              		.cfi_offset 6, -28
+  38              		.cfi_offset 7, -24
+  39              		.cfi_offset 8, -20
+  40              		.cfi_offset 9, -16
+  41              		.cfi_offset 10, -12
+  42              		.cfi_offset 11, -8
+  43              		.cfi_offset 14, -4
+  44              	.LBB23:
+  45              	.LBB24:
+  65:encoder.cpp   **** 	encodersInit();
+  66:encoder.cpp   **** 	Encoder::zero();
+  67:encoder.cpp   **** 	return true;
+  68:encoder.cpp   **** }
+  69:encoder.cpp   **** 
+  70:encoder.cpp   **** 
+  71:encoder.cpp   **** /*
+  72:encoder.cpp   ****  * Configure two timers as quadrature encoder counters.
+  73:encoder.cpp   ****  * Details of which timers should be used are
+  74:encoder.cpp   ****  * in the project hardware header file.
+  75:encoder.cpp   ****  * Most timers can be used if channels 1 and 2 are available on pins.
+  76:encoder.cpp   ****  * The timers are mostly 16 bit. Timers can be set to 32 bit but they are
+  77:encoder.cpp   ****  * not very convenient for IO pins so the counters are simply set to to
+  78:encoder.cpp   ****  * 16 bit counting regardless.
+  79:encoder.cpp   ****  * A mouse needs 32 bits of positional data and, since it also needs the
+  80:encoder.cpp   ****  * current speed, distance is not maintained by the encoder code but will
+  81:encoder.cpp   ****  * be looked after by the motion control code.
+  82:encoder.cpp   ****  * The counters are set to X4 mode. The only alternative is X2 counting.
+  83:encoder.cpp   ****  */
+  84:encoder.cpp   **** void encodersInit (void)
+  85:encoder.cpp   **** {
+  86:encoder.cpp   ****   GPIO_InitTypeDef GPIO_InitStructure;
+  87:encoder.cpp   ****   // turn on the clocks for each of the ports needed
+  88:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLA_GPIO_CLK, ENABLE);
+  46              		.loc 1 88 0
+  47 0004 0120     		movs	r0, #1
+  48              	.LBE24:
+  49              	.LBE23:
+  64:encoder.cpp   **** bool init(){
+  50              		.loc 1 64 0
+  51 0006 83B0     		sub	sp, sp, #12
+  52              	.LCFI1:
+  53              		.cfi_def_cfa_offset 48
+  54              	.LBB26:
+  55              	.LBB25:
+  56              		.loc 1 88 0
+  57 0008 394C     		ldr	r4, .L2
+  89:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLB_GPIO_CLK, ENABLE);
+  90:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRA_GPIO_CLK, ENABLE);
+  91:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRB_GPIO_CLK, ENABLE);
+  92:encoder.cpp   **** 
+  93:encoder.cpp   ****   // now configure the pins themselves
+  94:encoder.cpp   ****   // they are all going to be inputs with pullups
+  95:encoder.cpp   ****   GPIO_StructInit (&GPIO_InitStructure);
+  96:encoder.cpp   ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+  97:encoder.cpp   ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+  98:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLA_PIN;
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+  58              		.loc 1 99 0
+  59 000a 3A4D     		ldr	r5, .L2+4
+ 100:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLB_PIN;
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+  60              		.loc 1 101 0
+  61 000c DFF804B1 		ldr	fp, .L2+36
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+  62              		.loc 1 99 0
+  63 0010 DFF80491 		ldr	r9, .L2+40
+ 102:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRA_PIN;
+ 103:encoder.cpp   ****   GPIO_Init (ENCRA_GPIO_PORT, &GPIO_InitStructure);
+ 104:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRB_PIN;
+ 105:encoder.cpp   ****   GPIO_Init (ENCRB_GPIO_PORT, &GPIO_InitStructure);
+ 106:encoder.cpp   **** 
+ 107:encoder.cpp   ****   // Connect the pins to their Alternate Functions
+ 108:encoder.cpp   ****   GPIO_PinAFConfig (ENCLA_GPIO_PORT, ENCLA_SOURCE, ENCLA_AF);
+  64              		.loc 1 108 0
+  65 0014 384F     		ldr	r7, .L2+8
+ 109:encoder.cpp   ****   GPIO_PinAFConfig (ENCLB_GPIO_PORT, ENCLB_SOURCE, ENCLB_AF);
+ 110:encoder.cpp   ****   GPIO_PinAFConfig (ENCRA_GPIO_PORT, ENCRA_SOURCE, ENCRA_AF);
+ 111:encoder.cpp   ****   GPIO_PinAFConfig (ENCRB_GPIO_PORT, ENCRB_SOURCE, ENCRB_AF);
+ 112:encoder.cpp   **** 
+ 113:encoder.cpp   ****   // Timer peripheral clock enable
+ 114:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCL_TIMER_CLK, ENABLE);
+ 115:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCR_TIMER_CLK, ENABLE);
+ 116:encoder.cpp   **** 
+ 117:encoder.cpp   ****   // set them up as encoder inputs
+ 118:encoder.cpp   ****   // set both inputs to rising polarity to let it use both edges
+ 119:encoder.cpp   ****   TIM_EncoderInterfaceConfig (ENCL_TIMER, TIM_EncoderMode_TI12,
+ 120:encoder.cpp   ****                               TIM_ICPolarity_Rising,
+ 121:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+ 122:encoder.cpp   ****   TIM_SetAutoreload (ENCL_TIMER, 4294967295);
+ 123:encoder.cpp   ****   TIM_EncoderInterfaceConfig (ENCR_TIMER, TIM_EncoderMode_TI12,
+ 124:encoder.cpp   ****                               TIM_ICPolarity_Rising,
+ 125:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+  66              		.loc 1 125 0
+  67 0016 394E     		ldr	r6, .L2+12
+  88:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLA_GPIO_CLK, ENABLE);
+  68              		.loc 1 88 0
+  69 0018 0146     		mov	r1, r0
+  70 001a A047     		blx	r4
+  71              	.LVL0:
+  89:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLB_GPIO_CLK, ENABLE);
+  72              		.loc 1 89 0
+  73 001c 0220     		movs	r0, #2
+  74 001e 0121     		movs	r1, #1
+  75 0020 A047     		blx	r4
+  76              	.LVL1:
+  90:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRA_GPIO_CLK, ENABLE);
+  77              		.loc 1 90 0
+  78 0022 0120     		movs	r0, #1
+  79 0024 0146     		mov	r1, r0
+  80 0026 A047     		blx	r4
+  81              	.LVL2:
+  91:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRB_GPIO_CLK, ENABLE);
+  82              		.loc 1 91 0
+  83 0028 0120     		movs	r0, #1
+  84 002a 0146     		mov	r1, r0
+  85 002c A047     		blx	r4
+  86              	.LVL3:
+  95:encoder.cpp   ****   GPIO_StructInit (&GPIO_InitStructure);
+  87              		.loc 1 95 0
+  88 002e 6846     		mov	r0, sp
+  89 0030 334B     		ldr	r3, .L2+16
+  97:encoder.cpp   ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+  90              		.loc 1 97 0
+  91 0032 0124     		movs	r4, #1
+  95:encoder.cpp   ****   GPIO_StructInit (&GPIO_InitStructure);
+  92              		.loc 1 95 0
+  93 0034 9847     		blx	r3
+  94              	.LVL4:
+  96:encoder.cpp   ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+  95              		.loc 1 96 0
+  96 0036 4FF00208 		mov	r8, #2
+  98:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLA_PIN;
+  97              		.loc 1 98 0
+  98 003a 4FF40043 		mov	r3, #32768
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+  99              		.loc 1 99 0
+ 100 003e 2846     		mov	r0, r5
+ 101 0040 6946     		mov	r1, sp
+  98:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLA_PIN;
+ 102              		.loc 1 98 0
+ 103 0042 0093     		str	r3, [sp, #0]
+ 100:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLB_PIN;
+ 104              		.loc 1 100 0
+ 105 0044 4FF0080A 		mov	sl, #8
+  96:encoder.cpp   ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+ 106              		.loc 1 96 0
+ 107 0048 8DF80480 		strb	r8, [sp, #4]
+  97:encoder.cpp   ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+ 108              		.loc 1 97 0
+ 109 004c 8DF80740 		strb	r4, [sp, #7]
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+ 110              		.loc 1 99 0
+ 111 0050 C847     		blx	r9
+ 112              	.LVL5:
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+ 113              		.loc 1 101 0
+ 114 0052 5846     		mov	r0, fp
+ 115 0054 6946     		mov	r1, sp
+ 100:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLB_PIN;
+ 116              		.loc 1 100 0
+ 117 0056 CDF800A0 		str	sl, [sp, #0]
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+ 118              		.loc 1 101 0
+ 119 005a C847     		blx	r9
+ 120              	.LVL6:
+ 103:encoder.cpp   ****   GPIO_Init (ENCRA_GPIO_PORT, &GPIO_InitStructure);
+ 121              		.loc 1 103 0
+ 122 005c 2846     		mov	r0, r5
+ 123 005e 6946     		mov	r1, sp
+ 102:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRA_PIN;
+ 124              		.loc 1 102 0
+ 125 0060 0094     		str	r4, [sp, #0]
+ 103:encoder.cpp   ****   GPIO_Init (ENCRA_GPIO_PORT, &GPIO_InitStructure);
+ 126              		.loc 1 103 0
+ 127 0062 C847     		blx	r9
+ 128              	.LVL7:
+ 105:encoder.cpp   ****   GPIO_Init (ENCRB_GPIO_PORT, &GPIO_InitStructure);
+ 129              		.loc 1 105 0
+ 130 0064 6946     		mov	r1, sp
+ 131 0066 2846     		mov	r0, r5
+ 104:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRB_PIN;
+ 132              		.loc 1 104 0
+ 133 0068 CDF80080 		str	r8, [sp, #0]
+ 105:encoder.cpp   ****   GPIO_Init (ENCRB_GPIO_PORT, &GPIO_InitStructure);
+ 134              		.loc 1 105 0
+ 135 006c C847     		blx	r9
+ 136              	.LVL8:
+ 108:encoder.cpp   ****   GPIO_PinAFConfig (ENCLA_GPIO_PORT, ENCLA_SOURCE, ENCLA_AF);
+ 137              		.loc 1 108 0
+ 138 006e 2846     		mov	r0, r5
+ 139 0070 0F21     		movs	r1, #15
+ 140 0072 2246     		mov	r2, r4
+ 141 0074 B847     		blx	r7
+ 142              	.LVL9:
+ 109:encoder.cpp   ****   GPIO_PinAFConfig (ENCLB_GPIO_PORT, ENCLB_SOURCE, ENCLB_AF);
+ 143              		.loc 1 109 0
+ 144 0076 5846     		mov	r0, fp
+ 145 0078 0321     		movs	r1, #3
+ 146 007a 2246     		mov	r2, r4
+ 147 007c B847     		blx	r7
+ 148              	.LVL10:
+ 110:encoder.cpp   ****   GPIO_PinAFConfig (ENCRA_GPIO_PORT, ENCRA_SOURCE, ENCRA_AF);
+ 149              		.loc 1 110 0
+ 150 007e 2846     		mov	r0, r5
+ 151 0080 0021     		movs	r1, #0
+ 152 0082 4246     		mov	r2, r8
+ 153 0084 B847     		blx	r7
+ 154              	.LVL11:
+ 111:encoder.cpp   ****   GPIO_PinAFConfig (ENCRB_GPIO_PORT, ENCRB_SOURCE, ENCRB_AF);
+ 155              		.loc 1 111 0
+ 156 0086 4246     		mov	r2, r8
+ 157 0088 2846     		mov	r0, r5
+ 158 008a 2146     		mov	r1, r4
+ 159 008c B847     		blx	r7
+ 160              	.LVL12:
+ 114:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCL_TIMER_CLK, ENABLE);
+ 161              		.loc 1 114 0
+ 162 008e 2046     		mov	r0, r4
+ 163 0090 2146     		mov	r1, r4
+ 164 0092 1C4B     		ldr	r3, .L2+20
+ 115:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCR_TIMER_CLK, ENABLE);
+ 165              		.loc 1 115 0
+ 166 0094 1B4D     		ldr	r5, .L2+20
+ 114:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCL_TIMER_CLK, ENABLE);
+ 167              		.loc 1 114 0
+ 168 0096 9847     		blx	r3
+ 169              	.LVL13:
+ 115:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCR_TIMER_CLK, ENABLE);
+ 170              		.loc 1 115 0
+ 171 0098 5046     		mov	r0, sl
+ 172 009a 2146     		mov	r1, r4
+ 173 009c A847     		blx	r5
+ 174              	.LVL14:
+ 121:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+ 175              		.loc 1 121 0
+ 176 009e 0022     		movs	r2, #0
+ 177 00a0 1346     		mov	r3, r2
+ 178 00a2 0321     		movs	r1, #3
+ 179 00a4 184D     		ldr	r5, .L2+24
+ 180 00a6 4FF08040 		mov	r0, #1073741824
+ 181 00aa A847     		blx	r5
+ 182              	.LVL15:
+ 122:encoder.cpp   ****   TIM_SetAutoreload (ENCL_TIMER, 4294967295);
+ 183              		.loc 1 122 0
+ 184 00ac 4FF08040 		mov	r0, #1073741824
+ 185 00b0 4FF0FF31 		mov	r1, #-1
+ 186 00b4 154B     		ldr	r3, .L2+28
+ 187 00b6 9847     		blx	r3
+ 188              	.LVL16:
+ 189              		.loc 1 125 0
+ 190 00b8 0022     		movs	r2, #0
+ 191 00ba 1346     		mov	r3, r2
+ 192 00bc 0321     		movs	r1, #3
+ 193 00be 3046     		mov	r0, r6
+ 194 00c0 A847     		blx	r5
+ 195              	.LVL17:
+ 126:encoder.cpp   ****   TIM_SetAutoreload (ENCR_TIMER, 4294967295);
+ 196              		.loc 1 126 0
+ 197 00c2 3046     		mov	r0, r6
+ 198 00c4 4FF0FF31 		mov	r1, #-1
+ 199 00c8 104D     		ldr	r5, .L2+28
+ 200 00ca A847     		blx	r5
+ 201              	.LVL18:
+ 127:encoder.cpp   **** 
+ 128:encoder.cpp   ****   // turn on the timer/counters
+ 129:encoder.cpp   ****   TIM_Cmd (ENCL_TIMER, ENABLE);
+ 202              		.loc 1 129 0
+ 203 00cc 2146     		mov	r1, r4
+ 204 00ce 104B     		ldr	r3, .L2+32
+ 130:encoder.cpp   ****   TIM_Cmd (ENCR_TIMER, ENABLE);
+ 205              		.loc 1 130 0
+ 206 00d0 0F4D     		ldr	r5, .L2+32
+ 129:encoder.cpp   ****   TIM_Cmd (ENCL_TIMER, ENABLE);
+ 207              		.loc 1 129 0
+ 208 00d2 4FF08040 		mov	r0, #1073741824
+ 209 00d6 9847     		blx	r3
+ 210              	.LVL19:
+ 211              		.loc 1 130 0
+ 212 00d8 3046     		mov	r0, r6
+ 213 00da 2146     		mov	r1, r4
+ 214 00dc A847     		blx	r5
+ 215              	.LVL20:
+ 216              	.LBE25:
+ 217              	.LBE26:
+ 218              	.LBB27:
+ 219              	.LBB28:
+ 220              	.LBB29:
+ 221              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ti
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** /*
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * WARNING: This file is generated automatically, do not edit!
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  * Please modify the corresponding *.in file instead and rebuild this file. 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp ****  */
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** // ----------------------------------------------------------------------------
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #ifndef XPCC_STM32__TIMER_2_HPP
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #define XPCC_STM32__TIMER_2_HPP
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #include "timer_base.hpp"
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** namespace xpcc
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** {
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 	namespace stm32
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 	{
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		/**
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * @brief		General Purpose Timer 2
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * Interrupt handler:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * \code
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * extern "C" void
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * TIM2_IRQHandler(void)
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * {
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 *     Timer2::resetInterruptFlags(Timer2::...);
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 *     
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 *     ...
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * }
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * \endcode
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * 
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * \warning	The Timer has much more possibilities than presented by this
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * 			interface (e.g. Input Capture, Trigger for other Timers, DMA).
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * 			It might be expanded in the future.
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * 
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * @author		Fabian Greif
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 * @ingroup		stm32
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		 */
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		class Timer2 : public GeneralPurposeTimer
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		{
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		public:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #else
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			enum Remap
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				NO_REMAP = AFIO_MAPR_TIM2_REMAP_NOREMAP,				///< CH1/ETR/PA0, CH2/PA1, CH3/PA2, CH4/PA3 (defaul
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				PARTIAL_REMAP1 = AFIO_MAPR_TIM2_REMAP_PARTIALREMAP1,	///< CH1/ETR/PA15, CH2/PB3, CH3/PA2, CH4/P
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				PARTIAL_REMAP2 = AFIO_MAPR_TIM2_REMAP_PARTIALREMAP2,	///< CH1/ETR/PA0, CH2/PA1, CH3/PB10, CH4/P
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				FULL_REMAP = AFIO_MAPR_TIM2_REMAP_FULLREMAP,			///< CH1/ETR/PA15, CH2/PB3, CH3/PB10, CH4/PB11
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			};
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static const uint32_t remapMask = AFIO_MAPR_TIM2_REMAP;
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			/**
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			 * Remap compare channels to other locations.
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			 * 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			 * The pins are not automatically initialized. This has to be
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			 * done by the user.
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			 */
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			remapPins(Remap mapping)
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				AFIO->MAPR = (AFIO->MAPR & ~remapMask) | mapping;
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #endif
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 						
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 		public:
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			enum MasterMode
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_RESET 			= 0,							// 0b000
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_ENABLE 			= TIM_CR2_MMS_0,				// 0b001
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_UPDATE 			= TIM_CR2_MMS_1,				// 0b010
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_COMPARE_PULSE 	= TIM_CR2_MMS_1 | TIM_CR2_MMS_0,// 0b011
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_COMPARE_OC1REF 	= TIM_CR2_MMS_2,				// 0b100
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_COMPARE_OC2REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_0,// 0b101
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				// Only available on TIM2/3/4
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_COMPARE_OC3REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_1,// 0b110
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				MASTER_COMPARE_OC4REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_1	// 0b111
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 														| TIM_CR2_MMS_0,
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			};
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			enum SlaveModeTrigger
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_INTERNAL_1 = TIM_SMCR_TS_0,
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_INTERNAL_2 = TIM_SMCR_TS_1,
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_TI1_EDGE_DETECTOR = TIM_SMCR_TS_2,
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_FILTERED_TI1 = TIM_SMCR_TS_2 | TIM_SMCR_TS_0,
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_FILTERED_TI2 = TIM_SMCR_TS_2 | TIM_SMCR_TS_1,
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TRIGGER_EXTERNAL = TIM_SMCR_TS_2 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0,
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			};
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			enum SlaveMode
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_DISABLED	= 0, // Slave mode disabled - if CEN = '1' then the prescaler is clocked directl
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_ENCODER_1	= TIM_SMCR_SMS_0, // Counter counts up/down on TI2FP2 edge depending on TI1FP1 
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_ENCODER_2	= TIM_SMCR_SMS_1, // Counter counts up/down on TI1FP1 edge depending on TI2FP2 
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_ENCODER_3	= TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Counter counts up/down on both TI1FP1 and
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_RESET		= TIM_SMCR_SMS_2, // Rising edge of the selected trigger input (TRGI) reinitialize
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_GATED		= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_0, // The counter clock is enabled when the trigge
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_TRIGGER	= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1, // The counter starts at a rising edge of the 
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_EXTERNAL_CLOCK = TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Rising edges of the
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				#if defined(STM32F3XX)
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				SLAVE_RESET_TRIGGER	= TIM_SMCR_SMS_3,	// reinitialize and start counter
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				#endif
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			};
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			// This type is the internal size of the counter.
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			// Timer 2 and 5 are the only one which have the size of 32 bit and
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			// only on st32f2 and st32f4
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			typedef uint32_t Value;
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #else
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			typedef uint16_t Value;
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** #endif
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static void
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			enable();
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static void
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			disable();
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			pause()
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->CR1 &= ~TIM_CR1_CEN;
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			start()
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->CR1 |= TIM_CR1_CEN;
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static void
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			setMode(Mode mode, SlaveMode slaveMode = SLAVE_DISABLED,
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 					SlaveModeTrigger slaveModeTrigger = (SlaveModeTrigger) 0,
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 					MasterMode masterMode = MASTER_RESET,
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 					bool enableOnePulseMode = false);
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			setPrescaler(uint16_t prescaler)
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				// Because a prescaler of zero is not possible the actual
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				// prescaler value is \p prescaler - 1 (see Datasheet)
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->PSC = prescaler - 1;
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			setOverflow(Value overflow)
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->ARR = overflow;
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static Value
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			setPeriod(uint32_t microseconds, bool autoApply = true);
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			applyAndReset()
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				// Generate Update Event to apply the new settings for ARR
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->EGR |= TIM_EGR_UG;
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline Value
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			getValue()
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				return TIM2->CNT;
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			}
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			static inline void
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			setValue(Value value)
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 			{
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_2.hpp **** 				TIM2->CNT = value;
+ 222              		.loc 2 211 0
+ 223 00de 4FF08042 		mov	r2, #1073741824
+ 224 00e2 0023     		movs	r3, #0
+ 225 00e4 5362     		str	r3, [r2, #36]
+ 226              	.LVL21:
+ 227              	.LBE29:
+ 228              	.LBE28:
+ 229              	.LBE27:
+  68:encoder.cpp   **** }
+ 230              		.loc 1 68 0
+ 231 00e6 2046     		mov	r0, r4
+ 232              	.LBB32:
+ 233              	.LBB30:
+ 234              	.LBB31:
+ 235              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ti
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** /*
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * WARNING: This file is generated automatically, do not edit!
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  * Please modify the corresponding *.in file instead and rebuild this file. 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp ****  */
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** // ----------------------------------------------------------------------------
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #ifndef XPCC_STM32__TIMER_5_HPP
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #define XPCC_STM32__TIMER_5_HPP
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #include "timer_base.hpp"
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #if !defined (STM32F10X_LD) && !defined (STM32F10X_MD) && !defined(STM32F3XX)
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** namespace xpcc
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** {
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 	namespace stm32
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 	{
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		/**
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * @brief		General Purpose Timer 5
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * Interrupt handler:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * \code
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * extern "C" void
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * TIM5_IRQHandler(void)
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * {
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 *     Timer5::resetInterruptFlags(Timer5::...);
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 *     
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 *     ...
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * }
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * \endcode
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * \warning	The Timer has much more possibilities than presented by this
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * 			interface (e.g. Input Capture, Trigger for other Timers, DMA).
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * 			It might be expanded in the future.
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * 
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * @author		Fabian Greif
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 * @ingroup		stm32
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		 */
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		class Timer5 : public GeneralPurposeTimer
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		{
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		public:
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #else
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			enum Remap
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				NO_REMAP = 0,							///< (default)
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				FULL_REMAP = AFIO_MAPR_TIM5CH4_IREMAP,
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			};
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static const uint32_t remapMask = AFIO_MAPR_TIM5CH4_IREMAP;
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			/**
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			 * Remap compare channels to other locations.
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			 * 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			 * The pins are not automatically initialized. This has to be
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			 * done by the user.
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			 */
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			remapPins(Remap mapping)
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				AFIO->MAPR = (AFIO->MAPR & ~remapMask) | mapping;
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #endif
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 						
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 		public:
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			enum MasterMode
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_RESET 			= 0,							// 0b000
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_ENABLE 			= TIM_CR2_MMS_0,				// 0b001
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_UPDATE 			= TIM_CR2_MMS_1,				// 0b010
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_COMPARE_PULSE 	= TIM_CR2_MMS_1 | TIM_CR2_MMS_0,// 0b011
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_COMPARE_OC1REF 	= TIM_CR2_MMS_2,				// 0b100
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				MASTER_COMPARE_OC2REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_0,// 0b101
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			};
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			enum SlaveModeTrigger
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_INTERNAL_1 = TIM_SMCR_TS_0,
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_INTERNAL_2 = TIM_SMCR_TS_1,
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_TI1_EDGE_DETECTOR = TIM_SMCR_TS_2,
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_FILTERED_TI1 = TIM_SMCR_TS_2 | TIM_SMCR_TS_0,
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_FILTERED_TI2 = TIM_SMCR_TS_2 | TIM_SMCR_TS_1,
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TRIGGER_EXTERNAL = TIM_SMCR_TS_2 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0,
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			};
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			enum SlaveMode
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_DISABLED	= 0, // Slave mode disabled - if CEN = '1' then the prescaler is clocked directl
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_ENCODER_1	= TIM_SMCR_SMS_0, // Counter counts up/down on TI2FP2 edge depending on TI1FP1 
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_ENCODER_2	= TIM_SMCR_SMS_1, // Counter counts up/down on TI1FP1 edge depending on TI2FP2 
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_ENCODER_3	= TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Counter counts up/down on both TI1FP1 and
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_RESET		= TIM_SMCR_SMS_2, // Rising edge of the selected trigger input (TRGI) reinitialize
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_GATED		= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_0, // The counter clock is enabled when the trigge
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_TRIGGER	= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1, // The counter starts at a rising edge of the 
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				SLAVE_EXTERNAL_CLOCK = TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Rising edges of the
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			};
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			// This type is the internal size of the counter.
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			// Timer 2 and 5 are the only one which have the size of 32 bit and
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			// only on st32f2 and st32f4
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			typedef uint32_t Value;
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #else
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			typedef uint16_t Value;
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** #endif
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static void
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			enable();
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static void
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			disable();
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			pause()
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->CR1 &= ~TIM_CR1_CEN;
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			start()
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->CR1 |= TIM_CR1_CEN;
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static void
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			setMode(Mode mode, SlaveMode slaveMode = SLAVE_DISABLED,
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 					SlaveModeTrigger slaveModeTrigger = (SlaveModeTrigger) 0,
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 					MasterMode masterMode = MASTER_RESET,
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 					bool enableOnePulseMode = false);
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			setPrescaler(uint16_t prescaler)
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				// Because a prescaler of zero is not possible the actual
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				// prescaler value is \p prescaler - 1 (see Datasheet)
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->PSC = prescaler - 1;
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			setOverflow(Value overflow)
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->ARR = overflow;
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static Value
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			setPeriod(uint32_t microseconds, bool autoApply = true);
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			applyAndReset()
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				// Generate Update Event to apply the new settings for ARR
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->EGR |= TIM_EGR_UG;
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline Value
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			getValue()
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				return TIM5->CNT;
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			}
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			static inline void
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			setValue(Value value)
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 			{
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/timer/timer_5.hpp **** 				TIM5->CNT = value;
+ 236              		.loc 3 203 0
+ 237 00e8 7362     		str	r3, [r6, #36]
+ 238              	.LBE31:
+ 239              	.LBE30:
+ 240              	.LBE32:
+  68:encoder.cpp   **** }
+ 241              		.loc 1 68 0
+ 242 00ea 03B0     		add	sp, sp, #12
+ 243 00ec BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 244              	.L3:
+ 245              		.align	2
+ 246              	.L2:
+ 247 00f0 00000000 		.word	RCC_AHB1PeriphClockCmd
+ 248 00f4 00000240 		.word	1073872896
+ 249 00f8 00000000 		.word	GPIO_PinAFConfig
+ 250 00fc 000C0040 		.word	1073744896
+ 251 0100 00000000 		.word	GPIO_StructInit
+ 252 0104 00000000 		.word	RCC_APB1PeriphClockCmd
+ 253 0108 00000000 		.word	TIM_EncoderInterfaceConfig
+ 254 010c 00000000 		.word	TIM_SetAutoreload
+ 255 0110 00000000 		.word	TIM_Cmd
+ 256 0114 00040240 		.word	1073873920
+ 257 0118 00000000 		.word	GPIO_Init
+ 258              		.cfi_endproc
+ 259              	.LFE1008:
+ 261              		.section	.text._ZN7Encoder12encodersInitEv,"ax",%progbits
+ 262              		.align	2
+ 263              		.global	_ZN7Encoder12encodersInitEv
+ 264              		.thumb
+ 265              		.thumb_func
+ 267              	_ZN7Encoder12encodersInitEv:
+ 268              	.LFB1009:
+  85:encoder.cpp   **** {
+ 269              		.loc 1 85 0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 8
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 274              	.LCFI2:
+ 275              		.cfi_def_cfa_offset 36
+ 276              		.cfi_offset 4, -36
+ 277              		.cfi_offset 5, -32
+ 278              		.cfi_offset 6, -28
+ 279              		.cfi_offset 7, -24
+ 280              		.cfi_offset 8, -20
+ 281              		.cfi_offset 9, -16
+ 282              		.cfi_offset 10, -12
+ 283              		.cfi_offset 11, -8
+ 284              		.cfi_offset 14, -4
+ 285              	.LBB33:
+  88:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLA_GPIO_CLK, ENABLE);
+ 286              		.loc 1 88 0
+ 287 0004 0120     		movs	r0, #1
+ 288              	.LBE33:
+  85:encoder.cpp   **** {
+ 289              		.loc 1 85 0
+ 290 0006 83B0     		sub	sp, sp, #12
+ 291              	.LCFI3:
+ 292              		.cfi_def_cfa_offset 48
+ 293              	.LBB34:
+  88:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLA_GPIO_CLK, ENABLE);
+ 294              		.loc 1 88 0
+ 295 0008 364C     		ldr	r4, .L5
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+ 296              		.loc 1 99 0
+ 297 000a 374D     		ldr	r5, .L5+4
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+ 298              		.loc 1 101 0
+ 299 000c DFF8F4B0 		ldr	fp, .L5+32
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+ 300              		.loc 1 99 0
+ 301 0010 DFF8F480 		ldr	r8, .L5+36
+ 108:encoder.cpp   ****   GPIO_PinAFConfig (ENCLA_GPIO_PORT, ENCLA_SOURCE, ENCLA_AF);
+ 302              		.loc 1 108 0
+ 303 0014 354E     		ldr	r6, .L5+8
+ 125:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+ 304              		.loc 1 125 0
+ 305 0016 DFF8F490 		ldr	r9, .L5+40
+  88:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLA_GPIO_CLK, ENABLE);
+ 306              		.loc 1 88 0
+ 307 001a 0146     		mov	r1, r0
+ 308 001c A047     		blx	r4
+ 309              	.LVL22:
+  89:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCLB_GPIO_CLK, ENABLE);
+ 310              		.loc 1 89 0
+ 311 001e 0220     		movs	r0, #2
+ 312 0020 0121     		movs	r1, #1
+ 313 0022 A047     		blx	r4
+ 314              	.LVL23:
+  90:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRA_GPIO_CLK, ENABLE);
+ 315              		.loc 1 90 0
+ 316 0024 0120     		movs	r0, #1
+ 317 0026 0146     		mov	r1, r0
+ 318 0028 A047     		blx	r4
+ 319              	.LVL24:
+  91:encoder.cpp   ****   RCC_AHB1PeriphClockCmd (ENCRB_GPIO_CLK, ENABLE);
+ 320              		.loc 1 91 0
+ 321 002a 0120     		movs	r0, #1
+ 322 002c 0146     		mov	r1, r0
+ 323 002e A047     		blx	r4
+ 324              	.LVL25:
+  95:encoder.cpp   ****   GPIO_StructInit (&GPIO_InitStructure);
+ 325              		.loc 1 95 0
+ 326 0030 6846     		mov	r0, sp
+ 327 0032 2F4B     		ldr	r3, .L5+12
+  97:encoder.cpp   ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+ 328              		.loc 1 97 0
+ 329 0034 0124     		movs	r4, #1
+  95:encoder.cpp   ****   GPIO_StructInit (&GPIO_InitStructure);
+ 330              		.loc 1 95 0
+ 331 0036 9847     		blx	r3
+ 332              	.LVL26:
+  96:encoder.cpp   ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+ 333              		.loc 1 96 0
+ 334 0038 0227     		movs	r7, #2
+  98:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLA_PIN;
+ 335              		.loc 1 98 0
+ 336 003a 4FF40043 		mov	r3, #32768
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+ 337              		.loc 1 99 0
+ 338 003e 2846     		mov	r0, r5
+ 339 0040 6946     		mov	r1, sp
+  98:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLA_PIN;
+ 340              		.loc 1 98 0
+ 341 0042 0093     		str	r3, [sp, #0]
+ 100:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLB_PIN;
+ 342              		.loc 1 100 0
+ 343 0044 4FF0080A 		mov	sl, #8
+  96:encoder.cpp   ****   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+ 344              		.loc 1 96 0
+ 345 0048 8DF80470 		strb	r7, [sp, #4]
+  97:encoder.cpp   ****   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+ 346              		.loc 1 97 0
+ 347 004c 8DF80740 		strb	r4, [sp, #7]
+  99:encoder.cpp   ****   GPIO_Init (ENCLA_GPIO_PORT, &GPIO_InitStructure);
+ 348              		.loc 1 99 0
+ 349 0050 C047     		blx	r8
+ 350              	.LVL27:
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+ 351              		.loc 1 101 0
+ 352 0052 5846     		mov	r0, fp
+ 353 0054 6946     		mov	r1, sp
+ 100:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCLB_PIN;
+ 354              		.loc 1 100 0
+ 355 0056 CDF800A0 		str	sl, [sp, #0]
+ 101:encoder.cpp   ****   GPIO_Init (ENCLB_GPIO_PORT, &GPIO_InitStructure);
+ 356              		.loc 1 101 0
+ 357 005a C047     		blx	r8
+ 358              	.LVL28:
+ 103:encoder.cpp   ****   GPIO_Init (ENCRA_GPIO_PORT, &GPIO_InitStructure);
+ 359              		.loc 1 103 0
+ 360 005c 2846     		mov	r0, r5
+ 361 005e 6946     		mov	r1, sp
+ 102:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRA_PIN;
+ 362              		.loc 1 102 0
+ 363 0060 0094     		str	r4, [sp, #0]
+ 103:encoder.cpp   ****   GPIO_Init (ENCRA_GPIO_PORT, &GPIO_InitStructure);
+ 364              		.loc 1 103 0
+ 365 0062 C047     		blx	r8
+ 366              	.LVL29:
+ 105:encoder.cpp   ****   GPIO_Init (ENCRB_GPIO_PORT, &GPIO_InitStructure);
+ 367              		.loc 1 105 0
+ 368 0064 6946     		mov	r1, sp
+ 369 0066 2846     		mov	r0, r5
+ 104:encoder.cpp   ****   GPIO_InitStructure.GPIO_Pin = ENCRB_PIN;
+ 370              		.loc 1 104 0
+ 371 0068 0097     		str	r7, [sp, #0]
+ 105:encoder.cpp   ****   GPIO_Init (ENCRB_GPIO_PORT, &GPIO_InitStructure);
+ 372              		.loc 1 105 0
+ 373 006a C047     		blx	r8
+ 374              	.LVL30:
+ 108:encoder.cpp   ****   GPIO_PinAFConfig (ENCLA_GPIO_PORT, ENCLA_SOURCE, ENCLA_AF);
+ 375              		.loc 1 108 0
+ 376 006c 2846     		mov	r0, r5
+ 377 006e 0F21     		movs	r1, #15
+ 378 0070 2246     		mov	r2, r4
+ 379 0072 B047     		blx	r6
+ 380              	.LVL31:
+ 109:encoder.cpp   ****   GPIO_PinAFConfig (ENCLB_GPIO_PORT, ENCLB_SOURCE, ENCLB_AF);
+ 381              		.loc 1 109 0
+ 382 0074 5846     		mov	r0, fp
+ 383 0076 0321     		movs	r1, #3
+ 384 0078 2246     		mov	r2, r4
+ 385 007a B047     		blx	r6
+ 386              	.LVL32:
+ 110:encoder.cpp   ****   GPIO_PinAFConfig (ENCRA_GPIO_PORT, ENCRA_SOURCE, ENCRA_AF);
+ 387              		.loc 1 110 0
+ 388 007c 2846     		mov	r0, r5
+ 389 007e 0021     		movs	r1, #0
+ 390 0080 3A46     		mov	r2, r7
+ 391 0082 B047     		blx	r6
+ 392              	.LVL33:
+ 111:encoder.cpp   ****   GPIO_PinAFConfig (ENCRB_GPIO_PORT, ENCRB_SOURCE, ENCRB_AF);
+ 393              		.loc 1 111 0
+ 394 0084 3A46     		mov	r2, r7
+ 395 0086 2846     		mov	r0, r5
+ 396 0088 2146     		mov	r1, r4
+ 397 008a B047     		blx	r6
+ 398              	.LVL34:
+ 114:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCL_TIMER_CLK, ENABLE);
+ 399              		.loc 1 114 0
+ 400 008c 2046     		mov	r0, r4
+ 401 008e 2146     		mov	r1, r4
+ 402 0090 184B     		ldr	r3, .L5+16
+ 115:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCR_TIMER_CLK, ENABLE);
+ 403              		.loc 1 115 0
+ 404 0092 184D     		ldr	r5, .L5+16
+ 114:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCL_TIMER_CLK, ENABLE);
+ 405              		.loc 1 114 0
+ 406 0094 9847     		blx	r3
+ 407              	.LVL35:
+ 115:encoder.cpp   ****   RCC_APB1PeriphClockCmd (ENCR_TIMER_CLK, ENABLE);
+ 408              		.loc 1 115 0
+ 409 0096 5046     		mov	r0, sl
+ 410 0098 2146     		mov	r1, r4
+ 411 009a A847     		blx	r5
+ 412              	.LVL36:
+ 121:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+ 413              		.loc 1 121 0
+ 414 009c 0022     		movs	r2, #0
+ 415 009e 1346     		mov	r3, r2
+ 416 00a0 0321     		movs	r1, #3
+ 417 00a2 154D     		ldr	r5, .L5+20
+ 418 00a4 4FF08040 		mov	r0, #1073741824
+ 419 00a8 A847     		blx	r5
+ 420              	.LVL37:
+ 122:encoder.cpp   ****   TIM_SetAutoreload (ENCL_TIMER, 4294967295);
+ 421              		.loc 1 122 0
+ 422 00aa 4FF08040 		mov	r0, #1073741824
+ 423 00ae 4FF0FF31 		mov	r1, #-1
+ 424 00b2 124B     		ldr	r3, .L5+24
+ 425 00b4 9847     		blx	r3
+ 426              	.LVL38:
+ 125:encoder.cpp   ****                               TIM_ICPolarity_Rising);
+ 427              		.loc 1 125 0
+ 428 00b6 0022     		movs	r2, #0
+ 429 00b8 1346     		mov	r3, r2
+ 430 00ba 0321     		movs	r1, #3
+ 431 00bc 4846     		mov	r0, r9
+ 432 00be A847     		blx	r5
+ 433              	.LVL39:
+ 126:encoder.cpp   ****   TIM_SetAutoreload (ENCR_TIMER, 4294967295);
+ 434              		.loc 1 126 0
+ 435 00c0 4846     		mov	r0, r9
+ 436 00c2 4FF0FF31 		mov	r1, #-1
+ 437 00c6 0D4D     		ldr	r5, .L5+24
+ 438 00c8 A847     		blx	r5
+ 439              	.LVL40:
+ 129:encoder.cpp   ****   TIM_Cmd (ENCL_TIMER, ENABLE);
+ 440              		.loc 1 129 0
+ 441 00ca 2146     		mov	r1, r4
+ 442 00cc 4FF08040 		mov	r0, #1073741824
+ 443 00d0 0B4B     		ldr	r3, .L5+28
+ 444              		.loc 1 130 0
+ 445 00d2 0B4D     		ldr	r5, .L5+28
+ 129:encoder.cpp   ****   TIM_Cmd (ENCL_TIMER, ENABLE);
+ 446              		.loc 1 129 0
+ 447 00d4 9847     		blx	r3
+ 448              	.LVL41:
+ 449              		.loc 1 130 0
+ 450 00d6 4846     		mov	r0, r9
+ 451 00d8 2146     		mov	r1, r4
+ 452 00da A847     		blx	r5
+ 453              	.LVL42:
+ 454              	.LBE34:
+ 131:encoder.cpp   **** 
+ 132:encoder.cpp   **** }
+ 455              		.loc 1 132 0
+ 456 00dc 03B0     		add	sp, sp, #12
+ 457 00de BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 458              	.L6:
+ 459 00e2 00BF     		.align	2
+ 460              	.L5:
+ 461 00e4 00000000 		.word	RCC_AHB1PeriphClockCmd
+ 462 00e8 00000240 		.word	1073872896
+ 463 00ec 00000000 		.word	GPIO_PinAFConfig
+ 464 00f0 00000000 		.word	GPIO_StructInit
+ 465 00f4 00000000 		.word	RCC_APB1PeriphClockCmd
+ 466 00f8 00000000 		.word	TIM_EncoderInterfaceConfig
+ 467 00fc 00000000 		.word	TIM_SetAutoreload
+ 468 0100 00000000 		.word	TIM_Cmd
+ 469 0104 00040240 		.word	1073873920
+ 470 0108 00000000 		.word	GPIO_Init
+ 471 010c 000C0040 		.word	1073744896
+ 472              		.cfi_endproc
+ 473              	.LFE1009:
+ 475              		.section	.text._ZN7Encoder4zeroEv,"ax",%progbits
+ 476              		.align	2
+ 477              		.global	_ZN7Encoder4zeroEv
+ 478              		.thumb
+ 479              		.thumb_func
+ 481              	_ZN7Encoder4zeroEv:
+ 482              	.LFB1010:
+ 133:encoder.cpp   **** 
+ 134:encoder.cpp   **** void zero(){
+ 483              		.loc 1 134 0
+ 484              		.cfi_startproc
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 487              		@ link register save eliminated.
+ 488              	.LVL43:
+ 489              	.LBB35:
+ 490              	.LBB36:
+ 491              		.loc 2 211 0
+ 492 0000 4FF08042 		mov	r2, #1073741824
+ 493 0004 0023     		movs	r3, #0
+ 494 0006 5362     		str	r3, [r2, #36]
+ 495              	.LVL44:
+ 496              	.LBE36:
+ 497              	.LBE35:
+ 498              	.LBB37:
+ 499              	.LBB38:
+ 500              		.loc 3 203 0
+ 501 0008 C2F8243C 		str	r3, [r2, #3108]
+ 502 000c 7047     		bx	lr
+ 503              	.LBE38:
+ 504              	.LBE37:
+ 505              		.cfi_endproc
+ 506              	.LFE1010:
+ 508 000e 00BF     		.text
+ 509              	.Letext0:
+ 510              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 511              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 512              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/co
+ 513              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/gpio.hpp"
+ 514              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fs
+ 515              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/i2c/constants.hpp"
+ 516              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic.hpp"
+ 517              		.file 11 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/can/message.hpp"
+ 518              		.file 12 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+ 519              		.file 13 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 520              		.file 14 "<built-in>"
+ 521              		.file 15 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 522              		.file 16 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 523              		.file 17 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 524              		.file 18 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 525              		.file 19 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 526              		.file 20 "/home/jonas/warwick/3dProfilometer/xpcc/src/../ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Dri
+ 527              		.file 21 "encoder.h"
+ 528              		.file 22 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+ 529              		.file 23 "project.h"
+ 530              		.file 24 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+DEFINED SYMBOLS
+                            *ABS*:00000000 encoder.cpp
+     /tmp/ccrGSGtJ.s:20     .text._ZN7Encoder4initEv:00000000 $t
+     /tmp/ccrGSGtJ.s:25     .text._ZN7Encoder4initEv:00000000 _ZN7Encoder4initEv
+     /tmp/ccrGSGtJ.s:247    .text._ZN7Encoder4initEv:000000f0 $d
+     /tmp/ccrGSGtJ.s:262    .text._ZN7Encoder12encodersInitEv:00000000 $t
+     /tmp/ccrGSGtJ.s:267    .text._ZN7Encoder12encodersInitEv:00000000 _ZN7Encoder12encodersInitEv
+     /tmp/ccrGSGtJ.s:461    .text._ZN7Encoder12encodersInitEv:000000e4 $d
+     /tmp/ccrGSGtJ.s:476    .text._ZN7Encoder4zeroEv:00000000 $t
+     /tmp/ccrGSGtJ.s:481    .text._ZN7Encoder4zeroEv:00000000 _ZN7Encoder4zeroEv
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+GPIO_PinAFConfig
+GPIO_StructInit
+RCC_APB1PeriphClockCmd
+TIM_EncoderInterfaceConfig
+TIM_SetAutoreload
+TIM_Cmd
+GPIO_Init

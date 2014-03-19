@@ -1,0 +1,274 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"iodevice.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc8IODeviceD2Ev,"axG",%progbits,_ZN4xpcc8IODeviceD5Ev,comdat
+  20              		.align	2
+  21              		.weak	_ZN4xpcc8IODeviceD2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc8IODeviceD2Ev:
+  26              	.LFB4:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** #ifndef XPCC__IODEVICE_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** #define XPCC__IODEVICE_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** namespace xpcc
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** {
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	/**
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	 * \brief 	Abstract calls of io-devices
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	 *
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	 * \ingroup io
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	 * \author	Martin Rosekeit <martin.rosekeit@rwth-aachen.de>
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	 */
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	class IODevice
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	{
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 	public :
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		IODevice()
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		{
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		}
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		virtual
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		~IODevice()
+  28              		.loc 1 50 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.LBB5:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		{
+  35              		.loc 1 51 0
+  36 0000 014B     		ldr	r3, .L2
+  37 0002 0360     		str	r3, [r0, #0]
+  38              	.LBE5:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		}
+  39              		.loc 1 52 0
+  40 0004 7047     		bx	lr
+  41              	.L3:
+  42 0006 00BF     		.align	2
+  43              	.L2:
+  44 0008 08000000 		.word	.LANCHOR0+8
+  45              		.cfi_endproc
+  46              	.LFE4:
+  48              		.weak	_ZN4xpcc8IODeviceD1Ev
+  49              		.thumb_set _ZN4xpcc8IODeviceD1Ev,_ZN4xpcc8IODeviceD2Ev
+  50              		.section	.text._ZN4xpcc8IODevice5writeEPKc,"ax",%progbits
+  51              		.align	2
+  52              		.global	_ZN4xpcc8IODevice5writeEPKc
+  53              		.thumb
+  54              		.thumb_func
+  56              	_ZN4xpcc8IODevice5writeEPKc:
+  57              	.LFB7:
+  58              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *     * Redistributions of source code must retain the above copyright
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *       documentation and/or other materials provided with the distribution.
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *       names of its contributors may be used to endorse or promote products
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *       derived from this software without specific prior written permission.
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  *
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp ****  */
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** // ----------------------------------------------------------------------------
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** #include "iodevice.hpp"
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** // ----------------------------------------------------------------------------
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** void
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** xpcc::IODevice::write(const char* str)
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** {
+  59              		.loc 2 35 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              	.LVL1:
+  64 0000 38B5     		push	{r3, r4, r5, lr}
+  65              	.LCFI0:
+  66              		.cfi_def_cfa_offset 16
+  67              		.cfi_offset 3, -16
+  68              		.cfi_offset 4, -12
+  69              		.cfi_offset 5, -8
+  70              		.cfi_offset 14, -4
+  71              	.LBB6:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 	char c;
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 	while ((c = *str++)) {
+  72              		.loc 2 37 0
+  73 0002 0C46     		mov	r4, r1
+  74              	.LBE6:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** {
+  75              		.loc 2 35 0
+  76 0004 0546     		mov	r5, r0
+  77              	.LBB7:
+  78              		.loc 2 37 0
+  79 0006 14F8011B 		ldrb	r1, [r4], #1	@ zero_extendqisi2
+  80              	.LVL2:
+  81 000a 39B1     		cbz	r1, .L4
+  82              	.LVL3:
+  83              	.L8:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 		this->write(c);
+  84              		.loc 2 38 0
+  85 000c 2B68     		ldr	r3, [r5, #0]
+  86 000e 2846     		mov	r0, r5
+  87 0010 9B68     		ldr	r3, [r3, #8]
+  88 0012 9847     		blx	r3
+  89              	.LVL4:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.cpp **** 	while ((c = *str++)) {
+  90              		.loc 2 37 0
+  91 0014 14F8011B 		ldrb	r1, [r4], #1	@ zero_extendqisi2
+  92              	.LVL5:
+  93 0018 0029     		cmp	r1, #0
+  94 001a F7D1     		bne	.L8
+  95              	.LVL6:
+  96              	.L4:
+  97 001c 38BD     		pop	{r3, r4, r5, pc}
+  98              	.LBE7:
+  99              		.cfi_endproc
+ 100              	.LFE7:
+ 102 001e 00BF     		.section	.text._ZN4xpcc8IODeviceD0Ev,"axG",%progbits,_ZN4xpcc8IODeviceD0Ev,comdat
+ 103              		.align	2
+ 104              		.weak	_ZN4xpcc8IODeviceD0Ev
+ 105              		.thumb
+ 106              		.thumb_func
+ 108              	_ZN4xpcc8IODeviceD0Ev:
+ 109              	.LFB6:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		~IODevice()
+ 110              		.loc 1 50 0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114              	.LVL7:
+ 115              	.LBB8:
+ 116              	.LBB9:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		{
+ 117              		.loc 1 51 0
+ 118 0000 034B     		ldr	r3, .L12
+ 119              	.LBE9:
+ 120              	.LBE8:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		~IODevice()
+ 121              		.loc 1 50 0
+ 122 0002 10B5     		push	{r4, lr}
+ 123              	.LCFI1:
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 4, -8
+ 126              		.cfi_offset 14, -4
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		~IODevice()
+ 127              		.loc 1 50 0
+ 128 0004 0446     		mov	r4, r0
+ 129              	.LVL8:
+ 130              	.LBB11:
+ 131              	.LBB10:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp **** 		{
+ 132              		.loc 1 51 0
+ 133 0006 0360     		str	r3, [r0, #0]
+ 134              	.LBE10:
+ 135              	.LBE11:
+ 136              		.loc 1 52 0
+ 137 0008 024B     		ldr	r3, .L12+4
+ 138 000a 9847     		blx	r3
+ 139              	.LVL9:
+ 140 000c 2046     		mov	r0, r4
+ 141 000e 10BD     		pop	{r4, pc}
+ 142              	.L13:
+ 143              		.align	2
+ 144              	.L12:
+ 145 0010 08000000 		.word	.LANCHOR0+8
+ 146 0014 00000000 		.word	_ZdlPv
+ 147              		.cfi_endproc
+ 148              	.LFE6:
+ 150              		.global	_ZTVN4xpcc8IODeviceE
+ 151              		.section	.rodata._ZTVN4xpcc8IODeviceE,"a",%progbits
+ 152              		.align	3
+ 153              		.set	.LANCHOR0,. + 0
+ 156              	_ZTVN4xpcc8IODeviceE:
+ 157 0000 00000000 		.word	0
+ 158 0004 00000000 		.word	0
+ 159 0008 00000000 		.word	_ZN4xpcc8IODeviceD1Ev
+ 160 000c 00000000 		.word	_ZN4xpcc8IODeviceD0Ev
+ 161 0010 00000000 		.word	__cxa_pure_virtual
+ 162 0014 00000000 		.word	_ZN4xpcc8IODevice5writeEPKc
+ 163 0018 00000000 		.word	__cxa_pure_virtual
+ 164 001c 00000000 		.word	__cxa_pure_virtual
+ 165              		.text
+ 166              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 iodevice.cpp
+     /tmp/cc8h0IJL.s:20     .text._ZN4xpcc8IODeviceD2Ev:00000000 $t
+     /tmp/cc8h0IJL.s:25     .text._ZN4xpcc8IODeviceD2Ev:00000000 _ZN4xpcc8IODeviceD2Ev
+     /tmp/cc8h0IJL.s:44     .text._ZN4xpcc8IODeviceD2Ev:00000008 $d
+     /tmp/cc8h0IJL.s:25     .text._ZN4xpcc8IODeviceD2Ev:00000000 _ZN4xpcc8IODeviceD1Ev
+     /tmp/cc8h0IJL.s:51     .text._ZN4xpcc8IODevice5writeEPKc:00000000 $t
+     /tmp/cc8h0IJL.s:56     .text._ZN4xpcc8IODevice5writeEPKc:00000000 _ZN4xpcc8IODevice5writeEPKc
+     /tmp/cc8h0IJL.s:103    .text._ZN4xpcc8IODeviceD0Ev:00000000 $t
+     /tmp/cc8h0IJL.s:108    .text._ZN4xpcc8IODeviceD0Ev:00000000 _ZN4xpcc8IODeviceD0Ev
+     /tmp/cc8h0IJL.s:145    .text._ZN4xpcc8IODeviceD0Ev:00000010 $d
+     /tmp/cc8h0IJL.s:156    .rodata._ZTVN4xpcc8IODeviceE:00000000 _ZTVN4xpcc8IODeviceE
+     /tmp/cc8h0IJL.s:152    .rodata._ZTVN4xpcc8IODeviceE:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN4xpcc8IODeviceD5Ev
+
+UNDEFINED SYMBOLS
+_ZdlPv
+__cxa_pure_virtual

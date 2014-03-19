@@ -1,0 +1,413 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"semaphore.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc4rtos13SemaphoreBaseD2Ev,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc4rtos13SemaphoreBaseD2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc4rtos13SemaphoreBaseD2Ev:
+  26              	.LFB6:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** #include "../semaphore.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::SemaphoreBase::~SemaphoreBase()
+  28              		.loc 1 34 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 4, -8
+  37              		.cfi_offset 14, -4
+  38              	.LBB8:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	// As semaphores are based on queues we use the queue functions to delete
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	// the semaphore
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	vQueueDelete(this->handle);
+  39              		.loc 1 38 0
+  40 0002 034B     		ldr	r3, .L2
+  41              	.LBE8:
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::SemaphoreBase::~SemaphoreBase()
+  42              		.loc 1 34 0
+  43 0004 0446     		mov	r4, r0
+  44              	.LBB9:
+  45              		.loc 1 38 0
+  46 0006 0068     		ldr	r0, [r0, #0]
+  47              	.LVL1:
+  48 0008 9847     		blx	r3
+  49              	.LVL2:
+  50              	.LBE9:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+  51              		.loc 1 39 0
+  52 000a 2046     		mov	r0, r4
+  53 000c 10BD     		pop	{r4, pc}
+  54              	.L3:
+  55 000e 00BF     		.align	2
+  56              	.L2:
+  57 0010 00000000 		.word	vQueueDelete
+  58              		.cfi_endproc
+  59              	.LFE6:
+  61              		.global	_ZN4xpcc4rtos13SemaphoreBaseD1Ev
+  62              		.thumb_set _ZN4xpcc4rtos13SemaphoreBaseD1Ev,_ZN4xpcc4rtos13SemaphoreBaseD2Ev
+  63              		.section	.text._ZN4xpcc4rtos13SemaphoreBase7acquireEm,"ax",%progbits
+  64              		.align	2
+  65              		.global	_ZN4xpcc4rtos13SemaphoreBase7acquireEm
+  66              		.thumb
+  67              		.thumb_func
+  69              	_ZN4xpcc4rtos13SemaphoreBase7acquireEm:
+  70              	.LFB8:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** bool
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::SemaphoreBase::acquire(portTickType timeout)
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+  71              		.loc 1 44 0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              	.LVL3:
+  76 0000 0A46     		mov	r2, r1
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	return (xSemaphoreTake(this->handle, timeout) == pdTRUE);
+  77              		.loc 1 46 0
+  78 0002 0021     		movs	r1, #0
+  79              	.LVL4:
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+  80              		.loc 1 44 0
+  81 0004 10B5     		push	{r4, lr}
+  82              	.LCFI1:
+  83              		.cfi_def_cfa_offset 8
+  84              		.cfi_offset 4, -8
+  85              		.cfi_offset 14, -4
+  86              		.loc 1 46 0
+  87 0006 0B46     		mov	r3, r1
+  88 0008 034C     		ldr	r4, .L5
+  89 000a 0068     		ldr	r0, [r0, #0]
+  90              	.LVL5:
+  91 000c A047     		blx	r4
+  92              	.LVL6:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+  93              		.loc 1 47 0
+  94 000e 431E     		subs	r3, r0, #1
+  95 0010 5842     		rsbs	r0, r3, #0
+  96 0012 5841     		adcs	r0, r0, r3
+  97 0014 10BD     		pop	{r4, pc}
+  98              	.L6:
+  99 0016 00BF     		.align	2
+ 100              	.L5:
+ 101 0018 00000000 		.word	xQueueGenericReceive
+ 102              		.cfi_endproc
+ 103              	.LFE8:
+ 105              		.section	.text._ZN4xpcc4rtos13SemaphoreBase7releaseEv,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	_ZN4xpcc4rtos13SemaphoreBase7releaseEv
+ 108              		.thumb
+ 109              		.thumb_func
+ 111              	_ZN4xpcc4rtos13SemaphoreBase7releaseEv:
+ 112              	.LFB9:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** void
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::SemaphoreBase::release()
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+ 113              		.loc 1 51 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117              	.LVL7:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	xSemaphoreGive(this->handle);
+ 118              		.loc 1 52 0
+ 119 0000 0021     		movs	r1, #0
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+ 120              		.loc 1 51 0
+ 121 0002 10B5     		push	{r4, lr}
+ 122              	.LCFI2:
+ 123              		.cfi_def_cfa_offset 8
+ 124              		.cfi_offset 4, -8
+ 125              		.cfi_offset 14, -4
+ 126              		.loc 1 52 0
+ 127 0004 0A46     		mov	r2, r1
+ 128 0006 0B46     		mov	r3, r1
+ 129 0008 014C     		ldr	r4, .L8
+ 130 000a 0068     		ldr	r0, [r0, #0]
+ 131              	.LVL8:
+ 132 000c A047     		blx	r4
+ 133              	.LVL9:
+ 134 000e 10BD     		pop	{r4, pc}
+ 135              	.L9:
+ 136              		.align	2
+ 137              	.L8:
+ 138 0010 00000000 		.word	xQueueGenericSend
+ 139              		.cfi_endproc
+ 140              	.LFE9:
+ 142              		.section	.text._ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv,"ax",%progbits
+ 143              		.align	2
+ 144              		.global	_ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv
+ 145              		.thumb
+ 146              		.thumb_func
+ 148              	_ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv:
+ 149              	.LFB10:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** void
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::SemaphoreBase::releaseFromInterrupt()
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+ 150              		.loc 1 57 0
+ 151              		.cfi_startproc
+ 152              		@ args = 0, pretend = 0, frame = 8
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154              	.LVL10:
+ 155 0000 10B5     		push	{r4, lr}
+ 156              	.LCFI3:
+ 157              		.cfi_def_cfa_offset 8
+ 158              		.cfi_offset 4, -8
+ 159              		.cfi_offset 14, -4
+ 160 0002 82B0     		sub	sp, sp, #8
+ 161              	.LCFI4:
+ 162              		.cfi_def_cfa_offset 16
+ 163              	.LBB10:
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	portBASE_TYPE threadWoken = pdFALSE;
+ 164              		.loc 1 58 0
+ 165 0004 02AA     		add	r2, sp, #8
+ 166 0006 0021     		movs	r1, #0
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	xSemaphoreGiveFromISR(this->handle, &threadWoken);
+ 167              		.loc 1 60 0
+ 168 0008 0B46     		mov	r3, r1
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	portBASE_TYPE threadWoken = pdFALSE;
+ 169              		.loc 1 58 0
+ 170 000a 42F8041D 		str	r1, [r2, #-4]!
+ 171              	.LVL11:
+ 172              		.loc 1 60 0
+ 173 000e 0068     		ldr	r0, [r0, #0]
+ 174              	.LVL12:
+ 175 0010 034C     		ldr	r4, .L16
+ 176 0012 A047     		blx	r4
+ 177              	.LVL13:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	// Request a context switch when the IRQ ends if a higher priorty has
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	// been woken.
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	portEND_SWITCHING_ISR(threadWoken);
+ 178              		.loc 1 64 0
+ 179 0014 019B     		ldr	r3, [sp, #4]
+ 180 0016 0BB1     		cbz	r3, .L10
+ 181              		.loc 1 64 0 is_stmt 0 discriminator 1
+ 182 0018 024B     		ldr	r3, .L16+4
+ 183 001a 9847     		blx	r3
+ 184              	.LVL14:
+ 185              	.L10:
+ 186              	.LBE10:
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+ 187              		.loc 1 65 0 is_stmt 1
+ 188 001c 02B0     		add	sp, sp, #8
+ 189 001e 10BD     		pop	{r4, pc}
+ 190              	.L17:
+ 191              		.align	2
+ 192              	.L16:
+ 193 0020 00000000 		.word	xQueueGenericSendFromISR
+ 194 0024 00000000 		.word	vPortYieldFromISR
+ 195              		.cfi_endproc
+ 196              	.LFE10:
+ 198              		.section	.text._ZN4xpcc4rtos9SemaphoreC2Emm,"ax",%progbits
+ 199              		.align	2
+ 200              		.global	_ZN4xpcc4rtos9SemaphoreC2Emm
+ 201              		.thumb
+ 202              		.thumb_func
+ 204              	_ZN4xpcc4rtos9SemaphoreC2Emm:
+ 205              	.LFB12:
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::Semaphore::Semaphore(unsigned portBASE_TYPE max,
+ 206              		.loc 1 68 0
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 0
+ 209              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210              	.LVL15:
+ 211 0000 10B5     		push	{r4, lr}
+ 212              	.LCFI5:
+ 213              		.cfi_def_cfa_offset 8
+ 214              		.cfi_offset 4, -8
+ 215              		.cfi_offset 14, -4
+ 216              	.LBB11:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 		unsigned portBASE_TYPE initial)
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	this->handle = xSemaphoreCreateCounting(max, initial);
+ 217              		.loc 1 71 0
+ 218 0002 044B     		ldr	r3, .L19
+ 219              	.LBE11:
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::Semaphore::Semaphore(unsigned portBASE_TYPE max,
+ 220              		.loc 1 68 0
+ 221 0004 0446     		mov	r4, r0
+ 222              	.LVL16:
+ 223              	.LBB12:
+ 224              		.loc 1 71 0
+ 225 0006 0846     		mov	r0, r1
+ 226              	.LVL17:
+ 227 0008 1146     		mov	r1, r2
+ 228              	.LVL18:
+ 229 000a 9847     		blx	r3
+ 230              	.LVL19:
+ 231 000c 2060     		str	r0, [r4, #0]
+ 232              	.LBE12:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+ 233              		.loc 1 72 0
+ 234 000e 2046     		mov	r0, r4
+ 235 0010 10BD     		pop	{r4, pc}
+ 236              	.L20:
+ 237 0012 00BF     		.align	2
+ 238              	.L19:
+ 239 0014 00000000 		.word	xQueueCreateCountingSemaphore
+ 240              		.cfi_endproc
+ 241              	.LFE12:
+ 243              		.global	_ZN4xpcc4rtos9SemaphoreC1Emm
+ 244              		.thumb_set _ZN4xpcc4rtos9SemaphoreC1Emm,_ZN4xpcc4rtos9SemaphoreC2Emm
+ 245              		.section	.text._ZN4xpcc4rtos15BinarySemaphoreC2Ev,"ax",%progbits
+ 246              		.align	2
+ 247              		.global	_ZN4xpcc4rtos15BinarySemaphoreC2Ev
+ 248              		.thumb
+ 249              		.thumb_func
+ 251              	_ZN4xpcc4rtos15BinarySemaphoreC2Ev:
+ 252              	.LFB15:
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** // ----------------------------------------------------------------------------
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::BinarySemaphore::BinarySemaphore()
+ 253              		.loc 1 75 0
+ 254              		.cfi_startproc
+ 255              		@ args = 0, pretend = 0, frame = 0
+ 256              		@ frame_needed = 0, uses_anonymous_args = 0
+ 257              	.LVL20:
+ 258 0000 38B5     		push	{r3, r4, r5, lr}
+ 259              	.LCFI6:
+ 260              		.cfi_def_cfa_offset 16
+ 261              		.cfi_offset 3, -16
+ 262              		.cfi_offset 4, -12
+ 263              		.cfi_offset 5, -8
+ 264              		.cfi_offset 14, -4
+ 265              	.LBB13:
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** {
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** 	vSemaphoreCreateBinary(this->handle);
+ 266              		.loc 1 77 0
+ 267 0002 0021     		movs	r1, #0
+ 268              	.LBE13:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** xpcc::rtos::BinarySemaphore::BinarySemaphore()
+ 269              		.loc 1 75 0
+ 270 0004 0446     		mov	r4, r0
+ 271              	.LVL21:
+ 272              	.LBB14:
+ 273              		.loc 1 77 0
+ 274 0006 064B     		ldr	r3, .L26
+ 275 0008 0120     		movs	r0, #1
+ 276              	.LVL22:
+ 277 000a 9847     		blx	r3
+ 278              	.LVL23:
+ 279 000c 2060     		str	r0, [r4, #0]
+ 280 000e 20B1     		cbz	r0, .L22
+ 281              		.loc 1 77 0 is_stmt 0 discriminator 1
+ 282 0010 0021     		movs	r1, #0
+ 283 0012 0A46     		mov	r2, r1
+ 284 0014 0B46     		mov	r3, r1
+ 285 0016 034D     		ldr	r5, .L26+4
+ 286 0018 A847     		blx	r5
+ 287              	.LVL24:
+ 288              	.L22:
+ 289              	.LBE14:
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/semaphore.cpp **** }
+ 290              		.loc 1 78 0 is_stmt 1
+ 291 001a 2046     		mov	r0, r4
+ 292 001c 38BD     		pop	{r3, r4, r5, pc}
+ 293              	.L27:
+ 294 001e 00BF     		.align	2
+ 295              	.L26:
+ 296 0020 00000000 		.word	xQueueCreate
+ 297 0024 00000000 		.word	xQueueGenericSend
+ 298              		.cfi_endproc
+ 299              	.LFE15:
+ 301              		.global	_ZN4xpcc4rtos15BinarySemaphoreC1Ev
+ 302              		.thumb_set _ZN4xpcc4rtos15BinarySemaphoreC1Ev,_ZN4xpcc4rtos15BinarySemaphoreC2Ev
+ 303              		.text
+ 304              	.Letext0:
+ 305              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h"
+ 306              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/queue.h"
+ 307              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/semphr.h"
+ 308              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/rtos/freertos/../freertos/semap
+DEFINED SYMBOLS
+                            *ABS*:00000000 semaphore.cpp
+     /tmp/cc6fLoqs.s:20     .text._ZN4xpcc4rtos13SemaphoreBaseD2Ev:00000000 $t
+     /tmp/cc6fLoqs.s:25     .text._ZN4xpcc4rtos13SemaphoreBaseD2Ev:00000000 _ZN4xpcc4rtos13SemaphoreBaseD2Ev
+     /tmp/cc6fLoqs.s:57     .text._ZN4xpcc4rtos13SemaphoreBaseD2Ev:00000010 $d
+     /tmp/cc6fLoqs.s:25     .text._ZN4xpcc4rtos13SemaphoreBaseD2Ev:00000000 _ZN4xpcc4rtos13SemaphoreBaseD1Ev
+     /tmp/cc6fLoqs.s:64     .text._ZN4xpcc4rtos13SemaphoreBase7acquireEm:00000000 $t
+     /tmp/cc6fLoqs.s:69     .text._ZN4xpcc4rtos13SemaphoreBase7acquireEm:00000000 _ZN4xpcc4rtos13SemaphoreBase7acquireEm
+     /tmp/cc6fLoqs.s:101    .text._ZN4xpcc4rtos13SemaphoreBase7acquireEm:00000018 $d
+     /tmp/cc6fLoqs.s:106    .text._ZN4xpcc4rtos13SemaphoreBase7releaseEv:00000000 $t
+     /tmp/cc6fLoqs.s:111    .text._ZN4xpcc4rtos13SemaphoreBase7releaseEv:00000000 _ZN4xpcc4rtos13SemaphoreBase7releaseEv
+     /tmp/cc6fLoqs.s:138    .text._ZN4xpcc4rtos13SemaphoreBase7releaseEv:00000010 $d
+     /tmp/cc6fLoqs.s:143    .text._ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv:00000000 $t
+     /tmp/cc6fLoqs.s:148    .text._ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv:00000000 _ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv
+     /tmp/cc6fLoqs.s:193    .text._ZN4xpcc4rtos13SemaphoreBase20releaseFromInterruptEv:00000020 $d
+     /tmp/cc6fLoqs.s:199    .text._ZN4xpcc4rtos9SemaphoreC2Emm:00000000 $t
+     /tmp/cc6fLoqs.s:204    .text._ZN4xpcc4rtos9SemaphoreC2Emm:00000000 _ZN4xpcc4rtos9SemaphoreC2Emm
+     /tmp/cc6fLoqs.s:239    .text._ZN4xpcc4rtos9SemaphoreC2Emm:00000014 $d
+     /tmp/cc6fLoqs.s:204    .text._ZN4xpcc4rtos9SemaphoreC2Emm:00000000 _ZN4xpcc4rtos9SemaphoreC1Emm
+     /tmp/cc6fLoqs.s:246    .text._ZN4xpcc4rtos15BinarySemaphoreC2Ev:00000000 $t
+     /tmp/cc6fLoqs.s:251    .text._ZN4xpcc4rtos15BinarySemaphoreC2Ev:00000000 _ZN4xpcc4rtos15BinarySemaphoreC2Ev
+     /tmp/cc6fLoqs.s:296    .text._ZN4xpcc4rtos15BinarySemaphoreC2Ev:00000020 $d
+     /tmp/cc6fLoqs.s:251    .text._ZN4xpcc4rtos15BinarySemaphoreC2Ev:00000000 _ZN4xpcc4rtos15BinarySemaphoreC1Ev
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+vQueueDelete
+xQueueGenericReceive
+xQueueGenericSend
+xQueueGenericSendFromISR
+vPortYieldFromISR
+xQueueCreateCountingSemaphore
+xQueueCreate

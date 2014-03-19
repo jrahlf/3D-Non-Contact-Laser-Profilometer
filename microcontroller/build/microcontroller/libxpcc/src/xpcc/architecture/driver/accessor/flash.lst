@@ -1,0 +1,451 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"flash.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE:
+  26              	.LFB65:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** #include "flash.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** xpcc::IOStream&
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** operator << (xpcc::IOStream& os, xpcc::accessor::Flash<char> ptr)
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** {
+  28              		.loc 1 36 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 4, -16
+  37              		.cfi_offset 5, -12
+  38              		.cfi_offset 6, -8
+  39              		.cfi_offset 14, -4
+  40              		.loc 1 36 0
+  41 0002 0A46     		mov	r2, r1
+  42              	.LVL1:
+  43 0004 0546     		mov	r5, r0
+  44              	.LBB40:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 	char c;
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 	while ((c = *ptr++)) {
+  45              		.loc 1 38 0
+  46 0006 07E0     		b	.L2
+  47              	.LVL2:
+  48              	.L3:
+  49              	.LBB41:
+  50              	.LBB42:
+  51              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #ifndef XPCC__IOSTREAM_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #define XPCC__IOSTREAM_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include <xpcc/architecture/utils.hpp>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice.hpp"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice_wrapper.hpp"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** namespace xpcc
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** {
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	/**
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \brief 	This Formats all primary types into a string stream for
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			output or it reads values from a input and converts them to
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			a given type;
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 *
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \ingroup io
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \author	Martin Rosekeit <martin.rosekeit@rwth-aachen.de>
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 */
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	class IOStream
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	{
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	public :
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/**
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \brief	Constructor
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \param	device	device to write the stream to
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \code
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	MyIODevice device;
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	IOStream stream( device );
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \endcode
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 */
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream(IODevice& device);
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		write(char c)
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->write(c);
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		flush()
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->flush();
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Binary style for \c char and \c char*
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		bin()
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Binary;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Hexadecimal style for \c char and \c char*
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		hex()
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Ascii style for \c char and \c char*
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ascii()
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const unsigned char& v)
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(static_cast<uint16_t>(v));
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const char& v)
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+  52              		.loc 2 125 0
+  53 0008 022C     		cmp	r4, #2
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+  54              		.loc 2 126 0
+  55 000a 03BF     		ittte	eq
+  56 000c 1946     		moveq	r1, r3
+  57 000e 2846     		moveq	r0, r5
+  58              	.LVL3:
+  59 0010 094B     		ldreq	r3, .L9
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+  60              		.loc 2 129 0
+  61 0012 0A4B     		ldrne	r3, .L9+4
+  62 0014 9847     		blx	r3
+  63              	.LVL4:
+  64              	.L4:
+  65              	.LBE42:
+  66              	.LBE41:
+  67              	.LBE40:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** {
+  68              		.loc 1 36 0 discriminator 1
+  69 0016 3246     		mov	r2, r6
+  70              	.LVL5:
+  71              	.L2:
+  72              	.LBB54:
+  73              	.LBB45:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 		os << c;
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 	}
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 	return os;
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** }
+  74              		.loc 1 42 0 discriminator 1
+  75 0018 1378     		ldrb	r3, [r2, #0]	@ zero_extendqisi2
+  76              	.LBE45:
+  77              	.LBB46:
+  78              	.LBB43:
+  79              		.loc 2 129 0 discriminator 1
+  80 001a 2846     		mov	r0, r5
+  81 001c 1946     		mov	r1, r3
+  82              	.LVL6:
+  83              	.LBE43:
+  84              	.LBE46:
+  85              	.LBB47:
+  86              	.LBB48:
+  87              	.LBB49:
+  88              	.LBB50:
+  89              	.LBB51:
+  90              	.LBB52:
+  91              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** #ifndef	XPCC_ACCESSOR__FLASH_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** #define	XPCC_ACCESSOR__FLASH_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** #include <xpcc/architecture/utils.hpp>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** #include <xpcc/io/iostream.hpp>
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** #include "flash_reader.hpp"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** namespace xpcc
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** {
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 	namespace accessor
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 	{
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		/**
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * \brief	Pointer to flash memory
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * This template can mostly be used like a regular pointer, but operates
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * on the flash memory rather than RAM. It will automatically read the 
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * data from flash when dereferenced.
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * 
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * Based on a implementation of Rolf Magnus, see
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * http://www.mikrocontroller.net/topic/78610#656695
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * \ingroup	accessor
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 * \author	Fabian Greif
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		 */
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		template<typename T>
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		class Flash
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		{
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 		public:
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			explicit Flash(const T* addr = 0) :
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				address(addr)
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			template <typename U>
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			explicit Flash(const Flash<U>& rhs) :
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				address((T*) rhs.address)
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			const T
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator *() const
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return FlashReader<T, sizeof(T)>::read(address);
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			const T
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator [](size_t index) const
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return FlashReader<T, sizeof(T)>::read(address + index);
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			Flash&
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator++()
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				*this += 1;
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return *this;
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			Flash
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator++(int)
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				Flash ret = *this;
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				++*this;
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return ret;
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			Flash&
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator--()
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				*this -= 1;
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return *this;
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			Flash&
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator--(int)
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				Flash ret = *this;
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				--*this;
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				return ret;
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			}
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			ALWAYS_INLINE
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			Flash&
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			operator+=(size_t rhs)
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 			{
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.hpp **** 				address += rhs;
+  92              		.loc 3 125 0 discriminator 1
+  93 001e 561C     		adds	r6, r2, #1
+  94              	.LVL7:
+  95              	.LBE52:
+  96              	.LBE51:
+  97              	.LBE50:
+  98              	.LBE49:
+  99              	.LBE48:
+ 100              	.LBE47:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash.cpp **** 	while ((c = *ptr++)) {
+ 101              		.loc 1 38 0 discriminator 1
+ 102 0020 43B1     		cbz	r3, .L8
+ 103              	.LVL8:
+ 104              	.LBB53:
+ 105              	.LBB44:
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 106              		.loc 2 122 0
+ 107 0022 6C68     		ldr	r4, [r5, #4]
+ 108 0024 002C     		cmp	r4, #0
+ 109 0026 EFD1     		bne	.L3
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 110              		.loc 2 123 0
+ 111 0028 2868     		ldr	r0, [r5, #0]
+ 112              	.LVL9:
+ 113 002a 0268     		ldr	r2, [r0, #0]
+ 114              	.LVL10:
+ 115 002c 1946     		mov	r1, r3
+ 116 002e 9268     		ldr	r2, [r2, #8]
+ 117 0030 9047     		blx	r2
+ 118              	.LVL11:
+ 119 0032 F0E7     		b	.L4
+ 120              	.LVL12:
+ 121              	.L8:
+ 122              	.LBE44:
+ 123              	.LBE53:
+ 124              	.LBE54:
+ 125              		.loc 1 42 0
+ 126 0034 70BD     		pop	{r4, r5, r6, pc}
+ 127              	.L10:
+ 128 0036 00BF     		.align	2
+ 129              	.L9:
+ 130 0038 00000000 		.word	_ZN4xpcc8IOStream8writeBinEh
+ 131 003c 00000000 		.word	_ZN4xpcc8IOStream8writeHexEh
+ 132              		.cfi_endproc
+ 133              	.LFE65:
+ 135              		.text
+ 136              	.Letext0:
+ 137              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 138              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 139              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/flash_reade
+ 140              		.file 7 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 141              		.file 8 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 142              		.file 9 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+ 143              		.file 10 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 flash.cpp
+     /tmp/ccNKTS7I.s:20     .text._ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE:00000000 $t
+     /tmp/ccNKTS7I.s:25     .text._ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE:00000000 _ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE
+     /tmp/ccNKTS7I.s:130    .text._ZlsRN4xpcc8IOStreamENS_8accessor5FlashIcEE:00000038 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN4xpcc8IOStream8writeBinEh
+_ZN4xpcc8IOStream8writeHexEh

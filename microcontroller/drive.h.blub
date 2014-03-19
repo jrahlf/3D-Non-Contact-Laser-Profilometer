@@ -1,0 +1,36 @@
+/*
+ * drive.h
+ *
+ *  Created on: Nov 20, 2013
+ *      Author: jonas
+ */
+
+#ifndef DRIVE_H_
+#define DRIVE_H_
+
+#include <xpcc/architecture.hpp>
+#include <xpcc/architecture/platform/cortex_m3/stm32/exti.hpp>
+
+
+using namespace xpcc::stm32;
+
+namespace Motor {
+
+volatile int getEnc1();
+volatile int getEnc2();
+
+enum Motor {
+	MOTOR_1, MOTOR_2
+};
+
+enum Direction {
+	FORWARD, BACKWARD, FREERUN, BREAK_HIGH, BREAK_LOW
+};
+
+void initMotor();
+void initEncoder();
+
+}
+
+
+#endif /* DRIVE_H_ */

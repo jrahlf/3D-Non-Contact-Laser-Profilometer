@@ -1,0 +1,50 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"dogs102.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	_ZN4xpcc6st756521configuration_dogs102E
+  20              		.section	.rodata._ZN4xpcc6st756521configuration_dogs102E,"a",%progbits
+  21              		.align	2
+  24              	_ZN4xpcc6st756521configuration_dogs102E:
+  25 0000 40       		.byte	64
+  26 0001 A4       		.byte	-92
+  27 0002 A6       		.byte	-90
+  28 0003 A2       		.byte	-94
+  29 0004 2F       		.byte	47
+  30 0005 25       		.byte	37
+  31 0006 81       		.byte	-127
+  32 0007 1B       		.byte	27
+  33 0008 FA       		.byte	-6
+  34 0009 90       		.byte	-112
+  35 000a AF       		.byte	-81
+  36 000b 00       		.text
+  37              	.Letext0:
+  38              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic.hpp"
+  39              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/gpio.hpp"
+  40              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+  41              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+  42              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+  43              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+  44              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/display/dogs102.cpp"
+  45              		.file 8 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+  46              		.file 9 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 dogs102.cpp
+     /tmp/ccBdBzQK.s:24     .rodata._ZN4xpcc6st756521configuration_dogs102E:00000000 _ZN4xpcc6st756521configuration_dogs102E
+     /tmp/ccBdBzQK.s:21     .rodata._ZN4xpcc6st756521configuration_dogs102E:00000000 $d
+
+NO UNDEFINED SYMBOLS

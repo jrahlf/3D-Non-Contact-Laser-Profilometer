@@ -1,0 +1,491 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"abstract_view.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc12AbstractView6updateEv,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc12AbstractView6updateEv
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc12AbstractView6updateEv:
+  26              	.LFB1284:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** /* Copyright (c) 2013, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** #include "view_stack.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** #include "abstract_view.hpp"
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::AbstractView(xpcc::ViewStack* stack, uint8_t identifier) :
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	stack(stack), identifier(identifier), alive(true)
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::~AbstractView()
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** void
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::update()
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  28              		.loc 1 47 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34 0000 7047     		bx	lr
+  35              		.cfi_endproc
+  36              	.LFE1284:
+  38 0002 00BF     		.section	.text._ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE,"ax",%progbits
+  39              		.align	2
+  40              		.global	_ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE
+  41              		.thumb
+  42              		.thumb_func
+  44              	_ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE:
+  45              	.LFB1285:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	//nothing to be done
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** void
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::shortButtonPress(xpcc::MenuButtons::Button /*button*/)
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  46              		.loc 1 54 0
+  47              		.cfi_startproc
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  51              	.LVL1:
+  52 0000 7047     		bx	lr
+  53              		.cfi_endproc
+  54              	.LFE1285:
+  56 0002 00BF     		.section	.text._ZN4xpcc12AbstractView8onRemoveEv,"ax",%progbits
+  57              		.align	2
+  58              		.global	_ZN4xpcc12AbstractView8onRemoveEv
+  59              		.thumb
+  60              		.thumb_func
+  62              	_ZN4xpcc12AbstractView8onRemoveEv:
+  63              	.LFB1288:
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	//nothing to be done
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** bool
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::isAlive() const
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	return this->alive;
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** void
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::remove()
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	this->alive = false;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** void
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::onRemove()
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+  64              		.loc 1 73 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL2:
+  70 0000 7047     		bx	lr
+  71              		.cfi_endproc
+  72              	.LFE1288:
+  74 0002 00BF     		.section	.text._ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh,"ax",%progbits
+  75              		.align	2
+  76              		.global	_ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh
+  77              		.thumb
+  78              		.thumb_func
+  80              	_ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh:
+  81              	.LFB1278:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::AbstractView(xpcc::ViewStack* stack, uint8_t identifier) :
+  82              		.loc 1 35 0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		@ link register save eliminated.
+  87              	.LVL3:
+  88              	.LBB32:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	stack(stack), identifier(identifier), alive(true)
+  89              		.loc 1 36 0
+  90 0000 4160     		str	r1, [r0, #4]
+  91 0002 0349     		ldr	r1, .L5
+  92              	.LVL4:
+  93 0004 0272     		strb	r2, [r0, #8]
+  94 0006 0122     		movs	r2, #1
+  95              	.LVL5:
+  96 0008 0160     		str	r1, [r0, #0]
+  97 000a 4272     		strb	r2, [r0, #9]
+  98              	.LBE32:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  99              		.loc 1 38 0
+ 100 000c 7047     		bx	lr
+ 101              	.L6:
+ 102 000e 00BF     		.align	2
+ 103              	.L5:
+ 104 0010 08000000 		.word	.LANCHOR0+8
+ 105              		.cfi_endproc
+ 106              	.LFE1278:
+ 108              		.global	_ZN4xpcc12AbstractViewC1EPNS_9ViewStackEh
+ 109              		.thumb_set _ZN4xpcc12AbstractViewC1EPNS_9ViewStackEh,_ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh
+ 110              		.section	.text._ZN4xpcc12AbstractViewD2Ev,"ax",%progbits
+ 111              		.align	2
+ 112              		.global	_ZN4xpcc12AbstractViewD2Ev
+ 113              		.thumb
+ 114              		.thumb_func
+ 116              	_ZN4xpcc12AbstractViewD2Ev:
+ 117              	.LFB1281:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::~AbstractView()
+ 118              		.loc 1 40 0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+ 123              	.LVL6:
+ 124              	.LBB33:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::~AbstractView()
+ 125              		.loc 1 40 0
+ 126 0000 014B     		ldr	r3, .L8
+ 127 0002 0360     		str	r3, [r0, #0]
+ 128              	.LBE33:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+ 129              		.loc 1 42 0
+ 130 0004 7047     		bx	lr
+ 131              	.L9:
+ 132 0006 00BF     		.align	2
+ 133              	.L8:
+ 134 0008 08000000 		.word	.LANCHOR0+8
+ 135              		.cfi_endproc
+ 136              	.LFE1281:
+ 138              		.global	_ZN4xpcc12AbstractViewD1Ev
+ 139              		.thumb_set _ZN4xpcc12AbstractViewD1Ev,_ZN4xpcc12AbstractViewD2Ev
+ 140              		.section	.text._ZN4xpcc12AbstractViewD0Ev,"ax",%progbits
+ 141              		.align	2
+ 142              		.global	_ZN4xpcc12AbstractViewD0Ev
+ 143              		.thumb
+ 144              		.thumb_func
+ 146              	_ZN4xpcc12AbstractViewD0Ev:
+ 147              	.LFB1283:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::~AbstractView()
+ 148              		.loc 1 40 0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              	.LVL7:
+ 153              	.LBB34:
+ 154              	.LBB35:
+ 155 0000 034B     		ldr	r3, .L11
+ 156              	.LBE35:
+ 157              	.LBE34:
+ 158 0002 10B5     		push	{r4, lr}
+ 159              	.LCFI0:
+ 160              		.cfi_def_cfa_offset 8
+ 161              		.cfi_offset 4, -8
+ 162              		.cfi_offset 14, -4
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::~AbstractView()
+ 163              		.loc 1 40 0
+ 164 0004 0446     		mov	r4, r0
+ 165              	.LVL8:
+ 166              	.LBB37:
+ 167              	.LBB36:
+ 168 0006 0360     		str	r3, [r0, #0]
+ 169              	.LBE36:
+ 170              	.LBE37:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+ 171              		.loc 1 42 0
+ 172 0008 024B     		ldr	r3, .L11+4
+ 173 000a 9847     		blx	r3
+ 174              	.LVL9:
+ 175 000c 2046     		mov	r0, r4
+ 176 000e 10BD     		pop	{r4, pc}
+ 177              	.L12:
+ 178              		.align	2
+ 179              	.L11:
+ 180 0010 08000000 		.word	.LANCHOR0+8
+ 181 0014 00000000 		.word	_ZdlPv
+ 182              		.cfi_endproc
+ 183              	.LFE1283:
+ 185              		.section	.text._ZNK4xpcc12AbstractView7isAliveEv,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	_ZNK4xpcc12AbstractView7isAliveEv
+ 188              		.thumb
+ 189              		.thumb_func
+ 191              	_ZNK4xpcc12AbstractView7isAliveEv:
+ 192              	.LFB1286:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+ 193              		.loc 1 61 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197              		@ link register save eliminated.
+ 198              	.LVL10:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+ 199              		.loc 1 63 0
+ 200 0000 407A     		ldrb	r0, [r0, #9]	@ zero_extendqisi2
+ 201              	.LVL11:
+ 202 0002 7047     		bx	lr
+ 203              		.cfi_endproc
+ 204              	.LFE1286:
+ 206              		.section	.text._ZN4xpcc12AbstractView6removeEv,"ax",%progbits
+ 207              		.align	2
+ 208              		.global	_ZN4xpcc12AbstractView6removeEv
+ 209              		.thumb
+ 210              		.thumb_func
+ 212              	_ZN4xpcc12AbstractView6removeEv:
+ 213              	.LFB1287:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+ 214              		.loc 1 67 0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 0
+ 217              		@ frame_needed = 0, uses_anonymous_args = 0
+ 218              		@ link register save eliminated.
+ 219              	.LVL12:
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	this->alive = false;
+ 220              		.loc 1 68 0
+ 221 0000 0023     		movs	r3, #0
+ 222 0002 4372     		strb	r3, [r0, #9]
+ 223 0004 7047     		bx	lr
+ 224              		.cfi_endproc
+ 225              	.LFE1287:
+ 227 0006 00BF     		.section	.text._ZN4xpcc12AbstractView7displayEv,"ax",%progbits
+ 228              		.align	2
+ 229              		.global	_ZN4xpcc12AbstractView7displayEv
+ 230              		.thumb
+ 231              		.thumb_func
+ 233              	_ZN4xpcc12AbstractView7displayEv:
+ 234              	.LFB1289:
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	//nothing to be done here
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** // ----------------------------------------------------------------------------
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::GraphicDisplay&
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** xpcc::AbstractView::display()
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** {
+ 235              		.loc 1 81 0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+ 240              	.LVL13:
+ 241              	.LBB38:
+ 242              	.LBB39:
+ 243              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** /* Copyright (c) 2013, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #ifndef XPCC__VIEWSTACK_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #define XPCC__VIEWSTACK_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #include "../display/graphic_display.hpp"
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #include "../../../container/stack.hpp"
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #include "../../../container/linked_list.hpp"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #include "menu_buttons.hpp"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** #include "abstract_view.hpp"
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** namespace xpcc
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** {
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	/**
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	* \brief Stack which handles the displaying
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	*        of views on the graphic display.
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	*
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	* This class also deallocates the views passed
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	* to the stack.
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	*
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	* \ingroup	display_menu
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	* \author	Thorsten Lajewski
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	*/
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	class ViewStack
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	{
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 	public:
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		ViewStack(xpcc::GraphicDisplay* display);
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		virtual ~ViewStack();
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		/**
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 * @brief get the top view from the stack
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 * @return pointer to view from stack
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 */
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		inline xpcc::AbstractView* 
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		get()
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		{
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			return this->stack.get();
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		/**
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 * @brief push new view on top of stack the new
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 *        view will be displayed instead of the old
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 *        one
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 *
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 * @param view next displayed view
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 */
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		inline void
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		push(xpcc::AbstractView* view)
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		{
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			this->stack.push(view);
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			this->getDisplay().clear();
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			xpcc::AbstractView* top = this->get();
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			top->draw();
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			this->display->update();
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		}
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		/**
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 * @brief getDisplay access underlying GraphicDisplay
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		 */
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		inline xpcc::GraphicDisplay&
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		getDisplay()
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 		{
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/view_stack.hpp **** 			return *this->display;
+ 244              		.loc 2 94 0
+ 245 0000 4368     		ldr	r3, [r0, #4]
+ 246              	.LBE39:
+ 247              	.LBE38:
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** 	return stack->getDisplay();
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.cpp **** }
+ 248              		.loc 1 83 0
+ 249 0002 5868     		ldr	r0, [r3, #4]
+ 250              	.LVL14:
+ 251 0004 7047     		bx	lr
+ 252              		.cfi_endproc
+ 253              	.LFE1289:
+ 255              		.global	_ZTVN4xpcc12AbstractViewE
+ 256 0006 00BF     		.section	.rodata._ZTVN4xpcc12AbstractViewE,"a",%progbits
+ 257              		.align	3
+ 258              		.set	.LANCHOR0,. + 0
+ 261              	_ZTVN4xpcc12AbstractViewE:
+ 262 0000 00000000 		.word	0
+ 263 0004 00000000 		.word	0
+ 264 0008 00000000 		.word	__cxa_pure_virtual
+ 265 000c 00000000 		.word	__cxa_pure_virtual
+ 266 0010 00000000 		.word	_ZN4xpcc12AbstractView6updateEv
+ 267 0014 00000000 		.word	__cxa_pure_virtual
+ 268 0018 00000000 		.word	__cxa_pure_virtual
+ 269 001c 00000000 		.word	_ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE
+ 270 0020 00000000 		.word	_ZN4xpcc12AbstractView8onRemoveEv
+ 271 0024 00000000 		.text
+ 272              	.Letext0:
+ 273              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 274              		.file 4 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 275              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/../display/graphic_displa
+ 276              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 277              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/menu_buttons.hpp"
+ 278              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/allocator/allocator_base.hpp"
+ 279              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/abstract_view.hpp"
+ 280              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 281              		.file 11 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 282              		.file 12 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 283              		.file 13 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 284              		.file 14 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 285              		.file 15 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 286              		.file 16 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 287              		.file 17 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 288              		.file 18 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+ 289              		.file 19 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 abstract_view.cpp
+     /tmp/cc8sblWs.s:20     .text._ZN4xpcc12AbstractView6updateEv:00000000 $t
+     /tmp/cc8sblWs.s:25     .text._ZN4xpcc12AbstractView6updateEv:00000000 _ZN4xpcc12AbstractView6updateEv
+     /tmp/cc8sblWs.s:39     .text._ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE:00000000 $t
+     /tmp/cc8sblWs.s:44     .text._ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE:00000000 _ZN4xpcc12AbstractView16shortButtonPressENS_11MenuButtons6ButtonE
+     /tmp/cc8sblWs.s:57     .text._ZN4xpcc12AbstractView8onRemoveEv:00000000 $t
+     /tmp/cc8sblWs.s:62     .text._ZN4xpcc12AbstractView8onRemoveEv:00000000 _ZN4xpcc12AbstractView8onRemoveEv
+     /tmp/cc8sblWs.s:75     .text._ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh:00000000 $t
+     /tmp/cc8sblWs.s:80     .text._ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh:00000000 _ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh
+     /tmp/cc8sblWs.s:104    .text._ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh:00000010 $d
+     /tmp/cc8sblWs.s:80     .text._ZN4xpcc12AbstractViewC2EPNS_9ViewStackEh:00000000 _ZN4xpcc12AbstractViewC1EPNS_9ViewStackEh
+     /tmp/cc8sblWs.s:111    .text._ZN4xpcc12AbstractViewD2Ev:00000000 $t
+     /tmp/cc8sblWs.s:116    .text._ZN4xpcc12AbstractViewD2Ev:00000000 _ZN4xpcc12AbstractViewD2Ev
+     /tmp/cc8sblWs.s:134    .text._ZN4xpcc12AbstractViewD2Ev:00000008 $d
+     /tmp/cc8sblWs.s:116    .text._ZN4xpcc12AbstractViewD2Ev:00000000 _ZN4xpcc12AbstractViewD1Ev
+     /tmp/cc8sblWs.s:141    .text._ZN4xpcc12AbstractViewD0Ev:00000000 $t
+     /tmp/cc8sblWs.s:146    .text._ZN4xpcc12AbstractViewD0Ev:00000000 _ZN4xpcc12AbstractViewD0Ev
+     /tmp/cc8sblWs.s:180    .text._ZN4xpcc12AbstractViewD0Ev:00000010 $d
+     /tmp/cc8sblWs.s:186    .text._ZNK4xpcc12AbstractView7isAliveEv:00000000 $t
+     /tmp/cc8sblWs.s:191    .text._ZNK4xpcc12AbstractView7isAliveEv:00000000 _ZNK4xpcc12AbstractView7isAliveEv
+     /tmp/cc8sblWs.s:207    .text._ZN4xpcc12AbstractView6removeEv:00000000 $t
+     /tmp/cc8sblWs.s:212    .text._ZN4xpcc12AbstractView6removeEv:00000000 _ZN4xpcc12AbstractView6removeEv
+     /tmp/cc8sblWs.s:228    .text._ZN4xpcc12AbstractView7displayEv:00000000 $t
+     /tmp/cc8sblWs.s:233    .text._ZN4xpcc12AbstractView7displayEv:00000000 _ZN4xpcc12AbstractView7displayEv
+     /tmp/cc8sblWs.s:261    .rodata._ZTVN4xpcc12AbstractViewE:00000000 _ZTVN4xpcc12AbstractViewE
+     /tmp/cc8sblWs.s:257    .rodata._ZTVN4xpcc12AbstractViewE:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZdlPv
+__cxa_pure_virtual

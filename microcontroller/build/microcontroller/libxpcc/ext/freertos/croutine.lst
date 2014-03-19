@@ -1,0 +1,1391 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"croutine.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.xCoRoutineCreate,"ax",%progbits
+  20              		.align	2
+  21              		.global	xCoRoutineCreate
+  22              		.thumb
+  23              		.thumb_func
+  25              	xCoRoutineCreate:
+  26              	.LFB2:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     FreeRTOS V7.0.1 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	FreeRTOS supports many tools and architectures. V7.0.0 is sponsored by:
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	Atollic AB - Atollic provides professional embedded systems development 
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	tools for C/C++ development, code analysis and test automation.  
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	See http://www.atollic.com
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     ***************************************************************************
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *                                                                       *
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    Complete, revised, and edited pdf reference manuals are also       *
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    available.                                                         *
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *                                                                       *
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    ensuring you get running as quickly as possible and with an        *
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    the FreeRTOS project to continue with its mission of providing     *
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    professional grade, cross platform, de facto standard solutions    *
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    for microcontrollers - completely free of charge!                  *
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *                                                                       *
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *                                                                       *
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****      *                                                                       *
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     ***************************************************************************
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     This file is part of the FreeRTOS distribution.
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     the terms of the GNU General Public License (version 2) as published by the
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     distribute a combined work that includes FreeRTOS without being obliged to
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     provide the source code for proprietary components outside of the FreeRTOS
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     more details. You should have received a copy of the GNU General Public
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     by writing to Richard Barry, contact details for whom are available on the
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     FreeRTOS WEB site.
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     1 tab == 4 spaces!
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     contact details.
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     critical systems.
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****     licensing and training services.
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** */
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #include "FreeRTOS.h"
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #include "task.h"
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #include "croutine.h"
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Some kernel aware debuggers require data to be viewed to be global, rather
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * than file scope.
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  */
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #ifdef portREMOVE_STATIC_QUALIFIER
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	#define static
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #endif
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /* Lists for ready and blocked co-routines. --------------------*/
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList pxReadyCoRoutineLists[ configMAX_CO_ROUTINE_PRIORITIES ];	/*< Prioritised ready co-rou
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList xDelayedCoRoutineList1;									/*< Delayed co-routines. */
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList xDelayedCoRoutineList2;									/*< Delayed co-routines (two lists are used - one for 
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList * pxDelayedCoRoutineList;									/*< Points to the delayed co-routine list currently 
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList * pxOverflowDelayedCoRoutineList;							/*< Points to the delayed co-routine list curr
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static xList xPendingReadyCoRoutineList;											/*< Holds co-routines that have been readied by 
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /* Other file private variables. --------------------------------*/
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** corCRCB * pxCurrentCoRoutine = NULL;
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static unsigned portBASE_TYPE uxTopCoRoutineReadyPriority = 0;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static portTickType xCoRoutineTickCount = 0, xLastTickCount = 0, xPassedTicks = 0;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /* The initial state of the co-routine when it is created. */
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #define corINITIAL_STATE	( 0 )
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Place the co-routine represented by pxCRCB into the appropriate ready queue
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * for the priority.  It is inserted at the end of the list.
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  *
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * This macro accesses the co-routine ready lists and therefore must not be
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * used from within an ISR.
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  */
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** #define prvAddCoRoutineToReadyQueue( pxCRCB )																		\
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {																													\
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( pxCRCB->uxPriority > uxTopCoRoutineReadyPriority )															\
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{																												\
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		uxTopCoRoutineReadyPriority = pxCRCB->uxPriority;															\
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}																												\
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInsertEnd( ( xList * ) &( pxReadyCoRoutineLists[ pxCRCB->uxPriority ] ), &( pxCRCB->xGenericL
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }	
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Utility to ready all the lists used by the scheduler.  This is called
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * automatically upon the creation of the first co-routine.
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  */
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvInitialiseCoRoutineLists( void );
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Co-routines that are readied by an interrupt cannot be placed directly into
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * the ready lists (there is no mutual exclusion).  Instead they are placed in
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * in the pending ready list in order that they can later be moved to the ready
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * list by the co-routine scheduler.
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  */
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvCheckPendingReadyList( void );
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Macro that looks at the list of co-routines that are currently delayed to
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * see if any require waking.
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  *
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * Co-routines are stored in the queue in the order of their wake time -
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * meaning once one co-routine has been found whose timer has not expired
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  * we need not look any further down the list.
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c ****  */
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvCheckDelayedList( void );
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** signed portBASE_TYPE xCoRoutineCreate( crCOROUTINE_CODE pxCoRoutineCode, unsigned portBASE_TYPE uxP
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+  28              		.loc 1 132 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 32
+  36              		.cfi_offset 4, -32
+  37              		.cfi_offset 5, -28
+  38              		.cfi_offset 6, -24
+  39              		.cfi_offset 7, -20
+  40              		.cfi_offset 8, -16
+  41              		.cfi_offset 9, -12
+  42              		.cfi_offset 10, -8
+  43              		.cfi_offset 14, -4
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** signed portBASE_TYPE xReturn;
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** corCRCB *pxCoRoutine;
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Allocate the memory that will store the co-routine control block. */
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	pxCoRoutine = ( corCRCB * ) pvPortMalloc( sizeof( corCRCB ) );
+  44              		.loc 1 137 0
+  45 0004 264B     		ldr	r3, .L8
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+  46              		.loc 1 132 0
+  47 0006 0746     		mov	r7, r0
+  48              		.loc 1 137 0
+  49 0008 3820     		movs	r0, #56
+  50              	.LVL1:
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+  51              		.loc 1 132 0
+  52 000a 0E46     		mov	r6, r1
+  53 000c 9046     		mov	r8, r2
+  54              		.loc 1 137 0
+  55 000e 9847     		blx	r3
+  56              	.LVL2:
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( pxCoRoutine )
+  57              		.loc 1 138 0
+  58 0010 0446     		mov	r4, r0
+  59 0012 0028     		cmp	r0, #0
+  60 0014 40D0     		beq	.L5
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* If pxCurrentCoRoutine is NULL then this is the first co-routine to
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		be created and the co-routine data structures need initialising. */
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( pxCurrentCoRoutine == NULL )
+  61              		.loc 1 142 0
+  62 0016 234B     		ldr	r3, .L8+4
+  63 0018 1A68     		ldr	r2, [r3, #0]
+  64 001a 32B3     		cbz	r2, .L7
+  65              	.LVL3:
+  66              	.L3:
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCurrentCoRoutine = pxCoRoutine;
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			prvInitialiseCoRoutineLists();
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Check the priority is within limits. */
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( uxPriority >= configMAX_CO_ROUTINE_PRIORITIES )
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			uxPriority = configMAX_CO_ROUTINE_PRIORITIES - 1;
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Fill out the co-routine control block from the function parameters. */
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxState = corINITIAL_STATE;
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxPriority = uxPriority;
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxIndex = uxIndex;
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->pxCoRoutineFunction = pxCoRoutineCode;
+  67              		.loc 1 158 0
+  68 001c 2546     		mov	r5, r4
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxState = corINITIAL_STATE;
+  69              		.loc 1 155 0
+  70 001e 0023     		movs	r3, #0
+  71              		.loc 1 158 0
+  72 0020 45F8047B 		str	r7, [r5], #4
+  73 0024 012E     		cmp	r6, #1
+  74 0026 28BF     		it	cs
+  75 0028 0126     		movcs	r6, #1
+  76              	.LVL4:
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxState = corINITIAL_STATE;
+  77              		.loc 1 155 0
+  78 002a A386     		strh	r3, [r4, #52]	@ movhi
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Initialise all the other co-routine control block parameters. */
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInitialiseItem( &( pxCoRoutine->xGenericListItem ) );
+  79              		.loc 1 161 0
+  80 002c 2846     		mov	r0, r5
+  81 002e 1E4F     		ldr	r7, .L8+8
+  82              	.LVL5:
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxPriority = uxPriority;
+  83              		.loc 1 156 0
+  84 0030 E662     		str	r6, [r4, #44]
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		pxCoRoutine->uxIndex = uxIndex;
+  85              		.loc 1 157 0
+  86 0032 C4F83080 		str	r8, [r4, #48]
+  87              		.loc 1 161 0
+  88 0036 B847     		blx	r7
+  89              	.LVL6:
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInitialiseItem( &( pxCoRoutine->xEventListItem ) );
+  90              		.loc 1 162 0
+  91 0038 04F11800 		add	r0, r4, #24
+  92 003c B847     		blx	r7
+  93              	.LVL7:
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Set the co-routine control block as a link back from the xListItem.
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		This is so we can get back to the containing CRCB from a generic item
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		in a list. */
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_OWNER( &( pxCoRoutine->xGenericListItem ), pxCoRoutine );
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_OWNER( &( pxCoRoutine->xEventListItem ), pxCoRoutine );
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Event lists are always in priority order. */
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_VALUE( &( pxCoRoutine->xEventListItem ), configMAX_PRIORITIES - ( portTickType 
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Now the co-routine has been initialised it can be added to the ready
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		list at the correct priority. */
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		prvAddCoRoutineToReadyQueue( pxCoRoutine );
+  94              		.loc 1 175 0
+  95 003e 1B4B     		ldr	r3, .L8+12
+  96 0040 E06A     		ldr	r0, [r4, #44]
+  97 0042 1A68     		ldr	r2, [r3, #0]
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_OWNER( &( pxCoRoutine->xGenericListItem ), pxCoRoutine );
+  98              		.loc 1 167 0
+  99 0044 2461     		str	r4, [r4, #16]
+ 100              		.loc 1 175 0
+ 101 0046 9042     		cmp	r0, r2
+ 102 0048 88BF     		it	hi
+ 103 004a 1860     		strhi	r0, [r3, #0]
+ 104 004c 184B     		ldr	r3, .L8+16
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_OWNER( &( pxCoRoutine->xEventListItem ), pxCoRoutine );
+ 105              		.loc 1 168 0
+ 106 004e 6462     		str	r4, [r4, #36]
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_VALUE( &( pxCoRoutine->xEventListItem ), configMAX_PRIORITIES - ( portTickType 
+ 107              		.loc 1 171 0
+ 108 0050 C6F1FF06 		rsb	r6, r6, #255
+ 109              	.LVL8:
+ 110              		.loc 1 175 0
+ 111 0054 00EB8000 		add	r0, r0, r0, lsl #2
+ 112 0058 03EB8000 		add	r0, r3, r0, lsl #2
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		listSET_LIST_ITEM_VALUE( &( pxCoRoutine->xEventListItem ), configMAX_PRIORITIES - ( portTickType 
+ 113              		.loc 1 171 0
+ 114 005c A661     		str	r6, [r4, #24]
+ 115              		.loc 1 175 0
+ 116 005e 2946     		mov	r1, r5
+ 117 0060 144B     		ldr	r3, .L8+20
+ 118 0062 9847     		blx	r3
+ 119              	.LVL9:
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xReturn = pdPASS;
+ 120              		.loc 1 177 0
+ 121 0064 0120     		movs	r0, #1
+ 122 0066 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 123              	.LVL10:
+ 124              	.L7:
+ 125              	.LBB14:
+ 126              	.LBB15:
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	else
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{		
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	return xReturn;	
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** void vCoRoutineAddToDelayedList( portTickType xTicksToDelay, xList *pxEventList )
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** portTickType xTimeToWake;
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Calculate the time to wake - this may overflow but this is
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	not a problem. */
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xTimeToWake = xCoRoutineTickCount + xTicksToDelay;
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* We must remove ourselves from the ready list before adding
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	ourselves to the blocked list as the same list item is used for
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	both lists. */
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( ( xListItem * ) &( pxCurrentCoRoutine->xGenericListItem ) );
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* The list item will be inserted in wake time order. */
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listSET_LIST_ITEM_VALUE( &( pxCurrentCoRoutine->xGenericListItem ), xTimeToWake );
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( xTimeToWake < xCoRoutineTickCount )
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Wake time has overflowed.  Place this item in the
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		overflow list. */
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxOverflowDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->x
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	else
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* The wake time has not overflowed, so we can use the
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		current block list. */
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->xGenericL
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( pxEventList )
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* Also add the co-routine to an event list.  If this is done then the
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		function must be called with interrupts disabled. */
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( pxEventList, &( pxCurrentCoRoutine->xEventListItem ) );
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvCheckPendingReadyList( void )
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Are there any co-routines waiting to get moved to the ready list?  These
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	are co-routines that have been readied by an ISR.  The ISR cannot access
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	the	ready lists itself. */
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &xPendingReadyCoRoutineList ) == pdFALSE )
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		corCRCB *pxUnblockedCRCB;
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* The pending ready list can be accessed by an ISR. */
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		portDISABLE_INTERRUPTS();
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{	
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxUnblockedCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( (&xPendingReadyCoRoutineList) );			
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			vListRemove( &( pxUnblockedCRCB->xEventListItem ) );
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		portENABLE_INTERRUPTS();
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListRemove( &( pxUnblockedCRCB->xGenericListItem ) );
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		prvAddCoRoutineToReadyQueue( pxUnblockedCRCB );	
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvCheckDelayedList( void )
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** corCRCB *pxCRCB;
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xPassedTicks = xTaskGetTickCount() - xLastTickCount;
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( xPassedTicks )
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xCoRoutineTickCount++;
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xPassedTicks--;
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* If the tick count has overflowed we need to swap the ready lists. */
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( xCoRoutineTickCount == 0 )
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			xList * pxTemp;
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			/* Tick count has overflowed so we need to swap the delay lists.  If there are
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			any items in pxDelayedCoRoutineList here then there is an error! */
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxTemp = pxDelayedCoRoutineList;
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxDelayedCoRoutineList = pxOverflowDelayedCoRoutineList;
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxOverflowDelayedCoRoutineList = pxTemp;
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		/* See if this tick has made a timeout expire. */
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		while( listLIST_IS_EMPTY( pxDelayedCoRoutineList ) == pdFALSE )
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( pxDelayedCoRoutineList );
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			if( xCoRoutineTickCount < listGET_LIST_ITEM_VALUE( &( pxCRCB->xGenericListItem ) ) )				
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			{			
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				/* Timeout not yet expired. */																			
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				break;																				
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			}																						
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			portDISABLE_INTERRUPTS();
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			{
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				/* The event could have occurred just before this critical
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				section.  If this is the case then the generic list item will
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				have been moved to the pending ready list and the following
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				line is still valid.  Also the pvContainer parameter will have
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				been set to NULL so the following lines are also valid. */
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				vListRemove( &( pxCRCB->xGenericListItem ) );											
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				/* Is the co-routine waiting on an event also? */												
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				if( pxCRCB->xEventListItem.pvContainer )													
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				{															
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 					vListRemove( &( pxCRCB->xEventListItem ) );											
+ 295:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				}
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			}
+ 297:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			portENABLE_INTERRUPTS();
+ 298:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			prvAddCoRoutineToReadyQueue( pxCRCB );													
+ 300:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}																									
+ 301:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 302:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xLastTickCount = xCoRoutineTickCount;
+ 304:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 305:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 306:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 307:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** void vCoRoutineSchedule( void )
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 309:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* See if any co-routines readied by events need moving to the ready lists. */
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	prvCheckPendingReadyList();
+ 311:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 312:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* See if any delayed co-routines have timed out. */
+ 313:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	prvCheckDelayedList();
+ 314:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 315:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Find the highest priority queue that contains ready co-routines. */
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPriority ] ) ) )
+ 317:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 318:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( uxTopCoRoutineReadyPriority == 0 )
+ 319:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		{
+ 320:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			/* No more co-routines to check. */
+ 321:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			return;
+ 322:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		}
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		--uxTopCoRoutineReadyPriority;
+ 324:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 325:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 326:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* listGET_OWNER_OF_NEXT_ENTRY walks through the list, so the co-routines
+ 327:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	 of the	same priority get an equal share of the processor time. */
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listGET_OWNER_OF_NEXT_ENTRY( pxCurrentCoRoutine, &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPrio
+ 329:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 330:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Call the co-routine. */
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	( pxCurrentCoRoutine->pxCoRoutineFunction )( pxCurrentCoRoutine, pxCurrentCoRoutine->uxIndex );
+ 332:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 333:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	return;
+ 334:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 335:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 336:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 337:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** static void prvInitialiseCoRoutineLists( void )
+ 338:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 339:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** unsigned portBASE_TYPE uxPriority;
+ 340:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 341:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	for( uxPriority = 0; uxPriority < configMAX_CO_ROUTINE_PRIORITIES; uxPriority++ )
+ 342:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInitialise( ( xList * ) &( pxReadyCoRoutineLists[ uxPriority ] ) );
+ 127              		.loc 1 343 0
+ 128 006a 134D     		ldr	r5, .L8+24
+ 129 006c 1048     		ldr	r0, .L8+16
+ 130              	.LVL11:
+ 344:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 345:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInitialise( ( xList * ) &xDelayedCoRoutineList1 );
+ 131              		.loc 1 346 0
+ 132 006e DFF85CA0 		ldr	sl, .L8+44
+ 133              	.LBE15:
+ 134              	.LBE14:
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCurrentCoRoutine = pxCoRoutine;
+ 135              		.loc 1 144 0
+ 136 0072 1C60     		str	r4, [r3, #0]
+ 137              	.LVL12:
+ 138              	.LBB17:
+ 139              	.LBB16:
+ 347:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInitialise( ( xList * ) &xDelayedCoRoutineList2 );
+ 140              		.loc 1 347 0
+ 141 0074 DFF85890 		ldr	r9, .L8+48
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInitialise( ( xList * ) &( pxReadyCoRoutineLists[ uxPriority ] ) );
+ 142              		.loc 1 343 0
+ 143 0078 A847     		blx	r5
+ 144              	.LVL13:
+ 145 007a 1048     		ldr	r0, .L8+28
+ 146 007c A847     		blx	r5
+ 147              	.LVL14:
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInitialise( ( xList * ) &xDelayedCoRoutineList1 );
+ 148              		.loc 1 346 0
+ 149 007e 5046     		mov	r0, sl
+ 150 0080 A847     		blx	r5
+ 151              	.LVL15:
+ 152              		.loc 1 347 0
+ 153 0082 4846     		mov	r0, r9
+ 154 0084 A847     		blx	r5
+ 155              	.LVL16:
+ 348:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInitialise( ( xList * ) &xPendingReadyCoRoutineList );
+ 156              		.loc 1 348 0
+ 157 0086 0E48     		ldr	r0, .L8+32
+ 158 0088 A847     		blx	r5
+ 159              	.LVL17:
+ 349:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 350:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* Start with pxDelayedCoRoutineList using list1 and the
+ 351:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	pxOverflowDelayedCoRoutineList using list2. */
+ 352:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	pxDelayedCoRoutineList = &xDelayedCoRoutineList1;
+ 160              		.loc 1 352 0
+ 161 008a 0E4B     		ldr	r3, .L8+36
+ 162 008c C3F800A0 		str	sl, [r3, #0]
+ 353:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	pxOverflowDelayedCoRoutineList = &xDelayedCoRoutineList2;
+ 163              		.loc 1 353 0
+ 164 0090 0D4B     		ldr	r3, .L8+40
+ 165 0092 C3F80090 		str	r9, [r3, #0]
+ 166 0096 C1E7     		b	.L3
+ 167              	.LVL18:
+ 168              	.L5:
+ 169              	.LBE16:
+ 170              	.LBE17:
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
+ 171              		.loc 1 181 0
+ 172 0098 4FF0FF30 		mov	r0, #-1
+ 173              	.LVL19:
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 174              		.loc 1 185 0
+ 175 009c BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 176              	.L9:
+ 177              		.align	2
+ 178              	.L8:
+ 179 00a0 00000000 		.word	pvPortMalloc
+ 180 00a4 00000000 		.word	.LANCHOR0
+ 181 00a8 00000000 		.word	vListInitialiseItem
+ 182 00ac 00000000 		.word	.LANCHOR7
+ 183 00b0 00000000 		.word	.LANCHOR1
+ 184 00b4 00000000 		.word	vListInsertEnd
+ 185 00b8 00000000 		.word	vListInitialise
+ 186 00bc 14000000 		.word	.LANCHOR1+20
+ 187 00c0 00000000 		.word	.LANCHOR4
+ 188 00c4 00000000 		.word	.LANCHOR5
+ 189 00c8 00000000 		.word	.LANCHOR6
+ 190 00cc 00000000 		.word	.LANCHOR2
+ 191 00d0 00000000 		.word	.LANCHOR3
+ 192              		.cfi_endproc
+ 193              	.LFE2:
+ 195              		.section	.text.vCoRoutineAddToDelayedList,"ax",%progbits
+ 196              		.align	2
+ 197              		.global	vCoRoutineAddToDelayedList
+ 198              		.thumb
+ 199              		.thumb_func
+ 201              	vCoRoutineAddToDelayedList:
+ 202              	.LFB3:
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 203              		.loc 1 189 0
+ 204              		.cfi_startproc
+ 205              		@ args = 0, pretend = 0, frame = 0
+ 206              		@ frame_needed = 0, uses_anonymous_args = 0
+ 207              	.LVL20:
+ 208 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 209              	.LCFI1:
+ 210              		.cfi_def_cfa_offset 24
+ 211              		.cfi_offset 3, -24
+ 212              		.cfi_offset 4, -20
+ 213              		.cfi_offset 5, -16
+ 214              		.cfi_offset 6, -12
+ 215              		.cfi_offset 7, -8
+ 216              		.cfi_offset 14, -4
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xTimeToWake = xCoRoutineTickCount + xTicksToDelay;
+ 217              		.loc 1 194 0
+ 218 0002 0D4E     		ldr	r6, .L17
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( ( xListItem * ) &( pxCurrentCoRoutine->xGenericListItem ) );
+ 219              		.loc 1 199 0
+ 220 0004 0D4C     		ldr	r4, .L17+4
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xTimeToWake = xCoRoutineTickCount + xTicksToDelay;
+ 221              		.loc 1 194 0
+ 222 0006 3568     		ldr	r5, [r6, #0]
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( ( xListItem * ) &( pxCurrentCoRoutine->xGenericListItem ) );
+ 223              		.loc 1 199 0
+ 224 0008 2368     		ldr	r3, [r4, #0]
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xTimeToWake = xCoRoutineTickCount + xTicksToDelay;
+ 225              		.loc 1 194 0
+ 226 000a 4519     		adds	r5, r0, r5
+ 227              	.LVL21:
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( ( xListItem * ) &( pxCurrentCoRoutine->xGenericListItem ) );
+ 228              		.loc 1 199 0
+ 229 000c 181D     		adds	r0, r3, #4
+ 230              	.LVL22:
+ 231 000e 0C4B     		ldr	r3, .L17+8
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 232              		.loc 1 189 0
+ 233 0010 0F46     		mov	r7, r1
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( ( xListItem * ) &( pxCurrentCoRoutine->xGenericListItem ) );
+ 234              		.loc 1 199 0
+ 235 0012 9847     		blx	r3
+ 236              	.LVL23:
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( xTimeToWake < xCoRoutineTickCount )
+ 237              		.loc 1 204 0
+ 238 0014 3268     		ldr	r2, [r6, #0]
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listSET_LIST_ITEM_VALUE( &( pxCurrentCoRoutine->xGenericListItem ), xTimeToWake );
+ 239              		.loc 1 202 0
+ 240 0016 2168     		ldr	r1, [r4, #0]
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( xTimeToWake < xCoRoutineTickCount )
+ 241              		.loc 1 204 0
+ 242 0018 9542     		cmp	r5, r2
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxOverflowDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->x
+ 243              		.loc 1 208 0
+ 244 001a 34BF     		ite	cc
+ 245 001c 094A     		ldrcc	r2, .L17+12
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->xGenericL
+ 246              		.loc 1 214 0
+ 247 001e 0A4A     		ldrcs	r2, .L17+16
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listSET_LIST_ITEM_VALUE( &( pxCurrentCoRoutine->xGenericListItem ), xTimeToWake );
+ 248              		.loc 1 202 0
+ 249 0020 4D60     		str	r5, [r1, #4]
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->xGenericL
+ 250              		.loc 1 214 0
+ 251 0022 1068     		ldr	r0, [r2, #0]
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxOverflowDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->x
+ 252              		.loc 1 208 0
+ 253 0024 094D     		ldr	r5, .L17+20
+ 254              	.LVL24:
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( ( xList * ) pxDelayedCoRoutineList, ( xListItem * ) &( pxCurrentCoRoutine->xGenericL
+ 255              		.loc 1 214 0
+ 256 0026 0431     		adds	r1, r1, #4
+ 257              	.LVL25:
+ 258 0028 A847     		blx	r5
+ 259              	.LVL26:
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( pxEventList )
+ 260              		.loc 1 217 0
+ 261 002a 1FB1     		cbz	r7, .L10
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListInsert( pxEventList, &( pxCurrentCoRoutine->xEventListItem ) );
+ 262              		.loc 1 221 0
+ 263 002c 2168     		ldr	r1, [r4, #0]
+ 264 002e 3846     		mov	r0, r7
+ 265 0030 1831     		adds	r1, r1, #24
+ 266 0032 A847     		blx	r5
+ 267              	.LVL27:
+ 268              	.L10:
+ 269 0034 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 270              	.L18:
+ 271 0036 00BF     		.align	2
+ 272              	.L17:
+ 273 0038 00000000 		.word	.LANCHOR8
+ 274 003c 00000000 		.word	.LANCHOR0
+ 275 0040 00000000 		.word	vListRemove
+ 276 0044 00000000 		.word	.LANCHOR6
+ 277 0048 00000000 		.word	.LANCHOR5
+ 278 004c 00000000 		.word	vListInsert
+ 279              		.cfi_endproc
+ 280              	.LFE3:
+ 282              		.section	.text.vCoRoutineSchedule,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	vCoRoutineSchedule
+ 285              		.thumb
+ 286              		.thumb_func
+ 288              	vCoRoutineSchedule:
+ 289              	.LFB6:
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 290              		.loc 1 308 0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 0, uses_anonymous_args = 0
+ 294 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 295              	.LCFI2:
+ 296              		.cfi_def_cfa_offset 40
+ 297              		.cfi_offset 3, -40
+ 298              		.cfi_offset 4, -36
+ 299              		.cfi_offset 5, -32
+ 300              		.cfi_offset 6, -28
+ 301              		.cfi_offset 7, -24
+ 302              		.cfi_offset 8, -20
+ 303              		.cfi_offset 9, -16
+ 304              		.cfi_offset 10, -12
+ 305              		.cfi_offset 11, -8
+ 306              		.cfi_offset 14, -4
+ 307              	.LBB33:
+ 308              	.LBB34:
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &xPendingReadyCoRoutineList ) == pdFALSE )
+ 309              		.loc 1 231 0
+ 310 0004 DFF89CA1 		ldr	sl, .L62+36
+ 311 0008 DAF80030 		ldr	r3, [sl, #0]
+ 312 000c 002B     		cmp	r3, #0
+ 313 000e 00F0B280 		beq	.L57
+ 314 0012 5B4C     		ldr	r4, .L62
+ 315 0014 5B4F     		ldr	r7, .L62+4
+ 316 0016 5C4E     		ldr	r6, .L62+8
+ 317 0018 DFF88C81 		ldr	r8, .L62+40
+ 318              	.L20:
+ 319              	.LBB35:
+ 320              	.LBB36:
+ 321              	.LBB37:
+ 322              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     FreeRTOS V7.0.1 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     ***************************************************************************
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *                                                                       *
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    Complete, revised, and edited pdf reference manuals are also       *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    available.                                                         *
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *                                                                       *
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    ensuring you get running as quickly as possible and with an        *
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    the FreeRTOS project to continue with its mission of providing     *
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    professional grade, cross platform, de facto standard solutions    *
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    for microcontrollers - completely free of charge!                  *
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *                                                                       *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *                                                                       *
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****      *                                                                       *
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     ***************************************************************************
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     This file is part of the FreeRTOS distribution.
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     the terms of the GNU General Public License (version 2) as published by the
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     distribute a combined work that includes FreeRTOS without being obliged to
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     provide the source code for proprietary components outside of the FreeRTOS
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     more details. You should have received a copy of the GNU General Public
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     by writing to Richard Barry, contact details for whom are available on the
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     FreeRTOS WEB site.
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     1 tab == 4 spaces!
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     contact details.
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     critical systems.
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****     licensing and training services.
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** */
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #ifndef PORTMACRO_H
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define PORTMACRO_H
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #include <stdint.h>
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #ifdef __cplusplus
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** extern "C" {
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #endif
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*-----------------------------------------------------------
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * Port specific definitions.  
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  *
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * The settings in this file configure FreeRTOS correctly for the
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * given hardware and compiler.
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  *
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * These settings should not be altered.
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  *-----------------------------------------------------------
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  */
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /* Type definitions. */
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portCHAR		char
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portFLOAT		float
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portDOUBLE		double
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portLONG		long
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portSHORT		short
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portSTACK_TYPE	uint32_t
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portBASE_TYPE	long
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #if( configUSE_16_BIT_TICKS == 1 )
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	typedef unsigned portSHORT portTickType;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	#define portMAX_DELAY ( portTickType ) 0xffff
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #else
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	typedef unsigned portLONG portTickType;
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	#define portMAX_DELAY ( portTickType ) 0xffffffff
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #endif
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*-----------------------------------------------------------*/	
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /* Architecture specifics. */
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portSTACK_GROWTH			( -1 )
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portTICK_RATE_MS			( ( portTickType ) 1000 / configTICK_RATE_HZ )		
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portBYTE_ALIGNMENT			8
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*-----------------------------------------------------------*/	
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /* Scheduler utilities. */
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** extern void vPortYieldFromISR( void );
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portYIELD()					vPortYieldFromISR()
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** #define portEND_SWITCHING_ISR( xSwitchRequired ) do { if( xSwitchRequired ) { vPortYieldFromISR(); 
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*-----------------------------------------------------------*/
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /* Critical section management. */
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /* 
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * Set basepri to portMAX_SYSCALL_INTERRUPT_PRIORITY without effecting other
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * registers.  r0 is clobbered.
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  */ 
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** static inline void portSET_INTERRUPT_MASK(void)
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** {
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	uint32_t reg;
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	asm volatile (
+ 323              		.loc 2 117 0
+ 324              	@ 117 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h" 1
+ 325 001c 4FF0B003 		mov	r3, #176			
+ 326 0020 83F31188 	msr	basepri, r3		
+ 327              	
+ 328              	@ 0 "" 2
+ 329              	.LVL28:
+ 330              		.thumb
+ 331              	.LBE37:
+ 332              	.LBE36:
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxUnblockedCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( (&xPendingReadyCoRoutineList) );			
+ 333              		.loc 1 238 0
+ 334 0024 DAF80C30 		ldr	r3, [sl, #12]
+ 335 0028 DD68     		ldr	r5, [r3, #12]
+ 336              	.LVL29:
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			vListRemove( &( pxUnblockedCRCB->xEventListItem ) );
+ 337              		.loc 1 239 0
+ 338 002a 05F11800 		add	r0, r5, #24
+ 339 002e A047     		blx	r4
+ 340              	.LVL30:
+ 341              	.LBB38:
+ 342              	.LBB39:
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 		"mov	%0, %1			\n"
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 		"msr	basepri, %0		\n"
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 			: "=&r"(reg)		/* output operands */
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 			: "i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)	/* input operands */
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 			: 					/* clobber list */
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	);
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** }
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** /*
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * Set basepri back to 0 without effective other registers.
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  * r0 is clobbered.
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h ****  */
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** static inline void portCLEAR_INTERRUPT_MASK(void)
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** {
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	uint32_t reg;
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	asm volatile (
+ 343              		.loc 2 133 0
+ 344              	@ 133 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h" 1
+ 345 0030 4FF00003 		mov	r3, #0			
+ 346 0034 83F31188 	msr	basepri, r3		
+ 347              	
+ 348              	@ 0 "" 2
+ 349              	.LVL31:
+ 350              		.thumb
+ 351              	.LBE39:
+ 352              	.LBE38:
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		vListRemove( &( pxUnblockedCRCB->xGenericListItem ) );
+ 353              		.loc 1 243 0
+ 354 0038 05F10409 		add	r9, r5, #4
+ 355 003c 4846     		mov	r0, r9
+ 356 003e A047     		blx	r4
+ 357              	.LVL32:
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		prvAddCoRoutineToReadyQueue( pxUnblockedCRCB );	
+ 358              		.loc 1 244 0
+ 359 0040 EB6A     		ldr	r3, [r5, #44]
+ 360 0042 3A68     		ldr	r2, [r7, #0]
+ 361 0044 9342     		cmp	r3, r2
+ 362 0046 03EB8300 		add	r0, r3, r3, lsl #2
+ 363 004a 88BF     		it	hi
+ 364 004c 4D4A     		ldrhi	r2, .L62+4
+ 365 004e 06EB8000 		add	r0, r6, r0, lsl #2
+ 366 0052 4946     		mov	r1, r9
+ 367 0054 88BF     		it	hi
+ 368 0056 1360     		strhi	r3, [r2, #0]
+ 369 0058 C047     		blx	r8
+ 370              	.LVL33:
+ 371              	.LBE35:
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &xPendingReadyCoRoutineList ) == pdFALSE )
+ 372              		.loc 1 231 0
+ 373 005a DAF80030 		ldr	r3, [sl, #0]
+ 374 005e 002B     		cmp	r3, #0
+ 375 0060 DCD1     		bne	.L20
+ 376              	.LVL34:
+ 377              	.L23:
+ 378              	.LBE34:
+ 379              	.LBE33:
+ 380              	.LBB40:
+ 381              	.LBB41:
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xPassedTicks = xTaskGetTickCount() - xLastTickCount;
+ 382              		.loc 1 253 0
+ 383 0062 4A4B     		ldr	r3, .L62+12
+ 384 0064 DFF84491 		ldr	r9, .L62+44
+ 385 0068 9847     		blx	r3
+ 386              	.LVL35:
+ 387 006a 4949     		ldr	r1, .L62+16
+ 388 006c D9F80020 		ldr	r2, [r9, #0]
+ 389 0070 0B68     		ldr	r3, [r1, #0]
+ 390 0072 C01A     		subs	r0, r0, r3
+ 391 0074 474B     		ldr	r3, .L62+20
+ 392 0076 1860     		str	r0, [r3, #0]
+ 393              	.L56:
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( xPassedTicks )
+ 394              		.loc 1 254 0
+ 395 0078 0028     		cmp	r0, #0
+ 396 007a 4BD0     		beq	.L58
+ 397              	.L32:
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xPassedTicks--;
+ 398              		.loc 1 257 0
+ 399 007c 4549     		ldr	r1, .L62+20
+ 400              	.LBB42:
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxTemp = pxDelayedCoRoutineList;
+ 401              		.loc 1 266 0
+ 402 007e 464D     		ldr	r5, .L62+24
+ 403              	.LBE42:
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xCoRoutineTickCount++;
+ 404              		.loc 1 256 0
+ 405 0080 0132     		adds	r2, r2, #1
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xPassedTicks--;
+ 406              		.loc 1 257 0
+ 407 0082 0138     		subs	r0, r0, #1
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xCoRoutineTickCount++;
+ 408              		.loc 1 256 0
+ 409 0084 C9F80020 		str	r2, [r9, #0]
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xPassedTicks--;
+ 410              		.loc 1 257 0
+ 411 0088 0860     		str	r0, [r1, #0]
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( xCoRoutineTickCount == 0 )
+ 412              		.loc 1 260 0
+ 413 008a 002A     		cmp	r2, #0
+ 414 008c 6AD0     		beq	.L24
+ 415 008e 2B68     		ldr	r3, [r5, #0]
+ 416              	.L25:
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		while( listLIST_IS_EMPTY( pxDelayedCoRoutineList ) == pdFALSE )
+ 417              		.loc 1 272 0
+ 418 0090 1968     		ldr	r1, [r3, #0]
+ 419 0092 0029     		cmp	r1, #0
+ 420 0094 F0D0     		beq	.L56
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( pxDelayedCoRoutineList );
+ 421              		.loc 1 274 0
+ 422 0096 DB68     		ldr	r3, [r3, #12]
+ 423 0098 D3F80CB0 		ldr	fp, [r3, #12]
+ 424              	.LVL36:
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			if( xCoRoutineTickCount < listGET_LIST_ITEM_VALUE( &( pxCRCB->xGenericListItem ) ) )				
+ 425              		.loc 1 276 0
+ 426 009c DBF80410 		ldr	r1, [fp, #4]
+ 427 00a0 8A42     		cmp	r2, r1
+ 428 00a2 E9D3     		bcc	.L56
+ 429 00a4 364C     		ldr	r4, .L62
+ 430 00a6 DFF80081 		ldr	r8, .L62+40
+ 431 00aa 08E0     		b	.L28
+ 432              	.LVL37:
+ 433              	.L31:
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( pxDelayedCoRoutineList );
+ 434              		.loc 1 274 0
+ 435 00ac DB68     		ldr	r3, [r3, #12]
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			if( xCoRoutineTickCount < listGET_LIST_ITEM_VALUE( &( pxCRCB->xGenericListItem ) ) )				
+ 436              		.loc 1 276 0
+ 437 00ae D9F80020 		ldr	r2, [r9, #0]
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( pxDelayedCoRoutineList );
+ 438              		.loc 1 274 0
+ 439 00b2 D3F80CB0 		ldr	fp, [r3, #12]
+ 440              	.LVL38:
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			if( xCoRoutineTickCount < listGET_LIST_ITEM_VALUE( &( pxCRCB->xGenericListItem ) ) )				
+ 441              		.loc 1 276 0
+ 442 00b6 DBF80410 		ldr	r1, [fp, #4]
+ 443 00ba 9142     		cmp	r1, r2
+ 444 00bc 58D8     		bhi	.L59
+ 445              	.L28:
+ 446              	.LBB43:
+ 447              	.LBB44:
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h **** 	asm volatile (
+ 448              		.loc 2 117 0
+ 449              	@ 117 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h" 1
+ 450 00be 4FF0B002 		mov	r2, #176			
+ 451 00c2 82F31188 	msr	basepri, r2		
+ 452              	
+ 453              	@ 0 "" 2
+ 454              		.thumb
+ 455              	.LBE44:
+ 456              	.LBE43:
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				vListRemove( &( pxCRCB->xGenericListItem ) );											
+ 457              		.loc 1 289 0
+ 458 00c6 0BF1040A 		add	sl, fp, #4
+ 459 00ca 5046     		mov	r0, sl
+ 460 00cc A047     		blx	r4
+ 461              	.LVL39:
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				if( pxCRCB->xEventListItem.pvContainer )													
+ 462              		.loc 1 292 0
+ 463 00ce DBF82820 		ldr	r2, [fp, #40]
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 					vListRemove( &( pxCRCB->xEventListItem ) );											
+ 464              		.loc 1 294 0
+ 465 00d2 0BF11800 		add	r0, fp, #24
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 				if( pxCRCB->xEventListItem.pvContainer )													
+ 466              		.loc 1 292 0
+ 467 00d6 0AB1     		cbz	r2, .L29
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 					vListRemove( &( pxCRCB->xEventListItem ) );											
+ 468              		.loc 1 294 0
+ 469 00d8 294A     		ldr	r2, .L62
+ 470 00da 9047     		blx	r2
+ 471              	.LVL40:
+ 472              	.L29:
+ 473              	.LBB45:
+ 474              	.LBB46:
+ 475              		.loc 2 133 0
+ 476              	@ 133 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/portmacro.h" 1
+ 477 00dc 4FF00002 		mov	r2, #0			
+ 478 00e0 82F31188 	msr	basepri, r2		
+ 479              	
+ 480              	@ 0 "" 2
+ 481              		.thumb
+ 482              	.LBE46:
+ 483              	.LBE45:
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			prvAddCoRoutineToReadyQueue( pxCRCB );													
+ 484              		.loc 1 299 0
+ 485 00e4 DBF82C20 		ldr	r2, [fp, #44]
+ 486 00e8 3B68     		ldr	r3, [r7, #0]
+ 487 00ea 9A42     		cmp	r2, r3
+ 488 00ec 02EB8200 		add	r0, r2, r2, lsl #2
+ 489 00f0 88BF     		it	hi
+ 490 00f2 244B     		ldrhi	r3, .L62+4
+ 491 00f4 06EB8000 		add	r0, r6, r0, lsl #2
+ 492 00f8 5146     		mov	r1, sl
+ 493 00fa 88BF     		it	hi
+ 494 00fc 1A60     		strhi	r2, [r3, #0]
+ 495 00fe C047     		blx	r8
+ 496              	.LVL41:
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		while( listLIST_IS_EMPTY( pxDelayedCoRoutineList ) == pdFALSE )
+ 497              		.loc 1 272 0
+ 498 0100 2B68     		ldr	r3, [r5, #0]
+ 499 0102 1A68     		ldr	r2, [r3, #0]
+ 500 0104 002A     		cmp	r2, #0
+ 501 0106 D1D1     		bne	.L31
+ 502 0108 2249     		ldr	r1, .L62+20
+ 503 010a D9F80020 		ldr	r2, [r9, #0]
+ 504 010e 0868     		ldr	r0, [r1, #0]
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( xPassedTicks )
+ 505              		.loc 1 254 0
+ 506 0110 0028     		cmp	r0, #0
+ 507 0112 B3D1     		bne	.L32
+ 508              	.LVL42:
+ 509              	.L58:
+ 510              	.LBE41:
+ 511              	.LBE40:
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPriority ] ) ) )
+ 512              		.loc 1 316 0
+ 513 0114 3B68     		ldr	r3, [r7, #0]
+ 514              	.LBB50:
+ 515              	.LBB48:
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	xLastTickCount = xCoRoutineTickCount;
+ 516              		.loc 1 303 0
+ 517 0116 1E49     		ldr	r1, .L62+16
+ 518 0118 0A60     		str	r2, [r1, #0]
+ 519              	.LBE48:
+ 520              	.LBE50:
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPriority ] ) ) )
+ 521              		.loc 1 316 0
+ 522 011a 9A00     		lsls	r2, r3, #2
+ 523 011c D118     		adds	r1, r2, r3
+ 524 011e 8900     		lsls	r1, r1, #2
+ 525 0120 7158     		ldr	r1, [r6, r1]
+ 526 0122 51B9     		cbnz	r1, .L33
+ 318:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		if( uxTopCoRoutineReadyPriority == 0 )
+ 527              		.loc 1 318 0
+ 528 0124 0BB9     		cbnz	r3, .L52
+ 529 0126 29E0     		b	.L61
+ 530              	.L38:
+ 531 0128 D3B1     		cbz	r3, .L19
+ 532              	.L52:
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		--uxTopCoRoutineReadyPriority;
+ 533              		.loc 1 323 0
+ 534 012a 013B     		subs	r3, r3, #1
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPriority ] ) ) )
+ 535              		.loc 1 316 0
+ 536 012c 9A00     		lsls	r2, r3, #2
+ 537 012e D118     		adds	r1, r2, r3
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		--uxTopCoRoutineReadyPriority;
+ 538              		.loc 1 323 0
+ 539 0130 3B60     		str	r3, [r7, #0]
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	while( listLIST_IS_EMPTY( &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPriority ] ) ) )
+ 540              		.loc 1 316 0
+ 541 0132 56F82110 		ldr	r1, [r6, r1, lsl #2]
+ 542 0136 0029     		cmp	r1, #0
+ 543 0138 F6D0     		beq	.L38
+ 544              	.L33:
+ 545              	.LBB51:
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listGET_OWNER_OF_NEXT_ENTRY( pxCurrentCoRoutine, &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPrio
+ 546              		.loc 1 328 0
+ 547 013a D318     		adds	r3, r2, r3
+ 548 013c 06EB8306 		add	r6, r6, r3, lsl #2
+ 549              	.LVL43:
+ 550 0140 06F10802 		add	r2, r6, #8
+ 551 0144 7368     		ldr	r3, [r6, #4]
+ 552 0146 5B68     		ldr	r3, [r3, #4]
+ 553 0148 9342     		cmp	r3, r2
+ 554 014a 7360     		str	r3, [r6, #4]
+ 555 014c 08BF     		it	eq
+ 556 014e 5B68     		ldreq	r3, [r3, #4]
+ 557 0150 124A     		ldr	r2, .L62+28
+ 558 0152 D868     		ldr	r0, [r3, #12]
+ 559 0154 08BF     		it	eq
+ 560 0156 7360     		streq	r3, [r6, #4]
+ 561              	.LBE51:
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	( pxCurrentCoRoutine->pxCoRoutineFunction )( pxCurrentCoRoutine, pxCurrentCoRoutine->uxIndex );
+ 562              		.loc 1 331 0
+ 563 0158 016B     		ldr	r1, [r0, #48]
+ 564 015a 0368     		ldr	r3, [r0, #0]
+ 565              	.LBB52:
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	listGET_OWNER_OF_NEXT_ENTRY( pxCurrentCoRoutine, &( pxReadyCoRoutineLists[ uxTopCoRoutineReadyPrio
+ 566              		.loc 1 328 0
+ 567 015c 1060     		str	r0, [r2, #0]
+ 568              	.LBE52:
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	( pxCurrentCoRoutine->pxCoRoutineFunction )( pxCurrentCoRoutine, pxCurrentCoRoutine->uxIndex );
+ 569              		.loc 1 331 0
+ 570 015e 9847     		blx	r3
+ 571              	.LVL44:
+ 572              	.L19:
+ 573 0160 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 574              	.L24:
+ 575              	.LBB53:
+ 576              	.LBB49:
+ 577              	.LBB47:
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxDelayedCoRoutineList = pxOverflowDelayedCoRoutineList;
+ 578              		.loc 1 267 0
+ 579 0164 0E4C     		ldr	r4, .L62+32
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxTemp = pxDelayedCoRoutineList;
+ 580              		.loc 1 266 0
+ 581 0166 2968     		ldr	r1, [r5, #0]
+ 582              	.LVL45:
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxDelayedCoRoutineList = pxOverflowDelayedCoRoutineList;
+ 583              		.loc 1 267 0
+ 584 0168 2368     		ldr	r3, [r4, #0]
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxOverflowDelayedCoRoutineList = pxTemp;
+ 585              		.loc 1 268 0
+ 586 016a 2160     		str	r1, [r4, #0]
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 			pxDelayedCoRoutineList = pxOverflowDelayedCoRoutineList;
+ 587              		.loc 1 267 0
+ 588 016c 2B60     		str	r3, [r5, #0]
+ 589 016e 8FE7     		b	.L25
+ 590              	.LVL46:
+ 591              	.L59:
+ 592 0170 084B     		ldr	r3, .L62+20
+ 593 0172 1868     		ldr	r0, [r3, #0]
+ 594 0174 80E7     		b	.L56
+ 595              	.LVL47:
+ 596              	.L57:
+ 597 0176 034F     		ldr	r7, .L62+4
+ 598 0178 034E     		ldr	r6, .L62+8
+ 599 017a 72E7     		b	.L23
+ 600              	.L61:
+ 601 017c BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 602              	.L63:
+ 603              		.align	2
+ 604              	.L62:
+ 605 0180 00000000 		.word	vListRemove
+ 606 0184 00000000 		.word	.LANCHOR7
+ 607 0188 00000000 		.word	.LANCHOR1
+ 608 018c 00000000 		.word	xTaskGetTickCount
+ 609 0190 00000000 		.word	.LANCHOR9
+ 610 0194 00000000 		.word	.LANCHOR10
+ 611 0198 00000000 		.word	.LANCHOR5
+ 612 019c 00000000 		.word	.LANCHOR0
+ 613 01a0 00000000 		.word	.LANCHOR6
+ 614 01a4 00000000 		.word	.LANCHOR4
+ 615 01a8 00000000 		.word	vListInsertEnd
+ 616 01ac 00000000 		.word	.LANCHOR8
+ 617              	.LBE47:
+ 618              	.LBE49:
+ 619              	.LBE53:
+ 620              		.cfi_endproc
+ 621              	.LFE6:
+ 623              		.section	.text.xCoRoutineRemoveFromEventList,"ax",%progbits
+ 624              		.align	2
+ 625              		.global	xCoRoutineRemoveFromEventList
+ 626              		.thumb
+ 627              		.thumb_func
+ 629              	xCoRoutineRemoveFromEventList:
+ 630              	.LFB8:
+ 354:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 355:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** /*-----------------------------------------------------------*/
+ 356:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 357:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** signed portBASE_TYPE xCoRoutineRemoveFromEventList( const xList *pxEventList )
+ 358:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** {
+ 631              		.loc 1 358 0
+ 632              		.cfi_startproc
+ 633              		@ args = 0, pretend = 0, frame = 0
+ 634              		@ frame_needed = 0, uses_anonymous_args = 0
+ 635              	.LVL48:
+ 636 0000 38B5     		push	{r3, r4, r5, lr}
+ 637              	.LCFI3:
+ 638              		.cfi_def_cfa_offset 16
+ 639              		.cfi_offset 3, -16
+ 640              		.cfi_offset 4, -12
+ 641              		.cfi_offset 5, -8
+ 642              		.cfi_offset 14, -4
+ 359:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** corCRCB *pxUnblockedCRCB;
+ 360:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** signed portBASE_TYPE xReturn;
+ 361:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 362:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	/* This function is called from within an interrupt.  It can only access
+ 363:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	event lists and the pending ready list.  This function assumes that a
+ 364:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	check has already been made to ensure pxEventList is not empty. */
+ 365:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	pxUnblockedCRCB = ( corCRCB * ) listGET_OWNER_OF_HEAD_ENTRY( pxEventList );
+ 643              		.loc 1 365 0
+ 644 0002 C368     		ldr	r3, [r0, #12]
+ 645 0004 DC68     		ldr	r4, [r3, #12]
+ 646              	.LVL49:
+ 366:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListRemove( &( pxUnblockedCRCB->xEventListItem ) );
+ 647              		.loc 1 366 0
+ 648 0006 094B     		ldr	r3, .L65
+ 649 0008 04F11805 		add	r5, r4, #24
+ 650 000c 2846     		mov	r0, r5
+ 651              	.LVL50:
+ 652 000e 9847     		blx	r3
+ 653              	.LVL51:
+ 367:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	vListInsertEnd( ( xList * ) &( xPendingReadyCoRoutineList ), &( pxUnblockedCRCB->xEventListItem ) 
+ 654              		.loc 1 367 0
+ 655 0010 0748     		ldr	r0, .L65+4
+ 656 0012 084B     		ldr	r3, .L65+8
+ 657 0014 2946     		mov	r1, r5
+ 658 0016 9847     		blx	r3
+ 659              	.LVL52:
+ 368:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 369:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	if( pxUnblockedCRCB->uxPriority >= pxCurrentCoRoutine->uxPriority )
+ 660              		.loc 1 369 0
+ 661 0018 074B     		ldr	r3, .L65+12
+ 662 001a E06A     		ldr	r0, [r4, #44]
+ 663 001c 1B68     		ldr	r3, [r3, #0]
+ 664 001e DB6A     		ldr	r3, [r3, #44]
+ 370:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 371:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xReturn = pdTRUE;
+ 372:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 373:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	else
+ 374:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	{
+ 375:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 		xReturn = pdFALSE;
+ 376:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	}
+ 377:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 
+ 378:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** 	return xReturn;
+ 379:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.c **** }
+ 665              		.loc 1 379 0
+ 666 0020 9842     		cmp	r0, r3
+ 667 0022 34BF     		ite	cc
+ 668 0024 0020     		movcc	r0, #0
+ 669 0026 0120     		movcs	r0, #1
+ 670 0028 38BD     		pop	{r3, r4, r5, pc}
+ 671              	.L66:
+ 672 002a 00BF     		.align	2
+ 673              	.L65:
+ 674 002c 00000000 		.word	vListRemove
+ 675 0030 00000000 		.word	.LANCHOR4
+ 676 0034 00000000 		.word	vListInsertEnd
+ 677 0038 00000000 		.word	.LANCHOR0
+ 678              		.cfi_endproc
+ 679              	.LFE8:
+ 681              		.global	pxCurrentCoRoutine
+ 682              		.section	.bss.xDelayedCoRoutineList1,"aw",%nobits
+ 683              		.align	2
+ 684              		.set	.LANCHOR2,. + 0
+ 687              	xDelayedCoRoutineList1:
+ 688 0000 00000000 		.space	20
+ 688      00000000 
+ 688      00000000 
+ 688      00000000 
+ 688      00000000 
+ 689              		.section	.bss.xPassedTicks,"aw",%nobits
+ 690              		.align	2
+ 691              		.set	.LANCHOR10,. + 0
+ 694              	xPassedTicks:
+ 695 0000 00000000 		.space	4
+ 696              		.section	.bss.xPendingReadyCoRoutineList,"aw",%nobits
+ 697              		.align	2
+ 698              		.set	.LANCHOR4,. + 0
+ 701              	xPendingReadyCoRoutineList:
+ 702 0000 00000000 		.space	20
+ 702      00000000 
+ 702      00000000 
+ 702      00000000 
+ 702      00000000 
+ 703              		.section	.bss.pxCurrentCoRoutine,"aw",%nobits
+ 704              		.align	2
+ 705              		.set	.LANCHOR0,. + 0
+ 708              	pxCurrentCoRoutine:
+ 709 0000 00000000 		.space	4
+ 710              		.section	.bss.xDelayedCoRoutineList2,"aw",%nobits
+ 711              		.align	2
+ 712              		.set	.LANCHOR3,. + 0
+ 715              	xDelayedCoRoutineList2:
+ 716 0000 00000000 		.space	20
+ 716      00000000 
+ 716      00000000 
+ 716      00000000 
+ 716      00000000 
+ 717              		.section	.bss.xCoRoutineTickCount,"aw",%nobits
+ 718              		.align	2
+ 719              		.set	.LANCHOR8,. + 0
+ 722              	xCoRoutineTickCount:
+ 723 0000 00000000 		.space	4
+ 724              		.section	.bss.xLastTickCount,"aw",%nobits
+ 725              		.align	2
+ 726              		.set	.LANCHOR9,. + 0
+ 729              	xLastTickCount:
+ 730 0000 00000000 		.space	4
+ 731              		.section	.bss.pxDelayedCoRoutineList,"aw",%nobits
+ 732              		.align	2
+ 733              		.set	.LANCHOR5,. + 0
+ 736              	pxDelayedCoRoutineList:
+ 737 0000 00000000 		.space	4
+ 738              		.section	.bss.pxReadyCoRoutineLists,"aw",%nobits
+ 739              		.align	2
+ 740              		.set	.LANCHOR1,. + 0
+ 743              	pxReadyCoRoutineLists:
+ 744 0000 00000000 		.space	40
+ 744      00000000 
+ 744      00000000 
+ 744      00000000 
+ 744      00000000 
+ 745              		.section	.bss.uxTopCoRoutineReadyPriority,"aw",%nobits
+ 746              		.align	2
+ 747              		.set	.LANCHOR7,. + 0
+ 750              	uxTopCoRoutineReadyPriority:
+ 751 0000 00000000 		.space	4
+ 752              		.section	.bss.pxOverflowDelayedCoRoutineList,"aw",%nobits
+ 753              		.align	2
+ 754              		.set	.LANCHOR6,. + 0
+ 757              	pxOverflowDelayedCoRoutineList:
+ 758 0000 00000000 		.space	4
+ 759              		.text
+ 760              	.Letext0:
+ 761              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 762              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/list.h"
+ 763              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/croutine.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 croutine.c
+     /tmp/cce6XAxJ.s:20     .text.xCoRoutineCreate:00000000 $t
+     /tmp/cce6XAxJ.s:25     .text.xCoRoutineCreate:00000000 xCoRoutineCreate
+     /tmp/cce6XAxJ.s:179    .text.xCoRoutineCreate:000000a0 $d
+     /tmp/cce6XAxJ.s:196    .text.vCoRoutineAddToDelayedList:00000000 $t
+     /tmp/cce6XAxJ.s:201    .text.vCoRoutineAddToDelayedList:00000000 vCoRoutineAddToDelayedList
+     /tmp/cce6XAxJ.s:273    .text.vCoRoutineAddToDelayedList:00000038 $d
+     /tmp/cce6XAxJ.s:283    .text.vCoRoutineSchedule:00000000 $t
+     /tmp/cce6XAxJ.s:288    .text.vCoRoutineSchedule:00000000 vCoRoutineSchedule
+     /tmp/cce6XAxJ.s:605    .text.vCoRoutineSchedule:00000180 $d
+     /tmp/cce6XAxJ.s:624    .text.xCoRoutineRemoveFromEventList:00000000 $t
+     /tmp/cce6XAxJ.s:629    .text.xCoRoutineRemoveFromEventList:00000000 xCoRoutineRemoveFromEventList
+     /tmp/cce6XAxJ.s:674    .text.xCoRoutineRemoveFromEventList:0000002c $d
+     /tmp/cce6XAxJ.s:708    .bss.pxCurrentCoRoutine:00000000 pxCurrentCoRoutine
+     /tmp/cce6XAxJ.s:683    .bss.xDelayedCoRoutineList1:00000000 $d
+     /tmp/cce6XAxJ.s:687    .bss.xDelayedCoRoutineList1:00000000 xDelayedCoRoutineList1
+     /tmp/cce6XAxJ.s:690    .bss.xPassedTicks:00000000 $d
+     /tmp/cce6XAxJ.s:694    .bss.xPassedTicks:00000000 xPassedTicks
+     /tmp/cce6XAxJ.s:697    .bss.xPendingReadyCoRoutineList:00000000 $d
+     /tmp/cce6XAxJ.s:701    .bss.xPendingReadyCoRoutineList:00000000 xPendingReadyCoRoutineList
+     /tmp/cce6XAxJ.s:704    .bss.pxCurrentCoRoutine:00000000 $d
+     /tmp/cce6XAxJ.s:711    .bss.xDelayedCoRoutineList2:00000000 $d
+     /tmp/cce6XAxJ.s:715    .bss.xDelayedCoRoutineList2:00000000 xDelayedCoRoutineList2
+     /tmp/cce6XAxJ.s:718    .bss.xCoRoutineTickCount:00000000 $d
+     /tmp/cce6XAxJ.s:722    .bss.xCoRoutineTickCount:00000000 xCoRoutineTickCount
+     /tmp/cce6XAxJ.s:725    .bss.xLastTickCount:00000000 $d
+     /tmp/cce6XAxJ.s:729    .bss.xLastTickCount:00000000 xLastTickCount
+     /tmp/cce6XAxJ.s:732    .bss.pxDelayedCoRoutineList:00000000 $d
+     /tmp/cce6XAxJ.s:736    .bss.pxDelayedCoRoutineList:00000000 pxDelayedCoRoutineList
+     /tmp/cce6XAxJ.s:739    .bss.pxReadyCoRoutineLists:00000000 $d
+     /tmp/cce6XAxJ.s:743    .bss.pxReadyCoRoutineLists:00000000 pxReadyCoRoutineLists
+     /tmp/cce6XAxJ.s:746    .bss.uxTopCoRoutineReadyPriority:00000000 $d
+     /tmp/cce6XAxJ.s:750    .bss.uxTopCoRoutineReadyPriority:00000000 uxTopCoRoutineReadyPriority
+     /tmp/cce6XAxJ.s:753    .bss.pxOverflowDelayedCoRoutineList:00000000 $d
+     /tmp/cce6XAxJ.s:757    .bss.pxOverflowDelayedCoRoutineList:00000000 pxOverflowDelayedCoRoutineList
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+pvPortMalloc
+vListInitialiseItem
+vListInsertEnd
+vListInitialise
+vListRemove
+vListInsert
+xTaskGetTickCount

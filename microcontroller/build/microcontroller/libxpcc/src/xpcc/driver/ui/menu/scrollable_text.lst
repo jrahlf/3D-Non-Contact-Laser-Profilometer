@@ -1,0 +1,914 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"scrollable_text.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc14ScrollableTextC2EPKct,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc14ScrollableTextC2EPKct
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc14ScrollableTextC2EPKct:
+  26              	.LFB6:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** /* Copyright (c) 2013, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** #include "scrollable_text.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** #include <string.h>
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const char* text, uint16_t space):
+  28              		.loc 1 35 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 70B5     		push	{r4, r5, r6, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 4, -16
+  37              		.cfi_offset 5, -12
+  38              		.cfi_offset 6, -8
+  39              		.cfi_offset 14, -4
+  40              	.LBB36:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** paused(true), text(text), startPosition(0), length(strlen(text)), space(space)
+  41              		.loc 1 36 0
+  42 0002 0123     		movs	r3, #1
+  43 0004 0025     		movs	r5, #0
+  44              	.LBE36:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const char* text, uint16_t space):
+  45              		.loc 1 35 0
+  46 0006 0446     		mov	r4, r0
+  47              	.LBB43:
+  48              		.loc 1 36 0
+  49 0008 0370     		strb	r3, [r0, #0]
+  50 000a 4160     		str	r1, [r0, #4]
+  51 000c 0581     		strh	r5, [r0, #8]	@ movhi
+  52 000e 0E4B     		ldr	r3, .L10
+  53 0010 0846     		mov	r0, r1
+  54              	.LVL1:
+  55              	.LBE43:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const char* text, uint16_t space):
+  56              		.loc 1 35 0
+  57 0012 1646     		mov	r6, r2
+  58              	.LBB44:
+  59              		.loc 1 36 0
+  60 0014 9847     		blx	r3
+  61              	.LVL2:
+  62              	.LBB37:
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[space+1];
+  63              		.loc 1 38 0
+  64 0016 0D4B     		ldr	r3, .L10+4
+  65              	.LBE37:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** paused(true), text(text), startPosition(0), length(strlen(text)), space(space)
+  66              		.loc 1 36 0
+  67 0018 6081     		strh	r0, [r4, #10]	@ movhi
+  68 001a A681     		strh	r6, [r4, #12]	@ movhi
+  69              	.LBB42:
+  70              		.loc 1 38 0
+  71 001c 701C     		adds	r0, r6, #1
+  72 001e 9847     		blx	r3
+  73              	.LVL3:
+  74              	.LBB38:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(this->needsScrolling())
+  75              		.loc 1 39 0
+  76 0020 6289     		ldrh	r2, [r4, #10]
+  77 0022 A389     		ldrh	r3, [r4, #12]
+  78              	.LBE38:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[space+1];
+  79              		.loc 1 38 0
+  80 0024 2061     		str	r0, [r4, #16]
+  81              	.LVL4:
+  82              	.LBB41:
+  83              		.loc 1 39 0
+  84 0026 9A42     		cmp	r2, r3
+  85 0028 0BD9     		bls	.L2
+  86              	.LVL5:
+  87              	.LBB39:
+  88              	.LBB40:
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+  89              		.loc 1 41 0 discriminator 1
+  90 002a 46B1     		cbz	r6, .L3
+  91              		.loc 1 41 0 is_stmt 0
+  92 002c 2B46     		mov	r3, r5
+  93              	.LVL6:
+  94              	.L5:
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		{
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			this->print[i]=this->text[i];
+  95              		.loc 1 43 0 is_stmt 1 discriminator 2
+  96 002e 6168     		ldr	r1, [r4, #4]
+  97 0030 CD5C     		ldrb	r5, [r1, r3]	@ zero_extendqisi2
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+  98              		.loc 1 41 0 discriminator 2
+  99 0032 591C     		adds	r1, r3, #1
+ 100              		.loc 1 43 0 discriminator 2
+ 101 0034 C554     		strb	r5, [r0, r3]
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 102              		.loc 1 41 0 discriminator 2
+ 103 0036 CBB2     		uxtb	r3, r1
+ 104              	.LVL7:
+ 105 0038 9E42     		cmp	r6, r3
+ 106 003a 2069     		ldr	r0, [r4, #16]
+ 107 003c F7D8     		bhi	.L5
+ 108              	.LVL8:
+ 109              	.L3:
+ 110              	.LBE40:
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		}
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		this->print[space]='\0';
+ 111              		.loc 1 45 0
+ 112 003e 0023     		movs	r3, #0
+ 113 0040 8355     		strb	r3, [r0, r6]
+ 114              	.L2:
+ 115              	.LBE39:
+ 116              	.LBE41:
+ 117              	.LBE42:
+ 118              	.LBE44:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	}
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** }
+ 119              		.loc 1 47 0
+ 120 0042 2046     		mov	r0, r4
+ 121 0044 70BD     		pop	{r4, r5, r6, pc}
+ 122              	.L11:
+ 123 0046 00BF     		.align	2
+ 124              	.L10:
+ 125 0048 00000000 		.word	strlen
+ 126 004c 00000000 		.word	_Znaj
+ 127              		.cfi_endproc
+ 128              	.LFE6:
+ 130              		.global	_ZN4xpcc14ScrollableTextC1EPKct
+ 131              		.thumb_set _ZN4xpcc14ScrollableTextC1EPKct,_ZN4xpcc14ScrollableTextC2EPKct
+ 132              		.section	.text._ZN4xpcc14ScrollableTextD2Ev,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	_ZN4xpcc14ScrollableTextD2Ev
+ 135              		.thumb
+ 136              		.thumb_func
+ 138              	_ZN4xpcc14ScrollableTextD2Ev:
+ 139              	.LFB9:
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::~ScrollableText()
+ 140              		.loc 1 49 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              	.LVL9:
+ 145 0000 10B5     		push	{r4, lr}
+ 146              	.LCFI1:
+ 147              		.cfi_def_cfa_offset 8
+ 148              		.cfi_offset 4, -8
+ 149              		.cfi_offset 14, -4
+ 150              		.loc 1 49 0
+ 151 0002 0446     		mov	r4, r0
+ 152              	.LBB45:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	delete [] this->print;
+ 153              		.loc 1 51 0
+ 154 0004 0069     		ldr	r0, [r0, #16]
+ 155              	.LVL10:
+ 156 0006 08B1     		cbz	r0, .L13
+ 157              		.loc 1 51 0 is_stmt 0 discriminator 1
+ 158 0008 014B     		ldr	r3, .L17
+ 159 000a 9847     		blx	r3
+ 160              	.LVL11:
+ 161              	.L13:
+ 162              	.LBE45:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** }
+ 163              		.loc 1 52 0 is_stmt 1
+ 164 000c 2046     		mov	r0, r4
+ 165 000e 10BD     		pop	{r4, pc}
+ 166              	.L18:
+ 167              		.align	2
+ 168              	.L17:
+ 169 0010 00000000 		.word	_ZdaPv
+ 170              		.cfi_endproc
+ 171              	.LFE9:
+ 173              		.global	_ZN4xpcc14ScrollableTextD1Ev
+ 174              		.thumb_set _ZN4xpcc14ScrollableTextD1Ev,_ZN4xpcc14ScrollableTextD2Ev
+ 175              		.section	.text._ZN4xpcc14ScrollableTextC2ERKS0_,"ax",%progbits
+ 176              		.align	2
+ 177              		.global	_ZN4xpcc14ScrollableTextC2ERKS0_
+ 178              		.thumb
+ 179              		.thumb_func
+ 181              	_ZN4xpcc14ScrollableTextC2ERKS0_:
+ 182              	.LFB12:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const ScrollableText& text)
+ 183              		.loc 1 54 0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187              	.LVL12:
+ 188              	.LBB46:
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = true;
+ 189              		.loc 1 56 0
+ 190 0000 0123     		movs	r3, #1
+ 191              	.LBE46:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const ScrollableText& text)
+ 192              		.loc 1 54 0
+ 193 0002 70B5     		push	{r4, r5, r6, lr}
+ 194              	.LCFI2:
+ 195              		.cfi_def_cfa_offset 16
+ 196              		.cfi_offset 4, -16
+ 197              		.cfi_offset 5, -12
+ 198              		.cfi_offset 6, -8
+ 199              		.cfi_offset 14, -4
+ 200              	.LBB53:
+ 201              		.loc 1 56 0
+ 202 0004 0370     		strb	r3, [r0, #0]
+ 203              	.LBE53:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::ScrollableText(const ScrollableText& text)
+ 204              		.loc 1 54 0
+ 205 0006 0446     		mov	r4, r0
+ 206              	.LBB54:
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->space = text.space;
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->text = text.text;
+ 207              		.loc 1 60 0
+ 208 0008 4B68     		ldr	r3, [r1, #4]
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->space = text.space;
+ 209              		.loc 1 57 0
+ 210 000a 8889     		ldrh	r0, [r1, #12]
+ 211              	.LVL13:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->length= text.length;
+ 212              		.loc 1 61 0
+ 213 000c 4A89     		ldrh	r2, [r1, #10]
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+ 214              		.loc 1 59 0
+ 215 000e 0E78     		ldrb	r6, [r1, #0]	@ zero_extendqisi2
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->space = text.space;
+ 216              		.loc 1 57 0
+ 217 0010 A081     		strh	r0, [r4, #12]	@ movhi
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+ 218              		.loc 1 58 0
+ 219 0012 0025     		movs	r5, #0
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->text = text.text;
+ 220              		.loc 1 60 0
+ 221 0014 6360     		str	r3, [r4, #4]
+ 222              		.loc 1 61 0
+ 223 0016 6281     		strh	r2, [r4, #10]	@ movhi
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[this->space+1];
+ 224              		.loc 1 62 0
+ 225 0018 0130     		adds	r0, r0, #1
+ 226 001a 0C4B     		ldr	r3, .L25
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+ 227              		.loc 1 58 0
+ 228 001c 2581     		strh	r5, [r4, #8]	@ movhi
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+ 229              		.loc 1 59 0
+ 230 001e 2670     		strb	r6, [r4, #0]
+ 231              		.loc 1 62 0
+ 232 0020 9847     		blx	r3
+ 233              	.LVL14:
+ 234              	.LBB47:
+ 235              	.LBB48:
+ 236              	.LBB49:
+ 237              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** /* Copyright (c) 2013, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * 
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * 
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** #ifndef XPCC__SCROLLABLE_TEXT_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** #define XPCC__SCROLLABLE_TEXT_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** #include <stdint.h>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** namespace xpcc
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** {
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 /**
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 * @brief The ScrollableText class scrolls the text if the
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *        required space of the string is less than the
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *        available.
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *\author Thorsten Lajewski
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *\ingroup display_menu
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *\warning This class only works in combination with xpcc::font::FixedWidth5x8
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 *\todo A better implementation is needed.
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	 */
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	class ScrollableText
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	{
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	public:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		/**
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		 * @param text string which should be displayed on the Graphic Display
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		 * @param space number of letters, which can be displayed at once
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		 */
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		ScrollableText(const char* text, uint16_t space);
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		ScrollableText(const ScrollableText& text);
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		ScrollableText& operator=(const ScrollableText& text);
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		~ScrollableText();
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 	
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		/**
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		 *determines if the text can be displayed without scrolling
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		 */
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		inline bool 
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		needsScrolling()
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 		{
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.hpp **** 			return length > space;
+ 238              		.loc 2 70 0
+ 239 0022 A289     		ldrh	r2, [r4, #12]
+ 240              	.LBE49:
+ 241              	.LBE48:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(this->needsScrolling())
+ 242              		.loc 1 64 0
+ 243 0024 6389     		ldrh	r3, [r4, #10]
+ 244              	.LBE47:
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[this->space+1];
+ 245              		.loc 1 62 0
+ 246 0026 2061     		str	r0, [r4, #16]
+ 247              	.LVL15:
+ 248              	.LBB52:
+ 249              		.loc 1 64 0
+ 250 0028 9342     		cmp	r3, r2
+ 251 002a 0CD9     		bls	.L20
+ 252              	.LVL16:
+ 253              	.LBB50:
+ 254              	.LBB51:
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 255              		.loc 1 66 0 discriminator 1
+ 256 002c 4AB1     		cbz	r2, .L21
+ 257              		.loc 1 66 0 is_stmt 0
+ 258 002e 2B46     		mov	r3, r5
+ 259              	.LVL17:
+ 260              	.L23:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		{
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			this->print[i]=this->text[i];
+ 261              		.loc 1 68 0 is_stmt 1 discriminator 2
+ 262 0030 6268     		ldr	r2, [r4, #4]
+ 263 0032 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 264 0034 C254     		strb	r2, [r0, r3]
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 265              		.loc 1 66 0 discriminator 2
+ 266 0036 0133     		adds	r3, r3, #1
+ 267 0038 A289     		ldrh	r2, [r4, #12]
+ 268 003a 2069     		ldr	r0, [r4, #16]
+ 269 003c DBB2     		uxtb	r3, r3
+ 270              	.LVL18:
+ 271 003e 9342     		cmp	r3, r2
+ 272 0040 F6D3     		bcc	.L23
+ 273              	.LVL19:
+ 274              	.L21:
+ 275              	.LBE51:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		this->print[space]='\0';
+ 276              		.loc 1 70 0
+ 277 0042 0023     		movs	r3, #0
+ 278 0044 8354     		strb	r3, [r0, r2]
+ 279              	.L20:
+ 280              	.LBE50:
+ 281              	.LBE52:
+ 282              	.LBE54:
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	}
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** }
+ 283              		.loc 1 72 0
+ 284 0046 2046     		mov	r0, r4
+ 285 0048 70BD     		pop	{r4, r5, r6, pc}
+ 286              	.L26:
+ 287 004a 00BF     		.align	2
+ 288              	.L25:
+ 289 004c 00000000 		.word	_Znaj
+ 290              		.cfi_endproc
+ 291              	.LFE12:
+ 293              		.global	_ZN4xpcc14ScrollableTextC1ERKS0_
+ 294              		.thumb_set _ZN4xpcc14ScrollableTextC1ERKS0_,_ZN4xpcc14ScrollableTextC2ERKS0_
+ 295              		.section	.text._ZN4xpcc14ScrollableTextaSERKS0_,"ax",%progbits
+ 296              		.align	2
+ 297              		.global	_ZN4xpcc14ScrollableTextaSERKS0_
+ 298              		.thumb
+ 299              		.thumb_func
+ 301              	_ZN4xpcc14ScrollableTextaSERKS0_:
+ 302              	.LFB14:
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText&
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::operator=(const ScrollableText& text)
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+ 303              		.loc 1 76 0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              	.LVL20:
+ 308              	.LBB55:
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(&text == this) return *this;
+ 309              		.loc 1 77 0
+ 310 0000 8142     		cmp	r1, r0
+ 311              	.LBE55:
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+ 312              		.loc 1 76 0
+ 313 0002 70B5     		push	{r4, r5, r6, lr}
+ 314              	.LCFI3:
+ 315              		.cfi_def_cfa_offset 16
+ 316              		.cfi_offset 4, -16
+ 317              		.cfi_offset 5, -12
+ 318              		.cfi_offset 6, -8
+ 319              		.cfi_offset 14, -4
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+ 320              		.loc 1 76 0
+ 321 0004 0446     		mov	r4, r0
+ 322 0006 0D46     		mov	r5, r1
+ 323              	.LBB62:
+ 324              		.loc 1 77 0
+ 325 0008 22D0     		beq	.L29
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	delete [] this->print;
+ 326              		.loc 1 79 0
+ 327 000a 0069     		ldr	r0, [r0, #16]
+ 328              	.LVL21:
+ 329 000c 08B1     		cbz	r0, .L30
+ 330              		.loc 1 79 0 is_stmt 0 discriminator 1
+ 331 000e 114B     		ldr	r3, .L39
+ 332 0010 9847     		blx	r3
+ 333              	.LVL22:
+ 334              	.L30:
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->space = text.space;
+ 335              		.loc 1 80 0 is_stmt 1
+ 336 0012 A889     		ldrh	r0, [r5, #12]
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = text.startPosition;
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->text = text.text;
+ 337              		.loc 1 83 0
+ 338 0014 6B68     		ldr	r3, [r5, #4]
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->length= text.length;
+ 339              		.loc 1 84 0
+ 340 0016 6A89     		ldrh	r2, [r5, #10]
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = text.startPosition;
+ 341              		.loc 1 81 0
+ 342 0018 2E89     		ldrh	r6, [r5, #8]
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+ 343              		.loc 1 82 0
+ 344 001a 2978     		ldrb	r1, [r5, #0]	@ zero_extendqisi2
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->space = text.space;
+ 345              		.loc 1 80 0
+ 346 001c A081     		strh	r0, [r4, #12]	@ movhi
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->text = text.text;
+ 347              		.loc 1 83 0
+ 348 001e 6360     		str	r3, [r4, #4]
+ 349              		.loc 1 84 0
+ 350 0020 6281     		strh	r2, [r4, #10]	@ movhi
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[this->space+1];
+ 351              		.loc 1 85 0
+ 352 0022 0130     		adds	r0, r0, #1
+ 353 0024 0C4B     		ldr	r3, .L39+4
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = text.startPosition;
+ 354              		.loc 1 81 0
+ 355 0026 2681     		strh	r6, [r4, #8]	@ movhi
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->paused = text.paused;
+ 356              		.loc 1 82 0
+ 357 0028 2170     		strb	r1, [r4, #0]
+ 358              		.loc 1 85 0
+ 359 002a 9847     		blx	r3
+ 360              	.LVL23:
+ 361              	.LBB56:
+ 362              	.LBB57:
+ 363              	.LBB58:
+ 364              		.loc 2 70 0
+ 365 002c A289     		ldrh	r2, [r4, #12]
+ 366              	.LBE58:
+ 367              	.LBE57:
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(this->needsScrolling())
+ 368              		.loc 1 87 0
+ 369 002e 6389     		ldrh	r3, [r4, #10]
+ 370              	.LBE56:
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->print = new char[this->space+1];
+ 371              		.loc 1 85 0
+ 372 0030 2061     		str	r0, [r4, #16]
+ 373              	.LVL24:
+ 374              	.LBB61:
+ 375              		.loc 1 87 0
+ 376 0032 9342     		cmp	r3, r2
+ 377 0034 0CD9     		bls	.L29
+ 378              	.LVL25:
+ 379              	.LBB59:
+ 380              	.LBB60:
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 381              		.loc 1 89 0 discriminator 1
+ 382 0036 4AB1     		cbz	r2, .L32
+ 383              		.loc 1 89 0 is_stmt 0
+ 384 0038 0023     		movs	r3, #0
+ 385              	.LVL26:
+ 386              	.L34:
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		{
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			this->print[i]=this->text[i];
+ 387              		.loc 1 91 0 is_stmt 1 discriminator 2
+ 388 003a 6268     		ldr	r2, [r4, #4]
+ 389 003c D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 390 003e C254     		strb	r2, [r0, r3]
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 391              		.loc 1 89 0 discriminator 2
+ 392 0040 0133     		adds	r3, r3, #1
+ 393 0042 A289     		ldrh	r2, [r4, #12]
+ 394 0044 2069     		ldr	r0, [r4, #16]
+ 395 0046 DBB2     		uxtb	r3, r3
+ 396              	.LVL27:
+ 397 0048 9342     		cmp	r3, r2
+ 398 004a F6D3     		bcc	.L34
+ 399              	.LVL28:
+ 400              	.L32:
+ 401              	.LBE60:
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		}
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		this->print[space]='\0';
+ 402              		.loc 1 93 0
+ 403 004c 0023     		movs	r3, #0
+ 404 004e 8354     		strb	r3, [r0, r2]
+ 405              	.LVL29:
+ 406              	.L29:
+ 407              	.LBE59:
+ 408              	.LBE61:
+ 409              	.LBE62:
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	}
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	return *this;
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** }
+ 410              		.loc 1 97 0
+ 411 0050 2046     		mov	r0, r4
+ 412 0052 70BD     		pop	{r4, r5, r6, pc}
+ 413              	.L40:
+ 414              		.align	2
+ 415              	.L39:
+ 416 0054 00000000 		.word	_ZdaPv
+ 417 0058 00000000 		.word	_Znaj
+ 418              		.cfi_endproc
+ 419              	.LFE14:
+ 421              		.section	.text._ZN4xpcc14ScrollableText7getTextEv,"ax",%progbits
+ 422              		.align	2
+ 423              		.global	_ZN4xpcc14ScrollableText7getTextEv
+ 424              		.thumb
+ 425              		.thumb_func
+ 427              	_ZN4xpcc14ScrollableText7getTextEv:
+ 428              	.LFB15:
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** const char*
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::getText()
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {	
+ 429              		.loc 1 101 0
+ 430              		.cfi_startproc
+ 431              		@ args = 0, pretend = 0, frame = 0
+ 432              		@ frame_needed = 0, uses_anonymous_args = 0
+ 433              		@ link register save eliminated.
+ 434              	.LVL30:
+ 435              	.LBB63:
+ 436              	.LBB64:
+ 437              	.LBB65:
+ 438              		.loc 2 70 0
+ 439 0000 4289     		ldrh	r2, [r0, #10]
+ 440 0002 8189     		ldrh	r1, [r0, #12]
+ 441              	.LBE65:
+ 442              	.LBE64:
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(this->needsScrolling())
+ 443              		.loc 1 102 0
+ 444 0004 8A42     		cmp	r2, r1
+ 445              	.LBE63:
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {	
+ 446              		.loc 1 101 0
+ 447 0006 30B4     		push	{r4, r5}
+ 448              	.LCFI4:
+ 449              		.cfi_def_cfa_offset 8
+ 450              		.cfi_offset 4, -8
+ 451              		.cfi_offset 5, -4
+ 452              	.LBB74:
+ 453              		.loc 1 102 0
+ 454 0008 2CD9     		bls	.L42
+ 455              	.LBB66:
+ 456              	.LBB67:
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		if(!this->isPaused())
+ 457              		.loc 1 104 0
+ 458 000a 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+ 459 000c 3BBB     		cbnz	r3, .L44
+ 460              	.LVL31:
+ 461              	.LBB68:
+ 462              	.LBB69:
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			{
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			for(uint16_t i = 0; i<this->space; ++i)
+ 463              		.loc 1 106 0 discriminator 1
+ 464 000e 51B9     		cbnz	r1, .L49
+ 465 0010 2EE0     		b	.L56
+ 466              	.LVL32:
+ 467              	.L53:
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			{
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				if( (i+this->startPosition) < this->length)
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 					this->print[i] = this->text[i+this->startPosition];
+ 468              		.loc 1 109 0
+ 469 0012 4468     		ldr	r4, [r0, #4]
+ 470 0014 0269     		ldr	r2, [r0, #16]
+ 471 0016 615C     		ldrb	r1, [r4, r1]	@ zero_extendqisi2
+ 472 0018 D154     		strb	r1, [r2, r3]
+ 473              	.L47:
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			for(uint16_t i = 0; i<this->space; ++i)
+ 474              		.loc 1 106 0
+ 475 001a 0133     		adds	r3, r3, #1
+ 476 001c 8289     		ldrh	r2, [r0, #12]
+ 477 001e 9BB2     		uxth	r3, r3
+ 478              	.LVL33:
+ 479 0020 9A42     		cmp	r2, r3
+ 480 0022 11D9     		bls	.L45
+ 481              	.LVL34:
+ 482              	.L55:
+ 483 0024 4289     		ldrh	r2, [r0, #10]
+ 484              	.L49:
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				if( (i+this->startPosition) < this->length)
+ 485              		.loc 1 108 0
+ 486 0026 0189     		ldrh	r1, [r0, #8]
+ 487 0028 5918     		adds	r1, r3, r1
+ 488 002a 9142     		cmp	r1, r2
+ 489 002c F1DB     		blt	.L53
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				else if( i+this->startPosition == this->length)
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				{
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 					this->print[i] =' ';
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				}
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				else
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				{
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 					this->print[i] = this->text[i+ this->startPosition - (this->length+1)];
+ 490              		.loc 1 116 0
+ 491 002e 6FEA0202 		mvn	r2, r2
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				else if( i+this->startPosition == this->length)
+ 492              		.loc 1 110 0
+ 493 0032 19D0     		beq	.L54
+ 494              		.loc 1 116 0
+ 495 0034 4568     		ldr	r5, [r0, #4]
+ 496 0036 0469     		ldr	r4, [r0, #16]
+ 497 0038 6918     		adds	r1, r5, r1
+ 498 003a 8A5C     		ldrb	r2, [r1, r2]	@ zero_extendqisi2
+ 499 003c E254     		strb	r2, [r4, r3]
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			for(uint16_t i = 0; i<this->space; ++i)
+ 500              		.loc 1 106 0
+ 501 003e 0133     		adds	r3, r3, #1
+ 502 0040 8289     		ldrh	r2, [r0, #12]
+ 503 0042 9BB2     		uxth	r3, r3
+ 504              	.LVL35:
+ 505 0044 9A42     		cmp	r2, r3
+ 506 0046 EDD8     		bhi	.L55
+ 507              	.LVL36:
+ 508              	.L45:
+ 509              	.LBE69:
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				}
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			}
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			this->print[space] = '\0';
+ 510              		.loc 1 119 0
+ 511 0048 0369     		ldr	r3, [r0, #16]
+ 512 004a 0021     		movs	r1, #0
+ 513 004c 9954     		strb	r1, [r3, r2]
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			++this->startPosition;
+ 514              		.loc 1 120 0
+ 515 004e 0389     		ldrh	r3, [r0, #8]
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			if(startPosition > this->length)
+ 516              		.loc 1 121 0
+ 517 0050 4289     		ldrh	r2, [r0, #10]
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			++this->startPosition;
+ 518              		.loc 1 120 0
+ 519 0052 0133     		adds	r3, r3, #1
+ 520 0054 9BB2     		uxth	r3, r3
+ 521              		.loc 1 121 0
+ 522 0056 9A42     		cmp	r2, r3
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			++this->startPosition;
+ 523              		.loc 1 120 0
+ 524 0058 0381     		strh	r3, [r0, #8]	@ movhi
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			{
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 				this->startPosition = 0;
+ 525              		.loc 1 123 0
+ 526 005a 38BF     		it	cc
+ 527 005c 0181     		strhcc	r1, [r0, #8]	@ movhi
+ 528              	.L44:
+ 529              	.LBE68:
+ 530              	.LBE67:
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			}
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		}
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		return this->print;
+ 531              		.loc 1 126 0
+ 532 005e 0069     		ldr	r0, [r0, #16]
+ 533              	.LVL37:
+ 534              	.L51:
+ 535              	.LBE66:
+ 536              	.LBE74:
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	}
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	else
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		return this->text;
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	}
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** }
+ 537              		.loc 1 132 0
+ 538 0060 30BC     		pop	{r4, r5}
+ 539 0062 7047     		bx	lr
+ 540              	.LVL38:
+ 541              	.L42:
+ 542              	.LBB75:
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		return this->text;
+ 543              		.loc 1 130 0
+ 544 0064 4068     		ldr	r0, [r0, #4]
+ 545              	.LVL39:
+ 546 0066 FBE7     		b	.L51
+ 547              	.LVL40:
+ 548              	.L54:
+ 549              	.LBB73:
+ 550              	.LBB72:
+ 551              	.LBB71:
+ 552              	.LBB70:
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 					this->print[i] =' ';
+ 553              		.loc 1 112 0
+ 554 0068 0269     		ldr	r2, [r0, #16]
+ 555 006a 2021     		movs	r1, #32
+ 556 006c D154     		strb	r1, [r2, r3]
+ 557 006e D4E7     		b	.L47
+ 558              	.LVL41:
+ 559              	.L56:
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			for(uint16_t i = 0; i<this->space; ++i)
+ 560              		.loc 1 106 0
+ 561 0070 0A46     		mov	r2, r1
+ 562 0072 E9E7     		b	.L45
+ 563              	.LBE70:
+ 564              	.LBE71:
+ 565              	.LBE72:
+ 566              	.LBE73:
+ 567              	.LBE75:
+ 568              		.cfi_endproc
+ 569              	.LFE15:
+ 571              		.section	.text._ZN4xpcc14ScrollableText10setToStartEv,"ax",%progbits
+ 572              		.align	2
+ 573              		.global	_ZN4xpcc14ScrollableText10setToStartEv
+ 574              		.thumb
+ 575              		.thumb_func
+ 577              	_ZN4xpcc14ScrollableText10setToStartEv:
+ 578              	.LFB16:
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** void
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** xpcc::ScrollableText::setToStart()
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** {
+ 579              		.loc 1 137 0
+ 580              		.cfi_startproc
+ 581              		@ args = 0, pretend = 0, frame = 0
+ 582              		@ frame_needed = 0, uses_anonymous_args = 0
+ 583              		@ link register save eliminated.
+ 584              	.LVL42:
+ 585              	.LBB76:
+ 586              	.LBB77:
+ 587              	.LBB78:
+ 588              	.LBB79:
+ 589              		.loc 2 70 0
+ 590 0000 8289     		ldrh	r2, [r0, #12]
+ 591              	.LBE79:
+ 592              	.LBE78:
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	if(this->needsScrolling())
+ 593              		.loc 1 139 0
+ 594 0002 4189     		ldrh	r1, [r0, #10]
+ 595              	.LBE77:
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+ 596              		.loc 1 138 0
+ 597 0004 0023     		movs	r3, #0
+ 598              	.LBB82:
+ 599              		.loc 1 139 0
+ 600 0006 9142     		cmp	r1, r2
+ 601              	.LBE82:
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	this->startPosition = 0;
+ 602              		.loc 1 138 0
+ 603 0008 0381     		strh	r3, [r0, #8]	@ movhi
+ 604              	.LVL43:
+ 605              	.LBB83:
+ 606              		.loc 1 139 0
+ 607 000a 0CD9     		bls	.L57
+ 608              	.LVL44:
+ 609              	.LBB80:
+ 610              	.LBB81:
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 	{
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 611              		.loc 1 141 0 discriminator 1
+ 612 000c 42B1     		cbz	r2, .L59
+ 613              	.LVL45:
+ 614              	.L60:
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		{
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 			this->print[i]=this->text[i];
+ 615              		.loc 1 143 0 discriminator 2
+ 616 000e 4168     		ldr	r1, [r0, #4]
+ 617 0010 0269     		ldr	r2, [r0, #16]
+ 618 0012 C95C     		ldrb	r1, [r1, r3]	@ zero_extendqisi2
+ 619 0014 D154     		strb	r1, [r2, r3]
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		for(uint8_t i=0; i<space; ++i)
+ 620              		.loc 1 141 0 discriminator 2
+ 621 0016 0133     		adds	r3, r3, #1
+ 622 0018 8289     		ldrh	r2, [r0, #12]
+ 623 001a DBB2     		uxtb	r3, r3
+ 624              	.LVL46:
+ 625 001c 9342     		cmp	r3, r2
+ 626 001e F6D3     		bcc	.L60
+ 627              	.LVL47:
+ 628              	.L59:
+ 629              	.LBE81:
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		}
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/ui/menu/scrollable_text.cpp **** 		this->print[space]='\0';
+ 630              		.loc 1 145 0
+ 631 0020 0369     		ldr	r3, [r0, #16]
+ 632 0022 0021     		movs	r1, #0
+ 633 0024 9954     		strb	r1, [r3, r2]
+ 634              	.L57:
+ 635 0026 7047     		bx	lr
+ 636              	.LBE80:
+ 637              	.LBE83:
+ 638              	.LBE76:
+ 639              		.cfi_endproc
+ 640              	.LFE16:
+ 642              		.text
+ 643              	.Letext0:
+ 644              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+DEFINED SYMBOLS
+                            *ABS*:00000000 scrollable_text.cpp
+     /tmp/ccMMjRvf.s:20     .text._ZN4xpcc14ScrollableTextC2EPKct:00000000 $t
+     /tmp/ccMMjRvf.s:25     .text._ZN4xpcc14ScrollableTextC2EPKct:00000000 _ZN4xpcc14ScrollableTextC2EPKct
+     /tmp/ccMMjRvf.s:125    .text._ZN4xpcc14ScrollableTextC2EPKct:00000048 $d
+     /tmp/ccMMjRvf.s:25     .text._ZN4xpcc14ScrollableTextC2EPKct:00000000 _ZN4xpcc14ScrollableTextC1EPKct
+     /tmp/ccMMjRvf.s:133    .text._ZN4xpcc14ScrollableTextD2Ev:00000000 $t
+     /tmp/ccMMjRvf.s:138    .text._ZN4xpcc14ScrollableTextD2Ev:00000000 _ZN4xpcc14ScrollableTextD2Ev
+     /tmp/ccMMjRvf.s:169    .text._ZN4xpcc14ScrollableTextD2Ev:00000010 $d
+     /tmp/ccMMjRvf.s:138    .text._ZN4xpcc14ScrollableTextD2Ev:00000000 _ZN4xpcc14ScrollableTextD1Ev
+     /tmp/ccMMjRvf.s:176    .text._ZN4xpcc14ScrollableTextC2ERKS0_:00000000 $t
+     /tmp/ccMMjRvf.s:181    .text._ZN4xpcc14ScrollableTextC2ERKS0_:00000000 _ZN4xpcc14ScrollableTextC2ERKS0_
+     /tmp/ccMMjRvf.s:289    .text._ZN4xpcc14ScrollableTextC2ERKS0_:0000004c $d
+     /tmp/ccMMjRvf.s:181    .text._ZN4xpcc14ScrollableTextC2ERKS0_:00000000 _ZN4xpcc14ScrollableTextC1ERKS0_
+     /tmp/ccMMjRvf.s:296    .text._ZN4xpcc14ScrollableTextaSERKS0_:00000000 $t
+     /tmp/ccMMjRvf.s:301    .text._ZN4xpcc14ScrollableTextaSERKS0_:00000000 _ZN4xpcc14ScrollableTextaSERKS0_
+     /tmp/ccMMjRvf.s:416    .text._ZN4xpcc14ScrollableTextaSERKS0_:00000054 $d
+     /tmp/ccMMjRvf.s:422    .text._ZN4xpcc14ScrollableText7getTextEv:00000000 $t
+     /tmp/ccMMjRvf.s:427    .text._ZN4xpcc14ScrollableText7getTextEv:00000000 _ZN4xpcc14ScrollableText7getTextEv
+     /tmp/ccMMjRvf.s:572    .text._ZN4xpcc14ScrollableText10setToStartEv:00000000 $t
+     /tmp/ccMMjRvf.s:577    .text._ZN4xpcc14ScrollableText10setToStartEv:00000000 _ZN4xpcc14ScrollableText10setToStartEv
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+strlen
+_Znaj
+_ZdaPv

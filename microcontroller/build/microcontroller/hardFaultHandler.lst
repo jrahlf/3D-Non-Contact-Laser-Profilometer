@@ -1,0 +1,24 @@
+   1              	# 1 "hardFaultHandler.S"
+   1              	
+   1              	...
+   0              	
+   2              	.syntax unified
+   3              	.cpu cortex-m3
+   4              	.thumb
+   5              	
+   6              	.global HardFault_Handler
+   7              	.extern HardFault_Handler_CPP
+   8              	
+   9              	HardFault_Handler:
+  10 0000 1EF0040F 	  TST LR, #4
+  11 0004 0CBF     	  ITE EQ
+  12 0006 EFF30880 	  MRSEQ R0, MSP
+  13 000a EFF30980 	  MRSNE R0, PSP
+  14 000e FFF7FEBF 	  B HardFault_Handler_CPP
+DEFINED SYMBOLS
+  hardFaultHandler.S:9      .text:00000000 HardFault_Handler
+  hardFaultHandler.S:10     .text:00000000 $t
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+HardFault_Handler_CPP

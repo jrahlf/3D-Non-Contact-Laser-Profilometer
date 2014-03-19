@@ -1,0 +1,573 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"time.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZNK4xpcc8UnixTime6toDateEPNS_4DateE,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZNK4xpcc8UnixTime6toDateEPNS_4DateE
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZNK4xpcc8UnixTime6toDateEPNS_4DateE:
+  26              	.LFB81:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** /* Copyright (c) 2012, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** #include <xpcc/architecture/driver/accessor.hpp>
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** #include "time.hpp"
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** FLASH_STORAGE(uint8_t monthDays[]) = {
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** };
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** /* convert calendar time (seconds since 1970) to broken-time
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * This only works for dates between 01-01-1970 00:00:00 and 
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * 19-01-2038 03:14:07
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * A leap year is 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  *   ((((year % 4) == 0) && ((year % 100) != 0)) || ((year % 400) == 0)) 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  * but since we have no fancy years between 1970 and 2038 we can do:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp ****  */
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** #define LEAP_YEAR(year) 	((year % 4) == 0)
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** #define SECONDS_PER_DAY		(60 * 60 * 24L)
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** void
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** xpcc::UnixTime::toDate(xpcc::Date* date) const
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** {
+  28              		.loc 1 54 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34 0000 2DE9F001 		push	{r4, r5, r6, r7, r8}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 20
+  37              		.cfi_offset 4, -20
+  38              		.cfi_offset 5, -16
+  39              		.cfi_offset 6, -12
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 8, -4
+  42              	.LBB11:
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint32_t seconds = time;
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->second = seconds % 60;
+  43              		.loc 1 57 0
+  44 0004 304B     		ldr	r3, .L17
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint32_t seconds = time;
+  45              		.loc 1 55 0
+  46 0006 0568     		ldr	r5, [r0, #0]
+  47              	.LVL1:
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds /= 60; // now it is minutes
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->minute = seconds % 60;
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds /= 60; // now it is hours
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->hour = seconds % 24;
+  48              		.loc 1 61 0
+  49 0008 304C     		ldr	r4, .L17+4
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds /= 24; // now it is days
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	// January 1, 1970 was a Thursday.
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->dayOfTheWeek = (seconds + 4) % 7;
+  50              		.loc 1 65 0
+  51 000a 314E     		ldr	r6, .L17+8
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->second = seconds % 60;
+  52              		.loc 1 57 0
+  53 000c A3FB0520 		umull	r2, r0, r3, r5
+  54              	.LVL2:
+  55 0010 4009     		lsrs	r0, r0, #5
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->minute = seconds % 60;
+  56              		.loc 1 59 0
+  57 0012 A3FB0073 		umull	r7, r3, r3, r0
+  58 0016 5B09     		lsrs	r3, r3, #5
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->hour = seconds % 24;
+  59              		.loc 1 61 0
+  60 0018 A4FB0324 		umull	r2, r4, r4, r3
+  61 001c 2409     		lsrs	r4, r4, #4
+  62              		.loc 1 65 0
+  63 001e 221D     		adds	r2, r4, #4
+  64 0020 A6FB0276 		umull	r7, r6, r6, r2
+  65 0024 971B     		subs	r7, r2, r6
+  66 0026 06EB5706 		add	r6, r6, r7, lsr #1
+  67 002a B608     		lsrs	r6, r6, #2
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->second = seconds % 60;
+  68              		.loc 1 57 0
+  69 002c C0EB0018 		rsb	r8, r0, r0, lsl #4
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->minute = seconds % 60;
+  70              		.loc 1 59 0
+  71 0030 C3EB031C 		rsb	ip, r3, r3, lsl #4
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->hour = seconds % 24;
+  72              		.loc 1 61 0
+  73 0034 04EB4407 		add	r7, r4, r4, lsl #1
+  74              		.loc 1 65 0
+  75 0038 C6EBC606 		rsb	r6, r6, r6, lsl #3
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->second = seconds % 60;
+  76              		.loc 1 57 0
+  77 003c A5EB8805 		sub	r5, r5, r8, lsl #2
+  78              	.LVL3:
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->minute = seconds % 60;
+  79              		.loc 1 59 0
+  80 0040 A0EB8C00 		sub	r0, r0, ip, lsl #2
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->hour = seconds % 24;
+  81              		.loc 1 61 0
+  82 0044 A3EBC703 		sub	r3, r3, r7, lsl #3
+  83              		.loc 1 65 0
+  84 0048 921B     		subs	r2, r2, r6
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->second = seconds % 60;
+  85              		.loc 1 57 0
+  86 004a 0D70     		strb	r5, [r1, #0]
+  87              	.LVL4:
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->minute = seconds % 60;
+  88              		.loc 1 59 0
+  89 004c 4870     		strb	r0, [r1, #1]
+  90              	.LVL5:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->hour = seconds % 24;
+  91              		.loc 1 61 0
+  92 004e 8B70     		strb	r3, [r1, #2]
+  93              	.LVL6:
+  94              		.loc 1 65 0
+  95 0050 8A71     		strb	r2, [r1, #6]
+  96              	.LVL7:
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint16_t year = 1970;
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint32_t days = 0;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	while ((days += (LEAP_YEAR(year) ? 366 : 365)) <= seconds) {
+  97              		.loc 1 69 0
+  98 0052 0225     		movs	r5, #2
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint32_t days = 0;
+  99              		.loc 1 68 0
+ 100 0054 0022     		movs	r2, #0
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint16_t year = 1970;
+ 101              		.loc 1 67 0
+ 102 0056 40F2B273 		movw	r3, #1970
+ 103              		.loc 1 69 0
+ 104 005a 40F26D10 		movw	r0, #365
+ 105 005e 07E0     		b	.L14
+ 106              	.LVL8:
+ 107              	.L4:
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		year++;
+ 108              		.loc 1 70 0
+ 109 0060 83B2     		uxth	r3, r0
+ 110              	.LVL9:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	while ((days += (LEAP_YEAR(year) ? 366 : 365)) <= seconds) {
+ 111              		.loc 1 69 0
+ 112 0062 13F00305 		ands	r5, r3, #3
+ 113 0066 40F26D10 		movw	r0, #365
+ 114              	.LVL10:
+ 115 006a 08BF     		it	eq
+ 116 006c 4FF4B770 		moveq	r0, #366
+ 117              	.LVL11:
+ 118              	.L14:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	while ((days += (LEAP_YEAR(year) ? 366 : 365)) <= seconds) {
+ 119              		.loc 1 69 0 is_stmt 0 discriminator 4
+ 120 0070 1218     		adds	r2, r2, r0
+ 121              	.LVL12:
+ 122 0072 9442     		cmp	r4, r2
+ 123              		.loc 1 70 0 is_stmt 1 discriminator 4
+ 124 0074 03F10100 		add	r0, r3, #1
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	while ((days += (LEAP_YEAR(year) ? 366 : 365)) <= seconds) {
+ 125              		.loc 1 69 0 discriminator 4
+ 126 0078 F2D2     		bcs	.L4
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	}
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->year = year - 1900;
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	days -= LEAP_YEAR(year) ? 366 : 365;
+ 127              		.loc 1 74 0
+ 128 007a 40F26D10 		movw	r0, #365
+ 129 007e 002D     		cmp	r5, #0
+ 130 0080 08BF     		it	eq
+ 131 0082 4FF4B770 		moveq	r0, #366
+ 132              	.LVL13:
+ 133 0086 121A     		subs	r2, r2, r0
+ 134              	.LVL14:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->year = year - 1900;
+ 135              		.loc 1 72 0
+ 136 0088 6C3B     		subs	r3, r3, #108
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds -= days; // now it is days in this year, starting at 0
+ 137              		.loc 1 75 0
+ 138 008a A21A     		subs	r2, r4, r2
+ 139              	.LVL15:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->year = year - 1900;
+ 140              		.loc 1 72 0
+ 141 008c 4B71     		strb	r3, [r1, #5]
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->dayOfTheYear = seconds;
+ 142              		.loc 1 76 0
+ 143 008e CA71     		strb	r2, [r1, #7]
+ 144              	.LVL16:
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint8_t month;
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint8_t monthLength;
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (month = 0; month < 12; month++) {
+ 145              		.loc 1 80 0
+ 146 0090 0023     		movs	r3, #0
+ 147 0092 09E0     		b	.L9
+ 148              	.LVL17:
+ 149              	.L6:
+ 150 0094 0F48     		ldr	r0, .L17+12
+ 151 0096 C05C     		ldrb	r0, [r0, r3]	@ zero_extendqisi2
+ 152              	.LVL18:
+ 153 0098 5C1C     		adds	r4, r3, #1
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (month == 1) { // Februar
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			if (LEAP_YEAR(year)) {
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 				monthLength = 29;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			}
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			else {
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 				monthLength = 28;
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			}
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		else {
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			monthLength = monthDays[month];
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (seconds >= monthLength) {
+ 154              		.loc 1 93 0
+ 155 009a 8242     		cmp	r2, r0
+ 156 009c 0DD3     		bcc	.L8
+ 157              	.L16:
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (month = 0; month < 12; month++) {
+ 158              		.loc 1 80 0
+ 159 009e E3B2     		uxtb	r3, r4
+ 160 00a0 0C2B     		cmp	r3, #12
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds -= monthLength;
+ 161              		.loc 1 94 0
+ 162 00a2 C0EB0202 		rsb	r2, r0, r2
+ 163              	.LVL19:
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (month = 0; month < 12; month++) {
+ 164              		.loc 1 80 0
+ 165 00a6 08D0     		beq	.L8
+ 166              	.LVL20:
+ 167              	.L9:
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (month == 1) { // Februar
+ 168              		.loc 1 81 0
+ 169 00a8 012B     		cmp	r3, #1
+ 170 00aa F3D1     		bne	.L6
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			if (LEAP_YEAR(year)) {
+ 171              		.loc 1 82 0
+ 172 00ac 002D     		cmp	r5, #0
+ 173 00ae 14BF     		ite	ne
+ 174 00b0 1C20     		movne	r0, #28
+ 175 00b2 1D20     		moveq	r0, #29
+ 176              	.LVL21:
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (month = 0; month < 12; month++) {
+ 177              		.loc 1 80 0
+ 178 00b4 5C1C     		adds	r4, r3, #1
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (seconds >= monthLength) {
+ 179              		.loc 1 93 0
+ 180 00b6 8242     		cmp	r2, r0
+ 181 00b8 F1D2     		bcs	.L16
+ 182              	.L8:
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		else
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		{
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			break;
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	}
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->month = month;
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->day = seconds + 1;
+ 183              		.loc 1 102 0
+ 184 00ba 0132     		adds	r2, r2, #1
+ 185              	.LVL22:
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	date->month = month;
+ 186              		.loc 1 101 0
+ 187 00bc 0B71     		strb	r3, [r1, #4]
+ 188              		.loc 1 102 0
+ 189 00be CA70     		strb	r2, [r1, #3]
+ 190              	.LBE11:
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** }
+ 191              		.loc 1 103 0
+ 192 00c0 BDE8F001 		pop	{r4, r5, r6, r7, r8}
+ 193 00c4 7047     		bx	lr
+ 194              	.L18:
+ 195 00c6 00BF     		.align	2
+ 196              	.L17:
+ 197 00c8 89888888 		.word	-2004318071
+ 198 00cc ABAAAAAA 		.word	-1431655765
+ 199 00d0 25499224 		.word	613566757
+ 200 00d4 00000000 		.word	.LANCHOR0
+ 201              		.cfi_endproc
+ 202              	.LFE81:
+ 204              		.section	.text._ZNK4xpcc4Date15toUnixTimestampEv,"ax",%progbits
+ 205              		.align	2
+ 206              		.global	_ZNK4xpcc4Date15toUnixTimestampEv
+ 207              		.thumb
+ 208              		.thumb_func
+ 210              	_ZNK4xpcc4Date15toUnixTimestampEv:
+ 211              	.LFB82:
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** // ----------------------------------------------------------------------------
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** xpcc::UnixTime
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** xpcc::Date::toUnixTimestamp() const
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** {
+ 212              		.loc 1 108 0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216              		@ link register save eliminated.
+ 217              	.LVL23:
+ 218 0000 70B4     		push	{r4, r5, r6}
+ 219              	.LCFI1:
+ 220              		.cfi_def_cfa_offset 12
+ 221              		.cfi_offset 4, -12
+ 222              		.cfi_offset 5, -8
+ 223              		.cfi_offset 6, -4
+ 224              	.LBB12:
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint16_t currentYear = this->year + 1900;
+ 225              		.loc 1 109 0
+ 226 0002 4579     		ldrb	r5, [r0, #5]	@ zero_extendqisi2
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint32_t seconds;
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	// Seconds from 1970 till 1 Januar 00:00:00 this year
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds = (currentYear - 1970) * (SECONDS_PER_DAY * 365);
+ 227              		.loc 1 113 0
+ 228 0004 1F49     		ldr	r1, .L35
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	uint16_t currentYear = this->year + 1900;
+ 229              		.loc 1 109 0
+ 230 0006 05F26C75 		addw	r5, r5, #1900
+ 231              	.LVL24:
+ 232              	.LBB13:
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	// Add extra days for leap years
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast16_t i = 1970; i < currentYear; i++) {
+ 233              		.loc 1 116 0
+ 234 000a 40F2B273 		movw	r3, #1970
+ 235              	.LBE13:
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds = (currentYear - 1970) * (SECONDS_PER_DAY * 365);
+ 236              		.loc 1 113 0
+ 237 000e A5F2B272 		subw	r2, r5, #1970
+ 238              	.LBB14:
+ 239              		.loc 1 116 0
+ 240 0012 9D42     		cmp	r5, r3
+ 241              	.LBE14:
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds = (currentYear - 1970) * (SECONDS_PER_DAY * 365);
+ 242              		.loc 1 113 0
+ 243 0014 01FB02F2 		mul	r2, r1, r2
+ 244              	.LVL25:
+ 245              	.LBB15:
+ 246              		.loc 1 116 0
+ 247 0018 06D8     		bhi	.L34
+ 248 001a 08E0     		b	.L20
+ 249              	.LVL26:
+ 250              	.L23:
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (LEAP_YEAR(i)) {
+ 251              		.loc 1 117 0
+ 252 001c 9C07     		lsls	r4, r3, #30
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds += SECONDS_PER_DAY;
+ 253              		.loc 1 118 0
+ 254 001e 04BF     		itt	eq
+ 255 0020 02F5A832 		addeq	r2, r2, #86016
+ 256              	.LVL27:
+ 257 0024 02F5C072 		addeq	r2, r2, #384
+ 258              	.LVL28:
+ 259              	.L34:
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast16_t i = 1970; i < currentYear; i++) {
+ 260              		.loc 1 116 0
+ 261 0028 0133     		adds	r3, r3, #1
+ 262              	.LVL29:
+ 263 002a AB42     		cmp	r3, r5
+ 264 002c F6D3     		bcc	.L23
+ 265              	.LVL30:
+ 266              	.L20:
+ 267              	.LBE15:
+ 268              	.LBB16:
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	}
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	// Add days for this year
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 269              		.loc 1 123 0 discriminator 1
+ 270 002e 0679     		ldrb	r6, [r0, #4]	@ zero_extendqisi2
+ 271 0030 A6B1     		cbz	r6, .L24
+ 272              		.loc 1 123 0 is_stmt 0
+ 273 0032 0023     		movs	r3, #0
+ 274 0034 07E0     		b	.L27
+ 275              	.LVL31:
+ 276              	.L25:
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (i == 1 && LEAP_YEAR(currentYear)) {
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds += SECONDS_PER_DAY * 29;
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		else {
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds += SECONDS_PER_DAY * monthDays[i];
+ 277              		.loc 1 128 0 is_stmt 1
+ 278 0036 1449     		ldr	r1, .L35+4
+ 279 0038 144C     		ldr	r4, .L35+8
+ 280 003a C95C     		ldrb	r1, [r1, r3]	@ zero_extendqisi2
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 281              		.loc 1 123 0
+ 282 003c 0133     		adds	r3, r3, #1
+ 283 003e B342     		cmp	r3, r6
+ 284              		.loc 1 128 0
+ 285 0040 04FB0122 		mla	r2, r4, r1, r2
+ 286              	.LVL32:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 287              		.loc 1 123 0
+ 288 0044 0AD2     		bcs	.L24
+ 289              	.LVL33:
+ 290              	.L27:
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (i == 1 && LEAP_YEAR(currentYear)) {
+ 291              		.loc 1 124 0
+ 292 0046 012B     		cmp	r3, #1
+ 293 0048 F5D1     		bne	.L25
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		if (i == 1 && LEAP_YEAR(currentYear)) {
+ 294              		.loc 1 124 0 is_stmt 0 discriminator 1
+ 295 004a A907     		lsls	r1, r5, #30
+ 296 004c F3D1     		bne	.L25
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 297              		.loc 1 123 0 is_stmt 1
+ 298 004e 0133     		adds	r3, r3, #1
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds += SECONDS_PER_DAY * 29;
+ 299              		.loc 1 125 0
+ 300 0050 02F51812 		add	r2, r2, #2490368
+ 301              	.LVL34:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 302              		.loc 1 123 0
+ 303 0054 B342     		cmp	r3, r6
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 			seconds += SECONDS_PER_DAY * 29;
+ 304              		.loc 1 125 0
+ 305 0056 02F56E52 		add	r2, r2, #15232
+ 306              	.LVL35:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	for (uint_fast8_t i = 0; i < this->month; i++) {
+ 307              		.loc 1 123 0
+ 308 005a F4D3     		bcc	.L27
+ 309              	.LVL36:
+ 310              	.L24:
+ 311              	.LBE16:
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 		}
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	}
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds += (this->day - 1) * SECONDS_PER_DAY;
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->hour * 60 * 60;
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->minute * 60;
+ 312              		.loc 1 134 0
+ 313 005c 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->hour * 60 * 60;
+ 314              		.loc 1 133 0
+ 315 005e 8578     		ldrb	r5, [r0, #2]	@ zero_extendqisi2
+ 316              	.LVL37:
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->second;
+ 317              		.loc 1 135 0
+ 318 0060 0178     		ldrb	r1, [r0, #0]	@ zero_extendqisi2
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds += (this->day - 1) * SECONDS_PER_DAY;
+ 319              		.loc 1 132 0
+ 320 0062 C078     		ldrb	r0, [r0, #3]	@ zero_extendqisi2
+ 321              	.LVL38:
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->minute * 60;
+ 322              		.loc 1 134 0
+ 323 0064 C3EB0313 		rsb	r3, r3, r3, lsl #4
+ 324 0068 9C00     		lsls	r4, r3, #2
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds += (this->day - 1) * SECONDS_PER_DAY;
+ 325              		.loc 1 132 0
+ 326 006a 4FF46163 		mov	r3, #3600
+ 327 006e 03FB0543 		mla	r3, r3, r5, r4
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->hour * 60 * 60;
+ 328              		.loc 1 133 0
+ 329 0072 5B18     		adds	r3, r3, r1
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->minute * 60;
+ 330              		.loc 1 134 0
+ 331 0074 0549     		ldr	r1, .L35+8
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds += (this->day - 1) * SECONDS_PER_DAY;
+ 332              		.loc 1 132 0
+ 333 0076 0138     		subs	r0, r0, #1
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	seconds +=  this->minute * 60;
+ 334              		.loc 1 134 0
+ 335 0078 01FB0030 		mla	r0, r1, r0, r3
+ 336              	.LVL39:
+ 337              	.LBE12:
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** 	return seconds;
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.cpp **** }
+ 338              		.loc 1 138 0
+ 339 007c 8018     		adds	r0, r0, r2
+ 340              	.LVL40:
+ 341 007e 70BC     		pop	{r4, r5, r6}
+ 342 0080 7047     		bx	lr
+ 343              	.L36:
+ 344 0082 00BF     		.align	2
+ 345              	.L35:
+ 346 0084 8033E101 		.word	31536000
+ 347 0088 00000000 		.word	.LANCHOR0
+ 348 008c 80510100 		.word	86400
+ 349              		.cfi_endproc
+ 350              	.LFE82:
+ 352              		.global	monthDays
+ 353              		.section	.rodata.monthDays,"a",%progbits
+ 354              		.align	2
+ 355              		.set	.LANCHOR0,. + 0
+ 358              	monthDays:
+ 359 0000 1F       		.byte	31
+ 360 0001 1C       		.byte	28
+ 361 0002 1F       		.byte	31
+ 362 0003 1E       		.byte	30
+ 363 0004 1F       		.byte	31
+ 364 0005 1E       		.byte	30
+ 365 0006 1F       		.byte	31
+ 366 0007 1F       		.byte	31
+ 367 0008 1E       		.byte	30
+ 368 0009 1F       		.byte	31
+ 369 000a 1E       		.byte	30
+ 370 000b 1F       		.byte	31
+ 371              		.text
+ 372              	.Letext0:
+ 373              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 374              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 375              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 376              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/time/time.hpp"
+ 377              		.file 6 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 378              		.file 7 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+ 379              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 380              		.file 9 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 time.cpp
+     /tmp/ccvm3nh2.s:20     .text._ZNK4xpcc8UnixTime6toDateEPNS_4DateE:00000000 $t
+     /tmp/ccvm3nh2.s:25     .text._ZNK4xpcc8UnixTime6toDateEPNS_4DateE:00000000 _ZNK4xpcc8UnixTime6toDateEPNS_4DateE
+     /tmp/ccvm3nh2.s:197    .text._ZNK4xpcc8UnixTime6toDateEPNS_4DateE:000000c8 $d
+     /tmp/ccvm3nh2.s:205    .text._ZNK4xpcc4Date15toUnixTimestampEv:00000000 $t
+     /tmp/ccvm3nh2.s:210    .text._ZNK4xpcc4Date15toUnixTimestampEv:00000000 _ZNK4xpcc4Date15toUnixTimestampEv
+     /tmp/ccvm3nh2.s:346    .text._ZNK4xpcc4Date15toUnixTimestampEv:00000084 $d
+     /tmp/ccvm3nh2.s:358    .rodata.monthDays:00000000 monthDays
+     /tmp/ccvm3nh2.s:354    .rodata.monthDays:00000000 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

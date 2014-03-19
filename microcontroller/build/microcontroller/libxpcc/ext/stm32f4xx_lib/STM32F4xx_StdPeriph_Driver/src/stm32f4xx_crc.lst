@@ -1,0 +1,329 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"stm32f4xx_crc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.CRC_ResetDR,"ax",%progbits
+  20              		.align	2
+  21              		.global	CRC_ResetDR
+  22              		.thumb
+  23              		.thumb_func
+  25              	CRC_ResetDR:
+  26              	.LFB110:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   ******************************************************************************
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @file    stm32f4xx_crc.c
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @author  MCD Application Team
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @version V1.0.0
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @date    30-September-2011
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief   This file provides all the CRC firmware functions.
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   ******************************************************************************
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @attention
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   *
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   ******************************************************************************
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Includes ------------------------------------------------------------------*/
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** #include "stm32f4xx_crc.h"
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @{
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /** @defgroup CRC 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief CRC driver modules
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @{
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private typedef -----------------------------------------------------------*/
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private define ------------------------------------------------------------*/
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private macro -------------------------------------------------------------*/
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private variables ---------------------------------------------------------*/
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private function prototypes -----------------------------------------------*/
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /* Private functions ---------------------------------------------------------*/
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /** @defgroup CRC_Private_Functions
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @{
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Resets the CRC Data register (DR).
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  None
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval None
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** void CRC_ResetDR(void)
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+  28              		.loc 1 51 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   /* Reset CRC generator */
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   CRC->CR = CRC_CR_RESET;
+  33              		.loc 1 53 0
+  34 0000 014B     		ldr	r3, .L2
+  35 0002 0122     		movs	r2, #1
+  36 0004 9A60     		str	r2, [r3, #8]
+  37 0006 7047     		bx	lr
+  38              	.L3:
+  39              		.align	2
+  40              	.L2:
+  41 0008 00300240 		.word	1073885184
+  42              		.cfi_endproc
+  43              	.LFE110:
+  45              		.section	.text.CRC_CalcCRC,"ax",%progbits
+  46              		.align	2
+  47              		.global	CRC_CalcCRC
+  48              		.thumb
+  49              		.thumb_func
+  51              	CRC_CalcCRC:
+  52              	.LFB111:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Computes the 32-bit CRC of a given data word(32-bit).
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  Data: data word(32-bit) to compute its CRC
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval 32-bit CRC
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** uint32_t CRC_CalcCRC(uint32_t Data)
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+  53              		.loc 1 62 0
+  54              		.cfi_startproc
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 0, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+  58              	.LVL0:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   CRC->DR = Data;
+  59              		.loc 1 63 0
+  60 0000 014B     		ldr	r3, .L5
+  61 0002 1860     		str	r0, [r3, #0]
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   return (CRC->DR);
+  62              		.loc 1 65 0
+  63 0004 1868     		ldr	r0, [r3, #0]
+  64              	.LVL1:
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+  65              		.loc 1 66 0
+  66 0006 7047     		bx	lr
+  67              	.L6:
+  68              		.align	2
+  69              	.L5:
+  70 0008 00300240 		.word	1073885184
+  71              		.cfi_endproc
+  72              	.LFE111:
+  74              		.section	.text.CRC_CalcBlockCRC,"ax",%progbits
+  75              		.align	2
+  76              		.global	CRC_CalcBlockCRC
+  77              		.thumb
+  78              		.thumb_func
+  80              	CRC_CalcBlockCRC:
+  81              	.LFB112:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Computes the 32-bit CRC of a given buffer of data word(32-bit).
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  pBuffer: pointer to the buffer containing the data to be computed
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  BufferLength: length of the buffer to be computed					
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval 32-bit CRC
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** uint32_t CRC_CalcBlockCRC(uint32_t pBuffer[], uint32_t BufferLength)
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+  82              		.loc 1 75 0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		@ link register save eliminated.
+  87              	.LVL2:
+  88 0000 10B4     		push	{r4}
+  89              	.LCFI0:
+  90              		.cfi_def_cfa_offset 4
+  91              		.cfi_offset 4, -4
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   uint32_t index = 0;
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   for(index = 0; index < BufferLength; index++)
+  92              		.loc 1 78 0
+  93 0002 0023     		movs	r3, #0
+  94 0004 31B1     		cbz	r1, .L9
+  95              	.LVL3:
+  96              	.L8:
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   {
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****     CRC->DR = pBuffer[index];
+  97              		.loc 1 80 0 discriminator 2
+  98 0006 50F82340 		ldr	r4, [r0, r3, lsl #2]
+  99 000a 044A     		ldr	r2, .L14
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   for(index = 0; index < BufferLength; index++)
+ 100              		.loc 1 78 0 discriminator 2
+ 101 000c 0133     		adds	r3, r3, #1
+ 102              	.LVL4:
+ 103 000e 9942     		cmp	r1, r3
+ 104              		.loc 1 80 0 discriminator 2
+ 105 0010 1460     		str	r4, [r2, #0]
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   for(index = 0; index < BufferLength; index++)
+ 106              		.loc 1 78 0 discriminator 2
+ 107 0012 F8D8     		bhi	.L8
+ 108              	.LVL5:
+ 109              	.L9:
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   }
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   return (CRC->DR);
+ 110              		.loc 1 82 0
+ 111 0014 014B     		ldr	r3, .L14
+ 112 0016 1868     		ldr	r0, [r3, #0]
+ 113              	.LVL6:
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+ 114              		.loc 1 83 0
+ 115 0018 10BC     		pop	{r4}
+ 116 001a 7047     		bx	lr
+ 117              	.L15:
+ 118              		.align	2
+ 119              	.L14:
+ 120 001c 00300240 		.word	1073885184
+ 121              		.cfi_endproc
+ 122              	.LFE112:
+ 124              		.section	.text.CRC_GetCRC,"ax",%progbits
+ 125              		.align	2
+ 126              		.global	CRC_GetCRC
+ 127              		.thumb
+ 128              		.thumb_func
+ 130              	CRC_GetCRC:
+ 131              	.LFB113:
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Returns the current CRC value.
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  None
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval 32-bit CRC
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** uint32_t CRC_GetCRC(void)
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+ 132              		.loc 1 91 0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   return (CRC->DR);
+ 137              		.loc 1 92 0
+ 138 0000 014B     		ldr	r3, .L17
+ 139 0002 1868     		ldr	r0, [r3, #0]
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+ 140              		.loc 1 93 0
+ 141 0004 7047     		bx	lr
+ 142              	.L18:
+ 143 0006 00BF     		.align	2
+ 144              	.L17:
+ 145 0008 00300240 		.word	1073885184
+ 146              		.cfi_endproc
+ 147              	.LFE113:
+ 149              		.section	.text.CRC_SetIDRegister,"ax",%progbits
+ 150              		.align	2
+ 151              		.global	CRC_SetIDRegister
+ 152              		.thumb
+ 153              		.thumb_func
+ 155              	CRC_SetIDRegister:
+ 156              	.LFB114:
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Stores a 8-bit data in the Independent Data(ID) register.
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  IDValue: 8-bit value to be stored in the ID register 					
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval None
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** void CRC_SetIDRegister(uint8_t IDValue)
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+ 157              		.loc 1 101 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162              	.LVL7:
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   CRC->IDR = IDValue;
+ 163              		.loc 1 102 0
+ 164 0000 014B     		ldr	r3, .L20
+ 165 0002 1871     		strb	r0, [r3, #4]
+ 166 0004 7047     		bx	lr
+ 167              	.L21:
+ 168 0006 00BF     		.align	2
+ 169              	.L20:
+ 170 0008 00300240 		.word	1073885184
+ 171              		.cfi_endproc
+ 172              	.LFE114:
+ 174              		.section	.text.CRC_GetIDRegister,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	CRC_GetIDRegister
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	CRC_GetIDRegister:
+ 181              	.LFB115:
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** 
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** /**
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @brief  Returns the 8-bit data stored in the Independent Data(ID) register
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @param  None
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   * @retval 8-bit value of the ID register 
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   */
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** uint8_t CRC_GetIDRegister(void)
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** {
+ 182              		.loc 1 111 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c ****   return (CRC->IDR);
+ 187              		.loc 1 112 0
+ 188 0000 014B     		ldr	r3, .L23
+ 189 0002 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_crc.c **** }
+ 190              		.loc 1 113 0
+ 191 0004 7047     		bx	lr
+ 192              	.L24:
+ 193 0006 00BF     		.align	2
+ 194              	.L23:
+ 195 0008 00300240 		.word	1073885184
+ 196              		.cfi_endproc
+ 197              	.LFE115:
+ 199              		.text
+ 200              	.Letext0:
+ 201              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 202              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 203              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_crc.c
+     /tmp/ccrDJWVe.s:20     .text.CRC_ResetDR:00000000 $t
+     /tmp/ccrDJWVe.s:25     .text.CRC_ResetDR:00000000 CRC_ResetDR
+     /tmp/ccrDJWVe.s:41     .text.CRC_ResetDR:00000008 $d
+     /tmp/ccrDJWVe.s:46     .text.CRC_CalcCRC:00000000 $t
+     /tmp/ccrDJWVe.s:51     .text.CRC_CalcCRC:00000000 CRC_CalcCRC
+     /tmp/ccrDJWVe.s:70     .text.CRC_CalcCRC:00000008 $d
+     /tmp/ccrDJWVe.s:75     .text.CRC_CalcBlockCRC:00000000 $t
+     /tmp/ccrDJWVe.s:80     .text.CRC_CalcBlockCRC:00000000 CRC_CalcBlockCRC
+     /tmp/ccrDJWVe.s:120    .text.CRC_CalcBlockCRC:0000001c $d
+     /tmp/ccrDJWVe.s:125    .text.CRC_GetCRC:00000000 $t
+     /tmp/ccrDJWVe.s:130    .text.CRC_GetCRC:00000000 CRC_GetCRC
+     /tmp/ccrDJWVe.s:145    .text.CRC_GetCRC:00000008 $d
+     /tmp/ccrDJWVe.s:150    .text.CRC_SetIDRegister:00000000 $t
+     /tmp/ccrDJWVe.s:155    .text.CRC_SetIDRegister:00000000 CRC_SetIDRegister
+     /tmp/ccrDJWVe.s:170    .text.CRC_SetIDRegister:00000008 $d
+     /tmp/ccrDJWVe.s:175    .text.CRC_GetIDRegister:00000000 $t
+     /tmp/ccrDJWVe.s:180    .text.CRC_GetIDRegister:00000000 CRC_GetIDRegister
+     /tmp/ccrDJWVe.s:195    .text.CRC_GetIDRegister:00000008 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

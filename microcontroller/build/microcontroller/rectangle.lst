@@ -1,0 +1,1562 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"rectangle.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN10Quadrangle9configureEffff,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN10Quadrangle9configureEffff
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN10Quadrangle9configureEffff:
+  26              	.LFB1026:
+  27              		.file 1 "rectangle.cpp"
+   1:rectangle.cpp **** /*
+   2:rectangle.cpp ****  * rectangle.cpp
+   3:rectangle.cpp ****  *
+   4:rectangle.cpp ****  *  Created on: Feb 1, 2014
+   5:rectangle.cpp ****  *      Author: jonas
+   6:rectangle.cpp ****  */
+   7:rectangle.cpp **** 
+   8:rectangle.cpp **** #include "rectangle.h"
+   9:rectangle.cpp **** #include "transform.h"
+  10:rectangle.cpp **** #include "control.h"
+  11:rectangle.cpp **** 
+  12:rectangle.cpp **** int Quadrangle::x;
+  13:rectangle.cpp **** int Quadrangle::y;
+  14:rectangle.cpp **** int Quadrangle::width;
+  15:rectangle.cpp **** int Quadrangle::height;
+  16:rectangle.cpp **** 
+  17:rectangle.cpp **** 
+  18:rectangle.cpp **** 
+  19:rectangle.cpp **** static Point points[5];
+  20:rectangle.cpp **** static int pointsIndex = 0;
+  21:rectangle.cpp **** 
+  22:rectangle.cpp **** static bool reachedPoint(){
+  23:rectangle.cpp **** 	return abs(Control<X>::getIsPosition() - points[pointsIndex].x) < 30 &&
+  24:rectangle.cpp **** 			abs(Control<Y>::getIsPosition() - points[pointsIndex].y) < 30;
+  25:rectangle.cpp **** }
+  26:rectangle.cpp **** 
+  27:rectangle.cpp **** 
+  28:rectangle.cpp **** void Quadrangle::configure(float x, float y, float width, float height){
+  28              		.loc 1 28 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33              	.LBB57:
+  34              	.LBB58:
+  35              		.file 2 "transform.h"
+   1:transform.h   **** /*
+   2:transform.h   ****  * transform.h
+   3:transform.h   ****  *
+   4:transform.h   ****  *  Created on: Jan 23, 2014
+   5:transform.h   ****  *      Author: jonas
+   6:transform.h   ****  */
+   7:transform.h   **** 
+   8:transform.h   **** #ifndef TRANSFORM_H_
+   9:transform.h   **** #define TRANSFORM_H_
+  10:transform.h   **** 
+  11:transform.h   **** #include "project.h"
+  12:transform.h   **** 
+  13:transform.h   **** struct Transform{
+  14:transform.h   **** 	static int mmToEncoder(float mm){
+  15:transform.h   **** 		return int(MOTOR_ENC_PER_REV*MOTOR_GEAR_RATIO*mm + 0.5f);
+  36              		.loc 2 15 0
+  37 0000 9FED557A 		flds	s14, .L19
+  38 0004 F6EE007A 		fconsts	s15, #96
+  39 0008 05EE100A 		fmsr	s10, r0
+  40              	.LBE58:
+  41              	.LBE57:
+  42              	.LBB62:
+  43              	.LBB63:
+  44 000c 06EE901A 		fmsr	s13, r1
+  45              	.LBE63:
+  46              	.LBE62:
+  47              	.LBB68:
+  48              	.LBB59:
+  49 0010 F0EE675A 		fcpys	s11, s15
+  50 0014 45EE075A 		fmacs	s11, s10, s14
+  51              	.LBE59:
+  52              	.LBE68:
+  53              	.LBB69:
+  54              	.LBB64:
+  55 0018 B0EE676A 		fcpys	s12, s15
+  56              	.LBE64:
+  57              	.LBE69:
+  58              	.LBB70:
+  59              	.LBB71:
+  60 001c 05EE102A 		fmsr	s10, r2
+  61              	.LBE71:
+  62              	.LBE70:
+  63              	.LBB75:
+  64              	.LBB65:
+  65 0020 06EE876A 		fmacs	s12, s13, s14
+  66              	.LBE65:
+  67              	.LBE75:
+  68              	.LBB76:
+  69              	.LBB72:
+  70 0024 F0EE676A 		fcpys	s13, s15
+  71 0028 45EE076A 		fmacs	s13, s10, s14
+  72              	.LBE72:
+  73              	.LBE76:
+  74              	.LBB77:
+  75              	.LBB78:
+  76 002c 05EE103A 		fmsr	s10, r3
+  77 0030 45EE077A 		fmacs	s15, s10, s14
+  78              	.LBE78:
+  79              	.LBE77:
+  80              	.LBB81:
+  81              	.LBB60:
+  82 0034 FDEEE55A 		ftosizs	s11, s11
+  83              	.LBE60:
+  84              	.LBE81:
+  85              	.LBB82:
+  86              	.LBB66:
+  87 0038 BDEEC66A 		ftosizs	s12, s12
+  88              	.LBE66:
+  89              	.LBE82:
+  90              	.LBB83:
+  91              	.LBB73:
+  92 003c FDEEE66A 		ftosizs	s13, s13
+  93              	.LBE73:
+  94              	.LBE83:
+  95              	.LBB84:
+  96              	.LBB79:
+  97 0040 FDEEE77A 		ftosizs	s15, s15
+  98              	.LBE79:
+  99              	.LBE84:
+ 100              		.loc 1 28 0
+ 101 0044 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 102              	.LCFI0:
+ 103              		.cfi_def_cfa_offset 32
+ 104              		.cfi_offset 4, -32
+ 105              		.cfi_offset 5, -28
+ 106              		.cfi_offset 6, -24
+ 107              		.cfi_offset 7, -20
+ 108              		.cfi_offset 8, -16
+ 109              		.cfi_offset 9, -12
+ 110              		.cfi_offset 10, -8
+ 111              		.cfi_offset 14, -4
+ 112              	.LBB85:
+ 113              	.LBB67:
+ 114              		.loc 2 15 0
+ 115 0048 16EE103A 		fmrs	r3, s12	@ int
+ 116              	.LVL1:
+ 117              	.LBE67:
+ 118              	.LBE85:
+ 119              	.LBB86:
+ 120              	.LBB61:
+ 121 004c 15EE905A 		fmrs	r5, s11	@ int
+ 122              	.LBE61:
+ 123              	.LBE86:
+ 124              	.LBB87:
+ 125              	.LBB74:
+ 126 0050 16EE907A 		fmrs	r7, s13	@ int
+ 127              	.LBE74:
+ 128              	.LBE87:
+ 129              	.LBB88:
+ 130              	.LBB80:
+ 131 0054 17EE900A 		fmrs	r0, s15	@ int
+ 132              	.LVL2:
+ 133              	.LBE80:
+ 134              	.LBE88:
+  29:rectangle.cpp **** 	Quadrangle::x = Transform::mmToEncoder(x);
+ 135              		.loc 1 29 0
+ 136 0058 404A     		ldr	r2, .L19+4
+ 137              	.LVL3:
+  30:rectangle.cpp **** 	Quadrangle::y = Transform::mmToEncoder(y);
+ 138              		.loc 1 30 0
+ 139 005a DFF834E1 		ldr	lr, .L19+56
+  31:rectangle.cpp **** 	Quadrangle::width = Transform::mmToEncoder(width);
+  32:rectangle.cpp **** 	Quadrangle::height = Transform::mmToEncoder(height);
+  33:rectangle.cpp **** 
+  34:rectangle.cpp **** 	/**
+  35:rectangle.cpp **** 	 * 2-----3
+  36:rectangle.cpp **** 	 * |     |
+  37:rectangle.cpp **** 	 * |     |
+  38:rectangle.cpp **** 	 * 1-----4
+  39:rectangle.cpp **** 	 */
+  40:rectangle.cpp **** 
+  41:rectangle.cpp **** 	points[0].x = Quadrangle::x;
+ 140              		.loc 1 41 0
+ 141 005e 404C     		ldr	r4, .L19+8
+ 142              	.LBB89:
+ 143              	.LBB90:
+ 144              		.file 3 "control_impl.h"
+   1:control_impl.h **** /*
+   2:control_impl.h ****  * control.cpp
+   3:control_impl.h ****  *
+   4:control_impl.h ****  *  Created on: Nov 25, 2013
+   5:control_impl.h ****  *      Author: jonas
+   6:control_impl.h ****  */
+   7:control_impl.h **** 
+   8:control_impl.h **** 
+   9:control_impl.h **** #include "project.h"
+  10:control_impl.h **** #include "control.h"
+  11:control_impl.h **** #include "motor.h"
+  12:control_impl.h **** #include "hallSensor.h"
+  13:control_impl.h **** #include "securityController.h"
+  14:control_impl.h **** 
+  15:control_impl.h **** template<Axis axis>
+  16:control_impl.h **** class Motor;
+  17:control_impl.h **** 
+  18:control_impl.h **** 
+  19:control_impl.h **** template<Axis axis>
+  20:control_impl.h **** bool Control<axis>::init(){
+  21:control_impl.h **** 	Control<axis>::v_is = 0;
+  22:control_impl.h **** 	Control<axis>::v_shall = 0;
+  23:control_impl.h **** 	Control<axis>::last_pos = 0;
+  24:control_impl.h **** 	Control<axis>::positionControlEnabled = true;
+  25:control_impl.h **** 	Control<axis>::speedControlEnabled = true;
+  26:control_impl.h **** 	//param order: P, I, D, maxErrorSum, maxOutput
+  27:control_impl.h **** 	Control<axis>::pos_pid = xpcc::Pid<float, 1>(CONTROLX_KP, CONTROLX_KI, CONTROLX_KD,
+  28:control_impl.h **** 			CONTROLX_MAX_ERRORSUM, CONTROLX_MAX_OUTPUT);
+  29:control_impl.h **** 	Control<axis>::v_pid = xpcc::Pid<float, 1>(CONTROLV_KP, CONTROLV_KI, CONTROLV_KD,
+  30:control_impl.h **** 			CONTROLV_MAX_ERRORSUM, CONTROLV_MAX_OUTPUT);
+  31:control_impl.h **** 	return true;
+  32:control_impl.h **** }
+  33:control_impl.h **** 
+  34:control_impl.h **** 
+  35:control_impl.h **** template<Axis axis>
+  36:control_impl.h **** void Control<axis>::update(bool externalLimitation){
+  37:control_impl.h **** 	int enc = getIsPosition();
+  38:control_impl.h **** 
+  39:control_impl.h **** 	if(positionControlEnabled){
+  40:control_impl.h **** 		pos_pid.update(pos_shall - enc, externalLimitation);
+  41:control_impl.h **** 		v_shall = pos_pid.getValue();
+  42:control_impl.h **** 		/*if(abs(pos_shall - enc) <= CONTROLX_DEADBAND){
+  43:control_impl.h **** 			v_shall = 0;
+  44:control_impl.h **** 		}*/
+  45:control_impl.h **** 	}
+  46:control_impl.h **** 
+  47:control_impl.h **** 	v_is = (enc - last_pos)*CONTROL_FREQUENCY;
+  48:control_impl.h **** 	last_pos = enc;
+  49:control_impl.h **** 
+  50:control_impl.h **** 	if(speedControlEnabled){
+  51:control_impl.h **** 		v_pid.update(v_shall - v_is);
+  52:control_impl.h **** 		v_u = v_pid.getValue();
+  53:control_impl.h **** 		v_ureal = v_u;
+  54:control_impl.h **** 		SecurityController<axis>::saturate(v_ureal);
+  55:control_impl.h **** 		if((abs(pos_shall - enc) <= CONTROLX_DEADBAND && positionControlEnabled)
+  56:control_impl.h **** 				|| (!positionControlEnabled && abs(v_shall - v_is) < 1000)){
+  57:control_impl.h **** 			v_ureal = 0;
+  58:control_impl.h **** 			v_pid.reset();
+  59:control_impl.h **** 			pos_pid.reset();
+  60:control_impl.h **** 		}
+  61:control_impl.h **** 		Motor<axis>::setSpeed(v_ureal);
+  62:control_impl.h **** 	}
+  63:control_impl.h **** }
+  64:control_impl.h **** 
+  65:control_impl.h **** template<Axis axis>
+  66:control_impl.h **** void Control<axis>::setShallPosition(int position){
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+  69:control_impl.h **** 	pos_shall = position;
+ 145              		.loc 3 69 0
+ 146 0060 DFF83081 		ldr	r8, .L19+60
+ 147              	.LBE90:
+ 148              	.LBE89:
+ 149              	.LBB94:
+ 150              	.LBB95:
+ 151              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #ifndef XPCC__IOSTREAM_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #define XPCC__IOSTREAM_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include <xpcc/architecture/utils.hpp>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice.hpp"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #include "iodevice_wrapper.hpp"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** namespace xpcc
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** {
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	/**
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \brief 	This Formats all primary types into a string stream for
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			output or it reads values from a input and converts them to
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * 			a given type;
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 *
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \ingroup io
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 * \author	Martin Rosekeit <martin.rosekeit@rwth-aachen.de>
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	 */
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	class IOStream
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	{
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 	public :
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/**
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \brief	Constructor
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \param	device	device to write the stream to
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * 
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \code
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	MyIODevice device;
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 *	IOStream stream( device );
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 * \endcode
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		 */
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream(IODevice& device);
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		write(char c)
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->write(c);
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		inline IOStream&
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		flush()
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->device->flush();
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Binary style for \c char and \c char*
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		bin()
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Binary;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Hexadecimal style for \c char and \c char*
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		hex()
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Hexadecimal;
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		/// set the output mode to Mode::Ascii style for \c char and \c char*
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ascii()
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->mode = Mode::Ascii;
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const unsigned char& v)
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(static_cast<uint16_t>(v));
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const char& v)
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint16_t& v)
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int16_t& v)
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint32_t& v)
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 24));
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 16));
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 24));
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 16));
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int32_t& v)
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeInteger(v);
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 24));
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 16));
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v >> 8));
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(static_cast<uint8_t>(v & 0xff));
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 24));
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 16));
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v >> 8));
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(static_cast<uint8_t>(v & 0xff));
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__OS_OSX)
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// For APPLE 'int64_t' is of type 'int'. Therefore there is no
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// function here for the default type 'long int'. As 'long int' has the same
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// width as 'int64_t' we just use a typedef here.
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const long int& v)
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int64_t>(v));
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const long unsigned int& v)
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<uint64_t>(v));
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__CPU_ARM) || defined(XPCC__CPU_AVR32)
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// For ARM 'int32_t' is of type 'long'. Therefore there is no
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// function here for the default type 'int'. As 'int' has the same
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		// width as 'int32_t' we just use a typedef here.
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int& v)
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const unsigned int& v)
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<uint32_t>(v));
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // The 64-bit types on the AVR are extremely slow and are
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** // therefore excluded here
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if !defined(XPCC__CPU_AVR)
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const uint64_t& v)
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(v);
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const int64_t& v)
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(v);
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const float& v)
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeFloat(v);
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		ALWAYS_INLINE IOStream&
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const double& v)
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #if defined(XPCC__CPU_AVR)
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeFloat(static_cast<float>(v));
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #else
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeDouble(v);
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** #endif
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			return *this;
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		}
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		IOStream&
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		operator << (const char* s)
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 		{
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 152              		.loc 4 287 0
+ 153 0064 3F4E     		ldr	r6, .L19+12
+ 154              	.LBE95:
+ 155              	.LBE94:
+ 156              	.LBB101:
+ 157              	.LBB91:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 158              		.loc 3 67 0
+ 159 0066 DFF830A1 		ldr	sl, .L19+64
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 160              		.loc 3 68 0
+ 161 006a DFF83091 		ldr	r9, .L19+68
+ 162              	.LBE91:
+ 163              	.LBE101:
+  42:rectangle.cpp **** 	points[0].y = Quadrangle::y;
+  43:rectangle.cpp **** 
+  44:rectangle.cpp **** 	points[1].x = points[0].x;
+  45:rectangle.cpp **** 	points[1].y = points[0].y + Quadrangle::height;
+ 164              		.loc 1 45 0
+ 165 006e 1918     		adds	r1, r3, r0
+ 166              	.LVL4:
+  30:rectangle.cpp **** 	Quadrangle::y = Transform::mmToEncoder(y);
+ 167              		.loc 1 30 0
+ 168 0070 8EED006A 		fsts	s12, [lr, #0]	@ int
+  46:rectangle.cpp **** 
+  47:rectangle.cpp **** 	points[2].x = points[1].x + Quadrangle::width;
+  48:rectangle.cpp **** 	points[2].y = points[1].y;
+  49:rectangle.cpp **** 
+  50:rectangle.cpp **** 	points[3].x = points[2].x;
+  51:rectangle.cpp **** 	points[3].y = points[0].y;
+  52:rectangle.cpp **** 
+  53:rectangle.cpp **** 	points[4].x = points[0].x;
+  54:rectangle.cpp **** 	points[4].y = points[0].y;
+  55:rectangle.cpp **** 	pointsIndex = 0;
+ 169              		.loc 1 55 0
+ 170 0074 3C4B     		ldr	r3, .L19+16
+  31:rectangle.cpp **** 	Quadrangle::width = Transform::mmToEncoder(width);
+ 171              		.loc 1 31 0
+ 172 0076 DFF828E1 		ldr	lr, .L19+72
+  45:rectangle.cpp **** 	points[1].y = points[0].y + Quadrangle::height;
+ 173              		.loc 1 45 0
+ 174 007a E160     		str	r1, [r4, #12]
+  29:rectangle.cpp **** 	Quadrangle::x = Transform::mmToEncoder(x);
+ 175              		.loc 1 29 0
+ 176 007c C2ED005A 		fsts	s11, [r2, #0]	@ int
+ 177              	.LVL5:
+  47:rectangle.cpp **** 	points[2].x = points[1].x + Quadrangle::width;
+ 178              		.loc 1 47 0
+ 179 0080 EA19     		adds	r2, r5, r7
+  32:rectangle.cpp **** 	Quadrangle::height = Transform::mmToEncoder(height);
+ 180              		.loc 1 32 0
+ 181 0082 3A4F     		ldr	r7, .L19+20
+  48:rectangle.cpp **** 	points[2].y = points[1].y;
+ 182              		.loc 1 48 0
+ 183 0084 6161     		str	r1, [r4, #20]
+  41:rectangle.cpp **** 	points[0].x = Quadrangle::x;
+ 184              		.loc 1 41 0
+ 185 0086 C4ED005A 		fsts	s11, [r4, #0]	@ int
+  42:rectangle.cpp **** 	points[0].y = Quadrangle::y;
+ 186              		.loc 1 42 0
+ 187 008a 84ED016A 		fsts	s12, [r4, #4]	@ int
+  44:rectangle.cpp **** 	points[1].x = points[0].x;
+ 188              		.loc 1 44 0
+ 189 008e C4ED025A 		fsts	s11, [r4, #8]	@ int
+  51:rectangle.cpp **** 	points[3].y = points[0].y;
+ 190              		.loc 1 51 0
+ 191 0092 84ED076A 		fsts	s12, [r4, #28]	@ int
+  53:rectangle.cpp **** 	points[4].x = points[0].x;
+ 192              		.loc 1 53 0
+ 193 0096 C4ED085A 		fsts	s11, [r4, #32]	@ int
+  54:rectangle.cpp **** 	points[4].y = points[0].y;
+ 194              		.loc 1 54 0
+ 195 009a 84ED096A 		fsts	s12, [r4, #36]	@ int
+  47:rectangle.cpp **** 	points[2].x = points[1].x + Quadrangle::width;
+ 196              		.loc 1 47 0
+ 197 009e 2261     		str	r2, [r4, #16]
+  50:rectangle.cpp **** 	points[3].x = points[2].x;
+ 198              		.loc 1 50 0
+ 199 00a0 A261     		str	r2, [r4, #24]
+ 200              		.loc 1 55 0
+ 201 00a2 0022     		movs	r2, #0
+  32:rectangle.cpp **** 	Quadrangle::height = Transform::mmToEncoder(height);
+ 202              		.loc 1 32 0
+ 203 00a4 C7ED007A 		fsts	s15, [r7, #0]	@ int
+ 204              		.loc 1 55 0
+ 205 00a8 1A60     		str	r2, [r3, #0]
+  31:rectangle.cpp **** 	Quadrangle::width = Transform::mmToEncoder(width);
+ 206              		.loc 1 31 0
+ 207 00aa CEED006A 		fsts	s13, [lr, #0]	@ int
+ 208              	.LVL6:
+ 209              	.LBB102:
+ 210              	.LBB103:
+ 211              		.loc 3 69 0
+ 212 00ae 304F     		ldr	r7, .L19+24
+ 213              	.LBE103:
+ 214              	.LBE102:
+ 215              	.LBB106:
+ 216              	.LBB92:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 217              		.loc 3 67 0
+ 218 00b0 D047     		blx	sl
+ 219              	.LVL7:
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 220              		.loc 3 68 0
+ 221 00b2 C847     		blx	r9
+ 222              	.LVL8:
+ 223              	.LBE92:
+ 224              	.LBE106:
+  56:rectangle.cpp **** 
+  57:rectangle.cpp **** 	Control<X>::setShallPosition(points[0].x);
+  58:rectangle.cpp **** 	Control<Y>::setShallPosition(points[0].y);
+ 225              		.loc 1 58 0
+ 226 00b4 6468     		ldr	r4, [r4, #4]
+ 227              	.LVL9:
+ 228              	.LBB107:
+ 229              	.LBB93:
+ 230              		.loc 3 69 0
+ 231 00b6 C8F80050 		str	r5, [r8, #0]
+ 232              	.LBE93:
+ 233              	.LBE107:
+ 234              	.LBB108:
+ 235              	.LBB104:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 236              		.loc 3 67 0
+ 237 00ba D047     		blx	sl
+ 238              	.LVL10:
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 239              		.loc 3 68 0
+ 240 00bc C847     		blx	r9
+ 241              	.LVL11:
+ 242              	.LBE104:
+ 243              	.LBE108:
+ 244              	.LBB109:
+ 245              	.LBB98:
+ 246              		.loc 4 287 0
+ 247 00be 7368     		ldr	r3, [r6, #4]
+ 248              	.LBE98:
+ 249              	.LBE109:
+ 250              	.LBB110:
+ 251              	.LBB105:
+ 252              		.loc 3 69 0
+ 253 00c0 3C60     		str	r4, [r7, #0]
+ 254              	.LVL12:
+ 255              	.LBE105:
+ 256              	.LBE110:
+ 257              	.LBB111:
+ 258              	.LBB99:
+ 259              		.loc 4 287 0
+ 260 00c2 002B     		cmp	r3, #0
+ 261 00c4 2FD0     		beq	.L15
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 262              		.loc 4 290 0
+ 263 00c6 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 264              		.loc 4 291 0
+ 265 00c8 3046     		mov	r0, r6
+ 266 00ca 2A49     		ldr	r1, .L19+28
+ 267 00cc 0CBF     		ite	eq
+ 268 00ce 2A4B     		ldreq	r3, .L19+32
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			}
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else {
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(s);
+ 269              		.loc 4 294 0
+ 270 00d0 2A4B     		ldrne	r3, .L19+36
+ 271 00d2 9847     		blx	r3
+ 272              	.LVL13:
+ 273              	.L3:
+ 274              	.LBE99:
+ 275              	.LBE111:
+ 276              	.LBB112:
+ 277              	.LBB113:
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 278              		.loc 4 236 0
+ 279 00d4 234D     		ldr	r5, .L19+12
+ 280              	.LVL14:
+ 281              	.LBE113:
+ 282              	.LBE112:
+ 283              	.LBB115:
+ 284              	.LBB116:
+ 285              		.file 5 "control.h"
+   1:control.h     **** /*
+   2:control.h     ****  * control.h
+   3:control.h     ****  *
+   4:control.h     ****  *  Created on: Nov 24, 2013
+   5:control.h     ****  *      Author: jonas
+   6:control.h     ****  */
+   7:control.h     **** 
+   8:control.h     **** #ifndef CONTROL_H_
+   9:control.h     **** #define CONTROL_H_
+  10:control.h     **** 
+  11:control.h     **** #include "project.h"
+  12:control.h     **** #include <xpcc/math/filter/pid.hpp>
+  13:control.h     **** 
+  14:control.h     **** 
+  15:control.h     **** template<Axis axis>
+  16:control.h     **** class Control{
+  17:control.h     **** 
+  18:control.h     **** 	friend class Control<ALL>;
+  19:control.h     **** 
+  20:control.h     **** private:
+  21:control.h     **** 	static volatile int pos_shall;
+  22:control.h     **** 	static volatile int v_is; // velocity in pulses/s
+  23:control.h     **** 	static volatile int v_shall;
+  24:control.h     **** 
+  25:control.h     **** 	static float maxSpeed;
+  26:control.h     **** 	static xpcc::Pid<float, 1> v_pid;
+  27:control.h     **** 	static xpcc::Pid<float, 1> pos_pid;
+  28:control.h     **** 	static int v_u; // speed controller output
+  29:control.h     **** 	static int v_ureal;
+  30:control.h     **** 	static int last_pos; //position when the last control loop was executed
+  31:control.h     **** 
+  32:control.h     **** 	static bool positionControlEnabled;
+  33:control.h     **** 	static bool speedControlEnabled;
+  34:control.h     **** 
+  35:control.h     **** public:
+  36:control.h     **** 
+  37:control.h     **** 	static bool init();
+  38:control.h     **** 	static void enablePositionControl(bool enable);
+  39:control.h     **** 	static void enableSpeedControl(bool enable);
+  40:control.h     **** 	static void setShallPosition(int x);
+  41:control.h     **** 	/**
+  42:control.h     **** 	 * Also disables the position controller
+  43:control.h     **** 	 * @param speed [-1,1]
+  44:control.h     **** 	 */
+  45:control.h     **** 	static void setShallSpeed(double speed);
+  46:control.h     **** 	static int getSpeedErrorSum();
+  47:control.h     **** 	static int getPositionErrorSum();
+  48:control.h     **** 	static int32_t getIsPosition();
+  49:control.h     **** 	static inline int getShallSpeed(){ return v_shall; }
+  50:control.h     **** 	static inline int getIsSpeed(){ return v_is; }
+  51:control.h     **** 	static inline int getShallPosition(){ return pos_shall; }
+ 286              		.loc 5 51 0
+ 287 00d6 D8F80010 		ldr	r1, [r8, #0]
+ 288              	.LBE116:
+ 289              	.LBE115:
+ 290              	.LBB117:
+ 291              	.LBB114:
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 292              		.loc 4 236 0
+ 293 00da 294C     		ldr	r4, .L19+40
+ 294              	.LVL15:
+ 295 00dc 2846     		mov	r0, r5
+ 296 00de A047     		blx	r4
+ 297              	.LVL16:
+ 298              	.LBE114:
+ 299              	.LBE117:
+ 300              	.LBB118:
+ 301              	.LBB119:
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 302              		.loc 4 122 0
+ 303 00e0 7368     		ldr	r3, [r6, #4]
+ 304 00e2 002B     		cmp	r3, #0
+ 305 00e4 32D0     		beq	.L16
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 306              		.loc 4 126 0
+ 307 00e6 0A21     		movs	r1, #10
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 308              		.loc 4 125 0
+ 309 00e8 022B     		cmp	r3, #2
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 310              		.loc 4 126 0
+ 311 00ea 2846     		mov	r0, r5
+ 312 00ec 0CBF     		ite	eq
+ 313 00ee 254B     		ldreq	r3, .L19+44
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 314              		.loc 4 129 0
+ 315 00f0 254B     		ldrne	r3, .L19+48
+ 316 00f2 9847     		blx	r3
+ 317              	.LVL17:
+ 318              	.L6:
+ 319              	.LBE119:
+ 320              	.LBE118:
+ 321              	.LBB123:
+ 322              	.LBB124:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 323              		.loc 4 287 0
+ 324 00f4 7368     		ldr	r3, [r6, #4]
+ 325 00f6 1B48     		ldr	r0, .L19+12
+ 326 00f8 002B     		cmp	r3, #0
+ 327 00fa 21D0     		beq	.L17
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 328              		.loc 4 290 0
+ 329 00fc 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 330              		.loc 4 291 0
+ 331 00fe 2349     		ldr	r1, .L19+52
+ 332 0100 0CBF     		ite	eq
+ 333 0102 1D4B     		ldreq	r3, .L19+32
+ 334              		.loc 4 294 0
+ 335 0104 1D4B     		ldrne	r3, .L19+36
+ 336 0106 9847     		blx	r3
+ 337              	.LVL18:
+ 338              	.L9:
+ 339              	.LBE124:
+ 340              	.LBE123:
+ 341              	.LBB128:
+ 342              	.LBB129:
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 343              		.loc 4 236 0
+ 344 0108 164D     		ldr	r5, .L19+12
+ 345              	.LBE129:
+ 346              	.LBE128:
+ 347              	.LBB131:
+ 348              	.LBB132:
+ 349              		.loc 5 51 0
+ 350 010a 3968     		ldr	r1, [r7, #0]
+ 351              	.LBE132:
+ 352              	.LBE131:
+ 353              	.LBB133:
+ 354              	.LBB130:
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			this->writeInteger(static_cast<int32_t>(v));
+ 355              		.loc 4 236 0
+ 356 010c 2846     		mov	r0, r5
+ 357 010e A047     		blx	r4
+ 358              	.LVL19:
+ 359              	.LBE130:
+ 360              	.LBE133:
+ 361              	.LBB134:
+ 362              	.LBB135:
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 363              		.loc 4 122 0
+ 364 0110 7368     		ldr	r3, [r6, #4]
+ 365 0112 73B1     		cbz	r3, .L18
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 366              		.loc 4 126 0
+ 367 0114 0A21     		movs	r1, #10
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 368              		.loc 4 125 0
+ 369 0116 022B     		cmp	r3, #2
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 370              		.loc 4 126 0
+ 371 0118 2846     		mov	r0, r5
+ 372 011a 0CBF     		ite	eq
+ 373 011c 194B     		ldreq	r3, .L19+44
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 374              		.loc 4 129 0
+ 375 011e 1A4B     		ldrne	r3, .L19+48
+ 376 0120 9847     		blx	r3
+ 377              	.LVL20:
+ 378 0122 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 379              	.LVL21:
+ 380              	.L15:
+ 381              	.LBE135:
+ 382              	.LBE134:
+ 383              	.LBB139:
+ 384              	.LBB100:
+ 385              	.LBB96:
+ 386              	.LBB97:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 387              		.loc 4 288 0
+ 388 0126 3068     		ldr	r0, [r6, #0]
+ 389 0128 1249     		ldr	r1, .L19+28
+ 390 012a 0368     		ldr	r3, [r0, #0]
+ 391 012c DB68     		ldr	r3, [r3, #12]
+ 392 012e 9847     		blx	r3
+ 393              	.LVL22:
+ 394 0130 D0E7     		b	.L3
+ 395              	.LVL23:
+ 396              	.L18:
+ 397              	.LBE97:
+ 398              	.LBE96:
+ 399              	.LBE100:
+ 400              	.LBE139:
+ 401              	.LBB140:
+ 402              	.LBB138:
+ 403              	.LBB136:
+ 404              	.LBB137:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 405              		.loc 4 123 0
+ 406 0132 2868     		ldr	r0, [r5, #0]
+ 407 0134 0368     		ldr	r3, [r0, #0]
+ 408 0136 0A21     		movs	r1, #10
+ 409 0138 9B68     		ldr	r3, [r3, #8]
+ 410 013a 9847     		blx	r3
+ 411              	.LVL24:
+ 412 013c BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 413              	.LVL25:
+ 414              	.L17:
+ 415              	.LBE137:
+ 416              	.LBE136:
+ 417              	.LBE138:
+ 418              	.LBE140:
+ 419              	.LBB141:
+ 420              	.LBB127:
+ 421              	.LBB125:
+ 422              	.LBB126:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 423              		.loc 4 288 0
+ 424 0140 0068     		ldr	r0, [r0, #0]
+ 425 0142 1249     		ldr	r1, .L19+52
+ 426 0144 0368     		ldr	r3, [r0, #0]
+ 427 0146 DB68     		ldr	r3, [r3, #12]
+ 428 0148 9847     		blx	r3
+ 429              	.LVL26:
+ 430 014a DDE7     		b	.L9
+ 431              	.LVL27:
+ 432              	.L16:
+ 433              	.LBE126:
+ 434              	.LBE125:
+ 435              	.LBE127:
+ 436              	.LBE141:
+ 437              	.LBB142:
+ 438              	.LBB122:
+ 439              	.LBB120:
+ 440              	.LBB121:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 441              		.loc 4 123 0
+ 442 014c 2868     		ldr	r0, [r5, #0]
+ 443 014e 0368     		ldr	r3, [r0, #0]
+ 444 0150 0A21     		movs	r1, #10
+ 445 0152 9B68     		ldr	r3, [r3, #8]
+ 446 0154 9847     		blx	r3
+ 447              	.LVL28:
+ 448 0156 CDE7     		b	.L6
+ 449              	.L20:
+ 450              		.align	2
+ 451              	.L19:
+ 452 0158 0000FA44 		.word	1157234688
+ 453 015c 00000000 		.word	.LANCHOR0
+ 454 0160 00000000 		.word	.LANCHOR4
+ 455 0164 00000000 		.word	dout
+ 456 0168 00000000 		.word	.LANCHOR5
+ 457 016c 00000000 		.word	.LANCHOR3
+ 458 0170 00000000 		.word	_ZN7ControlIL4Axis2EE9pos_shallE
+ 459 0174 00000000 		.word	.LC0
+ 460 0178 00000000 		.word	_ZN4xpcc8IOStream8writeBinEPKc
+ 461 017c 00000000 		.word	_ZN4xpcc8IOStream8writeHexEPKc
+ 462 0180 00000000 		.word	_ZN4xpcc8IOStream12writeIntegerEl
+ 463 0184 00000000 		.word	_ZN4xpcc8IOStream8writeBinEh
+ 464 0188 00000000 		.word	_ZN4xpcc8IOStream8writeHexEh
+ 465 018c 10000000 		.word	.LC1
+ 466 0190 00000000 		.word	.LANCHOR1
+ 467 0194 00000000 		.word	_ZN7ControlIL4Axis0EE9pos_shallE
+ 468 0198 00000000 		.word	_ZN7ControlIL4Axis5EE11resetPosPidEv
+ 469 019c 00000000 		.word	_ZN7ControlIL4Axis5EE9resetVPidEv
+ 470 01a0 00000000 		.word	.LANCHOR2
+ 471              	.LBE121:
+ 472              	.LBE120:
+ 473              	.LBE122:
+ 474              	.LBE142:
+ 475              		.cfi_endproc
+ 476              	.LFE1026:
+ 478              		.section	.text._ZN10Quadrangle6sampleEv,"ax",%progbits
+ 479              		.align	2
+ 480              		.global	_ZN10Quadrangle6sampleEv
+ 481              		.thumb
+ 482              		.thumb_func
+ 484              	_ZN10Quadrangle6sampleEv:
+ 485              	.LFB1027:
+  59:rectangle.cpp **** 	dout << "first point x " << Control<X>::getShallPosition() << endl;
+  60:rectangle.cpp **** 	dout << "first point y " << Control<Y>::getShallPosition() << endl;
+  61:rectangle.cpp **** }
+  62:rectangle.cpp **** 
+  63:rectangle.cpp **** void Quadrangle::sample(){
+ 486              		.loc 1 63 0
+ 487              		.cfi_startproc
+ 488              		@ args = 0, pretend = 0, frame = 0
+ 489              		@ frame_needed = 0, uses_anonymous_args = 0
+ 490 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 491              	.LCFI1:
+ 492              		.cfi_def_cfa_offset 24
+ 493              		.cfi_offset 4, -24
+ 494              		.cfi_offset 5, -20
+ 495              		.cfi_offset 6, -16
+ 496              		.cfi_offset 7, -12
+ 497              		.cfi_offset 8, -8
+ 498              		.cfi_offset 14, -4
+ 499              	.LBB167:
+ 500              	.LBB168:
+  23:rectangle.cpp **** 	return abs(Control<X>::getIsPosition() - points[pointsIndex].x) < 30 &&
+ 501              		.loc 1 23 0
+ 502 0004 3D4D     		ldr	r5, .L45
+ 503 0006 3E4B     		ldr	r3, .L45+4
+ 504 0008 3E4C     		ldr	r4, .L45+8
+ 505 000a 9847     		blx	r3
+ 506              	.LVL29:
+ 507 000c 2B68     		ldr	r3, [r5, #0]
+ 508 000e 54F83330 		ldr	r3, [r4, r3, lsl #3]
+ 509 0012 C01A     		subs	r0, r0, r3
+ 510 0014 80EAE073 		eor	r3, r0, r0, asr #31
+ 511 0018 A3EBE073 		sub	r3, r3, r0, asr #31
+  24:rectangle.cpp **** 			abs(Control<Y>::getIsPosition() - points[pointsIndex].y) < 30;
+ 512              		.loc 1 24 0
+ 513 001c 1D2B     		cmp	r3, #29
+ 514 001e 01DD     		ble	.L39
+ 515              	.L21:
+ 516 0020 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 517              	.L39:
+ 518 0024 384B     		ldr	r3, .L45+12
+ 519 0026 9847     		blx	r3
+ 520              	.LVL30:
+ 521 0028 2B68     		ldr	r3, [r5, #0]
+ 522 002a 04EBC302 		add	r2, r4, r3, lsl #3
+ 523 002e 5268     		ldr	r2, [r2, #4]
+ 524 0030 801A     		subs	r0, r0, r2
+ 525 0032 80EAE072 		eor	r2, r0, r0, asr #31
+ 526 0036 A2EBE072 		sub	r2, r2, r0, asr #31
+ 527 003a 1D2A     		cmp	r2, #29
+ 528 003c F0DC     		bgt	.L21
+ 529              	.LBE168:
+ 530              	.LBE167:
+  64:rectangle.cpp **** 	if(reachedPoint()){
+  65:rectangle.cpp **** 		pointsIndex++;
+ 531              		.loc 1 65 0
+ 532 003e 0133     		adds	r3, r3, #1
+  66:rectangle.cpp **** 		if(pointsIndex > 4){
+ 533              		.loc 1 66 0
+ 534 0040 042B     		cmp	r3, #4
+  65:rectangle.cpp **** 		pointsIndex++;
+ 535              		.loc 1 65 0
+ 536 0042 2B60     		str	r3, [r5, #0]
+ 537              		.loc 1 66 0
+ 538 0044 12DC     		bgt	.L40
+ 539              	.LBB169:
+ 540              	.LBB170:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 541              		.loc 3 67 0
+ 542 0046 314F     		ldr	r7, .L45+16
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 543              		.loc 3 68 0
+ 544 0048 314E     		ldr	r6, .L45+20
+ 545              	.LBE170:
+ 546              	.LBE169:
+  67:rectangle.cpp **** 			Pattern::done();
+  68:rectangle.cpp **** 			dout << "rectangle pattern is done " << endl;
+  69:rectangle.cpp **** 			return;
+  70:rectangle.cpp **** 		}
+  71:rectangle.cpp **** 		Control<X>::setShallPosition(points[pointsIndex].x);
+ 547              		.loc 1 71 0
+ 548 004a 54F83380 		ldr	r8, [r4, r3, lsl #3]
+ 549              	.LVL31:
+ 550              	.LBB174:
+ 551              	.LBB171:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 552              		.loc 3 67 0
+ 553 004e B847     		blx	r7
+ 554              	.LVL32:
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 555              		.loc 3 68 0
+ 556 0050 B047     		blx	r6
+ 557              	.LVL33:
+ 558              	.LBE171:
+ 559              	.LBE174:
+  72:rectangle.cpp **** 		Control<Y>::setShallPosition(points[pointsIndex].y);
+ 560              		.loc 1 72 0
+ 561 0052 2B68     		ldr	r3, [r5, #0]
+ 562 0054 04EBC304 		add	r4, r4, r3, lsl #3
+ 563              	.LBB175:
+ 564              	.LBB172:
+ 565              		.loc 3 69 0
+ 566 0058 2E4B     		ldr	r3, .L45+24
+ 567              	.LBE172:
+ 568              	.LBE175:
+ 569              		.loc 1 72 0
+ 570 005a 6468     		ldr	r4, [r4, #4]
+ 571              	.LVL34:
+ 572              	.LBB176:
+ 573              	.LBB173:
+ 574              		.loc 3 69 0
+ 575 005c C3F80080 		str	r8, [r3, #0]
+ 576              	.LBE173:
+ 577              	.LBE176:
+ 578              	.LBB177:
+ 579              	.LBB178:
+  67:control_impl.h **** 	Control<ALL>::resetPosPid();
+ 580              		.loc 3 67 0
+ 581 0060 B847     		blx	r7
+ 582              	.LVL35:
+  68:control_impl.h **** 	Control<ALL>::resetVPid();
+ 583              		.loc 3 68 0
+ 584 0062 B047     		blx	r6
+ 585              	.LVL36:
+ 586              		.loc 3 69 0
+ 587 0064 2C4B     		ldr	r3, .L45+28
+ 588 0066 1C60     		str	r4, [r3, #0]
+ 589 0068 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 590              	.LVL37:
+ 591              	.L40:
+ 592              	.LBE178:
+ 593              	.LBE177:
+ 594              	.LBB179:
+ 595              	.LBB180:
+ 596              		.file 6 "pattern.h"
+   1:pattern.h     **** /*
+   2:pattern.h     ****  * pattern.h
+   3:pattern.h     ****  *
+   4:pattern.h     ****  *  Created on: Jan 18, 2014
+   5:pattern.h     ****  *      Author: jonas
+   6:pattern.h     ****  */
+   7:pattern.h     **** 
+   8:pattern.h     **** #ifndef PATTERN_H_
+   9:pattern.h     **** #define PATTERN_H_
+  10:pattern.h     **** 
+  11:pattern.h     **** #include "control.h"
+  12:pattern.h     **** #include "project.h"
+  13:pattern.h     **** #include "state.h"
+  14:pattern.h     **** #include "pcInterface.h"
+  15:pattern.h     **** 
+  16:pattern.h     **** class QuadrangleZigZag;
+  17:pattern.h     **** 
+  18:pattern.h     **** class Pattern{
+  19:pattern.h     **** 	static void (*func)(void);
+  20:pattern.h     **** 	static bool running;
+  21:pattern.h     **** 	static bool paused;
+  22:pattern.h     **** public:
+  23:pattern.h     **** 	template<class T>
+  24:pattern.h     **** 	static void setPattern(T pattern, float maxSpeed = 1){
+  25:pattern.h     **** 		(void)pattern;
+  26:pattern.h     **** 		//Control<ALL>::setMaxSpeed(maxSpeed);
+  27:pattern.h     **** 		func = &T::sample;
+  28:pattern.h     **** 	}
+  29:pattern.h     **** 	static void follow(){
+  30:pattern.h     **** 		if(!running || func == 0){
+  31:pattern.h     **** 			return;
+  32:pattern.h     **** 		}
+  33:pattern.h     **** 		func();
+  34:pattern.h     **** 	}
+  35:pattern.h     **** 	static void pause(){
+  36:pattern.h     **** 		running = false;
+  37:pattern.h     **** 		paused = true;
+  38:pattern.h     **** 	}
+  39:pattern.h     **** 	static void start(){
+  40:pattern.h     **** 		running = true;
+  41:pattern.h     **** 		paused = false;
+  42:pattern.h     **** 		State::set(State::SCANNING_RECTANGLE);
+  43:pattern.h     **** 		dout << "Pattern start" << endl;
+  44:pattern.h     **** 		commandOut << PC::ucCommand::FLUSH_DATA << endl;
+  45:pattern.h     **** 	}
+  46:pattern.h     **** 	static void resume(){
+  47:pattern.h     **** 		running = true;
+  48:pattern.h     **** 		/*if(!paused){
+  49:pattern.h     **** 			start();
+  50:pattern.h     **** 		}*/
+  51:pattern.h     **** 		paused = false;
+  52:pattern.h     **** 	}
+  53:pattern.h     **** 	static void done(){
+  54:pattern.h     **** 		running = 0;
+ 597              		.loc 6 54 0
+ 598 006c 2B4B     		ldr	r3, .L45+32
+ 599              	.LBB181:
+ 600              	.LBB182:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 601              		.loc 4 287 0
+ 602 006e 2C4C     		ldr	r4, .L45+36
+ 603              	.LBE182:
+ 604              	.LBE181:
+ 605              		.loc 6 54 0
+ 606 0070 0022     		movs	r2, #0
+ 607 0072 1A70     		strb	r2, [r3, #0]
+  55:pattern.h     **** 		State::set(State::READY);
+ 608              		.loc 6 55 0
+ 609 0074 0120     		movs	r0, #1
+ 610 0076 2B4B     		ldr	r3, .L45+40
+ 611 0078 9847     		blx	r3
+ 612              	.LVL38:
+ 613              	.LBB187:
+ 614              	.LBB185:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 615              		.loc 4 287 0
+ 616 007a 6368     		ldr	r3, [r4, #4]
+ 617 007c 002B     		cmp	r3, #0
+ 618 007e 24D0     		beq	.L41
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 619              		.loc 4 290 0
+ 620 0080 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 621              		.loc 4 291 0
+ 622 0082 2046     		mov	r0, r4
+ 623 0084 2849     		ldr	r1, .L45+44
+ 624 0086 0CBF     		ite	eq
+ 625 0088 284B     		ldreq	r3, .L45+48
+ 626              		.loc 4 294 0
+ 627 008a 294B     		ldrne	r3, .L45+52
+ 628 008c 9847     		blx	r3
+ 629              	.LVL39:
+ 630              	.L25:
+ 631              	.LBE185:
+ 632              	.LBE187:
+ 633              	.LBB188:
+ 634              	.LBB189:
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 635              		.loc 4 122 0
+ 636 008e 6368     		ldr	r3, [r4, #4]
+ 637 0090 2348     		ldr	r0, .L45+36
+ 638 0092 002B     		cmp	r3, #0
+ 639 0094 2CD0     		beq	.L42
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 640              		.loc 4 126 0
+ 641 0096 0A21     		movs	r1, #10
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 642              		.loc 4 125 0
+ 643 0098 022B     		cmp	r3, #2
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 644              		.loc 4 126 0
+ 645 009a 0CBF     		ite	eq
+ 646 009c 254B     		ldreq	r3, .L45+56
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 647              		.loc 4 129 0
+ 648 009e 264B     		ldrne	r3, .L45+60
+ 649 00a0 9847     		blx	r3
+ 650              	.LVL40:
+ 651              	.L28:
+ 652              	.LBE189:
+ 653              	.LBE188:
+ 654              	.LBE180:
+ 655              	.LBE179:
+ 656              	.LBB197:
+ 657              	.LBB198:
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if( this->mode == Mode::Ascii ) {
+ 658              		.loc 4 287 0
+ 659 00a2 6368     		ldr	r3, [r4, #4]
+ 660 00a4 1E48     		ldr	r0, .L45+36
+ 661 00a6 EBB1     		cbz	r3, .L43
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if( this->mode == Mode::Binary ) {
+ 662              		.loc 4 290 0
+ 663 00a8 022B     		cmp	r3, #2
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(s);
+ 664              		.loc 4 291 0
+ 665 00aa 2449     		ldr	r1, .L45+64
+ 666 00ac 0CBF     		ite	eq
+ 667 00ae 1F4B     		ldreq	r3, .L45+48
+ 668              		.loc 4 294 0
+ 669 00b0 1F4B     		ldrne	r3, .L45+52
+ 670 00b2 9847     		blx	r3
+ 671              	.LVL41:
+ 672              	.L31:
+ 673              	.LBE198:
+ 674              	.LBE197:
+ 675              	.LBB202:
+ 676              	.LBB203:
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			if (this->mode == Mode::Ascii) {
+ 677              		.loc 4 122 0
+ 678 00b4 6368     		ldr	r3, [r4, #4]
+ 679 00b6 1A48     		ldr	r0, .L45+36
+ 680 00b8 6BB1     		cbz	r3, .L44
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 681              		.loc 4 126 0
+ 682 00ba 0A21     		movs	r1, #10
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 			else if (this->mode == Mode::Binary) {
+ 683              		.loc 4 125 0
+ 684 00bc 022B     		cmp	r3, #2
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeBin(v);
+ 685              		.loc 4 126 0
+ 686 00be 0CBF     		ite	eq
+ 687 00c0 1C4B     		ldreq	r3, .L45+56
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->writeHex(v);
+ 688              		.loc 4 129 0
+ 689 00c2 1D4B     		ldrne	r3, .L45+60
+ 690 00c4 9847     		blx	r3
+ 691              	.LVL42:
+ 692 00c6 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 693              	.LVL43:
+ 694              	.L41:
+ 695              	.LBE203:
+ 696              	.LBE202:
+ 697              	.LBB207:
+ 698              	.LBB195:
+ 699              	.LBB193:
+ 700              	.LBB186:
+ 701              	.LBB183:
+ 702              	.LBB184:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 703              		.loc 4 288 0
+ 704 00ca 2068     		ldr	r0, [r4, #0]
+ 705 00cc 1649     		ldr	r1, .L45+44
+ 706 00ce 0368     		ldr	r3, [r0, #0]
+ 707 00d0 DB68     		ldr	r3, [r3, #12]
+ 708 00d2 9847     		blx	r3
+ 709              	.LVL44:
+ 710 00d4 DBE7     		b	.L25
+ 711              	.LVL45:
+ 712              	.L44:
+ 713              	.LBE184:
+ 714              	.LBE183:
+ 715              	.LBE186:
+ 716              	.LBE193:
+ 717              	.LBE195:
+ 718              	.LBE207:
+ 719              	.LBB208:
+ 720              	.LBB206:
+ 721              	.LBB204:
+ 722              	.LBB205:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 723              		.loc 4 123 0
+ 724 00d6 0068     		ldr	r0, [r0, #0]
+ 725 00d8 0368     		ldr	r3, [r0, #0]
+ 726 00da 0A21     		movs	r1, #10
+ 727 00dc 9B68     		ldr	r3, [r3, #8]
+ 728 00de 9847     		blx	r3
+ 729              	.LVL46:
+ 730 00e0 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 731              	.LVL47:
+ 732              	.L43:
+ 733              	.LBE205:
+ 734              	.LBE204:
+ 735              	.LBE206:
+ 736              	.LBE208:
+ 737              	.LBB209:
+ 738              	.LBB201:
+ 739              	.LBB199:
+ 740              	.LBB200:
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(s);
+ 741              		.loc 4 288 0
+ 742 00e4 0068     		ldr	r0, [r0, #0]
+ 743 00e6 1549     		ldr	r1, .L45+64
+ 744 00e8 0368     		ldr	r3, [r0, #0]
+ 745 00ea DB68     		ldr	r3, [r3, #12]
+ 746 00ec 9847     		blx	r3
+ 747              	.LVL48:
+ 748 00ee E1E7     		b	.L31
+ 749              	.LVL49:
+ 750              	.L42:
+ 751              	.LBE200:
+ 752              	.LBE199:
+ 753              	.LBE201:
+ 754              	.LBE209:
+ 755              	.LBB210:
+ 756              	.LBB196:
+ 757              	.LBB194:
+ 758              	.LBB192:
+ 759              	.LBB190:
+ 760              	.LBB191:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp **** 				this->device->write(v);
+ 761              		.loc 4 123 0
+ 762 00f0 0068     		ldr	r0, [r0, #0]
+ 763 00f2 0368     		ldr	r3, [r0, #0]
+ 764 00f4 0A21     		movs	r1, #10
+ 765 00f6 9B68     		ldr	r3, [r3, #8]
+ 766 00f8 9847     		blx	r3
+ 767              	.LVL50:
+ 768 00fa D2E7     		b	.L28
+ 769              	.L46:
+ 770              		.align	2
+ 771              	.L45:
+ 772 00fc 00000000 		.word	.LANCHOR5
+ 773 0100 00000000 		.word	_ZN7ControlIL4Axis0EE13getIsPositionEv
+ 774 0104 00000000 		.word	.LANCHOR4
+ 775 0108 00000000 		.word	_ZN7ControlIL4Axis2EE13getIsPositionEv
+ 776 010c 00000000 		.word	_ZN7ControlIL4Axis5EE11resetPosPidEv
+ 777 0110 00000000 		.word	_ZN7ControlIL4Axis5EE9resetVPidEv
+ 778 0114 00000000 		.word	_ZN7ControlIL4Axis0EE9pos_shallE
+ 779 0118 00000000 		.word	_ZN7ControlIL4Axis2EE9pos_shallE
+ 780 011c 00000000 		.word	_ZN7Pattern7runningE
+ 781 0120 00000000 		.word	dout
+ 782 0124 00000000 		.word	_ZN5State3setEi
+ 783 0128 20000000 		.word	.LC2
+ 784 012c 00000000 		.word	_ZN4xpcc8IOStream8writeBinEPKc
+ 785 0130 00000000 		.word	_ZN4xpcc8IOStream8writeHexEPKc
+ 786 0134 00000000 		.word	_ZN4xpcc8IOStream8writeBinEh
+ 787 0138 00000000 		.word	_ZN4xpcc8IOStream8writeHexEh
+ 788 013c 30000000 		.word	.LC3
+ 789              	.LBE191:
+ 790              	.LBE190:
+ 791              	.LBE192:
+ 792              	.LBE194:
+ 793              	.LBE196:
+ 794              	.LBE210:
+ 795              		.cfi_endproc
+ 796              	.LFE1027:
+ 798              		.weak	_ZN7ControlIL4Axis2EE9pos_shallE
+ 799              		.section	.bss._ZN7ControlIL4Axis2EE9pos_shallE,"awG",%nobits,_ZN7ControlIL4Axis2EE9pos_shallE,comd
+ 800              		.align	2
+ 803              	_ZN7ControlIL4Axis2EE9pos_shallE:
+ 804 0000 00000000 		.space	4
+ 805              		.weak	_ZN7ControlIL4Axis0EE9pos_shallE
+ 806              		.section	.bss._ZN7ControlIL4Axis0EE9pos_shallE,"awG",%nobits,_ZN7ControlIL4Axis0EE9pos_shallE,comd
+ 807              		.align	2
+ 810              	_ZN7ControlIL4Axis0EE9pos_shallE:
+ 811 0000 00000000 		.space	4
+ 812              		.global	_ZN10Quadrangle6heightE
+ 813              		.global	_ZN10Quadrangle5widthE
+ 814              		.global	_ZN10Quadrangle1yE
+ 815              		.global	_ZN10Quadrangle1xE
+ 816              		.section	.bss._ZL6points,"aw",%nobits
+ 817              		.align	2
+ 818              		.set	.LANCHOR4,. + 0
+ 821              	_ZL6points:
+ 822 0000 00000000 		.space	40
+ 822      00000000 
+ 822      00000000 
+ 822      00000000 
+ 822      00000000 
+ 823              		.section	.bss._ZN10Quadrangle1xE,"aw",%nobits
+ 824              		.align	2
+ 825              		.set	.LANCHOR0,. + 0
+ 828              	_ZN10Quadrangle1xE:
+ 829 0000 00000000 		.space	4
+ 830              		.section	.bss._ZL11pointsIndex,"aw",%nobits
+ 831              		.align	2
+ 832              		.set	.LANCHOR5,. + 0
+ 835              	_ZL11pointsIndex:
+ 836 0000 00000000 		.space	4
+ 837              		.section	.bss._ZN10Quadrangle1yE,"aw",%nobits
+ 838              		.align	2
+ 839              		.set	.LANCHOR1,. + 0
+ 842              	_ZN10Quadrangle1yE:
+ 843 0000 00000000 		.space	4
+ 844              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 845              		.align	2
+ 846              	.LC0:
+ 847 0000 66697273 		.ascii	"first point x \000"
+ 847      7420706F 
+ 847      696E7420 
+ 847      782000
+ 848 000f 00       		.space	1
+ 849              	.LC1:
+ 850 0010 66697273 		.ascii	"first point y \000"
+ 850      7420706F 
+ 850      696E7420 
+ 850      792000
+ 851 001f 00       		.space	1
+ 852              	.LC2:
+ 853 0020 50617474 		.ascii	"Pattern done\000"
+ 853      65726E20 
+ 853      646F6E65 
+ 853      00
+ 854 002d 000000   		.space	3
+ 855              	.LC3:
+ 856 0030 72656374 		.ascii	"rectangle pattern is done \000"
+ 856      616E676C 
+ 856      65207061 
+ 856      74746572 
+ 856      6E206973 
+ 857 004b 00       		.section	.bss._ZN10Quadrangle5widthE,"aw",%nobits
+ 858              		.align	2
+ 859              		.set	.LANCHOR2,. + 0
+ 862              	_ZN10Quadrangle5widthE:
+ 863 0000 00000000 		.space	4
+ 864              		.section	.bss._ZN10Quadrangle6heightE,"aw",%nobits
+ 865              		.align	2
+ 866              		.set	.LANCHOR3,. + 0
+ 869              	_ZN10Quadrangle6heightE:
+ 870 0000 00000000 		.space	4
+ 871              		.text
+ 872              	.Letext0:
+ 873              		.file 7 "project.h"
+ 874              		.file 8 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 875              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/co
+ 876              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/u
+ 877              		.file 11 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/u
+ 878              		.file 12 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/gpio.hpp"
+ 879              		.file 13 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/f
+ 880              		.file 14 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/i2c/constants.hpp"
+ 881              		.file 15 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic.hpp"
+ 882              		.file 16 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 883              		.file 17 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/can/message.hpp"
+ 884              		.file 18 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+ 885              		.file 19 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 886              		.file 20 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 887              		.file 21 "<built-in>"
+ 888              		.file 22 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 889              		.file 23 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 890              		.file 24 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 891              		.file 25 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+ 892              		.file 26 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+ 893              		.file 27 "rectangle.h"
+ 894              		.file 28 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+ 895              		.file 29 "pcInterface.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 rectangle.cpp
+     /tmp/ccqprOUH.s:20     .text._ZN10Quadrangle9configureEffff:00000000 $t
+     /tmp/ccqprOUH.s:25     .text._ZN10Quadrangle9configureEffff:00000000 _ZN10Quadrangle9configureEffff
+     /tmp/ccqprOUH.s:452    .text._ZN10Quadrangle9configureEffff:00000158 $d
+     /tmp/ccqprOUH.s:803    .bss._ZN7ControlIL4Axis2EE9pos_shallE:00000000 _ZN7ControlIL4Axis2EE9pos_shallE
+     /tmp/ccqprOUH.s:810    .bss._ZN7ControlIL4Axis0EE9pos_shallE:00000000 _ZN7ControlIL4Axis0EE9pos_shallE
+     /tmp/ccqprOUH.s:479    .text._ZN10Quadrangle6sampleEv:00000000 $t
+     /tmp/ccqprOUH.s:484    .text._ZN10Quadrangle6sampleEv:00000000 _ZN10Quadrangle6sampleEv
+     /tmp/ccqprOUH.s:772    .text._ZN10Quadrangle6sampleEv:000000fc $d
+     /tmp/ccqprOUH.s:800    .bss._ZN7ControlIL4Axis2EE9pos_shallE:00000000 $d
+     /tmp/ccqprOUH.s:807    .bss._ZN7ControlIL4Axis0EE9pos_shallE:00000000 $d
+     /tmp/ccqprOUH.s:869    .bss._ZN10Quadrangle6heightE:00000000 _ZN10Quadrangle6heightE
+     /tmp/ccqprOUH.s:862    .bss._ZN10Quadrangle5widthE:00000000 _ZN10Quadrangle5widthE
+     /tmp/ccqprOUH.s:842    .bss._ZN10Quadrangle1yE:00000000 _ZN10Quadrangle1yE
+     /tmp/ccqprOUH.s:828    .bss._ZN10Quadrangle1xE:00000000 _ZN10Quadrangle1xE
+     /tmp/ccqprOUH.s:817    .bss._ZL6points:00000000 $d
+     /tmp/ccqprOUH.s:821    .bss._ZL6points:00000000 _ZL6points
+     /tmp/ccqprOUH.s:824    .bss._ZN10Quadrangle1xE:00000000 $d
+     /tmp/ccqprOUH.s:831    .bss._ZL11pointsIndex:00000000 $d
+     /tmp/ccqprOUH.s:835    .bss._ZL11pointsIndex:00000000 _ZL11pointsIndex
+     /tmp/ccqprOUH.s:838    .bss._ZN10Quadrangle1yE:00000000 $d
+     /tmp/ccqprOUH.s:845    .rodata.str1.4:00000000 $d
+     /tmp/ccqprOUH.s:858    .bss._ZN10Quadrangle5widthE:00000000 $d
+     /tmp/ccqprOUH.s:865    .bss._ZN10Quadrangle6heightE:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+dout
+_ZN4xpcc8IOStream8writeBinEPKc
+_ZN4xpcc8IOStream8writeHexEPKc
+_ZN4xpcc8IOStream12writeIntegerEl
+_ZN4xpcc8IOStream8writeBinEh
+_ZN4xpcc8IOStream8writeHexEh
+_ZN7ControlIL4Axis5EE11resetPosPidEv
+_ZN7ControlIL4Axis5EE9resetVPidEv
+_ZN7ControlIL4Axis0EE13getIsPositionEv
+_ZN7ControlIL4Axis2EE13getIsPositionEv
+_ZN7Pattern7runningE
+_ZN5State3setEi

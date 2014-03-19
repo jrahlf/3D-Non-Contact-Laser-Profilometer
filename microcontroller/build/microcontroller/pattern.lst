@@ -1,0 +1,68 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"pattern.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	_ZN7Pattern6pausedE
+  20              		.global	_ZN7Pattern7runningE
+  21              		.global	_ZN7Pattern4funcE
+  22              		.section	.bss._ZN7Pattern7runningE,"aw",%nobits
+  25              	_ZN7Pattern7runningE:
+  26 0000 00       		.space	1
+  27              		.section	.bss._ZN7Pattern4funcE,"aw",%nobits
+  28              		.align	2
+  31              	_ZN7Pattern4funcE:
+  32 0000 00000000 		.space	4
+  33              		.section	.bss._ZN7Pattern6pausedE,"aw",%nobits
+  36              	_ZN7Pattern6pausedE:
+  37 0000 00       		.space	1
+  38              		.text
+  39              	.Letext0:
+  40              		.file 1 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+  41              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/co
+  42              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ua
+  43              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ua
+  44              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/gpio.hpp"
+  45              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/fs
+  46              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/i2c/constants.hpp"
+  47              		.file 8 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic.hpp"
+  48              		.file 9 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iostream.hpp"
+  49              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+  50              		.file 11 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/driver/connectivity/can/message.hpp"
+  51              		.file 12 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/utils/template_metaprogramming.hpp"
+  52              		.file 13 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+  53              		.file 14 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+  54              		.file 15 "<built-in>"
+  55              		.file 16 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+  56              		.file 17 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+  57              		.file 18 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+  58              		.file 19 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/st
+  59              		.file 20 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c+
+  60              		.file 21 "pattern.h"
+  61              		.file 22 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+  62              		.file 23 "project.h"
+  63              		.file 24 "pcInterface.h"
+  64              		.file 25 "pattern.cpp"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pattern.cpp
+     /tmp/ccaaEZ6P.s:36     .bss._ZN7Pattern6pausedE:00000000 _ZN7Pattern6pausedE
+     /tmp/ccaaEZ6P.s:25     .bss._ZN7Pattern7runningE:00000000 _ZN7Pattern7runningE
+     /tmp/ccaaEZ6P.s:31     .bss._ZN7Pattern4funcE:00000000 _ZN7Pattern4funcE
+     /tmp/ccaaEZ6P.s:26     .bss._ZN7Pattern7runningE:00000000 $d
+     /tmp/ccaaEZ6P.s:28     .bss._ZN7Pattern4funcE:00000000 $d
+     /tmp/ccaaEZ6P.s:37     .bss._ZN7Pattern6pausedE:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,1423 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"stm32f4xx_dac.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.DAC_DeInit,"ax",%progbits
+  20              		.align	2
+  21              		.global	DAC_DeInit
+  22              		.thumb
+  23              		.thumb_func
+  25              	DAC_DeInit:
+  26              	.LFB110:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   ******************************************************************************
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @file    stm32f4xx_dac.c
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @author  MCD Application Team
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @version V1.0.0
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @date    30-September-2011
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****    * @brief   This file provides firmware functions to manage the following 
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          functionalities of the Digital-to-Analog Converter (DAC) peripheral: 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *           - DAC channels configuration: trigger, output buffer, data format
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *           - DMA management      
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *           - Interrupts and flags management
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *  @verbatim
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *    
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ===================================================================
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                             DAC Peripheral features
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ===================================================================
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC Channels
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          =============  
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          The device integrates two 12-bit Digital Analog Converters that can 
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          be used independently or simultaneously (dual mode):
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            1- DAC channel1 with DAC_OUT1 (PA4) as output
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            1- DAC channel2 with DAC_OUT2 (PA5) as output
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC Triggers
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          =============
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Digital to Analog conversion can be non-triggered using DAC_Trigger_None
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          and DAC_OUT1/DAC_OUT2 is available once writing to DHRx register 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          using DAC_SetChannel1Data() / DAC_SetChannel2Data() functions.
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *   
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         Digital to Analog conversion can be triggered by:
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             1- External event: EXTI Line 9 (any GPIOx_Pin9) using DAC_Trigger_Ext_IT9.
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                The used pin (GPIOx_Pin9) must be configured in input mode.
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             2- Timers TRGO: TIM2, TIM4, TIM5, TIM6, TIM7 and TIM8 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                (DAC_Trigger_T2_TRGO, DAC_Trigger_T4_TRGO...)
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                The timer TRGO event should be selected using TIM_SelectOutputTrigger()
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             3- Software using DAC_Trigger_Software
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC Buffer mode feature
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ========================  
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Each DAC channel integrates an output buffer that can be used to 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          reduce the output impedance, and to drive external loads directly
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          without having to add an external operational amplifier.
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          To enable, the output buffer use  
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *              DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Refer to the device datasheet for more details about output 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          impedance value with and without output buffer.
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC wave generation feature
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          =============================      
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Both DAC channels can be used to generate
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             1- Noise wave using DAC_WaveGeneration_Noise
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             2- Triangle wave using DAC_WaveGeneration_Triangle
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *        
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Wave generation can be disabled using DAC_WaveGeneration_None
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC data format
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ================   
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          The DAC data format can be:
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             1- 8-bit right alignment using DAC_Align_8b_R
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             2- 12-bit left alignment using DAC_Align_12b_L
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             3- 12-bit right alignment using DAC_Align_12b_R
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC data value to voltage correspondence  
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ========================================  
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          The analog output voltage on each DAC channel pin is determined
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          by the following equation: 
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC_OUTx = VREF+ * DOR / 4095
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          with  DOR is the Data Output Register
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                VEF+ is the input voltage reference (refer to the device datasheet)
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          e.g. To set DAC_OUT1 to 0.7V, use
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            DAC_SetChannel1Data(DAC_Align_12b_R, 868);
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          Assuming that VREF+ = 3.3V, DAC_OUT1 = (3.3 * 868) / 4095 = 0.7V
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DMA requests 
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          =============    
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          A DMA1 request can be generated when an external trigger (but not
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          a software trigger) occurs if DMA1 requests are enabled using
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC_DMACmd()
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DMA1 requests are mapped as following:
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             1- DAC channel1 : mapped on DMA1 Stream5 channel7 which must be 
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                               already configured
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *             2- DAC channel2 : mapped on DMA1 Stream6 channel7 which must be 
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                               already configured
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ===================================================================      
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *                              How to use this driver 
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          ===================================================================          
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            - DAC APB clock must be enabled to get write access to DAC
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *              registers using
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *              RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE)
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            - Configure DAC_OUTx (DAC_OUT1: PA4, DAC_OUT2: PA5) in analog mode.
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            - Configure the DAC channel using DAC_Init() function
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            - Enable the DAC channel using DAC_Cmd() function
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * 
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *  @endverbatim
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *    
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   ******************************************************************************
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @attention
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   ******************************************************************************  
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */ 
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Includes ------------------------------------------------------------------*/
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #include "stm32f4xx_dac.h"
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #include "stm32f4xx_rcc.h"
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @defgroup DAC 
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief DAC driver modules
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */ 
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private typedef -----------------------------------------------------------*/
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private define ------------------------------------------------------------*/
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* CR register Mask */
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define CR_CLEAR_MASK              ((uint32_t)0x00000FFE)
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* DAC Dual Channels SWTRIG masks */
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DUAL_SWTRIG_SET            ((uint32_t)0x00000003)
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DUAL_SWTRIG_RESET          ((uint32_t)0xFFFFFFFC)
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* DHR registers offsets */
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DHR12R1_OFFSET             ((uint32_t)0x00000008)
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DHR12R2_OFFSET             ((uint32_t)0x00000014)
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DHR12RD_OFFSET             ((uint32_t)0x00000020)
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* DOR register offset */
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** #define DOR_OFFSET                 ((uint32_t)0x0000002C)
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private macro -------------------------------------------------------------*/
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private variables ---------------------------------------------------------*/
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private function prototypes -----------------------------------------------*/
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /* Private functions ---------------------------------------------------------*/
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @defgroup DAC_Private_Functions
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @defgroup DAC_Group1 DAC channels configuration
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *  @brief   DAC channels configuration: trigger, output buffer, data format 
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @verbatim   
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****           DAC channels configuration: trigger, output buffer, data format
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================  
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @endverbatim
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Deinitializes the DAC peripheral registers to their default reset values.
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  None
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_DeInit(void)
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+  28              		.loc 1 175 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Enable DAC reset state */
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, ENABLE);
+  37              		.loc 1 177 0
+  38 0002 0121     		movs	r1, #1
+  39 0004 4FF00050 		mov	r0, #536870912
+  40 0008 034C     		ldr	r4, .L2
+  41 000a A047     		blx	r4
+  42              	.LVL0:
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Release DAC from reset state */
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, DISABLE);
+  43              		.loc 1 179 0
+  44 000c 4FF00050 		mov	r0, #536870912
+  45 0010 0021     		movs	r1, #0
+  46 0012 A047     		blx	r4
+  47              	.LVL1:
+  48 0014 10BD     		pop	{r4, pc}
+  49              	.L3:
+  50 0016 00BF     		.align	2
+  51              	.L2:
+  52 0018 00000000 		.word	RCC_APB1PeriphResetCmd
+  53              		.cfi_endproc
+  54              	.LFE110:
+  56              		.section	.text.DAC_Init,"ax",%progbits
+  57              		.align	2
+  58              		.global	DAC_Init
+  59              		.thumb
+  60              		.thumb_func
+  62              	DAC_Init:
+  63              	.LFB111:
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Initializes the DAC peripheral according to the specified parameters
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         in the DAC_InitStruct.
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: the selected DAC channel. 
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_InitStruct: pointer to a DAC_InitTypeDef structure that contains
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         the configuration information for the  specified DAC channel.
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_Init(uint32_t DAC_Channel, DAC_InitTypeDef* DAC_InitStruct)
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+  64              		.loc 1 194 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL2:
+  70 0000 70B4     		push	{r4, r5, r6}
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 12
+  73              		.cfi_offset 4, -12
+  74              		.cfi_offset 5, -8
+  75              		.cfi_offset 6, -4
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   uint32_t tmpreg1 = 0, tmpreg2 = 0;
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the DAC parameters */
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_TRIGGER(DAC_InitStruct->DAC_Trigger));
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_GENERATE_WAVE(DAC_InitStruct->DAC_WaveGeneration));
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_LFSR_UNMASK_TRIANGLE_AMPLITUDE(DAC_InitStruct->DAC_LFSRUnmask_TriangleAmplitu
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_OUTPUT_BUFFER_STATE(DAC_InitStruct->DAC_OutputBuffer));
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /*---------------------------- DAC CR Configuration --------------------------*/
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Get the DAC CR value */
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 = DAC->CR;
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Clear BOFFx, TENx, TSELx, WAVEx and MAMPx bits */
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 &= ~(CR_CLEAR_MASK << DAC_Channel);
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Configure for the selected DAC channel: buffer output, trigger, 
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****      wave generation, mask/amplitude for wave generation */
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set TSELx and TENx bits according to DAC_Trigger value */
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set WAVEx bits according to DAC_WaveGeneration value */
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set MAMPx bits according to DAC_LFSRUnmask_TriangleAmplitude value */ 
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set BOFFx bit according to DAC_OutputBuffer value */   
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg2 = (DAC_InitStruct->DAC_Trigger | DAC_InitStruct->DAC_WaveGeneration |
+  76              		.loc 1 214 0
+  77 0002 91E86000 		ldmia	r1, {r5, r6}
+  78 0006 8C68     		ldr	r4, [r1, #8]
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 = DAC->CR;
+  79              		.loc 1 205 0
+  80 0008 084B     		ldr	r3, .L5
+  81              		.loc 1 214 0
+  82 000a C968     		ldr	r1, [r1, #12]
+  83              	.LVL3:
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 = DAC->CR;
+  84              		.loc 1 205 0
+  85 000c 1A68     		ldr	r2, [r3, #0]
+  86              	.LVL4:
+  87              		.loc 1 214 0
+  88 000e 3543     		orrs	r5, r5, r6
+  89 0010 2C43     		orrs	r4, r4, r5
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 &= ~(CR_CLEAR_MASK << DAC_Channel);
+  90              		.loc 1 207 0
+  91 0012 40F6FE76 		movw	r6, #4094
+  92 0016 06FA00F6 		lsl	r6, r6, r0
+  93              		.loc 1 214 0
+  94 001a 2143     		orrs	r1, r1, r4
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 &= ~(CR_CLEAR_MASK << DAC_Channel);
+  95              		.loc 1 207 0
+  96 001c 22EA0602 		bic	r2, r2, r6
+  97              	.LVL5:
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****              DAC_InitStruct->DAC_LFSRUnmask_TriangleAmplitude | \
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****              DAC_InitStruct->DAC_OutputBuffer);
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Calculate CR register value depending on DAC_Channel */
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmpreg1 |= tmpreg2 << DAC_Channel;
+  98              		.loc 1 218 0
+  99 0020 01FA00F0 		lsl	r0, r1, r0
+ 100              	.LVL6:
+ 101 0024 0243     		orrs	r2, r2, r0
+ 102              	.LVL7:
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Write to DAC CR */
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC->CR = tmpreg1;
+ 103              		.loc 1 220 0
+ 104 0026 1A60     		str	r2, [r3, #0]
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 105              		.loc 1 221 0
+ 106 0028 70BC     		pop	{r4, r5, r6}
+ 107 002a 7047     		bx	lr
+ 108              	.L6:
+ 109              		.align	2
+ 110              	.L5:
+ 111 002c 00740040 		.word	1073771520
+ 112              		.cfi_endproc
+ 113              	.LFE111:
+ 115              		.section	.text.DAC_StructInit,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	DAC_StructInit
+ 118              		.thumb
+ 119              		.thumb_func
+ 121              	DAC_StructInit:
+ 122              	.LFB112:
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Fills each DAC_InitStruct member with its default value.
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_InitStruct: pointer to a DAC_InitTypeDef structure which will 
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         be initialized.
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_StructInit(DAC_InitTypeDef* DAC_InitStruct)
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 123              		.loc 1 230 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127              		@ link register save eliminated.
+ 128              	.LVL8:
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /*--------------- Reset DAC init structure parameters values -----------------*/
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Initialize the DAC_Trigger member */
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC_InitStruct->DAC_Trigger = DAC_Trigger_None;
+ 129              		.loc 1 233 0
+ 130 0000 0023     		movs	r3, #0
+ 131 0002 0360     		str	r3, [r0, #0]
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Initialize the DAC_WaveGeneration member */
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC_InitStruct->DAC_WaveGeneration = DAC_WaveGeneration_None;
+ 132              		.loc 1 235 0
+ 133 0004 4360     		str	r3, [r0, #4]
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Initialize the DAC_LFSRUnmask_TriangleAmplitude member */
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC_InitStruct->DAC_LFSRUnmask_TriangleAmplitude = DAC_LFSRUnmask_Bit0;
+ 134              		.loc 1 237 0
+ 135 0006 8360     		str	r3, [r0, #8]
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Initialize the DAC_OutputBuffer member */
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC_InitStruct->DAC_OutputBuffer = DAC_OutputBuffer_Enable;
+ 136              		.loc 1 239 0
+ 137 0008 C360     		str	r3, [r0, #12]
+ 138 000a 7047     		bx	lr
+ 139              		.cfi_endproc
+ 140              	.LFE112:
+ 142              		.section	.text.DAC_Cmd,"ax",%progbits
+ 143              		.align	2
+ 144              		.global	DAC_Cmd
+ 145              		.thumb
+ 146              		.thumb_func
+ 148              	DAC_Cmd:
+ 149              	.LFB113:
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables the specified DAC channel.
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the DAC channel. 
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   When the DAC channel is enabled the trigger source can no more be modified.
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_Cmd(uint32_t DAC_Channel, FunctionalState NewState)
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 150              		.loc 1 254 0
+ 151              		.cfi_startproc
+ 152              		@ args = 0, pretend = 0, frame = 0
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154              		@ link register save eliminated.
+ 155              	.LVL9:
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable the selected DAC channel */
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= (DAC_CR_EN1 << DAC_Channel);
+ 156              		.loc 1 262 0
+ 157 0000 074B     		ldr	r3, .L13
+ 158 0002 1A68     		ldr	r2, [r3, #0]
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 159              		.loc 1 259 0
+ 160 0004 31B9     		cbnz	r1, .L12
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable the selected DAC channel */
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR &= (~(DAC_CR_EN1 << DAC_Channel));
+ 161              		.loc 1 267 0
+ 162 0006 0121     		movs	r1, #1
+ 163              	.LVL10:
+ 164 0008 01FA00F0 		lsl	r0, r1, r0
+ 165              	.LVL11:
+ 166 000c 22EA0000 		bic	r0, r2, r0
+ 167 0010 1860     		str	r0, [r3, #0]
+ 168 0012 7047     		bx	lr
+ 169              	.LVL12:
+ 170              	.L12:
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= (DAC_CR_EN1 << DAC_Channel);
+ 171              		.loc 1 262 0
+ 172 0014 0121     		movs	r1, #1
+ 173              	.LVL13:
+ 174 0016 01FA00F0 		lsl	r0, r1, r0
+ 175              	.LVL14:
+ 176 001a 1043     		orrs	r0, r0, r2
+ 177 001c 1860     		str	r0, [r3, #0]
+ 178 001e 7047     		bx	lr
+ 179              	.L14:
+ 180              		.align	2
+ 181              	.L13:
+ 182 0020 00740040 		.word	1073771520
+ 183              		.cfi_endproc
+ 184              	.LFE113:
+ 186              		.section	.text.DAC_SoftwareTriggerCmd,"ax",%progbits
+ 187              		.align	2
+ 188              		.global	DAC_SoftwareTriggerCmd
+ 189              		.thumb
+ 190              		.thumb_func
+ 192              	DAC_SoftwareTriggerCmd:
+ 193              	.LFB114:
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables the selected DAC channel software trigger.
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the selected DAC channel software trigger.
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_SoftwareTriggerCmd(uint32_t DAC_Channel, FunctionalState NewState)
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 194              		.loc 1 282 0
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 0
+ 197              		@ frame_needed = 0, uses_anonymous_args = 0
+ 198              		@ link register save eliminated.
+ 199              	.LVL15:
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable software trigger for the selected DAC channel */
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR |= (uint32_t)DAC_SWTRIGR_SWTRIG1 << (DAC_Channel >> 4);
+ 200              		.loc 1 290 0
+ 201 0000 084B     		ldr	r3, .L19
+ 202 0002 0009     		lsrs	r0, r0, #4
+ 203              	.LVL16:
+ 204 0004 5A68     		ldr	r2, [r3, #4]
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 205              		.loc 1 287 0
+ 206 0006 31B9     		cbnz	r1, .L18
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable software trigger for the selected DAC channel */
+ 295:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR &= ~((uint32_t)DAC_SWTRIGR_SWTRIG1 << (DAC_Channel >> 4));
+ 207              		.loc 1 295 0
+ 208 0008 0121     		movs	r1, #1
+ 209              	.LVL17:
+ 210 000a 01FA00F0 		lsl	r0, r1, r0
+ 211 000e 22EA0000 		bic	r0, r2, r0
+ 212 0012 5860     		str	r0, [r3, #4]
+ 213 0014 7047     		bx	lr
+ 214              	.LVL18:
+ 215              	.L18:
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR |= (uint32_t)DAC_SWTRIGR_SWTRIG1 << (DAC_Channel >> 4);
+ 216              		.loc 1 290 0
+ 217 0016 0121     		movs	r1, #1
+ 218              	.LVL19:
+ 219 0018 01FA00F0 		lsl	r0, r1, r0
+ 220 001c 1043     		orrs	r0, r0, r2
+ 221 001e 5860     		str	r0, [r3, #4]
+ 222 0020 7047     		bx	lr
+ 223              	.L20:
+ 224 0022 00BF     		.align	2
+ 225              	.L19:
+ 226 0024 00740040 		.word	1073771520
+ 227              		.cfi_endproc
+ 228              	.LFE114:
+ 230              		.section	.text.DAC_DualSoftwareTriggerCmd,"ax",%progbits
+ 231              		.align	2
+ 232              		.global	DAC_DualSoftwareTriggerCmd
+ 233              		.thumb
+ 234              		.thumb_func
+ 236              	DAC_DualSoftwareTriggerCmd:
+ 237              	.LFB115:
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 297:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 298:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 300:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables simultaneously the two DAC channels software triggers.
+ 301:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the DAC channels software triggers.
+ 302:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 304:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 305:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_DualSoftwareTriggerCmd(FunctionalState NewState)
+ 306:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 238              		.loc 1 306 0
+ 239              		.cfi_startproc
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 242              		@ link register save eliminated.
+ 243              	.LVL20:
+ 307:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 309:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 311:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 312:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable software trigger for both DAC channels */
+ 313:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR |= DUAL_SWTRIG_SET;
+ 244              		.loc 1 313 0
+ 245 0000 054B     		ldr	r3, .L25
+ 246 0002 5A68     		ldr	r2, [r3, #4]
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 247              		.loc 1 310 0
+ 248 0004 18B9     		cbnz	r0, .L24
+ 314:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 315:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 317:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable software trigger for both DAC channels */
+ 318:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR &= DUAL_SWTRIG_RESET;
+ 249              		.loc 1 318 0
+ 250 0006 22F00302 		bic	r2, r2, #3
+ 251 000a 5A60     		str	r2, [r3, #4]
+ 252 000c 7047     		bx	lr
+ 253              	.L24:
+ 313:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->SWTRIGR |= DUAL_SWTRIG_SET;
+ 254              		.loc 1 313 0
+ 255 000e 42F00302 		orr	r2, r2, #3
+ 256 0012 5A60     		str	r2, [r3, #4]
+ 257 0014 7047     		bx	lr
+ 258              	.L26:
+ 259 0016 00BF     		.align	2
+ 260              	.L25:
+ 261 0018 00740040 		.word	1073771520
+ 262              		.cfi_endproc
+ 263              	.LFE115:
+ 265              		.section	.text.DAC_WaveGenerationCmd,"ax",%progbits
+ 266              		.align	2
+ 267              		.global	DAC_WaveGenerationCmd
+ 268              		.thumb
+ 269              		.thumb_func
+ 271              	DAC_WaveGenerationCmd:
+ 272              	.LFB116:
+ 319:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 320:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 321:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 322:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables the selected DAC channel wave generation.
+ 324:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 325:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 326:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 327:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Wave: specifies the wave type to enable or disable.
+ 329:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 330:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Wave_Noise: noise wave generation
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Wave_Triangle: triangle wave generation
+ 332:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the selected DAC channel wave generation.
+ 333:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.  
+ 334:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 335:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 336:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_WaveGenerationCmd(uint32_t DAC_Channel, uint32_t DAC_Wave, FunctionalState NewState)
+ 337:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 273              		.loc 1 337 0
+ 274              		.cfi_startproc
+ 275              		@ args = 0, pretend = 0, frame = 0
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              		@ link register save eliminated.
+ 278              	.LVL21:
+ 338:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 339:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 340:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_WAVE(DAC_Wave)); 
+ 341:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 342:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 344:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 345:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable the selected wave generation for the selected DAC channel */
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= DAC_Wave << DAC_Channel;
+ 279              		.loc 1 346 0
+ 280 0000 074B     		ldr	r3, .L31
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 281              		.loc 1 343 0
+ 282 0002 32B9     		cbnz	r2, .L30
+ 347:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 348:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 349:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 350:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable the selected wave generation for the selected DAC channel */
+ 351:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR &= ~(DAC_Wave << DAC_Channel);
+ 283              		.loc 1 351 0
+ 284 0004 1A68     		ldr	r2, [r3, #0]
+ 285              	.LVL22:
+ 286 0006 01FA00F1 		lsl	r1, r1, r0
+ 287              	.LVL23:
+ 288 000a 22EA0101 		bic	r1, r2, r1
+ 289 000e 1960     		str	r1, [r3, #0]
+ 290 0010 7047     		bx	lr
+ 291              	.LVL24:
+ 292              	.L30:
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= DAC_Wave << DAC_Channel;
+ 293              		.loc 1 346 0
+ 294 0012 1A68     		ldr	r2, [r3, #0]
+ 295              	.LVL25:
+ 296 0014 01FA00F1 		lsl	r1, r1, r0
+ 297              	.LVL26:
+ 298 0018 1143     		orrs	r1, r1, r2
+ 299 001a 1960     		str	r1, [r3, #0]
+ 300 001c 7047     		bx	lr
+ 301              	.L32:
+ 302 001e 00BF     		.align	2
+ 303              	.L31:
+ 304 0020 00740040 		.word	1073771520
+ 305              		.cfi_endproc
+ 306              	.LFE116:
+ 308              		.section	.text.DAC_SetChannel1Data,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	DAC_SetChannel1Data
+ 311              		.thumb
+ 312              		.thumb_func
+ 314              	DAC_SetChannel1Data:
+ 315              	.LFB117:
+ 352:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 353:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 354:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 355:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 356:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Set the specified data holding register value for DAC channel1.
+ 357:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Align: Specifies the data alignment for DAC channel1.
+ 358:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 359:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_8b_R: 8bit right data alignment selected
+ 360:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_L: 12bit left data alignment selected
+ 361:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_R: 12bit right data alignment selected
+ 362:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  Data: Data to be loaded in the selected data holding register.
+ 363:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 364:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 365:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_SetChannel1Data(uint32_t DAC_Align, uint16_t Data)
+ 366:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {  
+ 316              		.loc 1 366 0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 8
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 321              	.LVL27:
+ 322 0000 82B0     		sub	sp, sp, #8
+ 323              	.LCFI2:
+ 324              		.cfi_def_cfa_offset 8
+ 367:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   __IO uint32_t tmp = 0;
+ 325              		.loc 1 367 0
+ 326 0002 0023     		movs	r3, #0
+ 327 0004 0193     		str	r3, [sp, #4]
+ 328              	.LVL28:
+ 368:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 369:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 370:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_ALIGN(DAC_Align));
+ 371:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_DATA(Data));
+ 372:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 373:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp = (uint32_t)DAC_BASE; 
+ 329              		.loc 1 373 0
+ 330 0006 054B     		ldr	r3, .L34
+ 331 0008 0193     		str	r3, [sp, #4]
+ 374:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp += DHR12R1_OFFSET + DAC_Align;
+ 332              		.loc 1 374 0
+ 333 000a 019B     		ldr	r3, [sp, #4]
+ 334 000c 0833     		adds	r3, r3, #8
+ 335 000e 1818     		adds	r0, r3, r0
+ 336              	.LVL29:
+ 337 0010 0190     		str	r0, [sp, #4]
+ 338              	.LVL30:
+ 375:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 376:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set the DAC channel1 selected data holding register */
+ 377:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *(__IO uint32_t *) tmp = Data;
+ 339              		.loc 1 377 0
+ 340 0012 019B     		ldr	r3, [sp, #4]
+ 341 0014 1960     		str	r1, [r3, #0]
+ 378:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 342              		.loc 1 378 0
+ 343 0016 02B0     		add	sp, sp, #8
+ 344 0018 7047     		bx	lr
+ 345              	.L35:
+ 346 001a 00BF     		.align	2
+ 347              	.L34:
+ 348 001c 00740040 		.word	1073771520
+ 349              		.cfi_endproc
+ 350              	.LFE117:
+ 352              		.section	.text.DAC_SetChannel2Data,"ax",%progbits
+ 353              		.align	2
+ 354              		.global	DAC_SetChannel2Data
+ 355              		.thumb
+ 356              		.thumb_func
+ 358              	DAC_SetChannel2Data:
+ 359              	.LFB118:
+ 379:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 380:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 381:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Set the specified data holding register value for DAC channel2.
+ 382:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Align: Specifies the data alignment for DAC channel2.
+ 383:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 384:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_8b_R: 8bit right data alignment selected
+ 385:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_L: 12bit left data alignment selected
+ 386:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_R: 12bit right data alignment selected
+ 387:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  Data: Data to be loaded in the selected data holding register.
+ 388:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 389:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 390:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_SetChannel2Data(uint32_t DAC_Align, uint16_t Data)
+ 391:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 360              		.loc 1 391 0
+ 361              		.cfi_startproc
+ 362              		@ args = 0, pretend = 0, frame = 8
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 364              		@ link register save eliminated.
+ 365              	.LVL31:
+ 366 0000 82B0     		sub	sp, sp, #8
+ 367              	.LCFI3:
+ 368              		.cfi_def_cfa_offset 8
+ 392:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   __IO uint32_t tmp = 0;
+ 369              		.loc 1 392 0
+ 370 0002 0023     		movs	r3, #0
+ 371 0004 0193     		str	r3, [sp, #4]
+ 372              	.LVL32:
+ 393:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 394:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 395:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_ALIGN(DAC_Align));
+ 396:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_DATA(Data));
+ 397:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 398:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp = (uint32_t)DAC_BASE;
+ 373              		.loc 1 398 0
+ 374 0006 054B     		ldr	r3, .L37
+ 375 0008 0193     		str	r3, [sp, #4]
+ 399:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp += DHR12R2_OFFSET + DAC_Align;
+ 376              		.loc 1 399 0
+ 377 000a 019B     		ldr	r3, [sp, #4]
+ 378 000c 1433     		adds	r3, r3, #20
+ 379 000e 1818     		adds	r0, r3, r0
+ 380              	.LVL33:
+ 381 0010 0190     		str	r0, [sp, #4]
+ 382              	.LVL34:
+ 400:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 401:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set the DAC channel2 selected data holding register */
+ 402:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *(__IO uint32_t *)tmp = Data;
+ 383              		.loc 1 402 0
+ 384 0012 019B     		ldr	r3, [sp, #4]
+ 385 0014 1960     		str	r1, [r3, #0]
+ 403:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 386              		.loc 1 403 0
+ 387 0016 02B0     		add	sp, sp, #8
+ 388 0018 7047     		bx	lr
+ 389              	.L38:
+ 390 001a 00BF     		.align	2
+ 391              	.L37:
+ 392 001c 00740040 		.word	1073771520
+ 393              		.cfi_endproc
+ 394              	.LFE118:
+ 396              		.section	.text.DAC_SetDualChannelData,"ax",%progbits
+ 397              		.align	2
+ 398              		.global	DAC_SetDualChannelData
+ 399              		.thumb
+ 400              		.thumb_func
+ 402              	DAC_SetDualChannelData:
+ 403              	.LFB119:
+ 404:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 405:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 406:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Set the specified data holding register value for dual channel DAC.
+ 407:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Align: Specifies the data alignment for dual channel DAC.
+ 408:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 409:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_8b_R: 8bit right data alignment selected
+ 410:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_L: 12bit left data alignment selected
+ 411:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Align_12b_R: 12bit right data alignment selected
+ 412:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  Data2: Data for DAC Channel2 to be loaded in the selected data holding register.
+ 413:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  Data1: Data for DAC Channel1 to be loaded in the selected data  holding register.
+ 414:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   In dual mode, a unique register access is required to write in both
+ 415:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          DAC channels at the same time.
+ 416:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 417:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 418:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_SetDualChannelData(uint32_t DAC_Align, uint16_t Data2, uint16_t Data1)
+ 419:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 404              		.loc 1 419 0
+ 405              		.cfi_startproc
+ 406              		@ args = 0, pretend = 0, frame = 0
+ 407              		@ frame_needed = 0, uses_anonymous_args = 0
+ 408              		@ link register save eliminated.
+ 409              	.LVL35:
+ 420:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   uint32_t data = 0, tmp = 0;
+ 421:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 422:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 423:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_ALIGN(DAC_Align));
+ 424:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_DATA(Data1));
+ 425:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_DATA(Data2));
+ 426:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 427:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Calculate and set dual DAC data holding register value */
+ 428:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (DAC_Align == DAC_Align_8b_R)
+ 410              		.loc 1 428 0
+ 411 0000 0828     		cmp	r0, #8
+ 429:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 430:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     data = ((uint32_t)Data2 << 8) | Data1; 
+ 431:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 432:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 433:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 434:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     data = ((uint32_t)Data2 << 16) | Data1;
+ 435:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 436:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 437:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp = (uint32_t)DAC_BASE;
+ 438:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp += DHR12RD_OFFSET + DAC_Align;
+ 412              		.loc 1 438 0
+ 413 0002 044B     		ldr	r3, .L42
+ 430:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     data = ((uint32_t)Data2 << 8) | Data1; 
+ 414              		.loc 1 430 0
+ 415 0004 0CBF     		ite	eq
+ 416 0006 42EA0121 		orreq	r1, r2, r1, lsl #8
+ 417              	.LVL36:
+ 434:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     data = ((uint32_t)Data2 << 16) | Data1;
+ 418              		.loc 1 434 0
+ 419 000a 42EA0141 		orrne	r1, r2, r1, lsl #16
+ 420              	.LVL37:
+ 439:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 440:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Set the dual DAC selected data holding register */
+ 441:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *(__IO uint32_t *)tmp = data;
+ 421              		.loc 1 441 0
+ 422 000e C150     		str	r1, [r0, r3]
+ 423 0010 7047     		bx	lr
+ 424              	.L43:
+ 425 0012 00BF     		.align	2
+ 426              	.L42:
+ 427 0014 20740040 		.word	1073771552
+ 428              		.cfi_endproc
+ 429              	.LFE119:
+ 431              		.section	.text.DAC_GetDataOutputValue,"ax",%progbits
+ 432              		.align	2
+ 433              		.global	DAC_GetDataOutputValue
+ 434              		.thumb
+ 435              		.thumb_func
+ 437              	DAC_GetDataOutputValue:
+ 438              	.LFB120:
+ 442:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 443:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 444:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 445:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Returns the last data output value of the selected DAC channel.
+ 446:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 447:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 448:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 449:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 450:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval The selected DAC channel data output value.
+ 451:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 452:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** uint16_t DAC_GetDataOutputValue(uint32_t DAC_Channel)
+ 453:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 439              		.loc 1 453 0
+ 440              		.cfi_startproc
+ 441              		@ args = 0, pretend = 0, frame = 8
+ 442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 443              		@ link register save eliminated.
+ 444              	.LVL38:
+ 445 0000 82B0     		sub	sp, sp, #8
+ 446              	.LCFI4:
+ 447              		.cfi_def_cfa_offset 8
+ 454:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   __IO uint32_t tmp = 0;
+ 448              		.loc 1 454 0
+ 449 0002 0023     		movs	r3, #0
+ 450 0004 0193     		str	r3, [sp, #4]
+ 451              	.LVL39:
+ 455:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 456:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 457:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 458:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 459:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp = (uint32_t) DAC_BASE ;
+ 452              		.loc 1 459 0
+ 453 0006 064B     		ldr	r3, .L45
+ 454 0008 0193     		str	r3, [sp, #4]
+ 460:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   tmp += DOR_OFFSET + ((uint32_t)DAC_Channel >> 2);
+ 455              		.loc 1 460 0
+ 456 000a 019B     		ldr	r3, [sp, #4]
+ 457 000c 2C33     		adds	r3, r3, #44
+ 458 000e 03EB9000 		add	r0, r3, r0, lsr #2
+ 459              	.LVL40:
+ 460 0012 0190     		str	r0, [sp, #4]
+ 461              	.LVL41:
+ 461:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 462:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Returns the DAC channel data output register value */
+ 463:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   return (uint16_t) (*(__IO uint32_t*) tmp);
+ 462              		.loc 1 463 0
+ 463 0014 019B     		ldr	r3, [sp, #4]
+ 464 0016 1868     		ldr	r0, [r3, #0]
+ 465              	.LVL42:
+ 464:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 466              		.loc 1 464 0
+ 467 0018 80B2     		uxth	r0, r0
+ 468 001a 02B0     		add	sp, sp, #8
+ 469 001c 7047     		bx	lr
+ 470              	.L46:
+ 471 001e 00BF     		.align	2
+ 472              	.L45:
+ 473 0020 00740040 		.word	1073771520
+ 474              		.cfi_endproc
+ 475              	.LFE120:
+ 477              		.section	.text.DAC_DMACmd,"ax",%progbits
+ 478              		.align	2
+ 479              		.global	DAC_DMACmd
+ 480              		.thumb
+ 481              		.thumb_func
+ 483              	DAC_DMACmd:
+ 484              	.LFB121:
+ 465:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 466:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @}
+ 467:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 468:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 469:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @defgroup DAC_Group2 DMA management functions
+ 470:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *  @brief   DMA management functions
+ 471:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *
+ 472:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @verbatim   
+ 473:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================
+ 474:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****                           DMA management functions
+ 475:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================  
+ 476:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 477:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @endverbatim
+ 478:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 479:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 480:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 481:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 482:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables the specified DAC channel DMA request.
+ 483:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   When enabled DMA1 is generated when an external trigger (EXTI Line9,
+ 484:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         TIM2, TIM4, TIM5, TIM6, TIM7 or TIM8  but not a software trigger) occurs.
+ 485:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 486:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 487:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 488:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 489:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the selected DAC channel DMA request.
+ 490:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 491:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DAC channel1 is mapped on DMA1 Stream 5 channel7 which must be
+ 492:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          already configured.
+ 493:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DAC channel2 is mapped on DMA1 Stream 6 channel7 which must be
+ 494:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          already configured.    
+ 495:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 496:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 497:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_DMACmd(uint32_t DAC_Channel, FunctionalState NewState)
+ 498:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 485              		.loc 1 498 0
+ 486              		.cfi_startproc
+ 487              		@ args = 0, pretend = 0, frame = 0
+ 488              		@ frame_needed = 0, uses_anonymous_args = 0
+ 489              		@ link register save eliminated.
+ 490              	.LVL43:
+ 499:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 500:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 501:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 502:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 503:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 504:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 505:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable the selected DAC channel DMA request */
+ 506:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= (DAC_CR_DMAEN1 << DAC_Channel);
+ 491              		.loc 1 506 0
+ 492 0000 084B     		ldr	r3, .L51
+ 493 0002 1A68     		ldr	r2, [r3, #0]
+ 503:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 494              		.loc 1 503 0
+ 495 0004 39B9     		cbnz	r1, .L50
+ 507:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 508:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 509:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 510:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable the selected DAC channel DMA request */
+ 511:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR &= (~(DAC_CR_DMAEN1 << DAC_Channel));
+ 496              		.loc 1 511 0
+ 497 0006 4FF48051 		mov	r1, #4096
+ 498              	.LVL44:
+ 499 000a 01FA00F0 		lsl	r0, r1, r0
+ 500              	.LVL45:
+ 501 000e 22EA0000 		bic	r0, r2, r0
+ 502 0012 1860     		str	r0, [r3, #0]
+ 503 0014 7047     		bx	lr
+ 504              	.LVL46:
+ 505              	.L50:
+ 506:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |= (DAC_CR_DMAEN1 << DAC_Channel);
+ 506              		.loc 1 506 0
+ 507 0016 4FF48051 		mov	r1, #4096
+ 508              	.LVL47:
+ 509 001a 01FA00F0 		lsl	r0, r1, r0
+ 510              	.LVL48:
+ 511 001e 1043     		orrs	r0, r0, r2
+ 512 0020 1860     		str	r0, [r3, #0]
+ 513 0022 7047     		bx	lr
+ 514              	.L52:
+ 515              		.align	2
+ 516              	.L51:
+ 517 0024 00740040 		.word	1073771520
+ 518              		.cfi_endproc
+ 519              	.LFE121:
+ 521              		.section	.text.DAC_ITConfig,"ax",%progbits
+ 522              		.align	2
+ 523              		.global	DAC_ITConfig
+ 524              		.thumb
+ 525              		.thumb_func
+ 527              	DAC_ITConfig:
+ 528              	.LFB122:
+ 512:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 513:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 515:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @}
+ 516:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 517:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 518:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /** @defgroup DAC_Group3 Interrupts and flags management functions
+ 519:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *  @brief   Interrupts and flags management functions
+ 520:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  *
+ 521:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @verbatim   
+ 522:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================
+ 523:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****                    Interrupts and flags management functions
+ 524:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****  ===============================================================================  
+ 525:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 526:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** @endverbatim
+ 527:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @{
+ 528:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 529:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 530:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 531:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Enables or disables the specified DAC interrupts.
+ 532:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 533:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 534:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 535:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 536:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_IT: specifies the DAC interrupt sources to be enabled or disabled. 
+ 537:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be the following values:
+ 538:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_IT_DMAUDR: DMA underrun interrupt mask
+ 539:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DMA underrun occurs when a second external trigger arrives before the 
+ 540:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         acknowledgement for the first external trigger is received (first request).
+ 541:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  NewState: new state of the specified DAC interrupts.
+ 542:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be: ENABLE or DISABLE.
+ 543:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 544:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */ 
+ 545:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_ITConfig(uint32_t DAC_Channel, uint32_t DAC_IT, FunctionalState NewState)  
+ 546:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 529              		.loc 1 546 0
+ 530              		.cfi_startproc
+ 531              		@ args = 0, pretend = 0, frame = 0
+ 532              		@ frame_needed = 0, uses_anonymous_args = 0
+ 533              		@ link register save eliminated.
+ 534              	.LVL49:
+ 547:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 548:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 549:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 550:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_IT(DAC_IT)); 
+ 551:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 552:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 553:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 554:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Enable the selected DAC interrupts */
+ 555:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |=  (DAC_IT << DAC_Channel);
+ 535              		.loc 1 555 0
+ 536 0000 074B     		ldr	r3, .L57
+ 552:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (NewState != DISABLE)
+ 537              		.loc 1 552 0
+ 538 0002 32B9     		cbnz	r2, .L56
+ 556:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 557:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 558:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 559:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* Disable the selected DAC interrupts */
+ 560:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR &= (~(uint32_t)(DAC_IT << DAC_Channel));
+ 539              		.loc 1 560 0
+ 540 0004 1A68     		ldr	r2, [r3, #0]
+ 541              	.LVL50:
+ 542 0006 01FA00F1 		lsl	r1, r1, r0
+ 543              	.LVL51:
+ 544 000a 22EA0101 		bic	r1, r2, r1
+ 545 000e 1960     		str	r1, [r3, #0]
+ 546 0010 7047     		bx	lr
+ 547              	.LVL52:
+ 548              	.L56:
+ 555:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     DAC->CR |=  (DAC_IT << DAC_Channel);
+ 549              		.loc 1 555 0
+ 550 0012 1A68     		ldr	r2, [r3, #0]
+ 551              	.LVL53:
+ 552 0014 01FA00F1 		lsl	r1, r1, r0
+ 553              	.LVL54:
+ 554 0018 1143     		orrs	r1, r1, r2
+ 555 001a 1960     		str	r1, [r3, #0]
+ 556 001c 7047     		bx	lr
+ 557              	.L58:
+ 558 001e 00BF     		.align	2
+ 559              	.L57:
+ 560 0020 00740040 		.word	1073771520
+ 561              		.cfi_endproc
+ 562              	.LFE122:
+ 564              		.section	.text.DAC_GetFlagStatus,"ax",%progbits
+ 565              		.align	2
+ 566              		.global	DAC_GetFlagStatus
+ 567              		.thumb
+ 568              		.thumb_func
+ 570              	DAC_GetFlagStatus:
+ 571              	.LFB123:
+ 561:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 562:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 563:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 564:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 565:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Checks whether the specified DAC flag is set or not.
+ 566:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 567:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 568:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 569:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 570:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_FLAG: specifies the flag to check. 
+ 571:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be only of the following value:
+ 572:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_FLAG_DMAUDR: DMA underrun flag
+ 573:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DMA underrun occurs when a second external trigger arrives before the 
+ 574:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         acknowledgement for the first external trigger is received (first request).
+ 575:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval The new state of DAC_FLAG (SET or RESET).
+ 576:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 577:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** FlagStatus DAC_GetFlagStatus(uint32_t DAC_Channel, uint32_t DAC_FLAG)
+ 578:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 572              		.loc 1 578 0
+ 573              		.cfi_startproc
+ 574              		@ args = 0, pretend = 0, frame = 0
+ 575              		@ frame_needed = 0, uses_anonymous_args = 0
+ 576              		@ link register save eliminated.
+ 577              	.LVL55:
+ 579:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   FlagStatus bitstatus = RESET;
+ 580:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 581:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 582:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_FLAG(DAC_FLAG));
+ 583:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 584:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the status of the specified DAC flag */
+ 585:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if ((DAC->SR & (DAC_FLAG << DAC_Channel)) != (uint8_t)RESET)
+ 578              		.loc 1 585 0
+ 579 0000 044B     		ldr	r3, .L60
+ 580 0002 5B6B     		ldr	r3, [r3, #52]
+ 581              	.LVL56:
+ 582 0004 01FA00F1 		lsl	r1, r1, r0
+ 583              	.LVL57:
+ 584 0008 1942     		tst	r1, r3
+ 586:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 587:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* DAC_FLAG is set */
+ 588:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     bitstatus = SET;
+ 589:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 590:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 591:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 592:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* DAC_FLAG is reset */
+ 593:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     bitstatus = RESET;
+ 594:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 595:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Return the DAC_FLAG status */
+ 596:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   return  bitstatus;
+ 597:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 585              		.loc 1 597 0
+ 586 000a 0CBF     		ite	eq
+ 587 000c 0020     		moveq	r0, #0
+ 588 000e 0120     		movne	r0, #1
+ 589              	.LVL58:
+ 590 0010 7047     		bx	lr
+ 591              	.L61:
+ 592 0012 00BF     		.align	2
+ 593              	.L60:
+ 594 0014 00740040 		.word	1073771520
+ 595              		.cfi_endproc
+ 596              	.LFE123:
+ 598              		.section	.text.DAC_ClearFlag,"ax",%progbits
+ 599              		.align	2
+ 600              		.global	DAC_ClearFlag
+ 601              		.thumb
+ 602              		.thumb_func
+ 604              	DAC_ClearFlag:
+ 605              	.LFB124:
+ 598:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 599:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 600:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Clears the DAC channel's pending flags.
+ 601:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 602:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 603:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 604:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 605:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_FLAG: specifies the flag to clear. 
+ 606:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be of the following value:
+ 607:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_FLAG_DMAUDR: DMA underrun flag 
+ 608:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DMA underrun occurs when a second external trigger arrives before the 
+ 609:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         acknowledgement for the first external trigger is received (first request).            
+ 610:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 611:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 612:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_ClearFlag(uint32_t DAC_Channel, uint32_t DAC_FLAG)
+ 613:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 606              		.loc 1 613 0
+ 607              		.cfi_startproc
+ 608              		@ args = 0, pretend = 0, frame = 0
+ 609              		@ frame_needed = 0, uses_anonymous_args = 0
+ 610              		@ link register save eliminated.
+ 611              	.LVL59:
+ 614:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 615:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 616:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_FLAG(DAC_FLAG));
+ 617:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 618:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Clear the selected DAC flags */
+ 619:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC->SR = (DAC_FLAG << DAC_Channel);
+ 612              		.loc 1 619 0
+ 613 0000 024B     		ldr	r3, .L63
+ 614 0002 01FA00F1 		lsl	r1, r1, r0
+ 615              	.LVL60:
+ 616 0006 5963     		str	r1, [r3, #52]
+ 617 0008 7047     		bx	lr
+ 618              	.L64:
+ 619 000a 00BF     		.align	2
+ 620              	.L63:
+ 621 000c 00740040 		.word	1073771520
+ 622              		.cfi_endproc
+ 623              	.LFE124:
+ 625              		.section	.text.DAC_GetITStatus,"ax",%progbits
+ 626              		.align	2
+ 627              		.global	DAC_GetITStatus
+ 628              		.thumb
+ 629              		.thumb_func
+ 631              	DAC_GetITStatus:
+ 632              	.LFB125:
+ 620:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 621:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 622:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 623:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Checks whether the specified DAC interrupt has occurred or not.
+ 624:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 625:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 626:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 627:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 628:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_IT: specifies the DAC interrupt source to check. 
+ 629:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be the following values:
+ 630:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_IT_DMAUDR: DMA underrun interrupt mask
+ 631:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DMA underrun occurs when a second external trigger arrives before the 
+ 632:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         acknowledgement for the first external trigger is received (first request).
+ 633:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval The new state of DAC_IT (SET or RESET).
+ 634:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 635:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** ITStatus DAC_GetITStatus(uint32_t DAC_Channel, uint32_t DAC_IT)
+ 636:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 633              		.loc 1 636 0
+ 634              		.cfi_startproc
+ 635              		@ args = 0, pretend = 0, frame = 0
+ 636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 637              		@ link register save eliminated.
+ 638              	.LVL61:
+ 637:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   ITStatus bitstatus = RESET;
+ 638:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   uint32_t enablestatus = 0;
+ 639:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 640:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 641:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 642:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_IT(DAC_IT));
+ 643:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 644:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Get the DAC_IT enable bit status */
+ 645:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   enablestatus = (DAC->CR & (DAC_IT << DAC_Channel)) ;
+ 639              		.loc 1 645 0
+ 640 0000 064B     		ldr	r3, .L68
+ 641 0002 1A68     		ldr	r2, [r3, #0]
+ 646:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   
+ 647:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the status of the specified DAC interrupt */
+ 648:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   if (((DAC->SR & (DAC_IT << DAC_Channel)) != (uint32_t)RESET) && enablestatus)
+ 642              		.loc 1 648 0
+ 643 0004 5B6B     		ldr	r3, [r3, #52]
+ 645:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   enablestatus = (DAC->CR & (DAC_IT << DAC_Channel)) ;
+ 644              		.loc 1 645 0
+ 645 0006 01FA00F1 		lsl	r1, r1, r0
+ 646              	.LVL62:
+ 647              		.loc 1 648 0
+ 648 000a 11EA0300 		ands	r0, r1, r3
+ 649              	.LVL63:
+ 650 000e 03D0     		beq	.L66
+ 651              		.loc 1 648 0 is_stmt 0 discriminator 1
+ 652 0010 1142     		tst	r1, r2
+ 649:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 650:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* DAC_IT is set */
+ 651:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     bitstatus = SET;
+ 653              		.loc 1 651 0 is_stmt 1 discriminator 1
+ 654 0012 0CBF     		ite	eq
+ 655 0014 0020     		moveq	r0, #0
+ 656 0016 0120     		movne	r0, #1
+ 657              	.L66:
+ 658              	.LVL64:
+ 652:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 653:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   else
+ 654:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   {
+ 655:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     /* DAC_IT is reset */
+ 656:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****     bitstatus = RESET;
+ 657:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   }
+ 658:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Return the DAC_IT status */
+ 659:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   return  bitstatus;
+ 660:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** }
+ 659              		.loc 1 660 0
+ 660 0018 7047     		bx	lr
+ 661              	.L69:
+ 662 001a 00BF     		.align	2
+ 663              	.L68:
+ 664 001c 00740040 		.word	1073771520
+ 665              		.cfi_endproc
+ 666              	.LFE125:
+ 668              		.section	.text.DAC_ClearITPendingBit,"ax",%progbits
+ 669              		.align	2
+ 670              		.global	DAC_ClearITPendingBit
+ 671              		.thumb
+ 672              		.thumb_func
+ 674              	DAC_ClearITPendingBit:
+ 675              	.LFB126:
+ 661:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 662:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** /**
+ 663:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @brief  Clears the DAC channel's interrupt pending bits.
+ 664:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_Channel: The selected DAC channel. 
+ 665:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be one of the following values:
+ 666:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_1: DAC Channel1 selected
+ 667:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_Channel_2: DAC Channel2 selected
+ 668:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @param  DAC_IT: specifies the DAC interrupt pending bit to clear.
+ 669:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *          This parameter can be the following values:
+ 670:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *            @arg DAC_IT_DMAUDR: DMA underrun interrupt mask                         
+ 671:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @note   The DMA underrun occurs when a second external trigger arrives before the 
+ 672:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   *         acknowledgement for the first external trigger is received (first request).            
+ 673:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   * @retval None
+ 674:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   */
+ 675:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** void DAC_ClearITPendingBit(uint32_t DAC_Channel, uint32_t DAC_IT)
+ 676:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** {
+ 676              		.loc 1 676 0
+ 677              		.cfi_startproc
+ 678              		@ args = 0, pretend = 0, frame = 0
+ 679              		@ frame_needed = 0, uses_anonymous_args = 0
+ 680              		@ link register save eliminated.
+ 681              	.LVL65:
+ 677:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Check the parameters */
+ 678:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_CHANNEL(DAC_Channel));
+ 679:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   assert_param(IS_DAC_IT(DAC_IT)); 
+ 680:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c **** 
+ 681:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   /* Clear the selected DAC interrupt pending bits */
+ 682:/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c ****   DAC->SR = (DAC_IT << DAC_Channel);
+ 682              		.loc 1 682 0
+ 683 0000 024B     		ldr	r3, .L71
+ 684 0002 01FA00F1 		lsl	r1, r1, r0
+ 685              	.LVL66:
+ 686 0006 5963     		str	r1, [r3, #52]
+ 687 0008 7047     		bx	lr
+ 688              	.L72:
+ 689 000a 00BF     		.align	2
+ 690              	.L71:
+ 691 000c 00740040 		.word	1073771520
+ 692              		.cfi_endproc
+ 693              	.LFE126:
+ 695              		.text
+ 696              	.Letext0:
+ 697              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 698              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 699              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/STM32F4xx_StdPeriph_Driver/inc/
+ 700              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_dac.c
+     /tmp/ccsCF64Z.s:20     .text.DAC_DeInit:00000000 $t
+     /tmp/ccsCF64Z.s:25     .text.DAC_DeInit:00000000 DAC_DeInit
+     /tmp/ccsCF64Z.s:52     .text.DAC_DeInit:00000018 $d
+     /tmp/ccsCF64Z.s:57     .text.DAC_Init:00000000 $t
+     /tmp/ccsCF64Z.s:62     .text.DAC_Init:00000000 DAC_Init
+     /tmp/ccsCF64Z.s:111    .text.DAC_Init:0000002c $d
+     /tmp/ccsCF64Z.s:116    .text.DAC_StructInit:00000000 $t
+     /tmp/ccsCF64Z.s:121    .text.DAC_StructInit:00000000 DAC_StructInit
+     /tmp/ccsCF64Z.s:143    .text.DAC_Cmd:00000000 $t
+     /tmp/ccsCF64Z.s:148    .text.DAC_Cmd:00000000 DAC_Cmd
+     /tmp/ccsCF64Z.s:182    .text.DAC_Cmd:00000020 $d
+     /tmp/ccsCF64Z.s:187    .text.DAC_SoftwareTriggerCmd:00000000 $t
+     /tmp/ccsCF64Z.s:192    .text.DAC_SoftwareTriggerCmd:00000000 DAC_SoftwareTriggerCmd
+     /tmp/ccsCF64Z.s:226    .text.DAC_SoftwareTriggerCmd:00000024 $d
+     /tmp/ccsCF64Z.s:231    .text.DAC_DualSoftwareTriggerCmd:00000000 $t
+     /tmp/ccsCF64Z.s:236    .text.DAC_DualSoftwareTriggerCmd:00000000 DAC_DualSoftwareTriggerCmd
+     /tmp/ccsCF64Z.s:261    .text.DAC_DualSoftwareTriggerCmd:00000018 $d
+     /tmp/ccsCF64Z.s:266    .text.DAC_WaveGenerationCmd:00000000 $t
+     /tmp/ccsCF64Z.s:271    .text.DAC_WaveGenerationCmd:00000000 DAC_WaveGenerationCmd
+     /tmp/ccsCF64Z.s:304    .text.DAC_WaveGenerationCmd:00000020 $d
+     /tmp/ccsCF64Z.s:309    .text.DAC_SetChannel1Data:00000000 $t
+     /tmp/ccsCF64Z.s:314    .text.DAC_SetChannel1Data:00000000 DAC_SetChannel1Data
+     /tmp/ccsCF64Z.s:348    .text.DAC_SetChannel1Data:0000001c $d
+     /tmp/ccsCF64Z.s:353    .text.DAC_SetChannel2Data:00000000 $t
+     /tmp/ccsCF64Z.s:358    .text.DAC_SetChannel2Data:00000000 DAC_SetChannel2Data
+     /tmp/ccsCF64Z.s:392    .text.DAC_SetChannel2Data:0000001c $d
+     /tmp/ccsCF64Z.s:397    .text.DAC_SetDualChannelData:00000000 $t
+     /tmp/ccsCF64Z.s:402    .text.DAC_SetDualChannelData:00000000 DAC_SetDualChannelData
+     /tmp/ccsCF64Z.s:427    .text.DAC_SetDualChannelData:00000014 $d
+     /tmp/ccsCF64Z.s:432    .text.DAC_GetDataOutputValue:00000000 $t
+     /tmp/ccsCF64Z.s:437    .text.DAC_GetDataOutputValue:00000000 DAC_GetDataOutputValue
+     /tmp/ccsCF64Z.s:473    .text.DAC_GetDataOutputValue:00000020 $d
+     /tmp/ccsCF64Z.s:478    .text.DAC_DMACmd:00000000 $t
+     /tmp/ccsCF64Z.s:483    .text.DAC_DMACmd:00000000 DAC_DMACmd
+     /tmp/ccsCF64Z.s:517    .text.DAC_DMACmd:00000024 $d
+     /tmp/ccsCF64Z.s:522    .text.DAC_ITConfig:00000000 $t
+     /tmp/ccsCF64Z.s:527    .text.DAC_ITConfig:00000000 DAC_ITConfig
+     /tmp/ccsCF64Z.s:560    .text.DAC_ITConfig:00000020 $d
+     /tmp/ccsCF64Z.s:565    .text.DAC_GetFlagStatus:00000000 $t
+     /tmp/ccsCF64Z.s:570    .text.DAC_GetFlagStatus:00000000 DAC_GetFlagStatus
+     /tmp/ccsCF64Z.s:594    .text.DAC_GetFlagStatus:00000014 $d
+     /tmp/ccsCF64Z.s:599    .text.DAC_ClearFlag:00000000 $t
+     /tmp/ccsCF64Z.s:604    .text.DAC_ClearFlag:00000000 DAC_ClearFlag
+     /tmp/ccsCF64Z.s:621    .text.DAC_ClearFlag:0000000c $d
+     /tmp/ccsCF64Z.s:626    .text.DAC_GetITStatus:00000000 $t
+     /tmp/ccsCF64Z.s:631    .text.DAC_GetITStatus:00000000 DAC_GetITStatus
+     /tmp/ccsCF64Z.s:664    .text.DAC_GetITStatus:0000001c $d
+     /tmp/ccsCF64Z.s:669    .text.DAC_ClearITPendingBit:00000000 $t
+     /tmp/ccsCF64Z.s:674    .text.DAC_ClearITPendingBit:00000000 DAC_ClearITPendingBit
+     /tmp/ccsCF64Z.s:691    .text.DAC_ClearITPendingBit:0000000c $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd

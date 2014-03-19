@@ -1,0 +1,846 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"scheduler.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc9SchedulerC2Ev,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc9SchedulerC2Ev
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc9SchedulerC2Ev:
+  26              	.LFB94:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** #include "scheduler.hpp"
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** xpcc::Scheduler::Scheduler() :
+  28              		.loc 1 34 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.LBB35:
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	taskList(0), readyList(0), currentPriority(0)
+  35              		.loc 1 35 0
+  36 0000 0022     		movs	r2, #0
+  37 0002 0260     		str	r2, [r0, #0]
+  38 0004 4260     		str	r2, [r0, #4]
+  39 0006 0272     		strb	r2, [r0, #8]
+  40              	.LBE35:
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** {
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** }
+  41              		.loc 1 37 0
+  42 0008 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE94:
+  46              		.global	_ZN4xpcc9SchedulerC1Ev
+  47              		.thumb_set _ZN4xpcc9SchedulerC1Ev,_ZN4xpcc9SchedulerC2Ev
+  48 000a 00BF     		.section	.text._ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth,"ax",%progbits
+  49              		.align	2
+  50              		.global	_ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth
+  51              		.thumb
+  52              		.thumb_func
+  54              	_ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth:
+  55              	.LFB96:
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** void
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** xpcc::Scheduler::scheduleTask(Task& task,
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 		uint16_t period,
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 		Priority priority)
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** {
+  56              		.loc 1 44 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              	.LVL1:
+  61 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  62              	.LCFI0:
+  63              		.cfi_def_cfa_offset 24
+  64              		.cfi_offset 3, -24
+  65              		.cfi_offset 4, -20
+  66              		.cfi_offset 5, -16
+  67              		.cfi_offset 6, -12
+  68              		.cfi_offset 7, -8
+  69              		.cfi_offset 14, -4
+  70              		.loc 1 44 0
+  71 0002 0546     		mov	r5, r0
+  72 0004 1F46     		mov	r7, r3
+  73              	.LBB36:
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	TaskListItem *item = new TaskListItem(task, period, priority);
+  74              		.loc 1 45 0
+  75 0006 1420     		movs	r0, #20
+  76              	.LVL2:
+  77 0008 084B     		ldr	r3, .L7
+  78              	.LVL3:
+  79              	.LBE36:
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** {
+  80              		.loc 1 44 0
+  81 000a 1446     		mov	r4, r2
+  82 000c 0E46     		mov	r6, r1
+  83              	.LBB41:
+  84              		.loc 1 45 0
+  85 000e 9847     		blx	r3
+  86              	.LVL4:
+  87              	.LBB37:
+  88              	.LBB38:
+  89              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #ifndef XPCC__SCHEDULER_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #define XPCC__SCHEDULER_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #include <stdint.h>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #include <xpcc/architecture/utils.hpp>
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #include <xpcc/architecture/driver/accessor.hpp>
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** #include <xpcc/architecture/driver/atomic/lock.hpp>		// for Scheduler::scheduleInterrupt()
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** namespace xpcc
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** {
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	/**
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \ingroup	workflow
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \brief	%Scheduler
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * If the schedule() method is call from a timer interrupt, this scheduler
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * is a priority based preemptive scheduler, meaning that always the task
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * with the highest priority is executed. It will only change tasks if a
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * task with a higher priority becomes ready or the current task ends.
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \image	html	scheduler.png
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \warning	Works for ATmega, but currently not for the ATxmega!
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * 
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \author	Fabian Greif
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 * \todo	Check that this implementation works from inside an interrupt
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	 */
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	class Scheduler
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	{
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	public:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		typedef uint8_t Priority;
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		/**
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		 * \brief	%Scheduler task
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		 */
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		class Task
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		{
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		public:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 			virtual void
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 			run() = 0;
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		};
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	public:
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		Scheduler();
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		void
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		scheduleTask(Task& task,
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 					 uint16_t period,
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 					 Priority priority = 127);
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		// TODO	Implement this function
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		/*bool
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		removeTask(const Task& task);*/
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		void
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		schedule();
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		ALWAYS_INLINE void
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		scheduleInterupt();
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 	private:
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		struct TaskListItem
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 		{
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 			TaskListItem(Task& task,
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 						 uint16_t period,
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 						 Priority priority) :
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 				nextTask(0), nextReady(0), task(task),
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 				period(period), time(period), priority(priority),
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.hpp **** 				state(WAITING)
+  90              		.loc 2 99 0
+  91 0010 0774     		strb	r7, [r0, #16]
+  92              	.LBE38:
+  93              	.LBE37:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	if (taskList == 0) {
+  94              		.loc 1 47 0
+  95 0012 2B68     		ldr	r3, [r5, #0]
+  96              	.LBB40:
+  97              	.LBB39:
+  98              		.loc 2 99 0
+  99 0014 8660     		str	r6, [r0, #8]
+ 100 0016 0022     		movs	r2, #0
+ 101 0018 0260     		str	r2, [r0, #0]
+ 102 001a 4260     		str	r2, [r0, #4]
+ 103 001c 0222     		movs	r2, #2
+ 104 001e 8481     		strh	r4, [r0, #12]	@ movhi
+ 105 0020 C481     		strh	r4, [r0, #14]	@ movhi
+ 106 0022 4274     		strb	r2, [r0, #17]
+ 107              	.LVL5:
+ 108              	.LBE39:
+ 109              	.LBE40:
+ 110              		.loc 1 47 0
+ 111 0024 03B1     		cbz	r3, .L5
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 		taskList = item;
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	}
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	else {
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 		item->nextTask = taskList;
+ 112              		.loc 1 51 0
+ 113 0026 0360     		str	r3, [r0, #0]
+ 114              	.L5:
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 		taskList = item;
+ 115              		.loc 1 52 0
+ 116 0028 2860     		str	r0, [r5, #0]
+ 117 002a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 118              	.L8:
+ 119              		.align	2
+ 120              	.L7:
+ 121 002c 00000000 		.word	_Znwj
+ 122              	.LBE41:
+ 123              		.cfi_endproc
+ 124              	.LFE96:
+ 126              		.section	.text._ZN4xpcc9Scheduler8scheduleEv,"ax",%progbits
+ 127              		.align	2
+ 128              		.global	_ZN4xpcc9Scheduler8scheduleEv
+ 129              		.thumb
+ 130              		.thumb_func
+ 132              	_ZN4xpcc9Scheduler8scheduleEv:
+ 133              	.LFB97:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 	}
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** }
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** /*bool
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** xpcc::Scheduler::removeTask(const Task& task)
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** {
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** }
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** */
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** 
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** // ----------------------------------------------------------------------------
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** void
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** xpcc::Scheduler::schedule()
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler.cpp **** {
+ 134              		.loc 1 66 0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              	.LVL6:
+ 139 0000 38B5     		push	{r3, r4, r5, lr}
+ 140              	.LCFI1:
+ 141              		.cfi_def_cfa_offset 16
+ 142              		.cfi_offset 3, -16
+ 143              		.cfi_offset 4, -12
+ 144              		.cfi_offset 5, -8
+ 145              		.cfi_offset 14, -4
+ 146              	.LBB42:
+ 147              	.LBB43:
+ 148              		.file 3 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** #ifndef XPCC__SCHEDULER_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	#error	"Don't include this file directly, use 'scheduler.hpp' instead!"
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** #endif
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** /* item is element of two lists (schedule list and ready list).
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * ready list is order by its priority.
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * ALGORITHM:
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * ----------------------------------------------------------------------------
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * foreach item
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     decrement
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     if time = 0
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *         reload time
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *         set as ready
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * 
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * foreach item is ready (ordered by priority)
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     run item
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  *     mark as waiting
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  * ----------------------------------------------------------------------------
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp ****  */
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** inline void
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** xpcc::Scheduler::scheduleInterupt()
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** {
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	if (taskList == 0) {
+ 149              		.loc 3 54 0
+ 150 0002 0368     		ldr	r3, [r0, #0]
+ 151              	.LBE43:
+ 152              	.LBE42:
+ 153              		.loc 1 66 0
+ 154 0004 0546     		mov	r5, r0
+ 155              	.LVL7:
+ 156              	.LBB59:
+ 157              	.LBB58:
+ 158              		.loc 3 54 0
+ 159 0006 33B9     		cbnz	r3, .L30
+ 160 0008 44E0     		b	.L9
+ 161              	.LVL8:
+ 162              	.L12:
+ 163              	.LBB44:
+ 164              	.LBB45:
+ 165              	.LBB46:
+ 166              	.LBB47:
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		// nothing to schedule right now
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		return;
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	}
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	// update all tasks
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	TaskListItem *item = taskList;
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	do {
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		item->time--;
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		if (item->time == 0) {
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			item->time = item->period;
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			// add to ready list
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			if ((readyList == 0) ||
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				(readyList->priority < item->priority))
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			{
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				item->nextReady = readyList;
+ 167              		.loc 3 70 0
+ 168 000a 5960     		str	r1, [r3, #4]
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				readyList = item;
+ 169              		.loc 3 71 0
+ 170 000c 6B60     		str	r3, [r5, #4]
+ 171              	.L14:
+ 172              	.LBE47:
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			}
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			else {
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				TaskListItem *list = readyList;
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				while (1)
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				{
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					if ((list->nextReady == 0) ||
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						(list->nextReady->priority < item->priority))
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					{
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						item->nextReady = list->nextReady;
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						list->nextReady = item;
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						break;
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					}
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					list = list->nextReady;
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 				}
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			}
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			item->state = TaskListItem::READY;
+ 173              		.loc 3 88 0
+ 174 000e 0122     		movs	r2, #1
+ 175 0010 5A74     		strb	r2, [r3, #17]
+ 176              	.L11:
+ 177              	.LBE46:
+ 178              	.LBE45:
+ 179              	.LBE44:
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	do {
+ 180              		.loc 3 61 0
+ 181 0012 1B68     		ldr	r3, [r3, #0]
+ 182              	.LVL9:
+ 183 0014 EBB1     		cbz	r3, .L38
+ 184              	.LVL10:
+ 185              	.L30:
+ 186              	.LBB53:
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		item->time--;
+ 187              		.loc 3 62 0
+ 188 0016 DA89     		ldrh	r2, [r3, #14]
+ 189 0018 013A     		subs	r2, r2, #1
+ 190 001a 92B2     		uxth	r2, r2
+ 191 001c DA81     		strh	r2, [r3, #14]	@ movhi
+ 192              	.LBB52:
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		if (item->time == 0) {
+ 193              		.loc 3 63 0
+ 194 001e 002A     		cmp	r2, #0
+ 195 0020 F7D1     		bne	.L11
+ 196              	.LBB51:
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			item->time = item->period;
+ 197              		.loc 3 64 0
+ 198 0022 9A89     		ldrh	r2, [r3, #12]
+ 199              	.LBB49:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			if ((readyList == 0) ||
+ 200              		.loc 3 67 0
+ 201 0024 6968     		ldr	r1, [r5, #4]
+ 202              	.LBE49:
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			item->time = item->period;
+ 203              		.loc 3 64 0
+ 204 0026 DA81     		strh	r2, [r3, #14]	@ movhi
+ 205              	.LBB50:
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			if ((readyList == 0) ||
+ 206              		.loc 3 67 0
+ 207 0028 0029     		cmp	r1, #0
+ 208 002a EED0     		beq	.L12
+ 209 002c 1C7C     		ldrb	r4, [r3, #16]	@ zero_extendqisi2
+ 210 002e 0A7C     		ldrb	r2, [r1, #16]	@ zero_extendqisi2
+ 211 0030 A242     		cmp	r2, r4
+ 212 0032 EAD3     		bcc	.L12
+ 213              	.LVL11:
+ 214              	.LBB48:
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					if ((list->nextReady == 0) ||
+ 215              		.loc 3 78 0
+ 216 0034 4A68     		ldr	r2, [r1, #4]
+ 217 0036 32B9     		cbnz	r2, .L39
+ 218              	.L15:
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						item->nextReady = list->nextReady;
+ 219              		.loc 3 81 0
+ 220 0038 5A60     		str	r2, [r3, #4]
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						list->nextReady = item;
+ 221              		.loc 3 82 0
+ 222 003a 4B60     		str	r3, [r1, #4]
+ 223 003c E7E7     		b	.L14
+ 224              	.L22:
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 					if ((list->nextReady == 0) ||
+ 225              		.loc 3 78 0
+ 226 003e 1146     		mov	r1, r2
+ 227              	.LVL12:
+ 228 0040 4A68     		ldr	r2, [r1, #4]
+ 229 0042 002A     		cmp	r2, #0
+ 230 0044 F8D0     		beq	.L15
+ 231              	.L39:
+ 232 0046 107C     		ldrb	r0, [r2, #16]	@ zero_extendqisi2
+ 233 0048 8442     		cmp	r4, r0
+ 234 004a F8D9     		bls	.L22
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						item->nextReady = list->nextReady;
+ 235              		.loc 3 81 0
+ 236 004c 5A60     		str	r2, [r3, #4]
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 						list->nextReady = item;
+ 237              		.loc 3 82 0
+ 238 004e 4B60     		str	r3, [r1, #4]
+ 239 0050 DDE7     		b	.L14
+ 240              	.LVL13:
+ 241              	.L38:
+ 242              	.LBE48:
+ 243              	.LBE50:
+ 244              	.LBE51:
+ 245              	.LBE52:
+ 246              	.LBE53:
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		}
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	}
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	while ((item = item->nextTask) != 0);
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	// now execute the tasks which are ready
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	while (((item = xpcc::accessor::asVolatile(readyList)) != 0) &&
+ 247              		.loc 3 94 0
+ 248 0052 6C68     		ldr	r4, [r5, #4]
+ 249              	.LVL14:
+ 250 0054 F4B1     		cbz	r4, .L9
+ 251 0056 227C     		ldrb	r2, [r4, #16]	@ zero_extendqisi2
+ 252 0058 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
+ 253 005a 9A42     		cmp	r2, r3
+ 254 005c 00D8     		bhi	.L29
+ 255 005e 38BD     		pop	{r3, r4, r5, pc}
+ 256              	.LVL15:
+ 257              	.L29:
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			(item->priority > currentPriority))
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	{
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		item->state = TaskListItem::RUNNING;
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		readyList = item->nextReady;
+ 258              		.loc 3 98 0
+ 259 0060 6268     		ldr	r2, [r4, #4]
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		item->state = TaskListItem::RUNNING;
+ 260              		.loc 3 97 0
+ 261 0062 0023     		movs	r3, #0
+ 262 0064 6374     		strb	r3, [r4, #17]
+ 263              		.loc 3 98 0
+ 264 0066 6A60     		str	r2, [r5, #4]
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		currentPriority = item->priority;
+ 265              		.loc 3 99 0
+ 266 0068 227C     		ldrb	r2, [r4, #16]	@ zero_extendqisi2
+ 267 006a 2A72     		strb	r2, [r5, #8]
+ 268              	.LVL16:
+ 269              	.LBB54:
+ 270              	.LBB55:
+ 271              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** /* Copyright (c) 2009, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #ifndef	XPCC_ATOMIC__LOCK_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #define	XPCC_ATOMIC__LOCK_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #include <stdint.h>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #include <xpcc/architecture/utils.hpp>
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** namespace xpcc
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** {
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	namespace atomic
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		/**
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \ingroup	atomic
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \brief		Critical section
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *  
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Typical usage:
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \code
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * function()
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * {
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     // some code with interrupts enabled
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     {
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         atomic::Lock lock;
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // code which should be executed with disabled interrupts.
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // with the end of this block the lock object is destroyed
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *         // and the interrupts are reenabled.
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     }
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 *     // other code with interrupts enabled
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * }
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \endcode
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \warning	Interrupts should be disabled the shortest possible time!
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 */
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		class Lock
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		{
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		public:
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Constructor
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Disables interrupts.
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			Lock();
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Destructor
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Restore the interrupt settings.
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			~Lock();
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		private:
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #if defined(XPCC__CPU_AVR)
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint8_t sreg;
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM)
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint32_t cpsr;
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #endif
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		};
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		/**
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \ingroup	atomic
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * \brief	Opposite to atomic::Lock
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Use this class to create a block of code with interrupts enabled
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * inside a locked block.
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * 
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * Most of the time you won't need this class. But on some rare
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 * times it is useful. The xpcc::Scheduler is an example for that.
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		 */
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		class Unlock
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		{
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		public:
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Constructor
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Enable interrupts
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			Unlock();
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			/**
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * \brief	Destructor
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * 
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 * Restore the interrupt settings.
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			 */
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			ALWAYS_INLINE
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			~Unlock();
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		private:
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #if defined(XPCC__CPU_AVR)
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint8_t sreg;
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM)
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 			uint32_t cpsr;
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #endif
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		};
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** }
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #ifdef XPCC__CPU_AVR
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	#include <avr/interrupt.h>
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock() :
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sreg(SREG)
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cli();
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		SREG = sreg;
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		__asm__ volatile ("" ::: "memory");
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	// ------------------------------------------------------------------------
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::Unlock() :
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sreg(SREG)
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		sei();
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::~Unlock()
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		SREG = sreg;
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		__asm__ volatile ("" ::: "memory");
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_ARM7TDMI)
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	// These functions are defined in "interrupt.S"
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" uint32_t _disable_interrupt(void);
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" uint32_t _enable_interrupt(void);
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	extern "C" void _restore_interrupt(uint32_t cpsr);
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock() :
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cpsr(_disable_interrupt())
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		_restore_interrupt(cpsr);
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::Unlock() :
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		cpsr(_enable_interrupt())
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::~Unlock()
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		_restore_interrupt(cpsr);
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** #elif defined(XPCC__CPU_CORTEX_M0) || defined(XPCC__CPU_CORTEX_M3) || defined(XPCC__CPU_CORTEX_M4)
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::Lock()
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// disable interrupts -> PRIMASK=1
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// enable interrupts -> PRIMASK=0
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		uint32_t mask = 1;
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile (
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"mrs %0, PRIMASK"	"\n\t"
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"msr PRIMASK, %1"
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "=&r" (cpsr)
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "r" (mask));
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Lock::~Lock()
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile ("msr PRIMASK, %0" : : "r" (cpsr) );
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::Unlock()
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// disable interrupts -> PRIMASK=1
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		// enable interrupts -> PRIMASK=0
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		uint32_t mask = 0;
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile (
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"mrs %0, PRIMASK"	"\n\t"
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				"msr PRIMASK, %1"
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "=&r" (cpsr)
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 				: "r" (mask));
+ 272              		.loc 4 217 0
+ 273              	@ 217 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp" 1
+ 274 006c EFF31082 		mrs r2, PRIMASK
+ 275 0070 83F31088 		msr PRIMASK, r3
+ 276              	@ 0 "" 2
+ 277              		.thumb
+ 278              	.LBE55:
+ 279              	.LBE54:
+ 280              	.LBB56:
+ 281              	.LBB57:
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	}
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	xpcc::atomic::Unlock::~Unlock()
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 	{
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp **** 		asm volatile ("msr PRIMASK, %0" : : "r" (cpsr) );
+ 282              		.loc 4 222 0
+ 283              	@ 222 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/atomic/lock.hpp" 1
+ 284 0074 82F31088 		msr PRIMASK, r2
+ 285              	@ 0 "" 2
+ 286              		.thumb
+ 287              	.LBE57:
+ 288              	.LBE56:
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		{
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			xpcc::atomic::Unlock();
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			// the actual execution of the task happens with interrupts
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			// enabled
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 			item->task.run();
+ 289              		.loc 3 105 0
+ 290 0078 A068     		ldr	r0, [r4, #8]
+ 291 007a 0368     		ldr	r3, [r0, #0]
+ 292 007c 1B68     		ldr	r3, [r3, #0]
+ 293 007e 9847     		blx	r3
+ 294              	.LVL17:
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		}
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		currentPriority = 0;
+ 295              		.loc 3 107 0
+ 296 0080 0023     		movs	r3, #0
+ 297 0082 2B72     		strb	r3, [r5, #8]
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 		item->state = TaskListItem::WAITING;
+ 298              		.loc 3 108 0
+ 299 0084 0223     		movs	r3, #2
+ 300 0086 6374     		strb	r3, [r4, #17]
+ 301              	.LVL18:
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/workflow/scheduler/scheduler_impl.hpp **** 	while (((item = xpcc::accessor::asVolatile(readyList)) != 0) &&
+ 302              		.loc 3 94 0
+ 303 0088 6C68     		ldr	r4, [r5, #4]
+ 304              	.LVL19:
+ 305 008a 1CB1     		cbz	r4, .L9
+ 306 008c 227C     		ldrb	r2, [r4, #16]	@ zero_extendqisi2
+ 307 008e 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
+ 308 0090 9A42     		cmp	r2, r3
+ 309 0092 E5D8     		bhi	.L29
+ 310              	.LVL20:
+ 311              	.L9:
+ 312 0094 38BD     		pop	{r3, r4, r5, pc}
+ 313              	.LBE58:
+ 314              	.LBE59:
+ 315              		.cfi_endproc
+ 316              	.LFE97:
+ 318 0096 00BF     		.text
+ 319              	.Letext0:
+ 320              		.file 5 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 321              		.file 6 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 322              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor/ram.hpp"
+ 323              		.file 8 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/c++
+ 324              		.file 9 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/str
+ 325              		.file 10 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/accessor.hpp"
+ 326              		.file 11 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/io/iodevice.hpp"
+ 327              		.file 12 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 scheduler.cpp
+     /tmp/ccwtjpeA.s:20     .text._ZN4xpcc9SchedulerC2Ev:00000000 $t
+     /tmp/ccwtjpeA.s:25     .text._ZN4xpcc9SchedulerC2Ev:00000000 _ZN4xpcc9SchedulerC2Ev
+     /tmp/ccwtjpeA.s:25     .text._ZN4xpcc9SchedulerC2Ev:00000000 _ZN4xpcc9SchedulerC1Ev
+     /tmp/ccwtjpeA.s:49     .text._ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth:00000000 $t
+     /tmp/ccwtjpeA.s:54     .text._ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth:00000000 _ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth
+     /tmp/ccwtjpeA.s:121    .text._ZN4xpcc9Scheduler12scheduleTaskERNS0_4TaskEth:0000002c $d
+     /tmp/ccwtjpeA.s:127    .text._ZN4xpcc9Scheduler8scheduleEv:00000000 $t
+     /tmp/ccwtjpeA.s:132    .text._ZN4xpcc9Scheduler8scheduleEv:00000000 _ZN4xpcc9Scheduler8scheduleEv
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_Znwj

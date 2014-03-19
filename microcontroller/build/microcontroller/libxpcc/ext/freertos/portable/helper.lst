@@ -1,0 +1,58 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"helper.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
+  20              		.align	2
+  21              		.global	vApplicationStackOverflowHook
+  22              		.thumb
+  23              		.thumb_func
+  25              	vApplicationStackOverflowHook:
+  26              	.LFB2:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** 
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** #include "../FreeRTOS.h"
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** #include "../task.h"
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** 
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** // This function will get called if a task overflows its stack.
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** // If the parameters are corrupt then inspect pxCurrentTCB to find
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** // which was the offending task.
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** extern "C"
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** void
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** vApplicationStackOverflowHook(xTaskHandle *task, signed char *taskName)
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/helper.cpp **** {
+  28              		.loc 1 11 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              	.LVL0:
+  35              	.L2:
+  36 0000 FEE7     		b	.L2
+  37              		.cfi_endproc
+  38              	.LFE2:
+  40 0002 00BF     		.text
+  41              	.Letext0:
+  42              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/ext/freertos/portable/../task.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 helper.cpp
+     /tmp/cc1m9L3d.s:20     .text.vApplicationStackOverflowHook:00000000 $t
+     /tmp/cc1m9L3d.s:25     .text.vApplicationStackOverflowHook:00000000 vApplicationStackOverflowHook
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

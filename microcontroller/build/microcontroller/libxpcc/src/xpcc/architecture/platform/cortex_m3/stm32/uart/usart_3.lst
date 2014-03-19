@@ -1,0 +1,990 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"usart_3.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE:
+  26              	.LFB242:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ua
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * 
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** /*
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * WARNING: This file is generated automatically, do not edit!
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  * Please modify the corresponding *.in file instead and rebuild this file. 
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp ****  */
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #include "../gpio.hpp"
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #include "../device.h"
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #include "usart_3.hpp"
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #include <xpcc_config.hpp>
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** namespace
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdB10, B, 10);
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdB11, B, 11);
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdD8, D, 8);
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdD9, D, 9);
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdC10, C, 10);
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdC11, C, 11);
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** namespace
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	static const uint32_t apbClk = STM32_APB1_FREQUENCY;	// APB1
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** void
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::configurePins(Mapping mapping)
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+  28              		.loc 1 64 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	// Enable clock
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+  34              		.loc 1 66 0
+  35 0000 394B     		ldr	r3, .L9
+  36 0002 1A6C     		ldr	r2, [r3, #64]
+  37 0004 42F48022 		orr	r2, r2, #262144
+  38 0008 1A64     		str	r2, [r3, #64]
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	// Initialize IO pins
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (mapping == REMAP_PB10_PB11) {
+  39              		.loc 1 70 0
+  40 000a 0028     		cmp	r0, #0
+  41 000c 35D0     		beq	.L7
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdB10::setAlternateFunction(AF_USART3, xpcc::stm32::PUSH_PULL);
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdB11::setAlternateFunction(AF_USART3);
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	else if (mapping == REMAP_PC10_PC11) {
+  42              		.loc 1 74 0
+  43 000e 0128     		cmp	r0, #1
+  44 0010 68D0     		beq	.L8
+  45              	.LVL1:
+  46              	.LBB50:
+  47              	.LBB51:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdD8, D, 8);
+  48              		.loc 1 50 0
+  49 0012 364B     		ldr	r3, .L9+4
+  50 0014 1A68     		ldr	r2, [r3, #0]
+  51 0016 22F44032 		bic	r2, r2, #196608
+  52 001a 42F40032 		orr	r2, r2, #131072
+  53 001e 1A60     		str	r2, [r3, #0]
+  54              	.LVL2:
+  55              	.LBB52:
+  56              	.LBB53:
+  57              		.file 2 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ua
+   1:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** // coding: utf-8
+   2:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** // ----------------------------------------------------------------------------
+   3:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** /* Copyright (c) 2011, Roboterclub Aachen e.V.
+   4:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * All rights reserved.
+   5:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *
+   6:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * Redistribution and use in source and binary forms, with or without
+   7:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * modification, are permitted provided that the following conditions are met:
+   8:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *
+   9:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *     * Redistributions of source code must retain the above copyright
+  10:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *       notice, this list of conditions and the following disclaimer.
+  11:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *     * Redistributions in binary form must reproduce the above copyright
+  12:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *       notice, this list of conditions and the following disclaimer in the
+  13:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *       documentation and/or other materials provided with the distribution.
+  14:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *     * Neither the name of the Roboterclub Aachen e.V. nor the
+  15:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *       names of its contributors may be used to endorse or promote products
+  16:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *       derived from this software without specific prior written permission.
+  17:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *
+  18:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * THIS SOFTWARE IS PROVIDED BY ROBOTERCLUB AACHEN E.V. ''AS IS'' AND ANY
+  19:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  20:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  21:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * DISCLAIMED. IN NO EVENT SHALL ROBOTERCLUB AACHEN E.V. BE LIABLE FOR ANY
+  22:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  23:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  24:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  25:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  26:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  27:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  28:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  */
+  29:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** // ----------------------------------------------------------------------------
+  30:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** #ifndef XPCC_STM32F2__GPIO_HPP
+  32:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** #define XPCC_STM32F2__GPIO_HPP
+  33:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 
+  34:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** #include <xpcc/architecture/driver/gpio.hpp>
+  35:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** #include "../device.h"
+  36:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 
+  37:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** /* 
+  38:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIO Ports
+  39:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * ==========
+  40:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * 
+  41:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * Each port bit of the General Purpose IO (GPIO) Ports, can be
+  42:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * individually configured by software in several modes:
+  43:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Input floating
+  44:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Input (with pull-up or pull-down)
+  45:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Analog
+  46:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Output open-drain (with pull-up or pull-down)
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Output push-pull (with pull-up or pull-down)
+  48:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Alternate function push-pull (with pull-up or pull-down)
+  49:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - Alternate function open-drain (with pull-up or pull-down)
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * 
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_MODER (32-bit)
+  52:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   00: Input
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   01: General purpose output mode
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   10: Alternate function mode
+  55:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   11: Analog mode
+  56:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_OTYPER (16-bit)
+  57:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   0: Output push-pull
+  58:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   1: Output open-drain
+  59:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_OSPEEDR (32-bit)
+  60:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   00: 2 MHz
+  61:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   01: 25 MHz
+  62:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   10: 50 MHz
+  63:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   11: 100 MHz
+  64:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_PUPDR (32-bit)
+  65:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   00: No pull-up, pull-down
+  66:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   01: Pull-up
+  67:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   10: Pull-down
+  68:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  *   11: Reserved
+  69:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * 
+  70:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_IDR = input state (read-only) (16-bit)
+  71:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_ODR = output state (16-bit)
+  72:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * 
+  73:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * GPIOx_BSRR = set and reset register (32-bit)
+  74:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - BSRR(i) sets
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  * - BSRR(i+16) resets
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp ****  */
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** namespace xpcc
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** {
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 	namespace stm32
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 	{
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		/**
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 * \ingroup	stm32f2
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 */
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		enum PullType
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		{
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			FLOATING = 0x0,
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			PULLUP = 0x1,
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			PULLDOWN = 0x2,
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		};
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		/**
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 * \ingroup	stm32f2
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 */
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		enum OutputType
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		{
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			PUSH_PULL = 0x0,
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			OPEN_DRAIN = 0x1,
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		};
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		/**
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 * \ingroup	stm32f2
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 */
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		enum OutputSpeed
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		{
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			SPEED_2MHZ = 0x0,
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			SPEED_25MHZ = 0x1,
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			SPEED_50MHZ = 0x1,
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			SPEED_100MHZ = 0x3,
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		};
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		/**
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 * \ingroup	stm32f2
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		 */
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		// 0..7 = AFRL[31:0]
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		// 8..15 = AFRH[31:0]
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		enum AlternateFunction
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		{
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_RTC_50Hz = 0x00,	///< RTC_50Hz Alternate Function mapping
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_MCO = 0x00,		///< MCO (MCO1 and MCO2) Alternate Function mapping
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TAMPER = 0x00,	///< TAMPER (TAMPER_1 and TAMPER_2) Alternate Function mapping
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_SWJ = 0x00,		///< SWJ (SWD and JTAG) Alternate Function mapping
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TRACE = 0x00,	///< TRACE Alternate Function mapping
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 1 selection  
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM1 = 0x01,		///< TIM1 Alternate Function mapping
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM2 = 0x01,		///< TIM2 Alternate Function mapping
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 2 selection  
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM3 = 0x02,		///< TIM3 Alternate Function mapping
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM4 = 0x02,		///< TIM4 Alternate Function mapping
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM5 = 0x02,		///< TIM5 Alternate Function mapping
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 3 selection  
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM8 = 0x03,		///< TIM8 Alternate Function mapping
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM9 = 0x03,		///< TIM9 Alternate Function mapping
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM10 = 0x03,	///< TIM10 Alternate Function mapping
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM11 = 0x03,	///< TIM11 Alternate Function mapping
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 4 selection  
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_I2C1 = 0x04,		///< I2C1 Alternate Function mapping
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_I2C2 = 0x04,		///< I2C2 Alternate Function mapping
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_I2C3 = 0x04,		///< I2C3 Alternate Function mapping
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 5 selection  
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_SPI1 = 0x05,		///< SPI1 Alternate Function mapping
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_SPI2 = 0x05,		///< SPI2/I2S2 Alternate Function mapping
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 6 selection  
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_SPI3 = 0x06,		///< SPI3/I2S3 Alternate Function mapping
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 7 selection  
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_USART1 = 0x07,	///< USART1 Alternate Function mapping
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_USART2 = 0x07,	///< USART2 Alternate Function mapping
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_USART3 = 0x07,	///< USART3 Alternate Function mapping
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 8 selection  
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_UART4 = 0x08,	///< UART4 Alternate Function mapping
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_UART5 = 0x08,	///< UART5 Alternate Function mapping
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_USART6 = 0x08,	///< USART6 Alternate Function mapping
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 9 selection 
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_CAN1 = 0x09,		///< CAN1 Alternate Function mapping
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_CAN2 = 0x09,		///< CAN2 Alternate Function mapping
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM12 = 0x09,	///< TIM12 Alternate Function mapping
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM13 = 0x09,	///< TIM13 Alternate Function mapping
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_TIM14 = 0x09,	///< TIM14 Alternate Function mapping
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 10 selection  
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_OTG_FS = 0xA,	///< OTG_FS Alternate Function mapping
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_OTG_HS = 0xA,	///< OTG_HS Alternate Function mapping
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 11 selection  
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_ETH = 0x0B,		///< ETHERNET Alternate Function mapping
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 12 selection  
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_FSMC = 0xC,		///< FSMC Alternate Function mapping
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_OTG_HS_FS = 0xC,	///< OTG HS configured in FS, Alternate Function mapping
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_SDIO = 0xC,		///< SDIO Alternate Function mapping
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 13 selection  
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_DCMI = 0x0D,		///< DCMI Alternate Function mapping
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			// AF 15 selection  
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_EVENTOUT = 0x0F,	///< EVENTOUT Alternate Function mapping
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_0 = 0x00,		///< System
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_1 = 0x01,		///< TIM1/2
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_2 = 0x02,		///< TIM3..5
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_3 = 0x03,		///< TIM8...11
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_4 = 0x04,		///< I2C1..3
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_5 = 0x05,		///< SPI1/2
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_6 = 0x06,		///< SPI3
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_7 = 0x07,		///< USART1..3
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_8 = 0x08,		///< USART4..6
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_9 = 0x09,		///< CAN1/2, TIM12..14
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_10 = 0x0a,		///< OTG_FS, OTG_HS
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_11 = 0x0b,		///< ETH
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_12 = 0x0c,		///< FSMC, SDIO, OTG_HS (configured as FS)
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_13 = 0x0d,		///< DCMI
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_14 = 0x0e,		///< Reserved
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			AF_15 = 0x0f,		///< EVENTOUT
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		};
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		/** \internal */
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		template<unsigned int P, unsigned char N, bool = (N >= 8)>
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 		struct AlternateMode {
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 			ALWAYS_INLINE static void setMode(AlternateFunction m) {
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				uint32_t tmp = reinterpret_cast<GPIO_TypeDef*>(P)->AFR[1];
+  58              		.loc 2 209 0
+  59 0020 5A6A     		ldr	r2, [r3, #36]
+  60              	.LVL3:
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp &= ~(0xf << ((N - 8) * 4));
+  61              		.loc 2 210 0
+  62 0022 22F00F02 		bic	r2, r2, #15
+  63              	.LVL4:
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp |= (m << ((N - 8) * 4));
+  64              		.loc 2 211 0
+  65 0026 42F00702 		orr	r2, r2, #7
+  66              	.LVL5:
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				reinterpret_cast<GPIO_TypeDef*>(P)->AFR[1] = tmp;
+  67              		.loc 2 212 0
+  68 002a 5A62     		str	r2, [r3, #36]
+  69              	.LBE53:
+  70              	.LBE52:
+  50:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdD8, D, 8);
+  71              		.loc 1 50 0
+  72 002c 5A68     		ldr	r2, [r3, #4]
+  73              	.LVL6:
+  74 002e 22F48072 		bic	r2, r2, #256
+  75 0032 5A60     		str	r2, [r3, #4]
+  76 0034 9A68     		ldr	r2, [r3, #8]
+  77 0036 22F44032 		bic	r2, r2, #196608
+  78 003a 42F48032 		orr	r2, r2, #65536
+  79 003e 9A60     		str	r2, [r3, #8]
+  80 0040 DA68     		ldr	r2, [r3, #12]
+  81 0042 22F44032 		bic	r2, r2, #196608
+  82 0046 DA60     		str	r2, [r3, #12]
+  83              	.LVL7:
+  84              	.LBE51:
+  85              	.LBE50:
+  86              	.LBB54:
+  87              	.LBB55:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdD9, D, 9);
+  88              		.loc 1 51 0
+  89 0048 1A68     		ldr	r2, [r3, #0]
+  90 004a 22F44022 		bic	r2, r2, #786432
+  91 004e 42F40022 		orr	r2, r2, #524288
+  92 0052 1A60     		str	r2, [r3, #0]
+  93              	.LVL8:
+  94              	.LBB56:
+  95              	.LBB57:
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				uint32_t tmp = reinterpret_cast<GPIO_TypeDef*>(P)->AFR[1];
+  96              		.loc 2 209 0
+  97 0054 5A6A     		ldr	r2, [r3, #36]
+  98              	.LVL9:
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp &= ~(0xf << ((N - 8) * 4));
+  99              		.loc 2 210 0
+ 100 0056 22F0F002 		bic	r2, r2, #240
+ 101              	.LVL10:
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp |= (m << ((N - 8) * 4));
+ 102              		.loc 2 211 0
+ 103 005a 42F07002 		orr	r2, r2, #112
+ 104              	.LVL11:
+ 105              		.loc 2 212 0
+ 106 005e 5A62     		str	r2, [r3, #36]
+ 107              	.LBE57:
+ 108              	.LBE56:
+  51:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdD9, D, 9);
+ 109              		.loc 1 51 0
+ 110 0060 5A68     		ldr	r2, [r3, #4]
+ 111              	.LVL12:
+ 112 0062 22F40072 		bic	r2, r2, #512
+ 113 0066 5A60     		str	r2, [r3, #4]
+ 114 0068 9A68     		ldr	r2, [r3, #8]
+ 115 006a 22F44022 		bic	r2, r2, #786432
+ 116 006e 9A60     		str	r2, [r3, #8]
+ 117 0070 DA68     		ldr	r2, [r3, #12]
+ 118 0072 22F44022 		bic	r2, r2, #786432
+ 119 0076 DA60     		str	r2, [r3, #12]
+ 120 0078 7047     		bx	lr
+ 121              	.LVL13:
+ 122              	.L7:
+ 123              	.LBE55:
+ 124              	.LBE54:
+ 125              	.LBB58:
+ 126              	.LBB59:
+  47:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdB10, B, 10);
+ 127              		.loc 1 47 0
+ 128 007a A3F55053 		sub	r3, r3, #13312
+ 129              	.LVL14:
+ 130              	.L5:
+ 131              	.LBE59:
+ 132              	.LBE58:
+ 133              	.LBB60:
+ 134              	.LBB61:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdC10, C, 10);
+ 135              		.loc 1 53 0
+ 136 007e 1A68     		ldr	r2, [r3, #0]
+ 137 0080 22F44012 		bic	r2, r2, #3145728
+ 138 0084 42F40012 		orr	r2, r2, #2097152
+ 139 0088 1A60     		str	r2, [r3, #0]
+ 140              	.LVL15:
+ 141              	.LBB62:
+ 142              	.LBB63:
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				uint32_t tmp = reinterpret_cast<GPIO_TypeDef*>(P)->AFR[1];
+ 143              		.loc 2 209 0
+ 144 008a 5A6A     		ldr	r2, [r3, #36]
+ 145              	.LVL16:
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp &= ~(0xf << ((N - 8) * 4));
+ 146              		.loc 2 210 0
+ 147 008c 22F47062 		bic	r2, r2, #3840
+ 148              	.LVL17:
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp |= (m << ((N - 8) * 4));
+ 149              		.loc 2 211 0
+ 150 0090 42F4E062 		orr	r2, r2, #1792
+ 151              	.LVL18:
+ 152              		.loc 2 212 0
+ 153 0094 5A62     		str	r2, [r3, #36]
+ 154              	.LBE63:
+ 155              	.LBE62:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdC10, C, 10);
+ 156              		.loc 1 53 0
+ 157 0096 5A68     		ldr	r2, [r3, #4]
+ 158              	.LVL19:
+ 159 0098 22F48062 		bic	r2, r2, #1024
+ 160 009c 5A60     		str	r2, [r3, #4]
+ 161 009e 9A68     		ldr	r2, [r3, #8]
+ 162 00a0 22F44012 		bic	r2, r2, #3145728
+ 163 00a4 42F48012 		orr	r2, r2, #1048576
+ 164 00a8 9A60     		str	r2, [r3, #8]
+ 165 00aa DA68     		ldr	r2, [r3, #12]
+ 166 00ac 22F44012 		bic	r2, r2, #3145728
+ 167 00b0 DA60     		str	r2, [r3, #12]
+ 168              	.LVL20:
+ 169              	.LBE61:
+ 170              	.LBE60:
+ 171              	.LBB65:
+ 172              	.LBB66:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdC11, C, 11);
+ 173              		.loc 1 54 0
+ 174 00b2 1A68     		ldr	r2, [r3, #0]
+ 175 00b4 22F44002 		bic	r2, r2, #12582912
+ 176 00b8 42F40002 		orr	r2, r2, #8388608
+ 177 00bc 1A60     		str	r2, [r3, #0]
+ 178              	.LVL21:
+ 179              	.LBB67:
+ 180              	.LBB68:
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				uint32_t tmp = reinterpret_cast<GPIO_TypeDef*>(P)->AFR[1];
+ 181              		.loc 2 209 0
+ 182 00be 5A6A     		ldr	r2, [r3, #36]
+ 183              	.LVL22:
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp &= ~(0xf << ((N - 8) * 4));
+ 184              		.loc 2 210 0
+ 185 00c0 22F47042 		bic	r2, r2, #61440
+ 186              	.LVL23:
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/../stm32f2_4/gpio.hpp **** 				tmp |= (m << ((N - 8) * 4));
+ 187              		.loc 2 211 0
+ 188 00c4 42F4E042 		orr	r2, r2, #28672
+ 189              	.LVL24:
+ 190              		.loc 2 212 0
+ 191 00c8 5A62     		str	r2, [r3, #36]
+ 192              	.LBE68:
+ 193              	.LBE67:
+  54:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__INPUT(RxdC11, C, 11);
+ 194              		.loc 1 54 0
+ 195 00ca 5A68     		ldr	r2, [r3, #4]
+ 196              	.LVL25:
+ 197 00cc 22F40062 		bic	r2, r2, #2048
+ 198 00d0 5A60     		str	r2, [r3, #4]
+ 199 00d2 9A68     		ldr	r2, [r3, #8]
+ 200 00d4 22F44002 		bic	r2, r2, #12582912
+ 201 00d8 9A60     		str	r2, [r3, #8]
+ 202 00da DA68     		ldr	r2, [r3, #12]
+ 203 00dc 22F44002 		bic	r2, r2, #12582912
+ 204 00e0 DA60     		str	r2, [r3, #12]
+ 205 00e2 7047     		bx	lr
+ 206              	.LVL26:
+ 207              	.L8:
+ 208              	.LBE66:
+ 209              	.LBE65:
+ 210              	.LBB69:
+ 211              	.LBB64:
+  53:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	GPIO__OUTPUT(TxdC10, C, 10);
+ 212              		.loc 1 53 0
+ 213 00e4 024B     		ldr	r3, .L9+8
+ 214 00e6 CAE7     		b	.L5
+ 215              	.L10:
+ 216              		.align	2
+ 217              	.L9:
+ 218 00e8 00380240 		.word	1073887232
+ 219 00ec 000C0240 		.word	1073875968
+ 220 00f0 00080240 		.word	1073874944
+ 221              	.LBE64:
+ 222              	.LBE69:
+ 223              		.cfi_endproc
+ 224              	.LFE242:
+ 226              		.section	.text._ZN4xpcc5stm326Usart311setBaudrateEm,"ax",%progbits
+ 227              		.align	2
+ 228              		.global	_ZN4xpcc5stm326Usart311setBaudrateEm
+ 229              		.thumb
+ 230              		.thumb_func
+ 232              	_ZN4xpcc5stm326Usart311setBaudrateEm:
+ 233              	.LFB243:
+  75:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdC10::setAlternateFunction(AF_USART3, xpcc::stm32::PUSH_PULL);
+  76:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdC11::setAlternateFunction(AF_USART3);
+  77:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  78:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	else {
+  79:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdD8::setAlternateFunction(AF_USART3, xpcc::stm32::PUSH_PULL);
+  80:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdD9::setAlternateFunction(AF_USART3);
+  81:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  82:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #elif defined(STM32F10X) || defined(STM32F10X_HD) || defined(STM32F10X_XL) \
+  83:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	|| defined(STM32F10X_CL)
+  84:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_USART3_REMAP) | mapping;
+  85:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (mapping == REMAP_PB10_PB11) {
+  86:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdB10::setAlternateFunction(xpcc::stm32::PUSH_PULL);
+  87:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdB11::setInput();
+  88:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  89:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	else if (mapping == REMAP_PC10_PC11) {
+  90:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdC10::setAlternateFunction(xpcc::stm32::PUSH_PULL);
+  91:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdC11::setInput();
+  92:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  93:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	else {
+  94:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		TxdD8::setAlternateFunction(xpcc::stm32::PUSH_PULL);
+  95:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		RxdD9::setInput();
+  96:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+  97:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #else
+  98:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #  error "Unknown CPU Type. Please define STM32F10X_.., STM32F2XX, STM32F3XX or STM32F4XX"
+  99:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #endif
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** void
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::setBaudrate(uint32_t baudrate)
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 234              		.loc 1 105 0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              	.LVL27:
+ 239 0000 38B5     		push	{r3, r4, r5, lr}
+ 240              	.LCFI0:
+ 241              		.cfi_def_cfa_offset 16
+ 242              		.cfi_offset 3, -16
+ 243              		.cfi_offset 4, -12
+ 244              		.cfi_offset 5, -8
+ 245              		.cfi_offset 14, -4
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	// Enable clock
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+ 246              		.loc 1 107 0
+ 247 0002 0D4B     		ldr	r3, .L12
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR1 = 0;
+ 248              		.loc 1 109 0
+ 249 0004 0D4C     		ldr	r4, .L12+4
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+ 250              		.loc 1 107 0
+ 251 0006 1A6C     		ldr	r2, [r3, #64]
+ 252              		.loc 1 109 0
+ 253 0008 0025     		movs	r5, #0
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+ 254              		.loc 1 107 0
+ 255 000a 42F48022 		orr	r2, r2, #262144
+ 256 000e 1A64     		str	r2, [r3, #64]
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 257              		.loc 1 105 0
+ 258 0010 0146     		mov	r1, r0
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	// Set baudrate
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->BRR = calculateBaudrateSettings(apbClk, baudrate);
+ 259              		.loc 1 112 0
+ 260 0012 0B4B     		ldr	r3, .L12+8
+ 261 0014 0B48     		ldr	r0, .L12+12
+ 262              	.LVL28:
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR1 = 0;
+ 263              		.loc 1 109 0
+ 264 0016 A581     		strh	r5, [r4, #12]	@ movhi
+ 265              		.loc 1 112 0
+ 266 0018 9847     		blx	r3
+ 267              	.LVL29:
+ 268 001a 2081     		strh	r0, [r4, #8]	@ movhi
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	// Transmitter & Receiver-Enable, 8 Data Bits, 1 Stop Bit
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR1 |= USART_CR1_TE | USART_CR1_RE;
+ 269              		.loc 1 115 0
+ 270 001c A389     		ldrh	r3, [r4, #12]
+ 271 001e 9BB2     		uxth	r3, r3
+ 272 0020 43F00C03 		orr	r3, r3, #12
+ 273 0024 A381     		strh	r3, [r4, #12]	@ movhi
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR2 = 0;
+ 274              		.loc 1 116 0
+ 275 0026 2582     		strh	r5, [r4, #16]	@ movhi
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR3 = 0;
+ 276              		.loc 1 117 0
+ 277 0028 A582     		strh	r5, [r4, #20]	@ movhi
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->CR1 |= USART_CR1_UE;		// Uart Enable
+ 278              		.loc 1 119 0
+ 279 002a A389     		ldrh	r3, [r4, #12]
+ 280 002c 9BB2     		uxth	r3, r3
+ 281 002e 43F40053 		orr	r3, r3, #8192
+ 282 0032 A381     		strh	r3, [r4, #12]	@ movhi
+ 283 0034 38BD     		pop	{r3, r4, r5, pc}
+ 284              	.L13:
+ 285 0036 00BF     		.align	2
+ 286              	.L12:
+ 287 0038 00380240 		.word	1073887232
+ 288 003c 00480040 		.word	1073760256
+ 289 0040 00000000 		.word	_ZN4xpcc5stm328UartBase25calculateBaudrateSettingsEmm
+ 290 0044 80DE8002 		.word	42000000
+ 291              		.cfi_endproc
+ 292              	.LFE243:
+ 294              		.section	.text._ZN4xpcc5stm326Usart35writeEh,"ax",%progbits
+ 295              		.align	2
+ 296              		.global	_ZN4xpcc5stm326Usart35writeEh
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	_ZN4xpcc5stm326Usart35writeEh:
+ 301              	.LFB244:
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** void
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::write(uint8_t data)
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 302              		.loc 1 125 0
+ 303              		.cfi_startproc
+ 304              		@ args = 0, pretend = 0, frame = 0
+ 305              		@ frame_needed = 0, uses_anonymous_args = 0
+ 306              		@ link register save eliminated.
+ 307              	.LVL30:
+ 308              	.L15:
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #if defined(STM32F3XX)
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (!(USART3->ISR & USART_ISR_TXE)) {
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		// wait until the data register becomes empty
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->TDR = data;
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #else
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (!(USART3->SR & USART_SR_TXE)) {
+ 309              		.loc 1 133 0 discriminator 1
+ 310 0000 044B     		ldr	r3, .L20
+ 311 0002 1A88     		ldrh	r2, [r3, #0]
+ 312 0004 02F08002 		and	r2, r2, #128
+ 313 0008 92B2     		uxth	r2, r2
+ 314 000a 002A     		cmp	r2, #0
+ 315 000c F8D0     		beq	.L15
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		// wait until the data register becomes empty
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->DR = data;
+ 316              		.loc 1 137 0
+ 317 000e 9880     		strh	r0, [r3, #4]	@ movhi
+ 318 0010 7047     		bx	lr
+ 319              	.L21:
+ 320 0012 00BF     		.align	2
+ 321              	.L20:
+ 322 0014 00480040 		.word	1073760256
+ 323              		.cfi_endproc
+ 324              	.LFE244:
+ 326              		.section	.text._ZN4xpcc5stm326Usart35writeEPKhh,"ax",%progbits
+ 327              		.align	2
+ 328              		.global	_ZN4xpcc5stm326Usart35writeEPKhh
+ 329              		.thumb
+ 330              		.thumb_func
+ 332              	_ZN4xpcc5stm326Usart35writeEPKhh:
+ 333              	.LFB245:
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #endif
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** void
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::write(const uint8_t *s, uint8_t n)
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 334              		.loc 1 144 0
+ 335              		.cfi_startproc
+ 336              		@ args = 0, pretend = 0, frame = 0
+ 337              		@ frame_needed = 0, uses_anonymous_args = 0
+ 338              		@ link register save eliminated.
+ 339              	.LVL31:
+ 340 0000 10B4     		push	{r4}
+ 341              	.LCFI1:
+ 342              		.cfi_def_cfa_offset 4
+ 343              		.cfi_offset 4, -4
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (n-- != 0) {
+ 344              		.loc 1 145 0
+ 345 0002 4C1E     		subs	r4, r1, #1
+ 346 0004 E4B2     		uxtb	r4, r4
+ 347              	.LVL32:
+ 348 0006 71B1     		cbz	r1, .L22
+ 349              	.LVL33:
+ 350              	.L31:
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		write(*s++);
+ 351              		.loc 1 146 0
+ 352 0008 10F8011B 		ldrb	r1, [r0], #1	@ zero_extendqisi2
+ 353              	.LVL34:
+ 354              	.L24:
+ 355              	.LBB70:
+ 356              	.LBB71:
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (!(USART3->SR & USART_SR_TXE)) {
+ 357              		.loc 1 133 0
+ 358 000c 074B     		ldr	r3, .L33
+ 359 000e 1A88     		ldrh	r2, [r3, #0]
+ 360 0010 02F08002 		and	r2, r2, #128
+ 361 0014 92B2     		uxth	r2, r2
+ 362 0016 002A     		cmp	r2, #0
+ 363 0018 F8D0     		beq	.L24
+ 364              	.LBE71:
+ 365              	.LBE70:
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (n-- != 0) {
+ 366              		.loc 1 145 0
+ 367 001a 621E     		subs	r2, r4, #1
+ 368              	.LBB73:
+ 369              	.LBB72:
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	USART3->DR = data;
+ 370              		.loc 1 137 0
+ 371 001c 9980     		strh	r1, [r3, #4]	@ movhi
+ 372              	.LVL35:
+ 373              	.LBE72:
+ 374              	.LBE73:
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	while (n-- != 0) {
+ 375              		.loc 1 145 0
+ 376 001e D2B2     		uxtb	r2, r2
+ 377              	.LVL36:
+ 378 0020 0CB1     		cbz	r4, .L22
+ 379 0022 1446     		mov	r4, r2
+ 380 0024 F0E7     		b	.L31
+ 381              	.LVL37:
+ 382              	.L22:
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 383              		.loc 1 148 0
+ 384 0026 10BC     		pop	{r4}
+ 385 0028 7047     		bx	lr
+ 386              	.L34:
+ 387 002a 00BF     		.align	2
+ 388              	.L33:
+ 389 002c 00480040 		.word	1073760256
+ 390              		.cfi_endproc
+ 391              	.LFE245:
+ 393              		.section	.text._ZN4xpcc5stm326Usart34readERh,"ax",%progbits
+ 394              		.align	2
+ 395              		.global	_ZN4xpcc5stm326Usart34readERh
+ 396              		.thumb
+ 397              		.thumb_func
+ 399              	_ZN4xpcc5stm326Usart34readERh:
+ 400              	.LFB246:
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** bool
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::read(uint8_t& c)
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 401              		.loc 1 153 0
+ 402              		.cfi_startproc
+ 403              		@ args = 0, pretend = 0, frame = 0
+ 404              		@ frame_needed = 0, uses_anonymous_args = 0
+ 405              		@ link register save eliminated.
+ 406              	.LVL38:
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #if defined(STM32F3XX)
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (USART3->ISR & USART_ISR_RXNE)
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	{
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		c = USART3->RDR;
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		return true;
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #else
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (USART3->SR & USART_SR_RXNE)
+ 407              		.loc 1 161 0
+ 408 0000 054B     		ldr	r3, .L38
+ 409 0002 1A88     		ldrh	r2, [r3, #0]
+ 410 0004 02F02002 		and	r2, r2, #32
+ 411 0008 92B2     		uxth	r2, r2
+ 412 000a 12B1     		cbz	r2, .L36
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	{
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		c = USART3->DR;
+ 413              		.loc 1 163 0
+ 414 000c 9B88     		ldrh	r3, [r3, #4]
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		return true;
+ 415              		.loc 1 164 0
+ 416 000e 0122     		movs	r2, #1
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		c = USART3->DR;
+ 417              		.loc 1 163 0
+ 418 0010 0370     		strb	r3, [r0, #0]
+ 419              	.L36:
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** #endif
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	return false;
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 420              		.loc 1 168 0
+ 421 0012 1046     		mov	r0, r2
+ 422              	.LVL39:
+ 423 0014 7047     		bx	lr
+ 424              	.L39:
+ 425 0016 00BF     		.align	2
+ 426              	.L38:
+ 427 0018 00480040 		.word	1073760256
+ 428              		.cfi_endproc
+ 429              	.LFE246:
+ 431              		.section	.text._ZN4xpcc5stm326Usart34readEPhh,"ax",%progbits
+ 432              		.align	2
+ 433              		.global	_ZN4xpcc5stm326Usart34readEPhh
+ 434              		.thumb
+ 435              		.thumb_func
+ 437              	_ZN4xpcc5stm326Usart34readEPhh:
+ 438              	.LFB247:
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** // ----------------------------------------------------------------------------
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** uint8_t
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** xpcc::stm32::Usart3::read(uint8_t *buffer, uint8_t n)
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** {
+ 439              		.loc 1 173 0
+ 440              		.cfi_startproc
+ 441              		@ args = 0, pretend = 0, frame = 0
+ 442              		@ frame_needed = 0, uses_anonymous_args = 0
+ 443              		@ link register save eliminated.
+ 444              	.LVL40:
+ 445 0000 10B4     		push	{r4}
+ 446              	.LCFI2:
+ 447              		.cfi_def_cfa_offset 4
+ 448              		.cfi_offset 4, -4
+ 449              		.loc 1 173 0
+ 450 0002 0346     		mov	r3, r0
+ 451              	.LBB74:
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	for (uint8_t i = 0; i < n; ++i)
+ 452              		.loc 1 174 0
+ 453 0004 E9B1     		cbz	r1, .L49
+ 454              	.LVL41:
+ 455              	.LBB75:
+ 456              	.LBB76:
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (USART3->SR & USART_SR_RXNE)
+ 457              		.loc 1 161 0
+ 458 0006 104A     		ldr	r2, .L50
+ 459 0008 1088     		ldrh	r0, [r2, #0]
+ 460              	.LVL42:
+ 461 000a 00F02000 		and	r0, r0, #32
+ 462 000e 80B2     		uxth	r0, r0
+ 463 0010 80B9     		cbnz	r0, .L47
+ 464              	.LBE76:
+ 465              	.LBE75:
+ 466              		.loc 1 174 0
+ 467 0012 0130     		adds	r0, r0, #1
+ 468 0014 C0B2     		uxtb	r0, r0
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	{
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		if (read(*buffer++)) {
+ 469              		.loc 1 176 0
+ 470 0016 0133     		adds	r3, r3, #1
+ 471              	.LVL43:
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	for (uint8_t i = 0; i < n; ++i)
+ 472              		.loc 1 174 0
+ 473 0018 8142     		cmp	r1, r0
+ 474 001a 12D9     		bls	.L49
+ 475              	.LVL44:
+ 476              	.L45:
+ 477              	.LBB81:
+ 478              	.LBB77:
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (USART3->SR & USART_SR_RXNE)
+ 479              		.loc 1 161 0
+ 480 001c 0A4A     		ldr	r2, .L50
+ 481 001e 1288     		ldrh	r2, [r2, #0]
+ 482 0020 02F02002 		and	r2, r2, #32
+ 483 0024 92B2     		uxth	r2, r2
+ 484              	.LBE77:
+ 485              	.LBE81:
+ 486              		.loc 1 176 0
+ 487 0026 5C1C     		adds	r4, r3, #1
+ 488              	.LVL45:
+ 489              	.LBB82:
+ 490              	.LBB78:
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	if (USART3->SR & USART_SR_RXNE)
+ 491              		.loc 1 161 0
+ 492 0028 32B1     		cbz	r2, .L46
+ 493              	.LVL46:
+ 494              	.L44:
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		c = USART3->DR;
+ 495              		.loc 1 163 0
+ 496 002a 074A     		ldr	r2, .L50
+ 497 002c 9288     		ldrh	r2, [r2, #4]
+ 498 002e 1A70     		strb	r2, [r3, #0]
+ 499              	.L48:
+ 500              	.LBE78:
+ 501              	.LBE82:
+ 502              	.LBE74:
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 			return i;
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		}
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	}
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	return n;
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** }
+ 503              		.loc 1 182 0
+ 504 0030 10BC     		pop	{r4}
+ 505 0032 7047     		bx	lr
+ 506              	.LVL47:
+ 507              	.L47:
+ 508              	.LBB85:
+ 509              	.LBB83:
+ 510              	.LBB79:
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	for (uint8_t i = 0; i < n; ++i)
+ 511              		.loc 1 174 0
+ 512 0034 0020     		movs	r0, #0
+ 513 0036 F8E7     		b	.L44
+ 514              	.LVL48:
+ 515              	.L46:
+ 516              	.LBE79:
+ 517              	.LBE83:
+ 518 0038 0130     		adds	r0, r0, #1
+ 519 003a C0B2     		uxtb	r0, r0
+ 520 003c 8142     		cmp	r1, r0
+ 521              	.LBB84:
+ 522              	.LBB80:
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 		if (read(*buffer++)) {
+ 523              		.loc 1 176 0
+ 524 003e 2346     		mov	r3, r4
+ 525              	.LVL49:
+ 526              	.LBE80:
+ 527              	.LBE84:
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/uart/usart_3.cpp **** 	for (uint8_t i = 0; i < n; ++i)
+ 528              		.loc 1 174 0
+ 529 0040 ECD8     		bhi	.L45
+ 530              	.LVL50:
+ 531              	.L49:
+ 532 0042 0846     		mov	r0, r1
+ 533 0044 F4E7     		b	.L48
+ 534              	.L51:
+ 535 0046 00BF     		.align	2
+ 536              	.L50:
+ 537 0048 00480040 		.word	1073760256
+ 538              	.LBE85:
+ 539              		.cfi_endproc
+ 540              	.LFE247:
+ 542              		.text
+ 543              	.Letext0:
+ 544              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 545              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/driver/gpio.hpp"
+ 546              		.file 5 "/home/jonas/warwick/3dProfilometer/xpcc/src/xpcc/architecture/platform/cortex_m3/stm32/ua
+ 547              		.file 6 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Device/ST/STM32F4xx/Inclu
+ 548              		.file 7 "/home/jonas/warwick/3dProfilometer/xpcc/ext/stm32f4xx_lib/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart_3.cpp
+     /tmp/cc2icnmK.s:20     .text._ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE:00000000 $t
+     /tmp/cc2icnmK.s:25     .text._ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE:00000000 _ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE
+     /tmp/cc2icnmK.s:218    .text._ZN4xpcc5stm326Usart313configurePinsENS1_7MappingE:000000e8 $d
+     /tmp/cc2icnmK.s:227    .text._ZN4xpcc5stm326Usart311setBaudrateEm:00000000 $t
+     /tmp/cc2icnmK.s:232    .text._ZN4xpcc5stm326Usart311setBaudrateEm:00000000 _ZN4xpcc5stm326Usart311setBaudrateEm
+     /tmp/cc2icnmK.s:287    .text._ZN4xpcc5stm326Usart311setBaudrateEm:00000038 $d
+     /tmp/cc2icnmK.s:295    .text._ZN4xpcc5stm326Usart35writeEh:00000000 $t
+     /tmp/cc2icnmK.s:300    .text._ZN4xpcc5stm326Usart35writeEh:00000000 _ZN4xpcc5stm326Usart35writeEh
+     /tmp/cc2icnmK.s:322    .text._ZN4xpcc5stm326Usart35writeEh:00000014 $d
+     /tmp/cc2icnmK.s:327    .text._ZN4xpcc5stm326Usart35writeEPKhh:00000000 $t
+     /tmp/cc2icnmK.s:332    .text._ZN4xpcc5stm326Usart35writeEPKhh:00000000 _ZN4xpcc5stm326Usart35writeEPKhh
+     /tmp/cc2icnmK.s:389    .text._ZN4xpcc5stm326Usart35writeEPKhh:0000002c $d
+     /tmp/cc2icnmK.s:394    .text._ZN4xpcc5stm326Usart34readERh:00000000 $t
+     /tmp/cc2icnmK.s:399    .text._ZN4xpcc5stm326Usart34readERh:00000000 _ZN4xpcc5stm326Usart34readERh
+     /tmp/cc2icnmK.s:427    .text._ZN4xpcc5stm326Usart34readERh:00000018 $d
+     /tmp/cc2icnmK.s:432    .text._ZN4xpcc5stm326Usart34readEPhh:00000000 $t
+     /tmp/cc2icnmK.s:437    .text._ZN4xpcc5stm326Usart34readEPhh:00000000 _ZN4xpcc5stm326Usart34readEPhh
+     /tmp/cc2icnmK.s:537    .text._ZN4xpcc5stm326Usart34readEPhh:00000048 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN4xpcc5stm328UartBase25calculateBaudrateSettingsEmm

@@ -1,0 +1,1335 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 3
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.file	"ccsbcs.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ff_convert,"ax",%progbits
+  20              		.align	2
+  21              		.global	ff_convert
+  22              		.thumb
+  23              		.thumb_func
+  25              	ff_convert:
+  26              	.LFB0:
+  27              		.file 1 "/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c"
+   1:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /*------------------------------------------------------------------------*/
+   2:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /* Unicode - Local code bidirectional converter  (C)ChaN, 2009            */
+   3:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /* (SBCS code pages)                                                      */
+   4:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /*------------------------------------------------------------------------*/
+   5:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /*  437   U.S. (OEM)
+   6:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   720   Arabic (OEM)
+   7:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1256  Arabic (Windows)
+   8:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   737   Greek (OEM)
+   9:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1253  Greek (Windows)
+  10:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1250  Central Europe (Windows)
+  11:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   775   Baltic (OEM)
+  12:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1257  Baltic (Windows)
+  13:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   850   Multilingual Latin 1 (OEM)
+  14:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   852   Latin 2 (OEM)
+  15:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1252  Latin 1 (Windows)
+  16:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   855   Cyrillic (OEM)
+  17:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1251  Cyrillic (Windows)
+  18:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   866   Russian (OEM)
+  19:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   857   Turkish (OEM)
+  20:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1254  Turkish (Windows)
+  21:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   858   Multilingual Latin 1 + Euro (OEM)
+  22:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   862   Hebrew (OEM)
+  23:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1255  Hebrew (Windows)
+  24:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   874   Thai (OEM, Windows)
+  25:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** /   1258  Vietnam (OEM, Windows)
+  26:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** */
+  27:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  28:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #include "../ff.h"
+  29:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  30:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  31:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #if _CODE_PAGE == 437
+  32:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+  33:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+  34:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP437(0x80-0xFF) to Unicode conversion table */
+  35:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+  36:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+  37:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+  38:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00A2, 0x00A3, 0x00A5, 0x20A7, 0x0192,
+  39:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+  40:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BF, 0x2310, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+  41:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  42:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  43:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  44:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  45:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  46:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  47:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B1, 0x00DF, 0x0393, 0x03C0, 0x03A3, 0x03C3, 0x00B5, 0x03C4,
+  48:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03A6, 0x0398, 0x03A9, 0x03B4, 0x221E, 0x03C6, 0x03B5, 0x2229,
+  49:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2261, 0x00B1, 0x2265, 0x2264, 0x2320, 0x2321, 0x00F7, 0x2248,
+  50:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  51:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+  52:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  53:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 720
+  54:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+  55:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+  56:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP720(0x80-0xFF) to Unicode conversion table */
+  57:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x0000, 0x00E9, 0x00E2, 0x0000, 0x00E0, 0x0000, 0x00E7,
+  58:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x0000, 0x0000, 0x0000,
+  59:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x0651, 0x0652, 0x00F4, 0x00A4, 0x0640, 0x00FB, 0x00F9,
+  60:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0621, 0x0622, 0x0623, 0x0624, 0x00A3, 0x0625, 0x0626, 0x0627,
+  61:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0628, 0x0629, 0x062A, 0x062B, 0x062C, 0x062D, 0x062E, 0x062F,
+  62:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0630, 0x0631, 0x0632, 0x0633, 0x0634, 0x0635, 0x00AB, 0x00BB,
+  63:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  64:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  65:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  66:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  67:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  68:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  69:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0636, 0x0637, 0x0638, 0x0639, 0x063A, 0x0641, 0x00B5, 0x0642,
+  70:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0643, 0x0644, 0x0645, 0x0646, 0x0647, 0x0648, 0x0649, 0x064A,
+  71:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2261, 0x064B, 0x064C, 0x064D, 0x064E, 0x064F, 0xO650, 0x2248,
+  72:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  73:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+  74:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  75:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 737
+  76:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+  77:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+  78:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP737(0x80-0xFF) to Unicode conversion table */
+  79:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0391, 0x0392, 0x0393, 0x0394, 0x0395, 0x0396, 0x0397, 0x0398,
+  80:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0399, 0x039A, 0x039B, 0x039C, 0x039D, 0x039E, 0x039F, 0x03A0,
+  81:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03A1, 0x03A3, 0x03A4, 0x03A5, 0x03A6, 0x03A7, 0x03A8, 0x03A9,
+  82:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B1, 0x03B2, 0x03B3, 0x03B4, 0x03B5, 0x03B6, 0x03B7, 0x03B8,
+  83:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B9, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BE, 0x03BF, 0x03C0,
+  84:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03C1, 0x03C3, 0x03C2, 0x03C4, 0x03C5, 0x03C6, 0x03C7, 0x03C8,
+  85:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  86:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  87:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  88:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  89:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  90:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  91:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03C9, 0x03AC, 0x03AD, 0x03AE, 0x03CA, 0x03AF, 0x03CC, 0x03CD,
+  92:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03CB, 0x03CE, 0x0386, 0x0388, 0x0389, 0x038A, 0x038C, 0x038E,
+  93:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x038F, 0x00B1, 0x2265, 0x2264, 0x03AA, 0x03AB, 0x00F7, 0x2248,
+  94:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  95:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+  96:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+  97:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 775
+  98:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+  99:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 100:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP775(0x80-0xFF) to Unicode conversion table */
+ 101:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0106, 0x00FC, 0x00E9, 0x0101, 0x00E4, 0x0123, 0x00E5, 0x0107,
+ 102:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0142, 0x0113, 0x0156, 0x0157, 0x012B, 0x0179, 0x00C4, 0x00C5,
+ 103:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x014D, 0x00F6, 0x0122, 0x00A2, 0x015A,
+ 104:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x015B, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x00A4,
+ 105:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0100, 0x012A, 0x00F3, 0x017B, 0x017C, 0x017A, 0x201D, 0x00A6,
+ 106:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A9, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x0141, 0x00AB, 0x00BB,
+ 107:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x0104, 0x010C, 0x0118,
+ 108:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0116, 0x2563, 0x2551, 0x2557, 0x255D, 0x012E, 0x0160, 0x2510,
+ 109:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x0172, 0x016A,
+ 110:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x017D,
+ 111:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0105, 0x010D, 0x0119, 0x0117, 0x012F, 0x0161, 0x0173, 0x016B,
+ 112:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x017E, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 113:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D3, 0x00DF, 0x014C, 0x0143, 0x00F5, 0x00D5, 0x00B5, 0x0144,
+ 114:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0136, 0x0137, 0x013B, 0x013C, 0x0146, 0x0112, 0x0145, 0x2019,
+ 115:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x00B1, 0x201C, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x201E,
+ 116:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 117:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 118:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 119:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 850
+ 120:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 121:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 122:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP850(0x80-0xFF) to Unicode conversion table */
+ 123:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 124:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+ 125:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 126:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x0192,
+ 127:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 128:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 129:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 130:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x255D, 0x00A2, 0x00A5, 0x2510,
+ 131:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 132:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 133:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F0, 0x00D0, 0x00CA, 0x00CB, 0x00C8, 0x0131, 0x00CD, 0x00CE,
+ 134:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00A6, 0x00CC, 0x2580,
+ 135:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x00FE,
+ 136:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00DE, 0x00DA, 0x00DB, 0x00D9, 0x00FD, 0x00DD, 0x00AF, 0x00B4,
+ 137:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x00B1, 0x2017, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 138:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 139:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 140:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 141:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 852
+ 142:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 143:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 144:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP852(0x80-0xFF) to Unicode conversion table */
+ 145:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x016F, 0x0107, 0x00E7,
+ 146:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0142, 0x00EB, 0x0150, 0x0151, 0x00EE, 0x0179, 0x00C4, 0x0106,
+ 147:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x0139, 0x013A, 0x00F4, 0x00F6, 0x013D, 0x013E, 0x015A,
+ 148:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x015B, 0x00D6, 0x00DC, 0x0164, 0x0165, 0x0141, 0x00D7, 0x010D,
+ 149:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x0104, 0x0105, 0x017D, 0x017E,
+ 150:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0118, 0x0119, 0x00AC, 0x017A, 0x010C, 0x015F, 0x00AB, 0x00BB,
+ 151:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x011A,
+ 152:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x015E, 0x2563, 0x2551, 0x2557, 0x255D, 0x017B, 0x017C, 0x2510,
+ 153:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x0102, 0x0103,
+ 154:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 155:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0111, 0x0110, 0x010E, 0x00CB, 0x010F, 0x0147, 0x00CD, 0x00CE,
+ 156:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x011B, 0x2518, 0x250C, 0x2588, 0x2584, 0x0162, 0x016E, 0x2580,
+ 157:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x0143, 0x0144, 0x0148, 0x0160, 0x0161,
+ 158:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0154, 0x00DA, 0x0155, 0x0170, 0x00FD, 0x00DD, 0x0163, 0x00B4,
+ 159:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x02DD, 0x02DB, 0x02C7, 0x02D8, 0x00A7, 0x00F7, 0x00B8,
+ 160:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00A8, 0x02D9, 0x0171, 0x0158, 0x0159, 0x25A0, 0x00A0
+ 161:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 162:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 163:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 855
+ 164:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 165:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 166:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP855(0x80-0xFF) to Unicode conversion table */
+ 167:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0452, 0x0402, 0x0453, 0x0403, 0x0451, 0x0401, 0x0454, 0x0404,
+ 168:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0455, 0x0405, 0x0456, 0x0406, 0x0457, 0x0407, 0x0458, 0x0408,
+ 169:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0459, 0x0409, 0x045A, 0x040A, 0x045B, 0x040B, 0x045C, 0x040C,
+ 170:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x045E, 0x040E, 0x045F, 0x040F, 0x044E, 0x042E, 0x044A, 0x042A,
+ 171:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0430, 0x0410, 0x0431, 0x0411, 0x0446, 0x0426, 0x0434, 0x0414,
+ 172:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0435, 0x0415, 0x0444, 0x0424, 0x0433, 0x0413, 0x00AB, 0x00BB,
+ 173:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x0445, 0x0425, 0x0438,
+ 174:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0418, 0x2563, 0x2551, 0x2557, 0x255D, 0x0439, 0x0419, 0x2510,
+ 175:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x043A, 0x041A,
+ 176:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 177:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x043B, 0x041B, 0x043C, 0x041C, 0x043D, 0x041D, 0x043E, 0x041E,
+ 178:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x043F, 0x2518, 0x250C, 0x2588, 0x2584, 0x041F, 0x044F, 0x2580,
+ 179:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x042F, 0x0440, 0x0420, 0x0441, 0x0421, 0x0442, 0x0422, 0x0443,
+ 180:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0423, 0x0436, 0x0416, 0x0432, 0x0412, 0x044C, 0x042C, 0x2116,
+ 181:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x044B, 0x042B, 0x0437, 0x0417, 0x0448, 0x0428, 0x044D,
+ 182:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x042D, 0x0449, 0x0429, 0x0447, 0x0427, 0x00A7, 0x25A0, 0x00A0
+ 183:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 184:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 185:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 857
+ 186:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 187:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 188:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP857(0x80-0xFF) to Unicode conversion table */
+ 189:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 190:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x0131, 0x00C4, 0x00C5,
+ 191:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 192:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0130, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x015E, 0x015F,
+ 193:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x011E, 0x011F,
+ 194:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 195:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 196:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x255D, 0x00A2, 0x00A5, 0x2510,
+ 197:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 198:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 199:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BA, 0x00AA, 0x00CA, 0x00CB, 0x00C8, 0x0000, 0x00CD, 0x00CE,
+ 200:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00A6, 0x00CC, 0x2580,
+ 201:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x0000,
+ 202:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D7, 0x00DA, 0x00DB, 0x00D9, 0x00EC, 0x00FF, 0x00AF, 0x00B4,
+ 203:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x00B1, 0x0000, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 204:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 205:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 206:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 207:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 858
+ 208:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 209:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 210:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP858(0x80-0xFF) to Unicode conversion table */
+ 211:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 212:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+ 213:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 214:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x0192,
+ 215:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 216:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 217:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 218:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x2550, 0x00A2, 0x00A5, 0x2510,
+ 219:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 220:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 221:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F0, 0x00D0, 0x00CA, 0x00CB, 0x00C8, 0x20AC, 0x00CD, 0x00CE,
+ 222:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00C6, 0x00CC, 0x2580,
+ 223:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x00FE,
+ 224:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00DE, 0x00DA, 0x00DB, 0x00D9, 0x00FD, 0x00DD, 0x00AF, 0x00B4,
+ 225:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00AD, 0x00B1, 0x2017, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 226:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 227:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 228:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 229:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 862
+ 230:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 231:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 232:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP862(0x80-0xFF) to Unicode conversion table */
+ 233:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05D0, 0x05D1, 0x05D2, 0x05D3, 0x05D4, 0x05D5, 0x05D6, 0x05D7,
+ 234:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05D8, 0x05D9, 0x05DA, 0x05DB, 0x05DC, 0x05DD, 0x05DE, 0x05DF,
+ 235:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05E0, 0x05E1, 0x05E2, 0x05E3, 0x05E4, 0x05E5, 0x05E6, 0x05E7,
+ 236:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05E8, 0x05E9, 0x05EA, 0x00A2, 0x00A3, 0x00A5, 0x20A7, 0x0192,
+ 237:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 238:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00BF, 0x2310, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 239:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+ 240:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+ 241:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+ 242:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+ 243:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+ 244:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 245:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B1, 0x00DF, 0x0393, 0x03C0, 0x03A3, 0x03C3, 0x00B5, 0x03C4,
+ 246:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03A6, 0x0398, 0x03A9, 0x03B4, 0x221E, 0x03C6, 0x03B5, 0x2229,
+ 247:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2261, 0x00B1, 0x2265, 0x2264, 0x2320, 0x2321, 0x00F7, 0x2248,
+ 248:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+ 249:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 250:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 251:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 866
+ 252:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 253:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 254:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP866(0x80-0xFF) to Unicode conversion table */
+ 255:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0410, 0x0411, 0x0412, 0x0413, 0x0414, 0x0415, 0x0416, 0x0417,
+ 256:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0418, 0x0419, 0x041A, 0x041B, 0x041C, 0x041D, 0x041E, 0x041F,
+ 257:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0420, 0x0421, 0x0422, 0x0423, 0x0424, 0x0425, 0x0426, 0x0427,
+ 258:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0428, 0x0429, 0x042A, 0x042B, 0x042C, 0x042D, 0x042E, 0x042F,
+ 259:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0430, 0x0431, 0x0432, 0x0433, 0x0434, 0x0435, 0x0436, 0x0437,
+ 260:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0438, 0x0439, 0x043A, 0x043B, 0x043C, 0x043D, 0x043E, 0x043F,
+ 261:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+ 262:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+ 263:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+ 264:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+ 265:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+ 266:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 267:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0440, 0x0441, 0x0442, 0x0443, 0x0444, 0x0445, 0x0446, 0x0447,
+ 268:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0448, 0x0449, 0x044A, 0x044B, 0x044C, 0x044D, 0x044E, 0x044F,
+ 269:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0401, 0x0451, 0x0404, 0x0454, 0x0407, 0x0457, 0x040E, 0x045E,
+ 270:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x2116, 0x00A4, 0x25A0, 0x00A0
+ 271:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 272:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 273:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 874
+ 274:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 275:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 276:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP874(0x80-0xFF) to Unicode conversion table */
+ 277:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x0000, 0x0000, 0x0000, 0x2026, 0x0000, 0x0000,
+ 278:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 279:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 280:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 281:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x0E01, 0x0E02, 0x0E03, 0x0E04, 0x0E05, 0x0E06, 0x0E07,
+ 282:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E08, 0x0E09, 0x0E0A, 0x0E0B, 0x0E0C, 0x0E0D, 0x0E0E, 0x0E0F,
+ 283:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E10, 0x0E11, 0x0E12, 0x0E13, 0x0E14, 0x0E15, 0x0E16, 0x0E17,
+ 284:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E18, 0x0E19, 0x0E1A, 0x0E1B, 0x0E1C, 0x0E1D, 0x0E1E, 0x0E1F,
+ 285:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E20, 0x0E21, 0x0E22, 0x0E23, 0x0E24, 0x0E25, 0x0E26, 0x0E27,
+ 286:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E28, 0x0E29, 0x0E2A, 0x0E2B, 0x0E2C, 0x0E2D, 0x0E2E, 0x0E2F,
+ 287:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E30, 0x0E31, 0x0E32, 0x0E33, 0x0E34, 0x0E35, 0x0E36, 0x0E37,
+ 288:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E38, 0x0E39, 0x0E3A, 0x0000, 0x0000, 0x0000, 0x0000, 0x0E3F,
+ 289:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E40, 0x0E41, 0x0E42, 0x0E43, 0x0E44, 0x0E45, 0x0E46, 0x0E47,
+ 290:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E48, 0x0E49, 0x0E4A, 0x0E4B, 0x0E4C, 0x0E4D, 0x0E4E, 0x0E4F,
+ 291:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E50, 0x0E51, 0x0E52, 0x0E53, 0x0E54, 0x0E55, 0x0E56, 0x0E57,
+ 292:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0E58, 0x0E59, 0x0E5A, 0x0E5B, 0x0000, 0x0000, 0x0000, 0x0000
+ 293:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 294:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 295:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1250
+ 296:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 297:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 298:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1250(0x80-0xFF) to Unicode conversion table */
+ 299:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0000, 0x201E, 0x2026, 0x2020, 0x2021,
+ 300:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2030, 0x0160, 0x2039, 0x015A, 0x0164, 0x017D, 0x0179,
+ 301:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 302:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2122, 0x0161, 0x203A, 0x015B, 0x0165, 0x017E, 0x017A,
+ 303:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x02C7, 0x02D8, 0x0141, 0x00A4, 0x0104, 0x00A6, 0x00A7,
+ 304:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x015E, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x017B,
+ 305:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x02DB, 0x0142, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 306:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x0105, 0x015F, 0x00BB, 0x013D, 0x02DD, 0x013E, 0x017C,
+ 307:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0154, 0x00C1, 0x00C2, 0x0102, 0x00C4, 0x0139, 0x0106, 0x00C7,
+ 308:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x010C, 0x00C9, 0x0118, 0x00CB, 0x011A, 0x00CD, 0x00CE, 0x010E,
+ 309:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0110, 0x0143, 0x0147, 0x00D3, 0x00D4, 0x0150, 0x00D6, 0x00D7,
+ 310:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0158, 0x016E, 0x00DA, 0x0170, 0x00DC, 0x00DD, 0x0162, 0x00DF,
+ 311:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0155, 0x00E1, 0x00E2, 0x0103, 0x00E4, 0x013A, 0x0107, 0x00E7,
+ 312:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x010D, 0x00E9, 0x0119, 0x00EB, 0x011B, 0x00ED, 0x00EE, 0x010F,
+ 313:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0111, 0x0144, 0x0148, 0x00F3, 0x00F4, 0x0151, 0x00F6, 0x00F7,
+ 314:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0159, 0x016F, 0x00FA, 0x0171, 0x00FC, 0x00FD, 0x0163, 0x02D9
+ 315:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 316:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 317:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1251
+ 318:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 319:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 320:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1251(0x80-0xFF) to Unicode conversion table */
+ 321:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0402, 0x0403, 0x201A, 0x0453, 0x201E, 0x2026, 0x2020, 0x2021,
+ 322:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x2030, 0x0409, 0x2039, 0x040A, 0x040C, 0x040B, 0x040F,
+ 323:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0452, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 324:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2111, 0x0459, 0x203A, 0x045A, 0x045C, 0x045B, 0x045F,
+ 325:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x040E, 0x045E, 0x0408, 0x00A4, 0x0490, 0x00A6, 0x00A7,
+ 326:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0401, 0x00A9, 0x0404, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x0407,
+ 327:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x0406, 0x0456, 0x0491, 0x00B5, 0x00B6, 0x00B7,
+ 328:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0451, 0x2116, 0x0454, 0x00BB, 0x0458, 0x0405, 0x0455, 0x0457,
+ 329:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0410, 0x0411, 0x0412, 0x0413, 0x0414, 0x0415, 0x0416, 0x0417,
+ 330:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0418, 0x0419, 0x041A, 0x041B, 0x041C, 0x041D, 0x041E, 0x041F,
+ 331:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0420, 0x0421, 0x0422, 0x0423, 0x0424, 0x0425, 0x0426, 0x0427,
+ 332:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0428, 0x0429, 0x042A, 0x042B, 0x042C, 0x042D, 0x042E, 0x042F,
+ 333:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0430, 0x0431, 0x0432, 0x0433, 0x0434, 0x0435, 0x0436, 0x0437,
+ 334:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0438, 0x0439, 0x043A, 0x043B, 0x043C, 0x043D, 0x043E, 0x043F,
+ 335:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0440, 0x0441, 0x0442, 0x0443, 0x0444, 0x0445, 0x0446, 0x0447,
+ 336:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0448, 0x0449, 0x044A, 0x044B, 0x044C, 0x044D, 0x044E, 0x044F
+ 337:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 338:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 339:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1252
+ 340:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 341:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 342:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1252(0x80-0xFF) to Unicode conversion table */
+ 343:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 344:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x017D, 0x0000,
+ 345:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 346:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x017E, 0x0178,
+ 347:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 348:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 349:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 350:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 351:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x00C3, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 352:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x00CC, 0x00CD, 0x00CE, 0x00CF,
+ 353:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D0, 0x00D1, 0x00D2, 0x00D3, 0x00D4, 0x00D5, 0x00D6, 0x00D7,
+ 354:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00DB, 0x00DC, 0x00DD, 0x00DE, 0x00DF,
+ 355:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 356:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF,
+ 357:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F0, 0x00F1, 0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F7,
+ 358:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x00FD, 0x00FE, 0x00FF
+ 359:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 360:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 361:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1253
+ 362:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 363:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 364:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1253(0x80-0xFF) to Unicode conversion table */
+ 365:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 366:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2030, 0x0000, 0x2039, 0x000C, 0x0000, 0x0000, 0x0000,
+ 367:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 368:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2122, 0x0000, 0x203A, 0x0000, 0x0000, 0x0000, 0x0000,
+ 369:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x0385, 0x0386, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 370:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x0000, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x2015,
+ 371:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x0384, 0x00B5, 0x00B6, 0x00B7,
+ 372:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0388, 0x0389, 0x038A, 0x00BB, 0x038C, 0x00BD, 0x038E, 0x038F,
+ 373:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0390, 0x0391, 0x0392, 0x0393, 0x0394, 0x0395, 0x0396, 0x0397,
+ 374:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0398, 0x0399, 0x039A, 0x039B, 0x039C, 0x039D, 0x039E, 0x039F,
+ 375:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03A0, 0x03A1, 0x0000, 0x03A3, 0x03A4, 0x03A5, 0x03A6, 0x03A7,
+ 376:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03A8, 0x03A9, 0x03AA, 0x03AD, 0x03AC, 0x03AD, 0x03AE, 0x03AF,
+ 377:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B0, 0x03B1, 0x03B2, 0x03B3, 0x03B4, 0x03B5, 0x03B6, 0x03B7,
+ 378:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03B8, 0x03B9, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BE, 0x03BF,
+ 379:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03C0, 0x03C1, 0x03C2, 0x03C3, 0x03C4, 0x03C5, 0x03C6, 0x03C7,
+ 380:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x03C8, 0x03C9, 0x03CA, 0x03CB, 0x03CC, 0x03CD, 0x03CE, 0x0000
+ 381:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 382:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 383:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1254
+ 384:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 385:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 386:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1254(0x80-0xFF) to Unicode conversion table */
+ 387:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x210A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 388:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x0000, 0x0000,
+ 389:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 390:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x0000, 0x0178,
+ 391:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 392:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 393:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 394:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 395:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x00C3, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 396:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x00CC, 0x00CD, 0x00CE, 0x00CF,
+ 397:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x011E, 0x00D1, 0x00D2, 0x00D3, 0x00D4, 0x00D5, 0x00D6, 0x00D7,
+ 398:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00BD, 0x00DC, 0x0130, 0x015E, 0x00DF,
+ 399:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 400:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF,
+ 401:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x011F, 0x00F1, 0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F7,
+ 402:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x0131, 0x015F, 0x00FF
+ 403:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 404:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 405:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1255
+ 406:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 407:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 408:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1255(0x80-0xFF) to Unicode conversion table */
+ 409:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 410:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02C6, 0x2030, 0x0000, 0x2039, 0x0000, 0x0000, 0x0000, 0x0000,
+ 411:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 412:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02DC, 0x2122, 0x0000, 0x203A, 0x0000, 0x0000, 0x0000, 0x0000,
+ 413:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 414:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00D7, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 415:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 416:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00F7, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 417:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05B0, 0x05B1, 0x05B2, 0x05B3, 0x05B4, 0x05B5, 0x05B6, 0x05B7,
+ 418:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05B8, 0x05B9, 0x0000, 0x05BB, 0x05BC, 0x05BD, 0x05BE, 0x05BF,
+ 419:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05C0, 0x05C1, 0x05C2, 0x05C3, 0x05F0, 0x05F1, 0x05F2, 0x05F3,
+ 420:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05F4, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 421:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05D0, 0x05D1, 0x05D2, 0x05D3, 0x05D4, 0x05D5, 0x05D6, 0x05D7,
+ 422:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05D8, 0x05D9, 0x05DA, 0x05DB, 0x05DC, 0x05DD, 0x05DE, 0x05DF,
+ 423:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05E0, 0x05E1, 0x05E2, 0x05E3, 0x05E4, 0x05E5, 0x05E6, 0x05E7,
+ 424:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x05E8, 0x05E9, 0x05EA, 0x0000, 0x0000, 0x200E, 0x200F, 0x0000
+ 425:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 426:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 427:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1256
+ 428:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 429:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 430:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1256(0x80-0xFF) to Unicode conversion table */
+ 431:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x067E, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 432:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02C6, 0x2030, 0x0679, 0x2039, 0x0152, 0x0686, 0x0698, 0x0688,
+ 433:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x06AF, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 434:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x06A9, 0x2122, 0x0691, 0x203A, 0x0153, 0x200C, 0x200D, 0x06BA,
+ 435:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x060C, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 436:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x06BE, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 437:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 438:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x061B, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x061F,
+ 439:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x06C1, 0x0621, 0x0622, 0x0623, 0x0624, 0x0625, 0x0626, 0x0627,
+ 440:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0628, 0x0629, 0x062A, 0x062B, 0x062C, 0x062D, 0x062E, 0x062F,
+ 441:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0630, 0x0631, 0x0632, 0x0633, 0x0634, 0x0635, 0x0636, 0x00D7,
+ 442:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0637, 0x0638, 0x0639, 0x063A, 0x0640, 0x0640, 0x0642, 0x0643,
+ 443:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E0, 0x0644, 0x00E2, 0x0645, 0x0646, 0x0647, 0x0648, 0x00E7,
+ 444:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x0649, 0x064A, 0x00EE, 0x00EF,
+ 445:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x064B, 0x064C, 0x064D, 0x064E, 0x00F4, 0x064F, 0x0650, 0x00F7,
+ 446:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0651, 0x00F9, 0x0652, 0x00FB, 0x00FC, 0x200E, 0x200F, 0x06D2
+ 447:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** }
+ 448:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 449:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1257
+ 450:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 451:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 452:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1257(0x80-0xFF) to Unicode conversion table */
+ 453:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0000, 0x201E, 0x2026, 0x2020, 0x2021,
+ 454:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2030, 0x0000, 0x2039, 0x0000, 0x00A8, 0x02C7, 0x00B8,
+ 455:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 456:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2122, 0x0000, 0x203A, 0x0000, 0x00AF, 0x02DB, 0x0000,
+ 457:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x0000, 0x00A2, 0x00A3, 0x00A4, 0x0000, 0x00A6, 0x00A7,
+ 458:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D8, 0x00A9, 0x0156, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 459:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 460:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x0157, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00E6,
+ 461:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0104, 0x012E, 0x0100, 0x0106, 0x00C4, 0x00C5, 0x0118, 0x0112,
+ 462:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x010C, 0x00C9, 0x0179, 0x0116, 0x0122, 0x0136, 0x012A, 0x013B,
+ 463:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0160, 0x0143, 0x0145, 0x00D3, 0x014C, 0x00D5, 0x00D6, 0x00D7,
+ 464:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0172, 0x0141, 0x015A, 0x016A, 0x00DC, 0x017B, 0x017D, 0x00DF,
+ 465:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0105, 0x012F, 0x0101, 0x0107, 0x00E4, 0x00E5, 0x0119, 0x0113,
+ 466:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x010D, 0x00E9, 0x017A, 0x0117, 0x0123, 0x0137, 0x012B, 0x013C,
+ 467:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0161, 0x0144, 0x0146, 0x00F3, 0x014D, 0x00F5, 0x00F6, 0x00F7,
+ 468:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0173, 0x014E, 0x015B, 0x016B, 0x00FC, 0x017C, 0x017E, 0x02D9
+ 469:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 470:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 471:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #elif _CODE_PAGE == 1258
+ 472:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #define _TBLDEF 1
+ 473:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** static
+ 474:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1258(0x80-0xFF) to Unicode conversion table */
+ 475:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 476:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02C6, 0x2030, 0x0000, 0x2039, 0x0152, 0x0000, 0x0000, 0x0000,
+ 477:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 478:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x02DC, 0x2122, 0x0000, 0x203A, 0x0153, 0x0000, 0x0000, 0x0178,
+ 479:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 480:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 481:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 482:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 483:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x0102, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 484:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x0300, 0x00CD, 0x00CE, 0x00CF,
+ 485:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0110, 0x00D1, 0x0309, 0x00D3, 0x00D4, 0x01A0, 0x00D6, 0x00D7,
+ 486:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00DB, 0x00DC, 0x01AF, 0x0303, 0x00DF,
+ 487:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x0103, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 488:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x0301, 0x00ED, 0x00EE, 0x00EF,
+ 489:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x0111, 0x00F1, 0x0323, 0x00F3, 0x00F4, 0x01A1, 0x00F6, 0x00F7,
+ 490:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x01B0, 0x20AB, 0x00FF
+ 491:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** };
+ 492:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 493:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #endif
+ 494:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 495:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 496:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #if !_TBLDEF || !_USE_LFN
+ 497:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #error This file is not needed in current configuration. Remove from the project.
+ 498:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** #endif
+ 499:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 500:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 501:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** WCHAR ff_convert (	/* Converted character, Returns zero on error */
+ 502:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	WCHAR	src,	/* Character code to be converted */
+ 503:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	UINT	dir		/* 0: Unicode to OEMCP, 1: OEMCP to Unicode */
+ 504:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** )
+ 505:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** {
+  28              		.loc 1 505 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+ 506:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	WCHAR c;
+ 507:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 508:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 509:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	if (src < 0x80) {	/* ASCII */
+  34              		.loc 1 509 0
+  35 0000 7F28     		cmp	r0, #127
+ 505:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** {
+  36              		.loc 1 505 0
+  37 0002 10B4     		push	{r4}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 4
+  40              		.cfi_offset 4, -4
+  41              		.loc 1 509 0
+  42 0004 0DD9     		bls	.L2
+ 510:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 		c = src;
+ 511:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 512:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	} else {
+ 513:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 		if (dir) {		/* OEMCP to Unicode */
+  43              		.loc 1 513 0
+  44 0006 71B9     		cbnz	r1, .L11
+  45 0008 0B4C     		ldr	r4, .L12
+  46 000a 02E0     		b	.L6
+  47              	.LVL1:
+  48              	.L4:
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+ 515:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 516:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 		} else {		/* Unicode to OEMCP */
+ 517:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			for (c = 0; c < 0x80; c++) {
+  49              		.loc 1 517 0
+  50 000c 91B2     		uxth	r1, r2
+  51              	.LVL2:
+  52 000e 8029     		cmp	r1, #128
+  53 0010 10D0     		beq	.L8
+  54              	.LVL3:
+  55              	.L6:
+ 518:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 				if (src == Tbl[c]) break;
+  56              		.loc 1 518 0
+  57 0012 34F81130 		ldrh	r3, [r4, r1, lsl #1]
+ 517:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			for (c = 0; c < 0x80; c++) {
+  58              		.loc 1 517 0
+  59 0016 4A1C     		adds	r2, r1, #1
+  60              		.loc 1 518 0
+  61 0018 8342     		cmp	r3, r0
+  62 001a F7D1     		bne	.L4
+  63 001c 01F18000 		add	r0, r1, #128
+  64              	.LVL4:
+  65 0020 80B2     		uxth	r0, r0
+  66              	.L2:
+  67              	.LVL5:
+ 519:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			}
+ 520:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			c = (c + 0x80) & 0xFF;
+ 521:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 		}
+ 522:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	}
+ 523:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 524:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	return c;
+ 525:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** }
+  68              		.loc 1 525 0
+  69 0022 10BC     		pop	{r4}
+  70 0024 7047     		bx	lr
+  71              	.LVL6:
+  72              	.L11:
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+  73              		.loc 1 514 0
+  74 0026 FF28     		cmp	r0, #255
+  75 0028 04D8     		bhi	.L8
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+  76              		.loc 1 514 0 is_stmt 0 discriminator 1
+  77 002a 8038     		subs	r0, r0, #128
+  78              	.LVL7:
+  79 002c 024B     		ldr	r3, .L12
+  80 002e 33F81000 		ldrh	r0, [r3, r0, lsl #1]
+  81 0032 F6E7     		b	.L2
+  82              	.LVL8:
+  83              	.L8:
+ 514:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+  84              		.loc 1 514 0
+  85 0034 0020     		movs	r0, #0
+  86              	.LVL9:
+  87 0036 F4E7     		b	.L2
+  88              	.L13:
+  89              		.align	2
+  90              	.L12:
+  91 0038 00000000 		.word	.LANCHOR0
+  92              		.cfi_endproc
+  93              	.LFE0:
+  95              		.section	.text.ff_wtoupper,"ax",%progbits
+  96              		.align	2
+  97              		.global	ff_wtoupper
+  98              		.thumb
+  99              		.thumb_func
+ 101              	ff_wtoupper:
+ 102              	.LFB1:
+ 526:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 527:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 528:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** WCHAR ff_wtoupper (	/* Upper converted character */
+ 529:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	WCHAR chr		/* Input character */
+ 530:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** )
+ 531:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** {
+ 103              		.loc 1 531 0 is_stmt 1
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107              		@ link register save eliminated.
+ 108              	.LVL10:
+ 532:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	static const WCHAR tbl_lower[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6
+ 533:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	static const WCHAR tbl_upper[] = { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4
+ 534:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	int i;
+ 535:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 536:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 537:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	for (i = 0; tbl_lower[i] && chr != tbl_lower[i]; i++) ;
+ 109              		.loc 1 537 0
+ 110 0000 6128     		cmp	r0, #97
+ 111 0002 0AD0     		beq	.L18
+ 112 0004 0749     		ldr	r1, .L25
+ 113              		.loc 1 537 0 is_stmt 0 discriminator 1
+ 114 0006 0023     		movs	r3, #0
+ 115 0008 01E0     		b	.L17
+ 116              	.LVL11:
+ 117              	.L24:
+ 118              		.loc 1 537 0 discriminator 2
+ 119 000a 8242     		cmp	r2, r0
+ 120 000c 06D0     		beq	.L15
+ 121              	.LVL12:
+ 122              	.L17:
+ 123              		.loc 1 537 0 discriminator 1
+ 124 000e 0133     		adds	r3, r3, #1
+ 125              	.LVL13:
+ 126 0010 31F81320 		ldrh	r2, [r1, r3, lsl #1]
+ 127 0014 002A     		cmp	r2, #0
+ 128 0016 F8D1     		bne	.L24
+ 538:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 
+ 539:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	return tbl_lower[i] ? tbl_upper[i] : chr;
+ 540:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** }
+ 129              		.loc 1 540 0 is_stmt 1
+ 130 0018 7047     		bx	lr
+ 131              	.LVL14:
+ 132              	.L18:
+ 537:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	for (i = 0; tbl_lower[i] && chr != tbl_lower[i]; i++) ;
+ 133              		.loc 1 537 0
+ 134 001a 0023     		movs	r3, #0
+ 135              	.LVL15:
+ 136              	.L15:
+ 539:/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/ccsbcs.c **** 	return tbl_lower[i] ? tbl_upper[i] : chr;
+ 137              		.loc 1 539 0
+ 138 001c 024A     		ldr	r2, .L25+4
+ 139 001e 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+ 140              	.LVL16:
+ 141              		.loc 1 540 0
+ 142 0022 7047     		bx	lr
+ 143              	.L26:
+ 144              		.align	2
+ 145              	.L25:
+ 146 0024 00000000 		.word	.LANCHOR1
+ 147 0028 00000000 		.word	.LANCHOR2
+ 148              		.cfi_endproc
+ 149              	.LFE1:
+ 151              		.section	.rodata.tbl_upper.4286,"a",%progbits
+ 152              		.align	2
+ 153              		.set	.LANCHOR2,. + 0
+ 156              	tbl_upper.4286:
+ 157 0000 4100     		.short	65
+ 158 0002 4200     		.short	66
+ 159 0004 4300     		.short	67
+ 160 0006 4400     		.short	68
+ 161 0008 4500     		.short	69
+ 162 000a 4600     		.short	70
+ 163 000c 4700     		.short	71
+ 164 000e 4800     		.short	72
+ 165 0010 4900     		.short	73
+ 166 0012 4A00     		.short	74
+ 167 0014 4B00     		.short	75
+ 168 0016 4C00     		.short	76
+ 169 0018 4D00     		.short	77
+ 170 001a 4E00     		.short	78
+ 171 001c 4F00     		.short	79
+ 172 001e 5000     		.short	80
+ 173 0020 5100     		.short	81
+ 174 0022 5200     		.short	82
+ 175 0024 5300     		.short	83
+ 176 0026 5400     		.short	84
+ 177 0028 5500     		.short	85
+ 178 002a 5600     		.short	86
+ 179 002c 5700     		.short	87
+ 180 002e 5800     		.short	88
+ 181 0030 5900     		.short	89
+ 182 0032 5A00     		.short	90
+ 183 0034 2100     		.short	33
+ 184 0036 E0FF     		.short	-32
+ 185 0038 E1FF     		.short	-31
+ 186 003a E5FF     		.short	-27
+ 187 003c E2FF     		.short	-30
+ 188 003e E3FF     		.short	-29
+ 189 0040 C000     		.short	192
+ 190 0042 C100     		.short	193
+ 191 0044 C200     		.short	194
+ 192 0046 C300     		.short	195
+ 193 0048 C400     		.short	196
+ 194 004a C500     		.short	197
+ 195 004c C600     		.short	198
+ 196 004e C700     		.short	199
+ 197 0050 C800     		.short	200
+ 198 0052 C900     		.short	201
+ 199 0054 CA00     		.short	202
+ 200 0056 CB00     		.short	203
+ 201 0058 CC00     		.short	204
+ 202 005a CD00     		.short	205
+ 203 005c CE00     		.short	206
+ 204 005e CF00     		.short	207
+ 205 0060 D000     		.short	208
+ 206 0062 D100     		.short	209
+ 207 0064 D200     		.short	210
+ 208 0066 D300     		.short	211
+ 209 0068 D400     		.short	212
+ 210 006a D500     		.short	213
+ 211 006c D600     		.short	214
+ 212 006e D800     		.short	216
+ 213 0070 D900     		.short	217
+ 214 0072 DA00     		.short	218
+ 215 0074 DB00     		.short	219
+ 216 0076 DC00     		.short	220
+ 217 0078 DD00     		.short	221
+ 218 007a DE00     		.short	222
+ 219 007c 7801     		.short	376
+ 220 007e 0001     		.short	256
+ 221 0080 0201     		.short	258
+ 222 0082 0401     		.short	260
+ 223 0084 0601     		.short	262
+ 224 0086 0801     		.short	264
+ 225 0088 0A01     		.short	266
+ 226 008a 0C01     		.short	268
+ 227 008c 0E01     		.short	270
+ 228 008e 1001     		.short	272
+ 229 0090 1201     		.short	274
+ 230 0092 1401     		.short	276
+ 231 0094 1601     		.short	278
+ 232 0096 1801     		.short	280
+ 233 0098 1A01     		.short	282
+ 234 009a 1C01     		.short	284
+ 235 009c 1E01     		.short	286
+ 236 009e 2001     		.short	288
+ 237 00a0 2201     		.short	290
+ 238 00a2 2401     		.short	292
+ 239 00a4 2601     		.short	294
+ 240 00a6 2801     		.short	296
+ 241 00a8 2A01     		.short	298
+ 242 00aa 2C01     		.short	300
+ 243 00ac 2E01     		.short	302
+ 244 00ae 3001     		.short	304
+ 245 00b0 3201     		.short	306
+ 246 00b2 3401     		.short	308
+ 247 00b4 3601     		.short	310
+ 248 00b6 3901     		.short	313
+ 249 00b8 3B01     		.short	315
+ 250 00ba 3D01     		.short	317
+ 251 00bc 3F01     		.short	319
+ 252 00be 4101     		.short	321
+ 253 00c0 4301     		.short	323
+ 254 00c2 4501     		.short	325
+ 255 00c4 4701     		.short	327
+ 256 00c6 4A01     		.short	330
+ 257 00c8 4C01     		.short	332
+ 258 00ca 4E01     		.short	334
+ 259 00cc 5001     		.short	336
+ 260 00ce 5201     		.short	338
+ 261 00d0 5401     		.short	340
+ 262 00d2 5601     		.short	342
+ 263 00d4 5801     		.short	344
+ 264 00d6 5A01     		.short	346
+ 265 00d8 5C01     		.short	348
+ 266 00da 5E01     		.short	350
+ 267 00dc 6001     		.short	352
+ 268 00de 6201     		.short	354
+ 269 00e0 6401     		.short	356
+ 270 00e2 6601     		.short	358
+ 271 00e4 6801     		.short	360
+ 272 00e6 6A01     		.short	362
+ 273 00e8 6C01     		.short	364
+ 274 00ea 6E01     		.short	366
+ 275 00ec 7001     		.short	368
+ 276 00ee 7201     		.short	370
+ 277 00f0 7401     		.short	372
+ 278 00f2 7601     		.short	374
+ 279 00f4 7901     		.short	377
+ 280 00f6 7B01     		.short	379
+ 281 00f8 7D01     		.short	381
+ 282 00fa 9101     		.short	401
+ 283 00fc 9103     		.short	913
+ 284 00fe 9203     		.short	914
+ 285 0100 9303     		.short	915
+ 286 0102 9403     		.short	916
+ 287 0104 9503     		.short	917
+ 288 0106 9603     		.short	918
+ 289 0108 9703     		.short	919
+ 290 010a 9803     		.short	920
+ 291 010c 9903     		.short	921
+ 292 010e 9A03     		.short	922
+ 293 0110 9B03     		.short	923
+ 294 0112 9C03     		.short	924
+ 295 0114 9D03     		.short	925
+ 296 0116 9E03     		.short	926
+ 297 0118 9F03     		.short	927
+ 298 011a A003     		.short	928
+ 299 011c A103     		.short	929
+ 300 011e A303     		.short	931
+ 301 0120 A403     		.short	932
+ 302 0122 A503     		.short	933
+ 303 0124 A603     		.short	934
+ 304 0126 A703     		.short	935
+ 305 0128 A803     		.short	936
+ 306 012a A903     		.short	937
+ 307 012c AA03     		.short	938
+ 308 012e 1004     		.short	1040
+ 309 0130 1104     		.short	1041
+ 310 0132 1204     		.short	1042
+ 311 0134 1304     		.short	1043
+ 312 0136 1404     		.short	1044
+ 313 0138 1504     		.short	1045
+ 314 013a 1604     		.short	1046
+ 315 013c 1704     		.short	1047
+ 316 013e 1804     		.short	1048
+ 317 0140 1904     		.short	1049
+ 318 0142 1A04     		.short	1050
+ 319 0144 1B04     		.short	1051
+ 320 0146 1C04     		.short	1052
+ 321 0148 1D04     		.short	1053
+ 322 014a 1E04     		.short	1054
+ 323 014c 1F04     		.short	1055
+ 324 014e 2004     		.short	1056
+ 325 0150 2104     		.short	1057
+ 326 0152 2204     		.short	1058
+ 327 0154 2304     		.short	1059
+ 328 0156 2404     		.short	1060
+ 329 0158 2504     		.short	1061
+ 330 015a 2604     		.short	1062
+ 331 015c 2704     		.short	1063
+ 332 015e 2804     		.short	1064
+ 333 0160 2904     		.short	1065
+ 334 0162 2A04     		.short	1066
+ 335 0164 2B04     		.short	1067
+ 336 0166 2C04     		.short	1068
+ 337 0168 2D04     		.short	1069
+ 338 016a 2E04     		.short	1070
+ 339 016c 2F04     		.short	1071
+ 340 016e 0104     		.short	1025
+ 341 0170 0204     		.short	1026
+ 342 0172 0304     		.short	1027
+ 343 0174 0404     		.short	1028
+ 344 0176 0504     		.short	1029
+ 345 0178 0604     		.short	1030
+ 346 017a 0704     		.short	1031
+ 347 017c 0804     		.short	1032
+ 348 017e 0904     		.short	1033
+ 349 0180 0A04     		.short	1034
+ 350 0182 0B04     		.short	1035
+ 351 0184 0C04     		.short	1036
+ 352 0186 0E04     		.short	1038
+ 353 0188 0F04     		.short	1039
+ 354 018a 6021     		.short	8544
+ 355 018c 6121     		.short	8545
+ 356 018e 6221     		.short	8546
+ 357 0190 6321     		.short	8547
+ 358 0192 6421     		.short	8548
+ 359 0194 6521     		.short	8549
+ 360 0196 6621     		.short	8550
+ 361 0198 6721     		.short	8551
+ 362 019a 6821     		.short	8552
+ 363 019c 6921     		.short	8553
+ 364 019e 6A21     		.short	8554
+ 365 01a0 6B21     		.short	8555
+ 366 01a2 6C21     		.short	8556
+ 367 01a4 6D21     		.short	8557
+ 368 01a6 6E21     		.short	8558
+ 369 01a8 6F21     		.short	8559
+ 370 01aa 21FF     		.short	-223
+ 371 01ac 22FF     		.short	-222
+ 372 01ae 23FF     		.short	-221
+ 373 01b0 24FF     		.short	-220
+ 374 01b2 25FF     		.short	-219
+ 375 01b4 26FF     		.short	-218
+ 376 01b6 27FF     		.short	-217
+ 377 01b8 28FF     		.short	-216
+ 378 01ba 29FF     		.short	-215
+ 379 01bc 2AFF     		.short	-214
+ 380 01be 2BFF     		.short	-213
+ 381 01c0 2CFF     		.short	-212
+ 382 01c2 2DFF     		.short	-211
+ 383 01c4 2EFF     		.short	-210
+ 384 01c6 2FFF     		.short	-209
+ 385 01c8 30FF     		.short	-208
+ 386 01ca 31FF     		.short	-207
+ 387 01cc 32FF     		.short	-206
+ 388 01ce 33FF     		.short	-205
+ 389 01d0 34FF     		.short	-204
+ 390 01d2 35FF     		.short	-203
+ 391 01d4 36FF     		.short	-202
+ 392 01d6 37FF     		.short	-201
+ 393 01d8 38FF     		.short	-200
+ 394 01da 39FF     		.short	-199
+ 395 01dc 3AFF     		.short	-198
+ 396 01de 0000     		.short	0
+ 397              		.section	.rodata.Tbl,"a",%progbits
+ 398              		.align	2
+ 399              		.set	.LANCHOR0,. + 0
+ 402              	Tbl:
+ 403 0000 AC20     		.short	8364
+ 404 0002 0000     		.short	0
+ 405 0004 1A20     		.short	8218
+ 406 0006 9201     		.short	402
+ 407 0008 1E20     		.short	8222
+ 408 000a 2620     		.short	8230
+ 409 000c 2020     		.short	8224
+ 410 000e 2120     		.short	8225
+ 411 0010 C602     		.short	710
+ 412 0012 3020     		.short	8240
+ 413 0014 6001     		.short	352
+ 414 0016 3920     		.short	8249
+ 415 0018 5201     		.short	338
+ 416 001a 0000     		.short	0
+ 417 001c 7D01     		.short	381
+ 418 001e 0000     		.short	0
+ 419 0020 0000     		.short	0
+ 420 0022 1820     		.short	8216
+ 421 0024 1920     		.short	8217
+ 422 0026 1C20     		.short	8220
+ 423 0028 1D20     		.short	8221
+ 424 002a 2220     		.short	8226
+ 425 002c 1320     		.short	8211
+ 426 002e 1420     		.short	8212
+ 427 0030 DC02     		.short	732
+ 428 0032 2221     		.short	8482
+ 429 0034 6101     		.short	353
+ 430 0036 3A20     		.short	8250
+ 431 0038 5301     		.short	339
+ 432 003a 0000     		.short	0
+ 433 003c 7E01     		.short	382
+ 434 003e 7801     		.short	376
+ 435 0040 A000     		.short	160
+ 436 0042 A100     		.short	161
+ 437 0044 A200     		.short	162
+ 438 0046 A300     		.short	163
+ 439 0048 A400     		.short	164
+ 440 004a A500     		.short	165
+ 441 004c A600     		.short	166
+ 442 004e A700     		.short	167
+ 443 0050 A800     		.short	168
+ 444 0052 A900     		.short	169
+ 445 0054 AA00     		.short	170
+ 446 0056 AB00     		.short	171
+ 447 0058 AC00     		.short	172
+ 448 005a AD00     		.short	173
+ 449 005c AE00     		.short	174
+ 450 005e AF00     		.short	175
+ 451 0060 B000     		.short	176
+ 452 0062 B100     		.short	177
+ 453 0064 B200     		.short	178
+ 454 0066 B300     		.short	179
+ 455 0068 B400     		.short	180
+ 456 006a B500     		.short	181
+ 457 006c B600     		.short	182
+ 458 006e B700     		.short	183
+ 459 0070 B800     		.short	184
+ 460 0072 B900     		.short	185
+ 461 0074 BA00     		.short	186
+ 462 0076 BB00     		.short	187
+ 463 0078 BC00     		.short	188
+ 464 007a BD00     		.short	189
+ 465 007c BE00     		.short	190
+ 466 007e BF00     		.short	191
+ 467 0080 C000     		.short	192
+ 468 0082 C100     		.short	193
+ 469 0084 C200     		.short	194
+ 470 0086 C300     		.short	195
+ 471 0088 C400     		.short	196
+ 472 008a C500     		.short	197
+ 473 008c C600     		.short	198
+ 474 008e C700     		.short	199
+ 475 0090 C800     		.short	200
+ 476 0092 C900     		.short	201
+ 477 0094 CA00     		.short	202
+ 478 0096 CB00     		.short	203
+ 479 0098 CC00     		.short	204
+ 480 009a CD00     		.short	205
+ 481 009c CE00     		.short	206
+ 482 009e CF00     		.short	207
+ 483 00a0 D000     		.short	208
+ 484 00a2 D100     		.short	209
+ 485 00a4 D200     		.short	210
+ 486 00a6 D300     		.short	211
+ 487 00a8 D400     		.short	212
+ 488 00aa D500     		.short	213
+ 489 00ac D600     		.short	214
+ 490 00ae D700     		.short	215
+ 491 00b0 D800     		.short	216
+ 492 00b2 D900     		.short	217
+ 493 00b4 DA00     		.short	218
+ 494 00b6 DB00     		.short	219
+ 495 00b8 DC00     		.short	220
+ 496 00ba DD00     		.short	221
+ 497 00bc DE00     		.short	222
+ 498 00be DF00     		.short	223
+ 499 00c0 E000     		.short	224
+ 500 00c2 E100     		.short	225
+ 501 00c4 E200     		.short	226
+ 502 00c6 E300     		.short	227
+ 503 00c8 E400     		.short	228
+ 504 00ca E500     		.short	229
+ 505 00cc E600     		.short	230
+ 506 00ce E700     		.short	231
+ 507 00d0 E800     		.short	232
+ 508 00d2 E900     		.short	233
+ 509 00d4 EA00     		.short	234
+ 510 00d6 EB00     		.short	235
+ 511 00d8 EC00     		.short	236
+ 512 00da ED00     		.short	237
+ 513 00dc EE00     		.short	238
+ 514 00de EF00     		.short	239
+ 515 00e0 F000     		.short	240
+ 516 00e2 F100     		.short	241
+ 517 00e4 F200     		.short	242
+ 518 00e6 F300     		.short	243
+ 519 00e8 F400     		.short	244
+ 520 00ea F500     		.short	245
+ 521 00ec F600     		.short	246
+ 522 00ee F700     		.short	247
+ 523 00f0 F800     		.short	248
+ 524 00f2 F900     		.short	249
+ 525 00f4 FA00     		.short	250
+ 526 00f6 FB00     		.short	251
+ 527 00f8 FC00     		.short	252
+ 528 00fa FD00     		.short	253
+ 529 00fc FE00     		.short	254
+ 530 00fe FF00     		.short	255
+ 531              		.section	.rodata.tbl_lower.4285,"a",%progbits
+ 532              		.align	2
+ 533              		.set	.LANCHOR1,. + 0
+ 536              	tbl_lower.4285:
+ 537 0000 6100     		.short	97
+ 538 0002 6200     		.short	98
+ 539 0004 6300     		.short	99
+ 540 0006 6400     		.short	100
+ 541 0008 6500     		.short	101
+ 542 000a 6600     		.short	102
+ 543 000c 6700     		.short	103
+ 544 000e 6800     		.short	104
+ 545 0010 6900     		.short	105
+ 546 0012 6A00     		.short	106
+ 547 0014 6B00     		.short	107
+ 548 0016 6C00     		.short	108
+ 549 0018 6D00     		.short	109
+ 550 001a 6E00     		.short	110
+ 551 001c 6F00     		.short	111
+ 552 001e 7000     		.short	112
+ 553 0020 7100     		.short	113
+ 554 0022 7200     		.short	114
+ 555 0024 7300     		.short	115
+ 556 0026 7400     		.short	116
+ 557 0028 7500     		.short	117
+ 558 002a 7600     		.short	118
+ 559 002c 7700     		.short	119
+ 560 002e 7800     		.short	120
+ 561 0030 7900     		.short	121
+ 562 0032 7A00     		.short	122
+ 563 0034 A100     		.short	161
+ 564 0036 A200     		.short	162
+ 565 0038 A300     		.short	163
+ 566 003a A500     		.short	165
+ 567 003c AC00     		.short	172
+ 568 003e AF00     		.short	175
+ 569 0040 E000     		.short	224
+ 570 0042 E100     		.short	225
+ 571 0044 E200     		.short	226
+ 572 0046 E300     		.short	227
+ 573 0048 E400     		.short	228
+ 574 004a E500     		.short	229
+ 575 004c E600     		.short	230
+ 576 004e E700     		.short	231
+ 577 0050 E800     		.short	232
+ 578 0052 E900     		.short	233
+ 579 0054 EA00     		.short	234
+ 580 0056 EB00     		.short	235
+ 581 0058 EC00     		.short	236
+ 582 005a ED00     		.short	237
+ 583 005c EE00     		.short	238
+ 584 005e EF00     		.short	239
+ 585 0060 F000     		.short	240
+ 586 0062 F100     		.short	241
+ 587 0064 F200     		.short	242
+ 588 0066 F300     		.short	243
+ 589 0068 F400     		.short	244
+ 590 006a F500     		.short	245
+ 591 006c F600     		.short	246
+ 592 006e F800     		.short	248
+ 593 0070 F900     		.short	249
+ 594 0072 FA00     		.short	250
+ 595 0074 FB00     		.short	251
+ 596 0076 FC00     		.short	252
+ 597 0078 FD00     		.short	253
+ 598 007a FE00     		.short	254
+ 599 007c FF00     		.short	255
+ 600 007e 0101     		.short	257
+ 601 0080 0301     		.short	259
+ 602 0082 0501     		.short	261
+ 603 0084 0701     		.short	263
+ 604 0086 0901     		.short	265
+ 605 0088 0B01     		.short	267
+ 606 008a 0D01     		.short	269
+ 607 008c 0F01     		.short	271
+ 608 008e 1101     		.short	273
+ 609 0090 1301     		.short	275
+ 610 0092 1501     		.short	277
+ 611 0094 1701     		.short	279
+ 612 0096 1901     		.short	281
+ 613 0098 1B01     		.short	283
+ 614 009a 1D01     		.short	285
+ 615 009c 1F01     		.short	287
+ 616 009e 2101     		.short	289
+ 617 00a0 2301     		.short	291
+ 618 00a2 2501     		.short	293
+ 619 00a4 2701     		.short	295
+ 620 00a6 2901     		.short	297
+ 621 00a8 2B01     		.short	299
+ 622 00aa 2D01     		.short	301
+ 623 00ac 2F01     		.short	303
+ 624 00ae 3101     		.short	305
+ 625 00b0 3301     		.short	307
+ 626 00b2 3501     		.short	309
+ 627 00b4 3701     		.short	311
+ 628 00b6 3A01     		.short	314
+ 629 00b8 3C01     		.short	316
+ 630 00ba 3E01     		.short	318
+ 631 00bc 4001     		.short	320
+ 632 00be 4201     		.short	322
+ 633 00c0 4401     		.short	324
+ 634 00c2 4601     		.short	326
+ 635 00c4 4801     		.short	328
+ 636 00c6 4B01     		.short	331
+ 637 00c8 4D01     		.short	333
+ 638 00ca 4F01     		.short	335
+ 639 00cc 5101     		.short	337
+ 640 00ce 5301     		.short	339
+ 641 00d0 5501     		.short	341
+ 642 00d2 5701     		.short	343
+ 643 00d4 5901     		.short	345
+ 644 00d6 5B01     		.short	347
+ 645 00d8 5D01     		.short	349
+ 646 00da 5F01     		.short	351
+ 647 00dc 6101     		.short	353
+ 648 00de 6301     		.short	355
+ 649 00e0 6501     		.short	357
+ 650 00e2 6701     		.short	359
+ 651 00e4 6901     		.short	361
+ 652 00e6 6B01     		.short	363
+ 653 00e8 6D01     		.short	365
+ 654 00ea 6F01     		.short	367
+ 655 00ec 7101     		.short	369
+ 656 00ee 7301     		.short	371
+ 657 00f0 7501     		.short	373
+ 658 00f2 7701     		.short	375
+ 659 00f4 7A01     		.short	378
+ 660 00f6 7C01     		.short	380
+ 661 00f8 7E01     		.short	382
+ 662 00fa 9201     		.short	402
+ 663 00fc B103     		.short	945
+ 664 00fe B203     		.short	946
+ 665 0100 B303     		.short	947
+ 666 0102 B403     		.short	948
+ 667 0104 B503     		.short	949
+ 668 0106 B603     		.short	950
+ 669 0108 B703     		.short	951
+ 670 010a B803     		.short	952
+ 671 010c B903     		.short	953
+ 672 010e BA03     		.short	954
+ 673 0110 BB03     		.short	955
+ 674 0112 BC03     		.short	956
+ 675 0114 BD03     		.short	957
+ 676 0116 BE03     		.short	958
+ 677 0118 BF03     		.short	959
+ 678 011a C003     		.short	960
+ 679 011c C103     		.short	961
+ 680 011e C303     		.short	963
+ 681 0120 C403     		.short	964
+ 682 0122 C503     		.short	965
+ 683 0124 C603     		.short	966
+ 684 0126 C703     		.short	967
+ 685 0128 C803     		.short	968
+ 686 012a C903     		.short	969
+ 687 012c CA03     		.short	970
+ 688 012e 3004     		.short	1072
+ 689 0130 3104     		.short	1073
+ 690 0132 3204     		.short	1074
+ 691 0134 3304     		.short	1075
+ 692 0136 3404     		.short	1076
+ 693 0138 3504     		.short	1077
+ 694 013a 3604     		.short	1078
+ 695 013c 3704     		.short	1079
+ 696 013e 3804     		.short	1080
+ 697 0140 3904     		.short	1081
+ 698 0142 3A04     		.short	1082
+ 699 0144 3B04     		.short	1083
+ 700 0146 3C04     		.short	1084
+ 701 0148 3D04     		.short	1085
+ 702 014a 3E04     		.short	1086
+ 703 014c 3F04     		.short	1087
+ 704 014e 4004     		.short	1088
+ 705 0150 4104     		.short	1089
+ 706 0152 4204     		.short	1090
+ 707 0154 4304     		.short	1091
+ 708 0156 4404     		.short	1092
+ 709 0158 4504     		.short	1093
+ 710 015a 4604     		.short	1094
+ 711 015c 4704     		.short	1095
+ 712 015e 4804     		.short	1096
+ 713 0160 4904     		.short	1097
+ 714 0162 4A04     		.short	1098
+ 715 0164 4B04     		.short	1099
+ 716 0166 4C04     		.short	1100
+ 717 0168 4D04     		.short	1101
+ 718 016a 4E04     		.short	1102
+ 719 016c 4F04     		.short	1103
+ 720 016e 5104     		.short	1105
+ 721 0170 5204     		.short	1106
+ 722 0172 5304     		.short	1107
+ 723 0174 5404     		.short	1108
+ 724 0176 5504     		.short	1109
+ 725 0178 5604     		.short	1110
+ 726 017a 5704     		.short	1111
+ 727 017c 5804     		.short	1112
+ 728 017e 5904     		.short	1113
+ 729 0180 5A04     		.short	1114
+ 730 0182 5B04     		.short	1115
+ 731 0184 5C04     		.short	1116
+ 732 0186 5E04     		.short	1118
+ 733 0188 5F04     		.short	1119
+ 734 018a 7021     		.short	8560
+ 735 018c 7121     		.short	8561
+ 736 018e 7221     		.short	8562
+ 737 0190 7321     		.short	8563
+ 738 0192 7421     		.short	8564
+ 739 0194 7521     		.short	8565
+ 740 0196 7621     		.short	8566
+ 741 0198 7721     		.short	8567
+ 742 019a 7821     		.short	8568
+ 743 019c 7921     		.short	8569
+ 744 019e 7A21     		.short	8570
+ 745 01a0 7B21     		.short	8571
+ 746 01a2 7C21     		.short	8572
+ 747 01a4 7D21     		.short	8573
+ 748 01a6 7E21     		.short	8574
+ 749 01a8 7F21     		.short	8575
+ 750 01aa 41FF     		.short	-191
+ 751 01ac 42FF     		.short	-190
+ 752 01ae 43FF     		.short	-189
+ 753 01b0 44FF     		.short	-188
+ 754 01b2 45FF     		.short	-187
+ 755 01b4 46FF     		.short	-186
+ 756 01b6 47FF     		.short	-185
+ 757 01b8 48FF     		.short	-184
+ 758 01ba 49FF     		.short	-183
+ 759 01bc 4AFF     		.short	-182
+ 760 01be 4BFF     		.short	-181
+ 761 01c0 4CFF     		.short	-180
+ 762 01c2 4DFF     		.short	-179
+ 763 01c4 4EFF     		.short	-178
+ 764 01c6 4FFF     		.short	-177
+ 765 01c8 50FF     		.short	-176
+ 766 01ca 51FF     		.short	-175
+ 767 01cc 52FF     		.short	-174
+ 768 01ce 53FF     		.short	-173
+ 769 01d0 54FF     		.short	-172
+ 770 01d2 55FF     		.short	-171
+ 771 01d4 56FF     		.short	-170
+ 772 01d6 57FF     		.short	-169
+ 773 01d8 58FF     		.short	-168
+ 774 01da 59FF     		.short	-167
+ 775 01dc 5AFF     		.short	-166
+ 776 01de 0000     		.short	0
+ 777              		.text
+ 778              	.Letext0:
+ 779              		.file 2 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/include/stddef.h"
+ 780              		.file 3 "/opt/arm-2012.09/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/include/std
+ 781              		.file 4 "/home/jonas/warwick/3dProfilometer/xpcc/ext/fatfs/option/../integer.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ccsbcs.c
+     /tmp/ccj1pRLE.s:20     .text.ff_convert:00000000 $t
+     /tmp/ccj1pRLE.s:25     .text.ff_convert:00000000 ff_convert
+     /tmp/ccj1pRLE.s:91     .text.ff_convert:00000038 $d
+     /tmp/ccj1pRLE.s:96     .text.ff_wtoupper:00000000 $t
+     /tmp/ccj1pRLE.s:101    .text.ff_wtoupper:00000000 ff_wtoupper
+     /tmp/ccj1pRLE.s:146    .text.ff_wtoupper:00000024 $d
+     /tmp/ccj1pRLE.s:152    .rodata.tbl_upper.4286:00000000 $d
+     /tmp/ccj1pRLE.s:156    .rodata.tbl_upper.4286:00000000 tbl_upper.4286
+     /tmp/ccj1pRLE.s:398    .rodata.Tbl:00000000 $d
+     /tmp/ccj1pRLE.s:402    .rodata.Tbl:00000000 Tbl
+     /tmp/ccj1pRLE.s:532    .rodata.tbl_lower.4285:00000000 $d
+     /tmp/ccj1pRLE.s:536    .rodata.tbl_lower.4285:00000000 tbl_lower.4285
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS
