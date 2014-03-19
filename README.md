@@ -6,3 +6,6 @@ Code for a stm32f4 microcontroller (dev board) to control an XY stage and intera
 Uses the C++ framework xpcc (see https://github.com/roboterclubaachen/xpcc for code and license). A copy is included because a modified UartHandler is used.
 
 Uses cascaded PID controller to control DC brushed motors equipped with optical rotary encoders.
+
+
+![Surface scan of an english 1 pence coin](https://raw.githubusercontent.com/jrahlf/Laser-Profilometer/master/images/coinScan.png)
