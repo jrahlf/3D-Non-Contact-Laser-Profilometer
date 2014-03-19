@@ -1,0 +1,45 @@
+// WARNING: This file is generated automatically, do not edit!
+// Please modify the corresponding 'runner_hosted.cpp.in' file instead.
+// ----------------------------------------------------------------------------
+
+#include <unittest/reporter.hpp>
+#include <unittest/controller.hpp>
+
+#include <xpcc/debug/logger.hpp>
+#include <xpcc/architecture/platform/hosted.hpp>
+
+xpcc::pc::Terminal outputDevice;
+
+xpcc::log::StyleWrapper< xpcc::log::Prefix< char[10] > > loggerDeviceDebug( \
+		xpcc::log::Prefix< char[10] >("Debug  : ", outputDevice ));
+xpcc::log::Logger xpcc::log::debug( loggerDeviceDebug );
+
+xpcc::log::StyleWrapper< xpcc::log::Prefix< char[10] > > loggerDeviceInfo( \
+		xpcc::log::Prefix< char[10] >("Info   : ", outputDevice ));
+xpcc::log::Logger xpcc::log::info( loggerDeviceInfo );
+
+xpcc::log::StyleWrapper< xpcc::log::Prefix< char[10] > > loggerDeviceWarning( \
+		xpcc::log::Prefix< char[10] >("Warning: ", outputDevice ));
+xpcc::log::Logger xpcc::log::warning(loggerDeviceWarning);
+
+xpcc::log::StyleWrapper< xpcc::log::Prefix< char[10] > > loggerDeviceError( \
+		xpcc::log::Prefix< char[10] >("Error  : ", outputDevice ));
+xpcc::log::Logger xpcc::log::error(loggerDeviceError);
+
+${includes}
+
+${names}
+
+int
+main(void)
+{
+	unittest::Reporter reporter(outputDevice);
+	unittest::Controller::instance().setReporter(reporter);
+	
+	// run tests
+${tests}
+	
+	unittest::Controller::instance().getReporter().printSummary();
+	
+	return 0;
+}

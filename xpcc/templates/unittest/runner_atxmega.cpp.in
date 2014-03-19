@@ -1,0 +1,36 @@
+// WARNING: This file is generated automatically, do not edit!
+// Please modify the corresponding 'runner_atxmega.cpp.in' file instead.
+// ----------------------------------------------------------------------------
+
+#include <xpcc/architecture/platform.hpp>
+
+#include <unittest/reporter.hpp>
+#include <unittest/controller.hpp>
+
+${includes}
+
+${names}
+
+int
+main(void)
+{
+	// initialize output device
+	xpcc::atxmega::BufferedUartE0 uart(115200);
+	xpcc::IODeviceWrapper<xpcc::atxmega::BufferedUartE0> device(uart);
+	
+	sei();
+	
+	device.write("Unittests (" __DATE__ ", " __TIME__")\n");
+	
+	unittest::Reporter reporter(device);
+	unittest::Controller::instance().setReporter(reporter);
+	
+	// run tests
+${tests}
+	
+	unittest::Controller::instance().getReporter().printSummary();
+	
+	while (1)
+	{
+	}
+}
