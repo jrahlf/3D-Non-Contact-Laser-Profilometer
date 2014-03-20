@@ -1,0 +1,214 @@
+
+/*
+* Copyright (c) 2010, Arizona Robotics Research Group, University of Arizona
+* Copyright (c) 2008, Willow Garage, Inc.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* * Neither the name of the <ORGANIZATION> nor the names of its
+* contributors may be used to endorse or promote products derived from
+* this software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+* LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTA        L, SPECIAL, EXEMPLARY, OR
+* CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+* SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#include <termios.h>
+#include <signal.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/poll.h>
+#include <pthread.h>
+#include <signal.h>
+#include <iostream>
+#include <fstream>
+#include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
+
+#define KEYCODE_W 0x77
+#define KEYCODE_A 0x61
+#define KEYCODE_S 0x73
+#define KEYCODE_D 0x64
+
+#define KEYCODE_A_CAP 0x41
+#define KEYCODE_D_CAP 0x44
+#define KEYCODE_S_CAP 0x53
+#define KEYCODE_W_CAP 0x57
+
+#define KEYCODE_SPACE 0x20
+
+using namespace std;
+
+double linear_vel = 0.5;
+double linear_vel_fast = 1;
+ofstream serial;
+
+int kfd = 0;
+struct termios cooked, raw;
+
+void keyboardLoop();
+
+void siginthandler(int param){
+    tcsetattr(kfd, TCSANOW, &cooked);
+    exit(1);
+}
+
+
+int main(int argc, char** argv){
+    signal(SIGINT, siginthandler);
+    serial.open("/dev/ttyUSB0");
+    //int fd = open("/dev/ttyUSB0");
+    keyboardLoop();
+  return(0);
+}
+
+double oldx = -2;
+double oldy = -2;
+
+void setPWMX(double speed){
+    if(speed == oldx){
+        return;
+    }
+    oldx = speed;
+    int s = speed*1200;
+    serial << "PWMX," << s << endl;
+}
+
+void setPWMY(double speed){
+    if(speed == oldy){
+        return;
+    }
+    oldy = speed;
+    int s = speed*1200;
+    serial << "PWMY," << s << endl;
+}
+
+void setSpeedX(double speed){
+    if(speed == oldx){
+        return;
+    }
+    oldx = speed;
+    serial << "SPEX," << speed << endl;
+}
+
+void setSpeedY(double speed){
+    if(speed == oldy){
+        return;
+    }
+    oldy = speed;
+    serial << "SPEY," << speed << endl;
+}
+
+
+void keyboardLoop(){
+  char c;
+  double speedX;
+  double speedY;
+  bool dirty = false;
+
+  // get the console in raw mode
+  tcgetattr(kfd, &cooked);
+  memcpy(&raw, &cooked, sizeof(struct termios));
+  raw.c_lflag &=~ (ICANON | ECHO);
+  raw.c_cc[VEOL] = 1;
+  raw.c_cc[VEOF] = 2;
+  tcsetattr(kfd, TCSANOW, &raw);
+
+  puts("Reading from keyboard");
+  puts("Use W/S for y axis");
+  puts("Use A/D for x axis");
+  puts("Press Shift to move slower");
+
+  struct pollfd ufd;
+  ufd.fd = kfd;
+  ufd.events = POLLIN;
+
+  for(;;){
+
+    // get the next event from the keyboard
+    int num;
+
+    if((num = poll(&ufd, 1, 200)) < 0){
+      perror("poll():");
+      return;
+    }
+    else if(num > 0){
+      if(read(kfd, &c, 1) < 0){
+        perror("read():");
+        return;
+      }
+    }
+    else{
+      if (dirty == true){
+          //set speed to 0
+          setPWMX(0);
+          setPWMY(0);
+      }
+      continue;
+    }
+    switch(c){
+        case KEYCODE_W:
+         speedX = 1;
+         speedY = 0;
+         dirty = true;
+         break;
+        case KEYCODE_S:
+        speedX = -1;
+        speedY = 0;
+         dirty = true;
+         break;
+        case KEYCODE_A:
+        speedX = 0;
+        speedY = -1;
+         dirty = true;
+         break;
+        case KEYCODE_D:
+        speedX = 0;
+        speedY = 1;
+         dirty = true;
+         break;
+
+        case KEYCODE_W_CAP:
+        speedX = 0.7;
+        speedY = 0;
+         dirty = true;
+         break;
+        case KEYCODE_S_CAP:
+         speedX = -0.7;
+         speedY = 0;
+         dirty = true;
+         break;
+        case KEYCODE_A_CAP:
+        speedX = 0;
+        speedY = -0.7;
+         dirty = true;
+         break;
+        case KEYCODE_D_CAP:
+        speedX = 0;
+        speedY = 0.7;
+         dirty = true;
+         break;
+    }
+
+    setPWMX(speedY);
+    setPWMY(speedX);
+  }
+}
