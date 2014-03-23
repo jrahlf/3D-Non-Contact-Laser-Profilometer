@@ -42,7 +42,7 @@ QTextStream* dataFileStream;
 QTextStream* rawDataFileStream;
 
 
-
+double ySlantCoeff;
 std::string serialPath;
 bool doLogData = true;
 bool corrected = false;
@@ -76,16 +76,21 @@ int main(int argc, char *argv[]){
     parser.addHelpOption();
     QCommandLineOption noLogOption("no-log", "disables logging");
     QCommandLineOption noGuiOption("no-gui", "Suppresses the gui");
+    QCommandLineOption noMatlabOption("no-matlab", "does not launch MATLAB at startup");
     QCommandLineOption dirOption("target-directory", "specifies the output directory", "directory");
     QCommandLineOption serialOption("serial", "specifies the device or file to read from", "serial");
-    QCommandLineOption slantCorrectOption("slant-correct", "correct measurements using linear coefficients" );
-    QCommandLineOption onlyCorrectFileOption("only-correct", "correct the specified data file by the data specified by slant-correct");
+    QCommandLineOption noCorrectOption("no-correction", "disables slant correction");
+    QCommandLineOption slantCorrectOptionY("slantnessY", "correct measurements along X axis using specified linear coefficient [micrometer/mm]",
+                                           "slantY", "9.1");
+    QCommandLineOption onlyCorrectFileOption("only-correct", "correct the specified data file by the specified slant coefficients");
 
     parser.addOption(noLogOption);
     parser.addOption(dirOption);
     parser.addOption(serialOption);
     parser.addOption(noGuiOption);
-    parser.addOption(slantCorrectOption);
+    parser.addOption(noMatlabOption);
+    parser.addOption(slantCorrectOptionY);
+    parser.addOption(noCorrectOption);
     parser.addOption(onlyCorrectFileOption);
 
 
@@ -108,7 +113,8 @@ int main(int argc, char *argv[]){
     QObject::connect(thread, SIGNAL(appendELog(QString)), eLog, SLOT(append(QString)));*/
 
 
-    signal(SIGINT|SIGTERM, sigHandler);
+    signal(SIGTERM, sigHandler);
+    signal(SIGINT, sigHandler);
 
     parser.process(a);
 
@@ -125,15 +131,21 @@ int main(int argc, char *argv[]){
         targetDir = parser.value(dirOption);
     }
 
-    if(parser.isSet(slantCorrectOption)){
-        bool ok = SlantCorrect::init(parser.value(slantCorrectOption).toStdString());
+    //if(parser.isSet(slantCorrectOptionY)){
+        bool ok = true;
+        ySlantCoeff = parser.value(slantCorrectOptionY).toDouble(&ok);
         if(!ok){
-            cerr << "cannot initialize slant correction with specified file" << endl;
+            cerr << "slant value is bad" << endl;
             exit(1);
         }
-        corrected = true;
+    //}
+
+    corrected = true;
+    if(parser.isSet(noCorrectOption)){
+        corrected = false;
+        cout << "not correcting measurements" << endl;
     }else{
-        SlantCorrect::init("");
+        cout << "using " << ySlantCoeff << " as Y axis slant correction factor" << endl;
     }
 
     if(parser.isSet(onlyCorrectFileOption)){
@@ -151,7 +163,7 @@ int main(int argc, char *argv[]){
         return a.exec();
     }
 
-    if(doLogData){
+    if(doLogData && !parser.isSet(noMatlabOption)){
         engine = engOpen(0);
     }
     if(!engine){
@@ -172,6 +184,7 @@ int main(int argc, char *argv[]){
 }
 
 void closeLogFiles(){
+    cout << "flushing buffers" << endl;
     dataFileStream->flush();
     rawDataFileStream->flush();
     dataFile->flush();
@@ -284,8 +297,7 @@ void correctDataFile(){
         }
         std::getline(file, line);
         getData(line, x, y, m);
-        //SlantCorrect::correct(x, y, m);
-        double corr = y*9.103 - 418;
+        double corr = y*ySlantCoeff - 418;
         m -= corr;
         if(m > 700 || m < -700){
             break;
@@ -443,12 +455,14 @@ void myThread::run(){
             xd = Transform::encoderToMM(x);
             yd = Transform::encoderToMM(y);
             if(corrected){
-                SlantCorrect::correct(xd, yd, m);
+                double corr = yd*ySlantCoeff - 400;
+                m -= corr;
             }
             emit(setX(xd));
             emit(setY(yd));
             emit(setZ(m));
             if(doLogData){
+                //cout << xd << " " << yd << " " << m << endl;
                 dataLogStream << xd << " " << yd << " " << m << endl;
             }
             break;

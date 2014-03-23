@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string getM(string line){
+static string getM(string line){
     istringstream iss(line, istringstream::in);
     string bla;
     iss >> bla;
@@ -14,7 +14,7 @@ string getM(string line){
     return bla;
 }
 
-string getY(string line){
+static string getY(string line){
     istringstream iss(line, istringstream::in);
     string bla;
     iss >> bla;
@@ -22,7 +22,20 @@ string getY(string line){
     return bla;
 }
 
-double string_to_double( const std::string& s ){
+static string getX(string line){
+    istringstream iss(line, istringstream::in);
+    string bla;
+    iss >> bla;
+    return bla;
+}
+
+static bool getValues(const std::string& line, double& x, double& y, double& z){
+    istringstream iss(line, istringstream::in);
+    return (iss >> x) && (iss >> y) && (iss >> z);
+}
+
+
+static double string_to_double( const std::string& s ){
   std::istringstream i(s);
   double x;
   if (!(i >> x))
@@ -30,7 +43,7 @@ double string_to_double( const std::string& s ){
   return x;
 }
 
-int string_to_int( const std::string& s ){
+static int string_to_int( const std::string& s ){
   std::istringstream i(s);
   int x;
   if (!(i >> x))
@@ -38,18 +51,50 @@ int string_to_int( const std::string& s ){
   return x;
 }
 
+void help(){
+    cerr << "Params: infile outfile compression [xlow] [xhigh] [ylow] [yhigh] [zLow] [zHigh] [invert]" << endl;
+    cerr << "Use '-' to leave a parameter unset" << endl;
+    //exit(1);
+}
+
 int main(int argc, char** argv){
-    if(argc < 1){
-        cerr << "No input specified" << endl;
-        return 1;
-    }
-    if(argc < 2){
-        cerr << "No output file specified" << endl;
+
+    if(argc < 4){
+        help();
         return 1;
     }
 
-    int threshold = 30;
-    vector<string> lastMeasurements;
+    double xlow = 0;
+    double xhigh = 100;
+    double ylow = 0;
+    double yhigh = 100;
+    double zlow = -1000;
+    double zhigh = 1000;
+    int compression = 0;
+    bool invert = 0;
+
+    compression = int(string_to_int(argv[3]));
+    if(argc > 4 && string(argv[4]) != string("-")){
+        xlow = string_to_double(argv[4]);
+    }
+    if(argc > 5 && string(argv[5]) != string("-")){
+        xhigh = string_to_double(argv[5]);
+    }
+    if(argc > 6 && string(argv[6]) != string("-")){
+        ylow = string_to_double(argv[6]);
+    }
+    if(argc > 7 && string(argv[7]) != string("-")){
+        yhigh = string_to_double(argv[7]);
+    }
+    if(argc > 8 && string(argv[8]) != string("-")){
+        zlow = string_to_double(argv[8]);
+    }
+    if(argc > 9 && string(argv[9]) != string("-")){
+        zhigh = string_to_double(argv[9]);
+    }
+    if(argc > 10 && string(argv[10]) != string("-")){
+        invert = string_to_int(argv[10]);
+    }
 
     ifstream in;
     in.open(argv[1]);
@@ -65,47 +110,79 @@ int main(int argc, char** argv){
         return 1;
     }
 
+    cout << "Parameters: " << endl;
+    cout << "\tcompression: " << compression << endl;
+    cout << "\tX[" << xlow << "," << xhigh << "]" << endl;
+    cout << "\tY[" << ylow << "," << yhigh << "]" << endl;
+    cout << "\tZ[" << zlow << "," << zhigh << "]" << endl;
+    if(invert){
+        cout << "Removing specified values" << endl;
+    }else{
+        cout << "Keeping only specified values" << endl;
+    }
+
     int pos = 0;
 
-    for(int i = 0; i < threshold; i++){
-        lastMeasurements.push_back("9");
-    }
-
-    int oldY = -1;
     int skippedLines = 0;
-    int compressFactor = 2;
+    int compressFactor = compression;
+    double x,y,z;
 
-    while(in){
-        string line;
-        getline(in, line);
-        bool found = true;
-        string m = getM(line);
-        /*double mm = string_to_double(m);
-        if(mm > 300 || mm < -300){
-            continue;
-        }*/
-        string y = getY(line);
-        int yy = string_to_int(y);
-        if(skippedLines == 0){
-            out << line << endl;
-        }
-        skippedLines++;
-        skippedLines %= compressFactor;
-        /*for(int i = 0; i < threshold; i++){
-            if(m != lastMeasurements[i]){
-                found = false;
-                break;
+    if(invert){
+        while(in){
+            string line;
+            getline(in, line);
+
+            bool ok = getValues(line, x, y, z);
+            if(!ok){
+                cerr << "ignoring malformed line: " << line << endl;
+                continue;
             }
+
+            if(     y >= ylow && y <= yhigh &&
+                    x >= xlow && x <= xhigh &&
+                    z >= zlow && z <= zhigh){
+                continue;
+            }
+
+            /*skippedLines++;
+            if(skippedLines >= compressFactor){
+                skippedLines = 0;
+                continue;
+            }*/
+
+            out << line << endl;
+
         }
 
-        lastMeasurements[pos] = m;
-        pos++;
-        pos %= threshold;
+    }else{
+        while(in){
+            string line;
+            getline(in, line);
 
-        if(!found){
+            bool ok = getValues(line, x, y, z);
+            if(!ok){
+                cerr << "ignoring malformed line: " << line << endl;
+                continue;
+            }
+
+            if(     y < ylow || y > yhigh ||
+                    x < xlow || x > xhigh ||
+                    z < zlow || z > zhigh){
+                continue;
+            }
+
+            /*skippedLines++;
+            if(skippedLines >= compressFactor){
+                skippedLines = 0;
+                continue;
+            }*/
+
             out << line << endl;
-        }*/
+
+        }
+
     }
+
 
     in.close();
     out.close();
