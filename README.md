@@ -13,5 +13,7 @@ A GUI using QT 5.2 can display the current position and measurement. A command l
 
 ![Surface scan of an english 1 pence coin visualized in MATLAB](https://raw.githubusercontent.com/jrahlf/Laser-Profilometer/master/images/coinScan.png)
 
+![Photograph of the built system](https://raw.githubusercontent.com/jrahlf/3D-Non-Contact-Laser-Profilometer/master/images/1.jpg)
+
 ![Screenshot of the PC side GUI](https://raw.githubusercontent.com/jrahlf/Laser-Profilometer/master/images/pcGui.png)
 
