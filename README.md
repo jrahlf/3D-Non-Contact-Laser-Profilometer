@@ -1,7 +1,7 @@
-Laser-Profilometer
+3D non-contact Laser Profilometer
 ==================
 
-Code for a stm32f4 microcontroller (dev board) to control an XY stage and interact with Keyence LT-9010 laser profilometer to create 3D scans of surfaces.
+Code for a stm32f4 microcontroller (dev board) to control an XY stage and interact with Keyence LT-9010 laser profilometer to create 3D scans of surfaces. The device and its associated code was created as part of a bachelor's thesis at the University of Warwick.
 
 Uses the C++ framework xpcc (see https://github.com/roboterclubaachen/xpcc for code and license). A copy is included because a modified UartHandler is used.
 
