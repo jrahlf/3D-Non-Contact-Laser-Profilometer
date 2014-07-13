@@ -10,7 +10,7 @@ Uses cascaded PID controller to control DC brushed motors equipped with optical 
 A GUI using QT 5.2 can display the current position and measurement. A command line program can be used to manually control the stage and define vertices for a rectangular area.
 
 
-Thread of a bolt:
+Surface scan of a bolt's (damaged) thread:
 ![Surface scan of a M1.6 bolt's damaged thread](https://raw.githubusercontent.com/jrahlf/Laser-Profilometer/master/images/bolt.png)
 
 Orange peel:
